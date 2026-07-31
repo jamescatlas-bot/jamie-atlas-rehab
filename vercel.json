@@ -1,0 +1,21 @@
+{
+  "redirects": [
+    { "source": "/denver-pain-relief-rehabilitation", "destination": "/book", "statusCode": 301 },
+    { "source": "/denver-pain-relief-rehabilitation/", "destination": "/book", "statusCode": 301 },
+    { "source": "/work-with-me", "destination": "/how-it-works", "statusCode": 301 },
+    { "source": "/work-with-me/", "destination": "/how-it-works", "statusCode": 301 },
+    { "source": "/contact", "destination": "/studio", "statusCode": 301 },
+    { "source": "/contact/", "destination": "/studio", "statusCode": 301 },
+    { "source": "/results", "destination": "/reviews", "statusCode": 301 },
+    { "source": "/results/", "destination": "/reviews", "statusCode": 301 },
+    { "source": "/blog", "destination": "/resources", "statusCode": 301 },
+    { "source": "/blog/", "destination": "/resources", "statusCode": 301 },
+    { "source": "/think", "destination": "/resources", "statusCode": 301 },
+    { "source": "/do", "destination": "/resources", "statusCode": 301 },
+    { "source": "/fuel", "destination": "/resources", "statusCode": 301 },
+    { "source": "/get-inspired", "destination": "/", "statusCode": 301 },
+    { "source": "/home", "destination": "/", "statusCode": 301 },
+    { "source": "/subscribe", "destination": "/", "statusCode": 301 },
+    { "source": "/wp-sitemap.xml", "destination": "/sitemap-index.xml", "statusCode": 301 }
+  ]
+}
