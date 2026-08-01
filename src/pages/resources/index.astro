@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site';
+
+// Articles land here from the monthly content-production pipeline
+// (content_drafts/ → reviewed → published as markdown under src/content/resources/).
+// Until the content collection is wired up, list them manually here.
+const articles: { title: string; slug: string; description: string; date: string }[] = [];
+---
+
+<BaseLayout
+  title="Resources"
+  description="Articles on chronic pain, return-to-sport rehabilitation, and staying in your sport after 40 — from Jamie Atlas Rehab & Performance in Denver."
+>
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Resources</p>
+      <h1 class="mb-8">Straight answers about pain and performance</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Articles on specific conditions, specific sports, and the evidence behind getting back to both. No fear, no
+        fluff.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      {articles.length > 0 ? (
+        <div class="space-y-8">
+          {articles.map(a => (
+            <a href={`/resources/${a.slug}`} class="block no-underline group">
+              <h2 class="text-2xl mb-2 text-[var(--color-primary)] group-hover:text-[var(--color-primary-dark)]">{a.title}</h2>
+              <p class="text-[var(--color-text-muted)] leading-relaxed">{a.description}</p>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-8">
+          <p class="text-lg text-[var(--color-text-muted)] leading-relaxed max-w-xl mx-auto">
+            First articles are in production. While you wait, the
+            <a href="/what-we-treat">What We Treat</a> pages cover the most common questions about chronic back pain,
+            sciatica, post-surgical recovery, and masters athlete injuries.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="px-6 py-20">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6">Have a question an article should answer?</h2>
+      <p class="text-lg text-[var(--color-text-muted)] mb-8">
+        Email <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a> — reader questions become future
+        articles.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
