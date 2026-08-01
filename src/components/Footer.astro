@@ -1,0 +1,66 @@
+---
+import { SITE } from '../data/site';
+
+const year = new Date().getFullYear();
+
+const pages = [
+  { label: 'What We Treat', href: '/what-we-treat' },
+  { label: 'How It Works', href: '/how-it-works' },
+  { label: 'About Jamie', href: '/about' },
+  { label: 'The Studio', href: '/studio' },
+  { label: 'Reviews', href: '/reviews' },
+  { label: 'Press', href: '/press' },
+  { label: 'Resources', href: '/resources' },
+  { label: 'Book a Consultation', href: '/book' },
+];
+---
+
+<footer class="border-t border-[var(--color-border)] bg-[var(--color-surface)] mt-24">
+  <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-12 text-sm">
+
+    <div>
+      <p class="font-serif text-lg font-semibold mb-4">{SITE.name}</p>
+      <address class="not-italic text-[var(--color-text-muted)] leading-relaxed">
+        {SITE.contact.address.street}<br />
+        {SITE.contact.address.level}<br />
+        {SITE.contact.address.city}, {SITE.contact.address.state} {SITE.contact.address.zip}
+      </address>
+      <p class="mt-4 text-[var(--color-text-muted)] leading-relaxed">
+        Serving {SITE.serviceArea.join(', ')}.
+      </p>
+    </div>
+
+    <div>
+      <p class="font-semibold mb-4 text-[var(--color-text)]">Pages</p>
+      <ul class="space-y-2">
+        {pages.map(p => (
+          <li><a href={p.href}>{p.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <p class="font-semibold mb-4 text-[var(--color-text)]">Contact</p>
+      <ul class="space-y-2">
+        <li><a href={`tel:${SITE.contact.phoneTel}`}>{SITE.contact.phone}</a></li>
+        <li><a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a></li>
+        <li><a href="/book">Book a consultation</a></li>
+        <li><a href={SITE.social.instagramUrl}>{SITE.social.instagram}</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="font-semibold mb-4 text-[var(--color-text)]">Hours</p>
+      <ul class="space-y-2 text-[var(--color-text-muted)]">
+        <li>Monday – Friday: {SITE.hours.weekdays}</li>
+        <li>Saturday: {SITE.hours.saturday}</li>
+        <li>Sunday: {SITE.hours.sunday}</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="border-t border-[var(--color-border)] py-6 px-6 text-center text-xs text-[var(--color-text-muted)]">
+    © {year} {SITE.name}. Formerly Bonza Bodies Fitness. All rights reserved.
+  </div>
+</footer>
