@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+
+const steps = [
+  {
+    title: '1. A 30-minute Discovery Session ($57, normally $97)',
+    body: 'You tell me the story — when it started, what you\'ve tried, what you want back. I tell you honestly whether I can help. If I can\'t, I\'ll point you to someone who can, and either way you leave with a clear picture of what\'s going on.',
+  },
+  {
+    title: '2. Full assessment (first session, 90 minutes)',
+    body: 'I assess your movement, not just your symptoms — most pain isn\'t where the problem is. We often change your pain in this session, in real time, so you feel what\'s possible before you commit to a plan.',
+  },
+  {
+    title: '3. A plan with a number on it',
+    body: 'You leave the assessment knowing roughly how many sessions you need (typically 6–8), what we\'ll do in them, and what you\'ll practice between them. No open-ended commitments.',
+  },
+  {
+    title: '4. Progressive work',
+    body: 'Weekly or biweekly 60–90 minute sessions: calming the pain system, rebuilding the movements you\'ve been avoiding, and progressively loading until your capacity exceeds your sport\'s demands.',
+  },
+  {
+    title: '5. Return-to-sport benchmarks',
+    body: 'We don\'t guess about readiness. You pass objective, sport-specific tests — strength, range, confidence — before full return. That\'s how you go back without the fear of re-injury.',
+  },
+  {
+    title: '6. Graduation',
+    body: 'You leave with a maintenance program you own, the understanding of why the pain happened, and the tools to handle a flare-up without panic. Some clients keep a monthly check-in; most just go live their lives.',
+  },
+];
+---
+
+<BaseLayout
+  title="How It Works"
+  description="Discovery Session → full assessment → a plan with a number on it → progressive work → return-to-sport benchmarks → graduation. How rehab works at Jamie Atlas."
+>
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">How it works</p>
+      <h1 class="mb-8">A clear process with a defined endpoint</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        No "come three times a week forever." No passive treatments that change nothing. No insurance billing limbo.
+        Here's exactly what working together looks like, from first call to graduation.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto space-y-12">
+      {steps.map(s => (
+        <div>
+          <h2 class="mb-4 text-2xl">{s.title}</h2>
+          <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{s.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What you won't get</h2>
+      <ul class="space-y-4 text-lg text-[var(--color-text-muted)]">
+        <li class="flex items-start gap-4">
+          <span class="text-[var(--color-primary)] text-xl leading-none mt-1.5 flex-shrink-0">✕</span>
+          <span>Fearmongering about your spine, your knees, or your age</span>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="text-[var(--color-primary)] text-xl leading-none mt-1.5 flex-shrink-0">✕</span>
+          <span>12-minute appointments shared with three other patients</span>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="text-[var(--color-primary)] text-xl leading-none mt-1.5 flex-shrink-0">✕</span>
+          <span>Passive treatments — heat, ultrasound, adjustments — that feel nice and change nothing</span>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="text-[var(--color-primary)] text-xl leading-none mt-1.5 flex-shrink-0">✕</span>
+          <span>An open-ended plan with no graduation criteria</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Step one is one session</h2>
+      <p class="text-xl mb-10 opacity-95">Book the 30-minute Discovery Session — $57 right now, normally $97 — and find out if this is the right fit.</p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+    </div>
+  </section>
+</BaseLayout>

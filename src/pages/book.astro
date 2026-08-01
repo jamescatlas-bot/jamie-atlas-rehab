@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+import { OFFER } from '../data/reviews';
+
+const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
+---
+
+<BaseLayout
+  title="Book a Discovery Session"
+  description="Book a 30-minute Discovery Session with Jamie Atlas — normally $97, currently $57. Rehabilitation and return-to-sport coaching in downtown Denver."
+>
+  <section class="px-6 pt-16 pb-10 md:pt-24">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="mb-6">Book your Discovery Session</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed max-w-2xl mx-auto">
+        30 minutes at the downtown studio. <strong class="text-[var(--color-text)]">Normally {OFFER.regularPrice} —
+        {OFFER.specialLabel} {OFFER.specialPrice}</strong>, payable at the studio. You bring the story; I bring an
+        honest read on whether I can help.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 pb-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-center mb-3">Start here: pick your assessment</h2>
+      <p class="text-center text-lg mb-10">
+        <span class="text-[var(--color-text-muted)]">One price, three doors. Pick the one that sounds like you.</span>
+      </p>
+      <div class="grid md:grid-cols-3 gap-6 mb-4">
+        {OFFER.assessments.map((a, i) => (
+          <div class="p-6 border border-[var(--color-border)] rounded-xl bg-[var(--color-surface)]">
+            <h3 class="mb-3 text-[var(--color-primary)] text-lg">{i + 1}. {a.name}</h3>
+            <p class="text-base text-[var(--color-text-muted)] leading-relaxed">{a.body}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-center text-sm text-[var(--color-text-muted)] mb-2">
+        <em>Every assessment is 1-on-1 with Jamie at the downtown studio. You leave with a clear picture of what's
+        going on and a concrete plan — whether or not you continue.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- INTAKE FORM (Formspree) -->
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-center mb-3">Tell me what's going on</h2>
+      <p class="text-center text-[var(--color-text-muted)] mb-10">
+        Three quick questions. Jamie reads every submission personally and will text you within one business day to
+        set up your time.
+      </p>
+      <form action={FORMSPREE_URL} method="POST" class="space-y-6">
+        <input type="hidden" name="_subject" value="New assessment request from jamieatlas.com" />
+
+        <fieldset class="border border-[var(--color-border)] rounded-xl p-5">
+          <legend class="font-semibold px-2">Which assessment sounds like you?</legend>
+          <div class="space-y-3 mt-2">
+            {OFFER.assessments.map((a, i) => (
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="assessment" value={a.name} required class="mt-1.5 accent-[var(--color-primary)]" />
+                <span>{i + 1}. {a.name}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <label class="block">
+          <span class="font-semibold">How did this start?</span>
+          <span class="block text-sm text-[var(--color-text-muted)] mb-2">Injury, surgery, or did it creep up? Short version is fine.</span>
+          <textarea name="how_it_started" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+        </label>
+
+        <label class="block">
+          <span class="font-semibold">Why now?</span>
+          <span class="block text-sm text-[var(--color-text-muted)] mb-2">What is it stopping you from doing that you want back?</span>
+          <textarea name="why_now" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+        </label>
+
+        <label class="block">
+          <span class="font-semibold">What have you tried already?</span>
+          <span class="block text-sm text-[var(--color-text-muted)] mb-2">PT, chiro, injections, massage, rest, YouTube...</span>
+          <textarea name="tried_already" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+        </label>
+
+        <div class="grid md:grid-cols-3 gap-4">
+          <label class="block">
+            <span class="font-semibold">Your name</span>
+            <input type="text" name="name" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-2 bg-[var(--color-background)]" />
+          </label>
+          <label class="block">
+            <span class="font-semibold">Mobile</span>
+            <span class="block text-xs text-[var(--color-text-muted)]">texting preferred</span>
+            <input type="tel" name="phone" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-1 bg-[var(--color-background)]" />
+          </label>
+          <label class="block">
+            <span class="font-semibold">Email</span>
+            <input type="email" name="email" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-2 bg-[var(--color-background)]" />
+          </label>
+        </div>
+
+        <div class="text-center pt-2">
+          <button type="submit" class="cta-button text-lg">Book my assessment</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-center mb-3">Or grab a time directly</h2>
+      <p class="text-center text-[var(--color-text-muted)] mb-8">Book straight into the calendar — the Discovery Session is the first visit.</p>
+      <div
+        class="calendly-inline-widget rounded-xl border border-[var(--color-border)] overflow-hidden bg-[var(--color-surface)]"
+        data-url={SITE.contact.bookingUrl}
+        style="min-width:320px;height:760px;"
+      ></div>
+      <script src="https://assets.calendly.com/assets/external/widget.js" async is:inline></script>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-12">
+      <div>
+        <h2 class="text-2xl mb-6">Prefer to call or text?</h2>
+        <ul class="space-y-3 text-lg">
+          <li>
+            <a href={`sms:${SITE.contact.phoneTel}`}>Text {SITE.contact.phone}</a>
+            <span class="text-[var(--color-text-muted)]"> — one sentence about what's bothering you is enough</span>
+          </li>
+          <li><a href={`tel:${SITE.contact.phoneTel}`}>Call {SITE.contact.phone}</a></li>
+          <li><a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a></li>
+        </ul>
+        <p class="mt-6 text-[var(--color-text-muted)] leading-relaxed">
+          I read every message personally and reply the same day.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-2xl mb-6">What to expect from the first session</h2>
+        <ul class="space-y-4 text-lg text-[var(--color-text-muted)] leading-relaxed list-disc pl-5">
+          <li>You talk more than I do — the history matters.</li>
+          <li>I'll tell you plainly whether your case fits this approach.</li>
+          <li>If it does: a plan and a session estimate. If it doesn't: a referral to someone better suited.</li>
+          <li>No pressure either way. This only works with people who want to do it.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

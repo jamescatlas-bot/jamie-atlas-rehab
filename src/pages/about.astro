@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Jamie Atlas',
+  jobTitle: 'Rehabilitation Specialist & Strength Coach',
+  worksFor: { '@type': 'MedicalBusiness', name: SITE.name, url: SITE.url },
+  url: `${SITE.url}/about`,
+  email: SITE.contact.email,
+  telephone: SITE.contact.phone,
+  sameAs: [SITE.social.instagramUrl],
+  knowsAbout: ['Cognitive Functional Therapy', 'Chronic pain rehabilitation', 'Strength and conditioning', 'Return-to-sport training'],
+  hasCredential: SITE.credentials.map(c => ({
+    '@type': 'EducationalOccupationalCredential',
+    name: c.name,
+  })),
+};
+---
+
+<BaseLayout
+  title="About Jamie Atlas"
+  description="Jamie Atlas: BSc Neuroscience, 30 years of strength coaching, Cognitive Functional Therapy practitioner in Denver. The story behind the method."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">About</p>
+      <h1 class="mb-8">Thirty years of learning why bodies hurt — and how they heal</h1>
+    </div>
+  </section>
+
+  <section class="px-6 pb-20">
+    <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
+      <p>
+        I grew up in Australia and studied neuroscience at the University of Western Australia because I wanted to
+        understand how the brain drives the body. Then I spent the next three decades finding out how much of that
+        understanding actually survives contact with real people in real pain.
+      </p>
+      <p>
+        I started as a strength coach. Over thirty years I trained everyone from elite athletes to people walking
+        into a gym for the first time after surgery, and I kept running into the same wall: clients who had been
+        "treated" — discharged from physical therapy, cleared by their surgeon, adjusted, injected, imaged — and were
+        still in pain, still afraid to move, and still not back to the life they wanted.
+      </p>
+      <p>
+        That wall is what led me to <strong class="text-[var(--color-text)]">Cognitive Functional Therapy (CFT)</strong> —
+        the approach validated in the 2023 Lancet RESTORE trial for chronic back pain. CFT treats pain as what the
+        science says it is: a protective output of the nervous system, shaped by load, beliefs, fear, sleep, and
+        stress — not a simple readout of tissue damage. Change those inputs in the right order and most persistent
+        pain changes too.
+      </p>
+      <p>
+        What makes my work different is the combination. Most CFT practitioners aren't strength coaches, and most
+        strength coaches have never heard of CFT. I do both in the same room: calm the pain system down, then load
+        the body back up — progressively, specifically, for <em>your</em> sport. No handoffs between providers who
+        don't talk to each other.
+      </p>
+      <p>
+        I run a private studio at {SITE.contact.address.street} in downtown Denver. Sessions are one-on-one and
+        60–90 minutes, because that's what the work actually takes.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-8">Credentials</h2>
+      <ul class="space-y-4">
+        {SITE.credentials.map(c => (
+          <li class="flex items-start gap-4">
+            <span class="text-[var(--color-primary)] text-2xl leading-none mt-1 flex-shrink-0">✓</span>
+            <span class="text-lg">{c.name}</span>
+          </li>
+        ))}
+      </ul>
+      <h2 class="mt-14 mb-8">Media</h2>
+      <ul class="space-y-4">
+        {SITE.media.map(m => (
+          <li class="flex items-start gap-4">
+            <span class="text-[var(--color-primary)] text-2xl leading-none mt-1 flex-shrink-0">✓</span>
+            <span class="text-lg">{m.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-6 py-20">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6">Want to know if this is the right fit?</h2>
+      <p class="text-lg text-[var(--color-text-muted)] mb-8">
+        A 30-minute Discovery Session ($57, normally $97) gets you an honest answer.
+      </p>
+      <a href="/book" class="cta-button text-lg">Book a consultation</a>
+    </div>
+  </section>
+</BaseLayout>

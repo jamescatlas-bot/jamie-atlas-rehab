@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page Not Found" description="That page doesn't exist." noindex={true}>
+  <section class="px-6 pt-24 pb-20">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">404</p>
+      <h1 class="mb-6">That page took a wrong turn</h1>
+      <p class="text-lg text-[var(--color-text-muted)] mb-10 leading-relaxed">
+        The page you're looking for doesn't exist — possibly a leftover link from the old site. Here's where you
+        probably want to go:
+      </p>
+      <ul class="space-y-3 text-lg mb-12">
+        <li><a href="/what-we-treat">What we treat</a> — chronic pain, sciatica, return-to-sport</li>
+        <li><a href="/how-it-works">How it works</a></li>
+        <li><a href="/book">Book a consultation</a></li>
+      </ul>
+      <a href="/" class="cta-button text-lg">Back to the homepage</a>
+    </div>
+  </section>
+</BaseLayout>
