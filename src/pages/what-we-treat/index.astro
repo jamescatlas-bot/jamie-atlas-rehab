@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site';
+import { CONDITIONS } from '../../data/conditions';
+---
+
+<BaseLayout
+  title="What We Treat"
+  description="Chronic back pain, sciatica, post-surgical return-to-sport, masters athlete injuries — treated with Cognitive Functional Therapy and 30 years of strength coaching in Denver."
+>
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">What we treat</p>
+      <h1 class="mb-8">Pain that outlasted the treatments you already tried</h1>
+      <div class="space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Almost everyone who walks into my studio has already been somewhere else first. Physical therapy that ended
+          before they were better. Chiropractic that helped for a week at a time. An injection that bought a quiet
+          month. A scan that "showed something" but didn't explain the pain.
+        </p>
+        <p>
+          The common thread in those cases is a pain system stuck in protection mode — and a body that lost capacity
+          while everyone focused on the sore spot. My work addresses both: calm the system down with
+          <a href="/what-we-treat/cognitive-functional-therapy">Cognitive Functional Therapy</a>, then rebuild real
+          strength so the change lasts. One-on-one, 60–90 minutes at a time, with a clear endpoint.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-6">
+        {CONDITIONS.map(c => (
+          <a
+            href={`/what-we-treat/${c.slug}`}
+            class="block p-7 border border-[var(--color-border)] rounded-xl bg-[var(--color-background)] hover:border-[var(--color-primary)] hover:shadow-sm transition-all no-underline"
+          >
+            <h2 class="mb-3 text-[var(--color-primary)] text-xl md:text-2xl">{c.navTitle}</h2>
+            <p class="text-[var(--color-text-muted)] text-base leading-relaxed">{c.metaDescription}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6">Not sure your situation fits a category?</h2>
+      <p class="text-lg text-[var(--color-text-muted)] mb-8">
+        Most don't, exactly. A 30-minute consultation sorts out whether this approach fits your case — before you
+        commit to anything.
+      </p>
+      <a href="/book" class="cta-button text-lg">Book a consultation</a>
+    </div>
+  </section>
+</BaseLayout>

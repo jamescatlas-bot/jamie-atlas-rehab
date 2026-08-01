@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site';
+import { CONDITIONS } from '../../data/conditions';
+
+export function getStaticPaths() {
+  return CONDITIONS.map(condition => ({
+    params: { slug: condition.slug },
+    props: { condition },
+  }));
+}
+
+const { condition } = Astro.props;
+
+const medicalPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalWebPage',
+  name: condition.metaTitle,
+  url: `${SITE.url}/what-we-treat/${condition.slug}`,
+  about: { '@type': condition.schemaType ?? 'MedicalCondition', name: condition.navTitle },
+  reviewedBy: { '@type': 'Person', name: 'Jamie Atlas' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: condition.faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={condition.metaTitle} description={condition.metaDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify(medicalPageSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/what-we-treat" class="no-underline">What we treat</a> · {condition.navTitle}
+      </p>
+      <h1 class="mb-8">{condition.title}</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">{condition.intro}</p>
+    </div>
+  </section>
+
+  {condition.sections.map((section, i) => (
+    <section class={`px-6 py-14 ${i % 2 === 0 ? 'bg-[var(--color-surface)] border-y border-[var(--color-border)]' : ''}`}>
+      <div class="max-w-3xl mx-auto">
+        <h2 class="mb-6">{section.heading}</h2>
+        <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+          {section.paragraphs.map(p => <p>{p}</p>)}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {condition.faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Find out if this is your way out</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your story, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/how-it-works" class="text-white underline">See how it works</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
