@@ -16,6 +16,32 @@
     { "source": "/get-inspired", "destination": "/", "statusCode": 301 },
     { "source": "/home", "destination": "/", "statusCode": 301 },
     { "source": "/subscribe", "destination": "/", "statusCode": 301 },
-    { "source": "/wp-sitemap.xml", "destination": "/sitemap-index.xml", "statusCode": 301 }
+    { "source": "/wp-sitemap.xml", "destination": "/sitemap-index.xml", "statusCode": 301 },
+
+    { "source": "/2010/10/24/ski-conditioning-squat-squat-with-toe-lift", "destination": "/resources/ski-squats", "statusCode": 301 },
+    { "source": "/2010/10/24/ski-conditioning-squat-squat-with-toe-lift/", "destination": "/resources/ski-squats", "statusCode": 301 },
+
+    { "source": "/2008/09/26/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/2008/08/07/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/2009/05/16/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/2009/11/28/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/2008/07/10/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/2008/07/13/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/2009/05/28/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/2009/10/27/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/2009/04/08/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/2010/01/18/:slug", "destination": "/resources", "statusCode": 301 },
+
+    { "source": "/:year(20\\d\\d)/:month(\\d\\d)/:day(\\d\\d)/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/:year(20\\d\\d)/:month(\\d\\d)/:day(\\d\\d)/:slug/:sub", "destination": "/resources", "statusCode": 301 },
+    { "source": "/:year(20\\d\\d)/:month(\\d\\d)", "destination": "/resources", "statusCode": 301 },
+    { "source": "/category/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/category/:slug/page/:page", "destination": "/resources", "statusCode": 301 },
+    { "source": "/tag/:slug", "destination": "/resources", "statusCode": 301 },
+    { "source": "/1001797", "destination": "/", "statusCode": 301 },
+    { "source": "/1001797/", "destination": "/", "statusCode": 301 },
+    { "source": "/funny-dog-pictures-pugs-baby-stroller", "destination": "/", "statusCode": 301 },
+    { "source": "/marisa-miller-bikini-calendar-1thumb", "destination": "/", "statusCode": 301 },
+    { "source": "/marisa-miller-bikini-calendar-3thumb", "destination": "/", "statusCode": 301 }
   ]
 }
