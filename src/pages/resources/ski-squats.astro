@@ -1,0 +1,248 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Ski Squats: Train for the Turn, Not the Gym';
+const description =
+  'Why the standard squat is the wrong shape for skiing, four ski squat variations that match the turn, and what to do if your knee already hurts. From a Denver rehab coach who has run ski conditioning since 2008.';
+const published = '2026-08-02';
+const url = `${SITE.url}/resources/ski-squats`;
+
+const faq = [
+  {
+    q: 'Are squats good for skiing?',
+    a: 'Yes, but the standard gym squat only covers part of what skiing asks of you. Skiing happens in a wide stance, with one leg more bent than the other, and with the hips rotating through every turn. A squat performed with feet at shoulder width, both legs even, moving straight up and down, trains none of those three things. It builds useful leg strength — it just is not specific to the movement you are trying to improve.',
+  },
+  {
+    q: 'How many weeks before ski season should I start?',
+    a: 'Eight to twelve weeks is a realistic runway for noticeable change in strength and control, which in Colorado means starting in September or early October. Less time than that is still worth doing — even four weeks of rotational and single-leg work will leave you better prepared than the two deep knee bends most people do beside the car at the gondola.',
+  },
+  {
+    q: 'Should I squat if my knee already hurts?',
+    a: 'Often yes, but usually in a modified range and with more attention to how you load it. Pain during a squat is information, not automatically a signal of damage, and completely avoiding the movement tends to make the knee more sensitive over time rather than less. What matters is finding a version you can do without a lasting flare afterwards, then progressing from there. If you are not sure where that line is, that is worth working out with someone before ski season rather than during it.',
+  },
+  {
+    q: 'What is the difference between a ski squat and a regular squat?',
+    a: 'A ski squat borrows the shape of the turn: a wider stance, uneven leg lengths, and rotation through the hips and trunk. A regular squat is symmetrical and moves in one plane. Both have a place, but only one of them looks like what your body does on the mountain.',
+  },
+  {
+    q: 'Do squats prevent ACL injuries?',
+    a: 'No single exercise prevents an ACL tear, and any program promising that is overselling. What is reasonable to say is that the ACL helps control rotation, and that if your hips and trunk are trained to handle rotational load, more of that work is shared rather than left to the ligament. Training rotation is a sensible thing to do. Guaranteeing an outcome is not.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const variations = [
+  {
+    name: 'The wide-stance squat',
+    what: 'Set your feet noticeably wider than you would for a normal squat — closer to the stance you actually ski in. Drop into the same depth you would use on a groomer, not a powerlifting depth.',
+    why: 'A wider stance changes which muscles switch on and which ones lengthen. If you want to get better at a movement, train the shape of that movement.',
+  },
+  {
+    name: 'The uneven squat',
+    what: 'Put a block, plate, or low step under one foot and squat. Two to three inches is plenty. Work both sides, but expect them to feel different.',
+    why: 'Look at anyone through a sharp turn and one leg is more bent than the other. Skiing is not a symmetrical sport, so training it symmetrically leaves a gap.',
+  },
+  {
+    name: 'The single-leg squat, with the foot angled',
+    what: 'Squat on one leg from a low platform. Here is the part most people skip: change the angle of the standing foot each rep — turned in, straight ahead, turned out.',
+    why: 'Each angle loads a different part of the hip. Those are the same muscles that have to fire when you come down off a drop or catch an edge in a way you did not plan.',
+  },
+  {
+    name: 'The squat with rotation',
+    what: 'From a wide stance and a shallow bend, rotate your trunk and hips as you come up out of the squat. Add a cable or band across the body once the pattern feels clean.',
+    why: 'This is the one that matters most, and it is the one almost nobody does. Every turn is a rotation. If you only train up and down, you have trained half the movement.',
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Skiing
+      </p>
+      <h1 class="mb-8">Ski squats: train for the turn, not the gym</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Every September, Denver gyms fill up with people doing squats and lunges to get ready for ski season. Both are
+        good exercises. Neither is shaped much like skiing. Here is what to change — and what to do if your knee is
+        already telling you something.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The problem with the standard squat</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          The squat is a fundamental movement and there is nothing wrong with it. But take a moment to picture an actual
+          turn. How wide are your feet on the mountain compared to in the squat rack? Is one leg more bent than the
+          other? Is your body rotating?
+        </p>
+        <p>
+          Three yeses, and the standard squat answers none of them. It is symmetrical, narrow, and moves in a single
+          plane. Skiing is asymmetrical, wide, and rotational. You can be genuinely strong in the gym and still find
+          your legs burning out by lunchtime on day one.
+        </p>
+        <p>
+          Here is a quick test you can do standing where you are. Feet at shoulder width, knees bent about twenty
+          degrees. Put a hand on each glute. Now rotate to look behind you to the left. Feel that? The left side
+          switched on and lengthened differently than the right. You use each side differently in every single turn —
+          and you use them while rotating. Now ask yourself how much of your training involves any rotation at all.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Why rotation is the piece that gets missed</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Your glutes do the bulk of the work in a ski turn. They absorb the shock, distribute it down through the thigh
+          and calf, then help drive you out of the turn. When they cannot do that job well, your quads take on more of
+          it, and your knees end up managing load they were not meant to manage alone.
+        </p>
+        <p>
+          Muscles work like cables — they pull along the line their fibres run in. Your biceps fibres run more or less
+          vertically, which is why a straightforward curl trains them well. Your glutes do not. They wrap around the hip
+          at close to forty-five degrees. Which means a straight-ahead lunge only works them through part of their range.
+          Add rotation and you reach considerably more of it.
+        </p>
+        <p>
+          There is a joint-health argument here too, and it deserves to be stated carefully. The ACL helps control
+          rotation of the body as you land and drive out of a turn. If your hips and trunk are trained to handle
+          rotational load, more of that work gets shared across the system. No exercise prevents an ACL tear, and I would
+          not trust anyone who tells you otherwise. But training only in a front-to-back direction, for a sport that is
+          fundamentally rotational, is a gap worth closing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Four ski squat variations</h2>
+      <div class="space-y-10">
+        {variations.map((v, i) => (
+          <div>
+            <h3 class="mb-3">{i + 1}. {v.name}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-3">{v.what}</p>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed italic">{v.why}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-10 space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Two more worth adding alongside these. The <strong>single-leg deadlift</strong> — stand on one leg, reach down
+          toward your toes, stand back up — because what makes you wobble is exactly what you need control over on a
+          rough landing. And <strong>woodchops</strong>, rotating against a cable or band from low to high and high to
+          low, because every pole plant is your trunk absorbing load in rotation. Crunches build front abs. They do not
+          build skiing abs.
+        </p>
+        <p>
+          Build these progressively. Two sets of ten to fifteen, three times a week, adding load only once the pattern
+          is clean. Work hard, and rest just as deliberately.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Your discipline changes the answer</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Most ski conditioning classes are a pile of squats, lunges, box jumps and situps for everyone in the room.
+          That is not useless, but it is not specific either.
+        </p>
+        <p>
+          <strong>Telemark</strong> combines the lunge with upper-body rotation — leave the rotation out and you never
+          load the hips the way the sport does. <strong>Moguls</strong> are closer to a squat with sideways force. Most
+          people have jumped forward onto a box; far fewer have jumped sideways onto one, and in the bumps you are
+          bouncing side to side, not hopping over them. <strong>Backcountry</strong> asks for something different again —
+          skinning uphill draws on patterns closer to skating than to skiing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">If your knee already hurts</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          This is where most ski-prep advice stops being useful, because it assumes you are starting from a body with no
+          history. Plenty of people reading this have had a reconstruction, a meniscus repair, a replacement, or just a
+          knee that has been grumbling for two seasons and has quietly narrowed what they are willing to ski.
+        </p>
+        <p>
+          A few things worth knowing. Pain and damage are not the same thing — a knee can hurt because it has become
+          sensitised to load rather than because something is structurally wrong, and those two situations call for
+          different responses. Avoiding the movement altogether tends to make things more sensitive over time, not less.
+          And the gap between being discharged from physical therapy and actually trusting your leg on a steep run is
+          real, frequently unaddressed, and much more closeable than most people are told.
+        </p>
+        <p>
+          What that usually looks like in practice is finding the version of a movement you can do today without a
+          flare that lasts, then widening that from there — steadily, and with a clear picture of what you are building
+          toward. Which in this case is a specific chairlift on a specific weekend.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Want to ski this season without negotiating with your knee?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can. I have
+        been running ski conditioning in Denver since 2008.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat" class="text-white underline">See what we treat</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
