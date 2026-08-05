@@ -39,23 +39,39 @@ const mapQuery = encodeURIComponent(`${addr.street}, ${addr.city}, ${addr.state}
         </ul>
 
         <h3 class="mt-10 mb-4">Getting in</h3>
-        <figure class="mb-5">
-          <img
-            src="/studio-building.jpg"
-            alt={`The office tower at ${addr.street}, Denver — the studio is on the basement level`}
-            width="607"
-            height="547"
-            loading="lazy"
-            class="rounded-xl border border-[var(--color-border)] w-full"
-          />
-          <figcaption class="mt-2 text-base text-[var(--color-text-muted)]">
-            Look for this building on the corner — the studio is downstairs.
-          </figcaption>
-        </figure>
-        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
-          The studio is on the basement level of {addr.street}, between 18th and 19th on Glenarm. Text me when you
-          arrive for your first visit and I'll meet you at the entrance.
+        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-6">
+          The studio is on the basement level of {addr.street}, between 18th and 19th on Glenarm. Take the lift or the
+          stairs down one level and follow the corridor around — you'll know the door when you see it. Text me when you
+          arrive for your first visit and I'll come meet you.
         </p>
+        <div class="grid grid-cols-2 gap-4">
+          <figure>
+            <img
+              src="/studio-building.jpg"
+              alt={`The office tower at ${addr.street}, Denver — the studio is on the basement level`}
+              width="607"
+              height="547"
+              loading="lazy"
+              class="rounded-xl border border-[var(--color-border)] w-full h-56 object-cover"
+            />
+            <figcaption class="mt-2 text-base text-[var(--color-text-muted)]">
+              1. This building, on the corner.
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/studio-entrance.jpg"
+              alt="The studio door on the basement level, with the graffiti wall and client photos visible inside"
+              width="1100"
+              height="1375"
+              loading="lazy"
+              class="rounded-xl border border-[var(--color-border)] w-full h-56 object-cover"
+            />
+            <figcaption class="mt-2 text-base text-[var(--color-text-muted)]">
+              2. This door, one level down.
+            </figcaption>
+          </figure>
+        </div>
 
         <h3 class="mt-10 mb-4">Parking (read this — it's downtown)</h3>
         <ul class="space-y-3 text-lg text-[var(--color-text-muted)] leading-relaxed list-disc pl-5">
