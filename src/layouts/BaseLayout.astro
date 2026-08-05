@@ -12,7 +12,7 @@ interface Props {
   noindex?: boolean;
 }
 
-const { title, description = SITE.description, image = '/og-default.png', noindex = false } = Astro.props;
+const { title, description = SITE.description, image = '/og-image.jpg', noindex = false } = Astro.props;
 // Home passes a full keyworded title; interior pages get a short brand suffix.
 const fullTitle = title.includes(SITE.shortName) ? title : `${title} | ${SITE.shortName}`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
