@@ -12,24 +12,49 @@ interface Props {
   noindex?: boolean;
 }
 
-const { title, description = SITE.description, image = '/og-image.jpg', noindex = false } = Astro.props;
+const { title, description = SITE.description, image = '/og-default.png', noindex = false } = Astro.props;
 // Home passes a full keyworded title; interior pages get a short brand suffix.
 const fullTitle = title.includes(SITE.shortName) ? title : `${title} | ${SITE.shortName}`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 const ogImageUrl = new URL(image, Astro.site).href;
 
+// Jamie as a named entity, so credentials attach to a person rather than
+// floating as page text. Helps Google resolve who is delivering the care.
+const founderSchema = {
+  '@type': 'Person',
+  '@id': `${SITE.url}/#jamie`,
+  name: 'Jamie Atlas',
+  jobTitle: 'Cognitive Functional Therapist',
+  url: `${SITE.url}/about`,
+  hasCredential: SITE.credentials.map(c => ({
+    '@type': 'EducationalOccupationalCredential',
+    name: c.name,
+  })),
+};
+
 const localBusinessSchema = {
   '@context': 'https://schema.org',
-  '@type': ['MedicalBusiness', 'LocalBusiness'],
+  '@type': ['MedicalBusiness', 'LocalBusiness', 'PhysicalTherapy'],
   '@id': SITE.url,
   name: SITE.name,
+  // Legacy trading names — lets Google reconcile the old Bonza Bodies
+  // citations and this business as a single entity.
+  alternateName: [...SITE.alternateNames],
   url: SITE.url,
   image: ogImageUrl,
   telephone: SITE.contact.phone,
   email: SITE.contact.email,
   description: SITE.description,
   priceRange: '$$',
-  sameAs: [SITE.social.instagramUrl, REVIEWS_URL],
+  medicalSpecialty: 'PhysicalTherapy',
+  founder: founderSchema,
+  employee: { '@id': `${SITE.url}/#jamie` },
+  availableService: SITE.services.map(s => ({
+    '@type': 'MedicalTherapy',
+    name: s,
+  })),
+  hasMap: `https://www.google.com/maps/place/?q=place_id:${SITE.placeId}`,
+  sameAs: [SITE.social.instagramUrl, REVIEWS_URL, ...SITE.profiles],
   address: {
     '@type': 'PostalAddress',
     streetAddress: `${SITE.contact.address.street}, ${SITE.contact.address.level}`,

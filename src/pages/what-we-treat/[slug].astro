@@ -12,6 +12,12 @@ export function getStaticPaths() {
 
 const { condition } = Astro.props;
 
+// Related conditions, resolved from slugs — gives every service page more than
+// the two inbound links it had from the nav card and the index alone.
+const related = condition.related
+  .map(slug => CONDITIONS.find(c => c.slug === slug))
+  .filter(Boolean);
+
 const medicalPageSchema = {
   '@context': 'https://schema.org',
   '@type': 'MedicalWebPage',
@@ -70,6 +76,25 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  {related.length > 0 && (
+    <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="mb-8">Related to this</h2>
+        <ul class="space-y-6">
+          {related.map(r => (
+            <li>
+              <a href={`/what-we-treat/${r.slug}`} class="font-serif text-xl">{r.title}</a>
+              <p class="mt-2 text-[var(--color-text-muted)] leading-relaxed">{r.metaDescription}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-8">
+          <a href="/what-we-treat">See everything we treat</a>
+        </p>
+      </div>
+    </section>
+  )}
 
   <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
     <div class="max-w-3xl mx-auto text-center">

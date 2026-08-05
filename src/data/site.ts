@@ -1,14 +1,33 @@
 // Central site configuration — change anything here, the whole site updates.
 // Phone is Google Voice business line, NOT Jamie's personal cell (720-203-3084).
+//
+// NAME: must match the Google Business Profile exactly. The Aug 2026 citation
+// audit found 13 different business names in the wild; `name` below is the one
+// canonical form. Historical variants live in `alternateNames` and are emitted
+// as schema.org alternateName so Google can reconcile them to a single entity.
+//
+// ZIP: 80202 is correct, and matches the Google Business Profile.
+// USPS returns 80202-3828 for 1800 Glenarm Pl. Local Falcon's cached record
+// reports 80203 — that record is stale and wrong. Do NOT "fix" this to 80203.
 
 export const SITE = {
-  name: 'Jamie Atlas Rehab & Performance',
+  name: 'Jamie Atlas Rehabilitation & Personal Training',
   shortName: 'Jamie Atlas',
   tagline: 'Get out of chronic pain. Get back to your sport.',
   description:
     'Cognitive Functional Therapy + 30 years of strength coaching for Denver adults 40+. We work the gap between PT discharge and athletic performance.',
   url: 'https://jamieatlas.com',
   serviceArea: ['Denver', 'Lakewood', 'Aurora', 'Littleton', 'Boulder', 'Englewood', 'Highlands Ranch'],
+
+  // Prior trading names, emitted as schema.org alternateName. This tells Google
+  // that the legacy Bonza Bodies listings and the current business are one entity.
+  alternateNames: [
+    'Jamie Atlas Rehab & Performance',
+    'Bonza Bodies',
+    'Bonza Bodies Fitness',
+    'Bonza Bodies Personal Training',
+    'Bonza Bodies Goal Based Training Studio',
+  ],
 
   contact: {
     phone: '(720) 257-9328',
@@ -26,6 +45,9 @@ export const SITE = {
     bookingUrl: 'https://calendly.com/jamescatlas/30min',
   },
 
+  // Google Place ID — used to build the canonical Maps URL for schema sameAs.
+  placeId: 'ChIJ44xKrdd4bIcRoPqgDjwhPWE',
+
   hours: {
     weekdays: '5:00 AM – 7:00 PM',
     saturday: '7:30 AM – 4:00 PM',
@@ -36,6 +58,26 @@ export const SITE = {
     instagram: '@jamieatlasfitness',
     instagramUrl: 'https://www.instagram.com/jamieatlasfitness/',
   },
+
+  // Authoritative third-party profiles for this business, emitted as schema.org
+  // sameAs. Only add profiles that are claimed and carry the canonical NAP —
+  // adding an unclaimed or stale listing here reinforces the wrong entity.
+  profiles: [
+    'https://www.google.com/maps/place/?q=place_id:ChIJ44xKrdd4bIcRoPqgDjwhPWE',
+    'https://www.yelp.com/biz/jamie-atlas-denver',
+    'https://www.facebook.com/jamieatlas',
+  ],
+
+  // Services offered, emitted as schema.org availableService. Every one of the
+  // 24 third-party listings found in the Aug 2026 audit categorises this
+  // business as a gym; this is the on-site counter-signal.
+  services: [
+    'Post-surgical return-to-sport rehabilitation',
+    'Chronic back pain treatment',
+    'Cognitive Functional Therapy',
+    'Persistent sciatica rehabilitation',
+    'Masters athlete injury rehabilitation',
+  ],
 
   media: [
     { name: '9News', label: 'Featured on 9News' },

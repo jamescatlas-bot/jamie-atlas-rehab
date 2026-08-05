@@ -17,6 +17,8 @@ export interface Condition {
   intro: string;
   sections: ConditionSection[];
   faq: { q: string; a: string }[];
+  /** Slugs of related conditions, rendered as internal links at the foot of the page. */
+  related: string[];
 }
 
 export const CONDITIONS: Condition[] = [
@@ -24,7 +26,7 @@ export const CONDITIONS: Condition[] = [
     slug: 'post-surgical-return-to-sport',
     navTitle: 'Post-Surgical Return-to-Sport',
     title: 'Finish the rehab your insurance didn’t pay for',
-    metaTitle: 'Post-Surgical Return-to-Sport Training in Denver',
+    metaTitle: 'Post-Surgical Return-to-Sport Rehab, Denver',
     schemaType: 'MedicalProcedure',
     metaDescription:
       'Insurance PT got you to "functional." We get you back to skiing, cycling, lifting, and running. Post-surgical return-to-sport rehabilitation in Denver.',
@@ -67,14 +69,15 @@ export const CONDITIONS: Condition[] = [
         a: 'Typically 6–8 sessions spread over 2–4 months, depending on the surgery and the sport. You’ll get an honest estimate at the first visit — not an open-ended commitment.',
       },
     ],
+    related: ['masters-athlete-injuries', 'cognitive-functional-therapy'],
   },
   {
     slug: 'chronic-back-pain',
     navTitle: 'Chronic Back Pain',
     title: 'Chronic back pain isn’t a life sentence',
-    metaTitle: 'Chronic Back Pain Treatment in Denver — Cognitive Functional Therapy',
+    metaTitle: 'Chronic Back Pain Treatment in Denver',
     metaDescription:
-      'Cognitive Functional Therapy for chronic low back pain in Denver — the approach validated in the 2023 Lancet RESTORE trial. When PT, chiropractic, and injections haven’t worked.',
+      'Cognitive Functional Therapy for chronic low back pain in Denver — validated in the 2023 Lancet RESTORE trial. For when PT and injections haven’t worked.',
     intro:
       'You’ve done physical therapy. You’ve been adjusted. Maybe you’ve had injections, or an MRI that "showed something" but didn’t explain why you still hurt. If your back pain has lasted more than three months and keeps coming back, the problem usually isn’t the tissue anymore — it’s a pain system stuck in protection mode. That is treatable.',
     sections: [
@@ -114,6 +117,7 @@ export const CONDITIONS: Condition[] = [
         a: 'Most clients need 6–8 sessions. Chronic, complex cases can take longer, and I’ll tell you honestly which one you are after the first assessment.',
       },
     ],
+    related: ['cognitive-functional-therapy', 'sciatica'],
   },
   {
     slug: 'sciatica',
@@ -154,6 +158,7 @@ export const CONDITIONS: Condition[] = [
         a: 'Post-surgical sciatica responds to the same graded approach. If you’re past the surgical healing window and still have leg symptoms, this is exactly the kind of case I work with.',
       },
     ],
+    related: ['chronic-back-pain', 'cognitive-functional-therapy'],
   },
   {
     slug: 'masters-athlete-injuries',
@@ -200,6 +205,7 @@ export const CONDITIONS: Condition[] = [
         a: 'It’s rehabilitation that ends in performance. The strength work looks like training because it is — but it’s sequenced around an injury, a pain system, and return-to-sport benchmarks.',
       },
     ],
+    related: ['post-surgical-return-to-sport', 'chronic-back-pain'],
   },
   {
     slug: 'cognitive-functional-therapy',
@@ -246,5 +252,6 @@ export const CONDITIONS: Condition[] = [
         a: 'No referral needed. Book a consultation directly — the first conversation establishes whether you’re a fit before you commit to anything.',
       },
     ],
+    related: ['chronic-back-pain', 'sciatica'],
   },
 ];
