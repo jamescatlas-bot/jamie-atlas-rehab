@@ -5,27 +5,27 @@ import { SITE } from '../data/site';
 const steps = [
   {
     title: '1. A 30-minute Discovery Session ($57, normally $97)',
-    body: 'You tell me the story — when it started, what you\'ve tried, what you want back. I tell you honestly whether I can help. If I can\'t, I\'ll point you to someone who can, and either way you leave with a clear picture of what\'s going on.',
+    body: "You tell me the story — when it started, what you've already tried, what you actually want back. Then I tell you honestly whether I can help. <strong>If I can't, I'll say so and point you at someone who can.</strong> Either way you leave with a clearer picture than you arrived with.",
   },
   {
-    title: '2. Full assessment (first session, 90 minutes)',
-    body: 'I assess your movement, not just your symptoms — most pain isn\'t where the problem is. We often change your pain in this session, in real time, so you feel what\'s possible before you commit to a plan.',
+    title: '2. Full assessment — first session, 90 minutes',
+    body: "I assess how you move, not just where it hurts. <strong>The sore spot is the symptom. It's rarely where the problem is being decided.</strong> We usually change your pain in that session, in real time, so you get to feel what's possible before you commit to anything.",
   },
   {
     title: '3. A plan with a number on it',
-    body: 'You leave the assessment knowing roughly how many sessions you need (typically 6–8), what we\'ll do in them, and what you\'ll practice between them. No open-ended commitments.',
+    body: "You leave the assessment knowing roughly how many sessions this takes — typically six to eight — what happens in them, and what you'll do between them. <strong>A number, not an open tab.</strong>",
   },
   {
-    title: '4. Progressive work',
-    body: 'Weekly or biweekly 60–90 minute sessions: calming the pain system, rebuilding the movements you\'ve been avoiding, and progressively loading until your capacity exceeds your sport\'s demands.',
+    title: '4. The actual work',
+    body: "Weekly or every other week, 60–90 minutes. Three things at once: settling the pain system down, going back into the movements you quietly stopped making, and loading you until your capacity clears what your life and your sport ask of it.",
   },
   {
-    title: '5. Return-to-sport benchmarks',
-    body: 'We don\'t guess about readiness. You pass objective, sport-specific tests — strength, range, confidence — before full return. That\'s how you go back without the fear of re-injury.',
+    title: '5. Benchmarks, not guesswork',
+    body: "Readiness gets tested, not estimated. Strength, range and confidence, measured against your sport. <strong>That's how you go back without spending the whole first season braced for it to go again.</strong>",
   },
   {
     title: '6. Graduation',
-    body: 'You leave with a maintenance program you own, the understanding of why the pain happened, and the tools to handle a flare-up without panic. Some clients keep a monthly check-in; most just go live their lives.',
+    body: "You leave with a program you own, an understanding of why this happened, and a plan for the day it flares — because it might, and that day is much less frightening when you already know what to do. Some people keep a monthly check-in. Most just go and live.",
   },
 ];
 ---
@@ -37,10 +37,12 @@ const steps = [
   <section class="px-6 pt-16 pb-12 md:pt-24">
     <div class="max-w-3xl mx-auto">
       <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">How it works</p>
-      <h1 class="mb-8">A clear process with a defined endpoint</h1>
+      <h1 class="mb-8">A clear process, with an end date</h1>
       <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
-        No "come three times a week forever." No passive treatments that change nothing. No insurance billing limbo.
-        Here's exactly what working together looks like, from first call to graduation.
+        You have probably been somewhere that never told you when it would stop. Come back Tuesday. Come back
+        Thursday. See how you go. <strong class="text-[var(--color-text)]">The goal here is to make myself
+        unnecessary</strong>, and that only works if the plan has a shape you can see from the start. So here is
+        the whole thing, first call to graduation.
       </p>
     </div>
   </section>
@@ -50,7 +52,7 @@ const steps = [
       {steps.map(s => (
         <div>
           <h2 class="mb-4 text-2xl">{s.title}</h2>
-          <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{s.body}</p>
+          <p class="text-lg text-[var(--color-text-muted)] leading-relaxed" set:html={s.body} />
         </div>
       ))}
     </div>
@@ -62,19 +64,19 @@ const steps = [
       <ul class="space-y-4 text-lg text-[var(--color-text-muted)]">
         <li class="flex items-start gap-4">
           <span class="text-[var(--color-primary)] text-xl leading-none mt-1.5 flex-shrink-0">✕</span>
-          <span>Fearmongering about your spine, your knees, or your age</span>
+          <span>Being frightened about your spine, your knees, or your age</span>
         </li>
         <li class="flex items-start gap-4">
           <span class="text-[var(--color-primary)] text-xl leading-none mt-1.5 flex-shrink-0">✕</span>
-          <span>12-minute appointments shared with three other patients</span>
+          <span>Twelve minutes shared with three other people on other tables</span>
         </li>
         <li class="flex items-start gap-4">
           <span class="text-[var(--color-primary)] text-xl leading-none mt-1.5 flex-shrink-0">✕</span>
-          <span>Passive treatments — heat, ultrasound, adjustments — that feel nice and change nothing</span>
+          <span>Passive treatment — heat, ultrasound, adjustments — that feels good on the day and changes nothing by Thursday</span>
         </li>
         <li class="flex items-start gap-4">
           <span class="text-[var(--color-primary)] text-xl leading-none mt-1.5 flex-shrink-0">✕</span>
-          <span>An open-ended plan with no graduation criteria</span>
+          <span>A plan with no end written into it</span>
         </li>
       </ul>
     </div>

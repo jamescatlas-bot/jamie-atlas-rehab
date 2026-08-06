@@ -42,27 +42,38 @@ export const CONDITIONS: Condition[] = [
     metaDescription:
       'Insurance PT got you to "functional." We get you back to skiing, cycling, lifting, and running. Post-surgical return-to-sport rehabilitation in Denver.',
     intro:
-      'Your surgery worked. Your twelve sessions of physical therapy got you walking, climbing stairs, "functional." Then you were discharged — and you’re still nowhere near the bike, the slopes, or the barbell. That gap between "cleared" and "back" is exactly where this work lives.',
+      'The surgery went fine. The twelve sessions of physical therapy got you up the stairs, back in the car, back at work — and then someone wrote "functional" on a form and the referral ran out. <strong>You didn’t have surgery to be functional.</strong> You had it to get back on the bike, back on the slopes, back under the bar. Nobody in that chain was paid to take you there.',
     sections: [
       {
-        heading: 'Why does insurance PT stop before you’re actually back?',
+        heading: 'Why did the rehab stop before you were back?',
         paragraphs: [
-          'Insurance-based physical therapy is built to restore basic function — walking, dressing, working. Once you hit those milestones, coverage ends, regardless of whether your goal was a 5k or a century ride. The 6–9 months of progressive loading between "functional" and "athletic" is not something the system pays for, so almost nobody provides it.',
-          'That’s the rebuild I do. One-on-one, 60–90 minute sessions that pick up where your PT discharge left off and end at your sport — with objective return-to-sport benchmarks, not guesswork.',
+          'It wasn’t your therapist. It was the brief they were handed. <strong>Insurance pays to make you functional, not to make you an athlete again.</strong>',
+          'Discharge measures the things the system measures — and every one of them is a floor, not a ceiling:' +
+            '<ul>' +
+            '<li>can you walk without a limp</li>' +
+            '<li>can you manage stairs and get in and out of a car</li>' +
+            '<li>can you do your job</li>' +
+            '<li>has your range come back to something close to the other side</li>' +
+            '</ul>',
+          'Clear all four and coverage ends, whether your goal was the grocery store or a century ride. The six to nine months of progressive loading between those two is real work, it is well described, and almost nobody sells it — because almost nobody gets reimbursed for it.',
+          'That is the part I do. One-on-one, sixty to ninety minutes, starting from your discharge and ending at your sport.',
         ],
       },
       {
-        heading: 'Why are you still afraid to load the joint?',
+        heading: 'Why are you still nervous about loading it?',
         paragraphs: [
-          'After surgery, your nervous system becomes protective. Even when the tissue has healed, the brain often keeps guarding — which shows up as stiffness, weakness that doesn’t match the scan, and fear of the exact movement that injured you.',
-          'Graded exposure done right fixes this: we find the edge of what feels safe, load it, prove to your nervous system that you’re strong there, then move the edge. It’s systematic, measurable, and it’s the part most rehab skips.',
+          'Because the fear is doing its job. <strong>Your nervous system has no way of knowing the surgeon fixed it.</strong>',
+          'Tissue heals on a timeline. Confidence does not. Long after the repair is solid, the system that got you hurt is still on guard — and it shows up as stiffness that comes and goes, strength that doesn’t match the scan, and a quiet reluctance to take that joint anywhere near the movement that put you on the table.',
+          'That reluctance is the symptom. It is not the thing to argue with. What changes it is evidence: find the edge of what genuinely feels safe, load it properly, let you feel yourself be strong there, then move the edge. Repeat until the edge is past what your sport asks of you.',
+          '<strong>You don’t talk yourself out of the fear. You out-train it.</strong>',
         ],
       },
       {
-        heading: 'What does the process look like?',
+        heading: 'What actually happens here?',
         paragraphs: [
-          'First visit: full movement assessment, history, and a frank conversation about your sport and your timeline. You leave with a plan and a realistic number of sessions.',
-          'Then: progressive strength work built around your surgery, your sport, and your schedule — typically one session a week with independent work between. We track load, range, and confidence until you pass sport-specific benchmarks, then you graduate.',
+          'First visit is ninety minutes: the whole history, a full movement assessment, and a straight conversation about your sport and your timeline. You leave with a plan and a number of sessions, not an open tab.',
+          'After that it is progressive strength work built around three things — the surgery you had, the sport you want back, and the week you actually live in. Usually one session a week with work of your own in between.',
+          '<strong>We don’t guess at when you’re ready.</strong> Load, range and confidence get tracked, you pass sport-specific benchmarks, and then you graduate. That last part is the point.',
         ],
       },
     ],
@@ -90,27 +101,38 @@ export const CONDITIONS: Condition[] = [
     metaDescription:
       'Cognitive Functional Therapy for chronic low back pain in Denver — validated in the 2023 Lancet RESTORE trial. For when PT and injections haven’t worked.',
     intro:
-      'You’ve done physical therapy. You’ve been adjusted. Maybe you’ve had injections, or an MRI that "showed something" but didn’t explain why you still hurt. If your back pain has lasted more than three months and keeps coming back, the problem usually isn’t the tissue anymore — it’s a pain system stuck in protection mode. That is treatable.',
+      'You have done the physical therapy. You have been adjusted. Somewhere in there was an injection, or a scan that found something and still didn’t explain why Tuesday is fine and Thursday isn’t. <strong>We get it.</strong> By the time most people reach this studio they have stopped expecting an answer and started managing around the pain instead. That is a reasonable response to what you’ve been offered. It isn’t the only option left.',
     sections: [
       {
-        heading: 'Why hasn’t anything worked so far?',
+        heading: 'Why hasn’t any of it held?',
         paragraphs: [
-          'Most back pain treatment targets tissue: massage it, adjust it, inject it, strengthen the "core." But in persistent pain, research consistently shows the driver is a sensitized nervous system — shaped by guarding habits, fear of bending and lifting, poor sleep, stress, and unhelpful beliefs about a "damaged" spine.',
-          'Treatments that ignore that system produce short-lived relief. That’s why the pain keeps coming back the moment you do what you actually love.',
+          'Everything you tried was aimed at the place that hurts. <strong>The place that hurts is the symptom, not the engine.</strong>',
+          'Massage it, adjust it, inject it, brace it, strengthen the core. Every one of those turns the volume down for a while, and every one of them treats your back as a piece of failing hardware. After three months, that is rarely what is going on.',
+          'A back that keeps flaring is a web, and the tissue is one strand of it:' +
+            '<ul>' +
+            '<li>how much load your back and hips can genuinely tolerate right now</li>' +
+            '<li>how you brace, guard and hold your breath when you bend</li>' +
+            '<li>sleep, stress, and the weeks when both go at once</li>' +
+            '<li>the movements you quietly stopped making a year ago</li>' +
+            '<li>what you believe is happening in there when it grabs</li>' +
+            '</ul>',
+          '<strong>Pull one strand and the web hands the pain straight back.</strong> That is not a failure of the treatments you tried. It is what happens when one thread gets treated on its own.',
         ],
       },
       {
         heading: 'What is Cognitive Functional Therapy?',
         paragraphs: [
-          'Cognitive Functional Therapy (CFT) is a structured, evidence-based approach that retrains both the beliefs and the movement patterns that keep back pain going. In the 2023 RESTORE trial published in The Lancet, CFT produced large, sustained improvements in pain and disability compared with usual care — results that held at the three-year follow-up.',
-          'In practice it looks like this: we make sense of your pain story together, then systematically rebuild the movements you’ve been avoiding — bending, lifting, sitting, whatever your triggers are — in a graded way that proves to your nervous system it’s safe. Then we make you strong there, so the change lasts.',
+          'It is the thing that treats the whole web. <strong>And it is not fringe — it is one of the best-evidenced approaches in the field.</strong>',
+          'In the 2023 RESTORE trial published in The Lancet, nearly 500 people with chronic low back pain were randomized to CFT or usual care. CFT produced large improvements in pain and disability that were still holding at twelve months, and at the three-year follow-up. Durability like that is rare in this research.',
+          'What it looks like in the room is less dramatic than it sounds. We make sense of your pain story together — properly, not as a formality. Then we go back into the movements you have been avoiding, bending, lifting, sitting, whatever yours are, in doses your system can actually accept. Then we make you strong there, because that is what makes the change stay.',
         ],
       },
       {
-        heading: 'What about my MRI findings?',
+        heading: 'My scan showed a disc bulge.',
         paragraphs: [
-          'Disc bulges, degeneration, and arthritis show up on scans of people with no pain at all — at rates that rise with age, like gray hair. Imaging findings matter in a small number of cases (and I screen for those), but for most persistent back pain they don’t explain the pain and they don’t predict recovery.',
-          'You are not your MRI. The plan is built around what your body can do and relearn — not around a picture.',
+          'So do the scans of enormous numbers of people who have no back pain at all, at rates that climb steadily with age. <strong>It shows up on a scan the way grey hair shows up in a mirror.</strong>',
+          'That does not make your pain imaginary and it does not make the scan useless. It means finding a bulge doesn’t tell us it is causing your pain, and it doesn’t predict how well you will do. A small number of presentations do need a physician first, and I screen for those — if yours is one, I will say so plainly.',
+          'The plan gets built around what your back can do and relearn. Not around a picture of it.',
         ],
       },
     ],
@@ -147,20 +169,36 @@ export const CONDITIONS: Condition[] = [
     metaDescription:
       'Radicular leg pain that didn’t respond to chiropractic, epidurals, or short-course PT. A nervous-system-informed approach to persistent sciatica in Denver.',
     intro:
-      'Leg pain that burns, shoots, or tingles below the knee. You’ve stretched the piriformis, been adjusted, maybe had an epidural. It helped for a while — or not at all. Persistent sciatica has a nervous-system component that most treatment plans never address, and that’s usually the missing piece.',
+      'It burns, or it shoots, or it goes numb somewhere below the knee — and it has outlasted everything you threw at it. You stretched the piriformis. You got adjusted. Maybe there was an epidural that worked for six weeks, or didn’t work at all. <strong>Sciatica that lasts is a different problem from sciatica that starts.</strong> Most plans are still treating the first one.',
     sections: [
       {
-        heading: 'Why does sciatica persist after the disc has healed?',
+        heading: 'Why is it still there after the disc settled?',
         paragraphs: [
-          'Most disc-related nerve irritation settles within weeks to months. When leg pain persists beyond that, the nerve itself has often become sensitized — it fires with less provocation, and normal movement gets flagged as a threat. Rest and avoidance make sensitized nerves worse, not better.',
-          'The way out is graded, progressive loading of the nerve and the movements you’ve been avoiding — dosed carefully enough that the system calms down instead of flaring up.',
+          'Because by now the disc is probably not the thing driving it. <strong>The nerve got sensitive, and sensitivity outlasts irritation.</strong>',
+          'Most disc-related nerve pain settles within weeks to a few months. When leg symptoms carry on past that, what has usually changed is the threshold — the nerve fires at provocations it used to ignore, and ordinary movement gets flagged as something to protect you from.',
+          'Which is why the standard advice quietly makes it worse. Rest, avoid, wait it out: all of it lowers the threshold further. A sensitized nerve gets its tolerance back the same way everything else does, by being asked for a bit more than it did yesterday and no more than it can take.',
         ],
       },
       {
-        heading: 'What does treatment involve?',
+        heading: 'What has to be ruled out first?',
         paragraphs: [
-          'First, a proper assessment to rule out the small set of cases that need medical referral — progressive weakness, numbness in the saddle area, bladder or bowel changes. Those go to a physician first, and I’ll tell you plainly if that’s you.',
-          'For everyone else: a plan that combines nerve-tolerant movement, progressive strength work for the hip and trunk, sleep and stress factors that amplify nerve pain, and a graded return to walking, hiking, running, or riding — whatever the pain took from you.',
+          'A short list, and it matters. <strong>A small number of these belong with a physician before they belong with me.</strong>',
+          'Progressive weakness in the leg. Numbness in the saddle area. Any change in bladder or bowel control. Those get referred, immediately and without hedging.',
+          'Everything else — which is the overwhelming majority — is exactly the kind of case this work is built for. Part of the first session is establishing which of the two you are, and I will tell you plainly rather than start a plan I don’t believe in.',
+        ],
+      },
+      {
+        heading: 'What does the work look like?',
+        paragraphs: [
+          'Less dramatic than what you have already tried, and considerably more durable. <strong>We stop chasing the leg and start rebuilding what feeds it.</strong>',
+          'The plan works on four things at once:' +
+            '<ul>' +
+            '<li>movement the nerve tolerates, dosed so it calms rather than flares</li>' +
+            '<li>progressive strength for the hip, trunk and leg</li>' +
+            '<li>the sleep and stress load that amplify nerve pain more than most people expect</li>' +
+            '<li>a graded return to whatever the pain took — walking, hiking, riding, standing through a workday</li>' +
+            '</ul>',
+          'It is probably not one tight muscle, and it is probably not something a stretch was ever going to reach. Nerve pain is slower to turn around than back pain and it does turn around. Most people are in the six to eight session range.',
         ],
       },
     ],
@@ -188,26 +226,30 @@ export const CONDITIONS: Condition[] = [
     metaDescription:
       'Recurring injuries for athletes 40+: tendinopathy, joint pain, the boom-bust cycle. Break the pattern and keep training. Masters athlete rehab in Denver.',
     intro:
-      'You’re 45, or 55, or 65, and you have no intention of stopping. But the calf keeps going. The shoulder flares every ski season. The knee swells after long rides. You’re stuck in a cycle: train, break, rest, repeat — and each cycle costs you more fitness than the last. The cycle is breakable.',
+      'You are 45, or 55, or 65, and stopping was never on the table. But the calf keeps going. The shoulder flares every ski season. The knee swells after the long rides and you have started planning the week around it. <strong>The injuries aren’t the problem — the cycle is.</strong> Train, break, rest, come back, break again. Each lap costs more than the last one, and the cycle is breakable.',
     sections: [
       {
         heading: 'Why do the same injuries keep coming back?',
         paragraphs: [
-          'Recurring injuries in masters athletes almost always come down to a capacity gap: the demands of your sport exceed what the tissue is currently prepared for, usually because rest — the standard prescription — heals the pain but shrinks the capacity. You return to sport weaker than you left, and the cycle repeats.',
-          'The fix is unfashionable and effective: progressive strength work that raises the tissue’s capacity above your sport’s demands, programmed around your training so you don’t have to stop doing what you love while we fix it.',
+          'Because rest fixes the wrong half of it. <strong>Rest takes away the pain and takes your capacity with it.</strong>',
+          'The pain settles, so you go back to your sport — but the demand is exactly what it was, and you are weaker than you were when you stopped. It flares. Obvious conclusion: rest more. The loop tightens, and each round leaves you with less than the one before.',
+          'What sits underneath almost every recurring masters injury is a capacity gap: your sport asks for more than the tissue is currently prepared to give. That gap doesn’t close by waiting. It closes by loading.',
         ],
       },
       {
-        heading: 'Do you have to train less as you age?',
+        heading: 'Do you have to train less now?',
         paragraphs: [
-          'You have to train smarter, recover more deliberately, and strength train — the evidence on that is unambiguous. Masters athletes who lift stay in sport longer, get injured less, and perform better. What you don’t have to do is accept "you’re just getting older" as a diagnosis. It isn’t one.',
+          'No — and the version of this you have been told is mostly wrong. <strong>"You’re just getting older" is a shrug, not a diagnosis.</strong>',
+          'What actually changes with age is the margin. Recovery takes longer, tissue tolerates less sloppiness, and the thing you got away with at 30 now costs you two weeks. Smaller margin, same principles.',
+          'The evidence on strength training for masters athletes is about as unambiguous as this field gets. Athletes over 40 who lift stay in their sport longer, get hurt less, and perform better. It is the least fashionable answer available and it is still the right one.',
         ],
       },
       {
         heading: 'What does working together look like?',
         paragraphs: [
-          'We assess the injury, the sport, and the training history — then build a plan that treats the current flare and closes the capacity gap that caused it. You keep training throughout, with modifications, because detraining is the enemy.',
-          'Most masters athletes work with me for 6–8 sessions, then keep a periodic check-in cadence through their season.',
+          'It starts with the pattern, not just the flare. <strong>Treating this week’s injury without closing the gap that produced it just buys you the next one.</strong>',
+          'So we look at three things: the injury in front of us, the demands of your sport, and the training history that got you here. Then we build something that handles all three at once.',
+          'You keep training the whole way through, modified. Detraining is the enemy — it is what made the last three cycles worse, and there is almost never a good reason to stop entirely. Most masters athletes work with me for six to eight sessions and then keep a check-in cadence through their season.',
         ],
       },
     ],
@@ -236,25 +278,39 @@ export const CONDITIONS: Condition[] = [
     metaDescription:
       'What Cognitive Functional Therapy is, the Lancet RESTORE evidence behind it, and how CFT works in practice. One of a handful of practitioners in Colorado.',
     intro:
-      'Cognitive Functional Therapy (CFT) is a structured approach to persistent pain that treats the whole system — the beliefs, the guarding, the avoided movements, the sleep and stress that turn pain up — instead of chasing tissue that healed long ago. It’s the approach validated in the 2023 Lancet RESTORE trial, and I’m one of a handful of practitioners in Colorado trained in it.',
+      'If you have already read the other pages on this site, this is the method underneath all of them. <strong>Cognitive Functional Therapy treats the whole system that produces your pain, not the tissue that stopped being the story months ago.</strong> The beliefs, the guarding, the movements you quietly dropped, the sleep and the stress that turn the volume up. It is the approach validated in the 2023 Lancet RESTORE trial, and I am one of a handful of practitioners in Colorado trained in it.',
     sections: [
       {
         heading: 'What’s the evidence?',
         paragraphs: [
-          'The RESTORE trial, published in The Lancet in 2023, randomized nearly 500 people with chronic low back pain to CFT or usual care. CFT produced large, clinically significant improvements in pain and disability — sustained at 12 months, and still holding at the three-year follow-up published in 2025. Effect sizes of that durability are rare in chronic pain research.',
+          'Better than almost anything else in this field. <strong>That is not a small claim, and it is not mine.</strong>',
+          'The RESTORE trial, published in The Lancet in 2023, randomized nearly 500 people with chronic low back pain to CFT or usual care. CFT produced large, clinically meaningful improvements in pain and disability — still holding at twelve months, and still holding at the three-year follow-up published in 2025.',
+          'Durability is the part worth pausing on. Plenty of things help chronic pain for six weeks. Very little in the literature is still ahead of usual care three years later.',
         ],
       },
       {
-        heading: 'How is CFT different from regular physical therapy?',
+        heading: 'How is it different from the physical therapy you’ve had?',
         paragraphs: [
-          'Three ways. First, it starts with your story — a detailed history that makes sense of why your pain system became protective, because pain that makes sense is pain you can change. Second, it uses graded behavioral experiments: we test the movements you’ve been told (or told yourself) are dangerous, and you experience the pain changing in real time. Third, it addresses the lifestyle amplifiers — sleep, stress, activity patterns — that keep the system sensitized.',
-          'Then I add the part most CFT practitioners can’t: thirty years of strength coaching to rebuild real capacity once the pain system calms down. Desensitization without strength is temporary. Strength without desensitization never starts.',
+          'Three ways, and the first one is the one people don’t expect. <strong>It starts with your story, and the story is the treatment, not the paperwork.</strong>',
+          'Most histories are taken to fill a form. This one is taken to work out why your system became protective in the first place — because pain that makes sense to you is pain you can start to change. People often feel something shift in that conversation alone.',
+          'Second, it uses graded experiments rather than instructions. We go into a movement you were told, or told yourself, is dangerous — and you feel the pain change in the room, with your own body, while you are standing there. That is a different kind of evidence from being reassured.',
+          'Third, it takes the amplifiers seriously: sleep, stress, and the boom-and-bust activity pattern almost everyone falls into. Ignore those and the rest doesn’t hold.',
+          '<strong>Then I add the part most CFT practitioners can’t.</strong> Thirty years of strength coaching, to rebuild real capacity once the system has calmed down. Desensitizing without strengthening is temporary. Strengthening without desensitizing never gets off the ground.',
         ],
       },
       {
-        heading: 'Who is CFT for?',
+        heading: 'Who is it for?',
         paragraphs: [
-          'Anyone whose pain has persisted past normal healing time — typically three months or more — and hasn’t responded to tissue-focused treatment. Back pain is the best-studied application, but the principles apply to persistent pain generally: necks, shoulders, knees, post-surgical pain, and the fear of movement that follows all of them.',
+          'Anyone whose pain outlasted the healing. <strong>Past three months, tissue-focused treatment has usually stopped being the right tool.</strong>',
+          'Back pain is the best-studied application by a distance, and it is where the trial evidence sits. But the principles are about how persistent pain is produced, not about which body part is complaining:' +
+            '<ul>' +
+            '<li>necks that flare no matter how the desk is set up</li>' +
+            '<li>shoulders that never came back after the rest</li>' +
+            '<li>knees written off as arthritis</li>' +
+            '<li>pain that stayed on after a successful surgery</li>' +
+            '<li>the fear of movement that follows all of the above</li>' +
+            '</ul>',
+          'If your pain is new, or it is one of the presentations that needs a physician first, I will tell you that instead of booking you in.',
         ],
       },
     ],
@@ -356,34 +412,45 @@ export const CONDITIONS: Condition[] = [
     metaDescription:
       'Rotator cuff pain, impingement and stiff shoulders that did not settle with rest or a cortisone shot. Graded loading and strength work in Denver.',
     intro:
-      'You cannot sleep on that side. Reaching overhead has become something you plan around. You have rested it, maybe had a cortisone shot, and it was better right up until you tried to use it properly again. Shoulders rarely recover from rest alone — they recover from being loaded well.',
+      'You cannot sleep on that side. Reaching for anything above shoulder height is something you plan now, not something you do. You rested it, maybe had a cortisone shot, and it was genuinely better — right up until you tried to use the arm properly again. <strong>Shoulders almost never recover from being protected.</strong> They recover from being loaded well, which is close to the opposite of what most people are told.',
     sections: [
       {
-        heading: 'Why hasn’t rest worked?',
+        heading: 'Why didn’t rest work?',
         paragraphs: [
-          'Rest calms an irritated shoulder down, and it also lets the tissue lose capacity. When you return to what you were doing, the demand is unchanged but your tolerance is lower than when you stopped — so it flares, and the obvious conclusion is that you need more rest. That loop is where most people are stuck by the time they reach me.',
-          'The way out is loading the shoulder in a dose it can currently handle, then raising that dose steadily until it exceeds what your sport or your job asks of it.',
+          'It worked. That is the trap. <strong>Rest takes the pain away and takes the tolerance with it.</strong>',
+          'The shoulder calms down, so you go back to the pressing or the swimming or the two hours of overhead work your job involves. The demand hasn’t changed. Your capacity is lower than it was when you stopped. It flares, and the obvious conclusion is more rest.',
+          'By the time most people reach me they have been round that loop three or four times, and each lap ended with a smaller shoulder than the last. The way out is to load it at a dose it can take today, then raise that dose deliberately until it comfortably clears what you actually ask of it.',
         ],
       },
       {
         heading: 'What about my rotator cuff tear?',
         paragraphs: [
-          'Rotator cuff tears are found on scans of large numbers of people with no shoulder pain at all, and the rate climbs with age. A tear on a report does not, by itself, explain your symptoms or mean you need surgery.',
-          'Substantial evidence now supports progressive loading as a first-line approach for most degenerative cuff problems, with outcomes comparable to surgery in many cases. Some shoulders do need a surgeon — traumatic full-thickness tears and genuine loss of function among them — and I will tell you straight if yours is one of them.',
+          'It probably matters less than the report made it sound. <strong>Cuff tears turn up on the scans of huge numbers of people with no shoulder pain at all</strong>, and the rate climbs steadily with age.',
+          'That does not make yours irrelevant. It means a tear on a piece of paper does not, on its own, explain your symptoms or decide that you need an operation.',
+          'The evidence for progressive loading as a first-line approach to degenerative cuff problems is now substantial, with outcomes comparable to surgery across a good number of trials. Some shoulders genuinely do belong with a surgeon — traumatic full-thickness tears, real loss of function, a shoulder that cannot be lifted at all. If yours is one of those I will say so at the first session rather than sell you eight of them.',
         ],
       },
       {
         heading: 'Is it impingement?',
         paragraphs: [
-          'That label has fallen out of favor for good reason. The idea that a bony spur is mechanically pinching a tendon has not held up well, and decompression surgery has performed poorly against placebo in controlled trials.',
-          'What tends to be true instead: an irritable tendon, a shoulder that has lost strength through range, and a movement pattern built around protecting it. All three respond to the same thing — progressive, well-dosed loading.',
+          'That word has quietly fallen out of use, and for a good reason. <strong>The picture of a bone pinching a tendon has not held up.</strong>',
+          'Decompression surgery — built entirely on that idea — has performed poorly against placebo procedures in controlled trials. Which is about as direct a test of a theory as this field gets.',
+          'What tends to be true instead is less tidy, and it is a web rather than a single fault:' +
+            '<ul>' +
+            '<li>a tendon that has become irritable and reacts to more than it used to</li>' +
+            '<li>strength lost through the middle and upper part of the range</li>' +
+            '<li>a movement pattern quietly rebuilt around protecting it</li>' +
+            '<li>months of broken sleep, which lowers the threshold for all of the above</li>' +
+            '</ul>',
+          '<strong>All four respond to the same thing.</strong> Not to a label.',
         ],
       },
       {
         heading: 'What does the work look like?',
         paragraphs: [
-          'An assessment of what the shoulder can currently tolerate, then a programme that starts just inside that boundary and moves it. Alongside that, we address the sleep disruption and the guarding that come with any long-running shoulder problem.',
-          'You keep using the arm throughout, with modifications. Total rest is almost never the answer.',
+          'First we find the boundary — what the shoulder tolerates right now, honestly measured rather than guessed at. Then the program starts just inside it and moves it.',
+          'Alongside that we deal with the two things that come with every long-running shoulder and get treated as side effects: the disrupted sleep, and the guarding you are no longer aware of doing.',
+          '<strong>You keep using the arm the whole time</strong>, modified where it needs to be. Total rest is almost never the answer, and it is usually the thing that got the shoulder here.',
         ],
       },
     ],
@@ -420,34 +487,45 @@ export const CONDITIONS: Condition[] = [
     metaDescription:
       'Knee pain, arthritis and meniscus problems that did not settle with rest or an injection. Progressive strength work for Denver adults who want to keep moving.',
     intro:
-      'Stairs. Getting out of the car. The first mile of a hike, or the last one. You have rested it, iced it, maybe had an injection or a scan that used the word "degenerative" — and it is still there. Knees very rarely recover from being protected. They recover from being loaded properly.',
+      'Stairs. Getting out of the car. The first mile of a hike, or the last one. You rested it, iced it, maybe had an injection, and somewhere along the line a scan came back with the word "degenerative" on it and nobody explained what that actually meant for you. <strong>Knees rarely recover from being protected.</strong> They recover from being loaded properly — and almost nobody says that out loud.',
     sections: [
       {
-        heading: 'Why hasn’t resting it worked?',
+        heading: 'Why didn’t resting it work?',
         paragraphs: [
-          'Rest settles an irritated knee, and at the same time the muscles around it get weaker and the joint loses tolerance. When you go back to what you were doing, the demand has not changed but your capacity is lower than when you stopped. It flares. The obvious conclusion is that you need more rest, and the loop tightens.',
-          'What breaks it is loading the knee at a dose it can currently handle and then raising that dose deliberately, until it comfortably exceeds what your day and your sport ask of it.',
+          'It did work, briefly, and that is what makes it so convincing. <strong>Rest settles the knee and quietly shrinks it at the same time.</strong>',
+          'While the joint is calming down, the quads and hips around it are getting weaker and the joint’s own tolerance is dropping. Then you go back to the stairs, the trail, the ride. The demand is identical. Your capacity is not.',
+          'It flares, the obvious conclusion is more rest, and the loop tightens by one notch. What breaks it is loading the knee at a dose it can genuinely handle now, then raising that dose on purpose until it clears what your week actually asks of it.',
         ],
       },
       {
-        heading: 'I’ve been told it’s arthritis — or “bone on bone”',
+        heading: 'I’ve been told it’s arthritis — or "bone on bone"',
         paragraphs: [
-          'Joint changes on imaging correlate poorly with how much pain someone has and how well they function. Plenty of people with significant radiographic osteoarthritis have little or no pain, and plenty with mild changes hurt a lot.',
-          'More usefully: exercise therapy is a first-line treatment for knee osteoarthritis in essentially every major clinical guideline, and it reliably improves both pain and function. "Bone on bone" is a description of an X-ray. It is not a prognosis, and it is not a reason to stop loading the leg.',
+          'That sentence has ended more people’s activity than the arthritis has. <strong>"Bone on bone" is a description of an X-ray, not a prognosis.</strong>',
+          'What the joint looks like on imaging tracks poorly with how much it hurts and how well it works. Plenty of people with significant changes on film have little or no pain. Plenty with mild changes hurt a great deal. Neither group is faking.',
+          'More useful than the picture: exercise therapy is a first-line treatment for knee osteoarthritis in essentially every major clinical guideline written, and it reliably improves both pain and function. Not as a consolation prize before the replacement — as the treatment.',
+          '<strong>It is not a reason to stop loading the leg. It is the reason to start.</strong>',
         ],
       },
       {
         heading: 'What about a meniscus tear? Do I need surgery?',
         paragraphs: [
-          'For degenerative meniscal tears — the kind that show up gradually in middle age rather than from a specific traumatic twist — several high-quality randomised trials have found arthroscopic surgery produces outcomes no better than structured exercise therapy. Many people improve substantially without an operation.',
-          'Traumatic tears, locking knees, and genuine mechanical block are a different category and belong with a surgeon. Part of the first session is working out which one you are, and I will say so plainly if you need a referral rather than me.',
+          'Depends entirely on which kind you have, and the two get talked about as though they were one thing. <strong>Most middle-aged meniscus tears are wear, not an event.</strong>',
+          'For those degenerative tears — the ones that appear gradually rather than from a specific twist you can still remember — several high-quality randomized trials have found arthroscopic surgery produces outcomes no better than structured exercise therapy. A lot of people get substantially better without an operation.',
+          'A traumatic tear, a knee that locks, a genuine mechanical block: different category, belongs with a surgeon. Working out which one you are is part of the first session, and if it is the second one I will say so plainly rather than start a program.',
         ],
       },
       {
         heading: 'What does the work look like?',
         paragraphs: [
-          'An honest assessment of what the knee currently tolerates, then progressive strength work for the quads, hips and calves — the structures that decide how much load actually reaches the joint. Alongside that, a graded return to whatever the pain has taken from you: stairs, hiking, running, skiing.',
-          'You keep moving throughout, with modifications. Most people work with me for six to eight sessions and then continue independently.',
+          'It starts above and below the knee, which surprises people. <strong>The joint is where it hurts. It is rarely where the problem is being decided.</strong>',
+          'So the work is progressive strength for the quads, hips and calves — the structures that determine how much load ever reaches the joint at all — alongside a graded return to whatever the pain took from you:' +
+            '<ul>' +
+            '<li>a full flight of stairs without thinking about it</li>' +
+            '<li>the descent on a hike, not just the climb</li>' +
+            '<li>getting back to running, riding or skiing</li>' +
+            '<li>a day on your feet that doesn’t cost you the evening</li>' +
+            '</ul>',
+          'You keep moving throughout, modified where it needs to be. Most people are in the six to eight session range and then carry on under their own steam.',
         ],
       },
     ],

@@ -79,10 +79,18 @@ export const SITE = {
     'Masters athlete injury rehabilitation',
   ],
 
+  // Shown as a list on /about. Framing decided by Jamie 2026-08-06: these are
+  // outlets he appeared in AND contributed to, not just passive "featured in"
+  // mentions — hence "seen in and contributed to" rather than "featured on".
+  // ⚠️ Jamie: check each descriptor below says what you'd say out loud.
   media: [
-    { name: '9News', label: 'Featured on 9News' },
-    { name: 'Denver Post', label: 'Featured in the Denver Post' },
-    { name: 'UPWARD Women', label: 'Featured by UPWARD Women' },
+    { name: '9NEWS', label: '9NEWS — recurring fitness and movement segments' },
+    { name: 'FOX31', label: 'FOX31 Denver — in-studio segments' },
+    { name: 'Denver7', label: 'Denver7 — expert contributor' },
+    { name: '5280', label: '5280 Magazine — expert contributor' },
+    { name: 'The Denver Post', label: 'The Denver Post — expert contributor' },
+    { name: "Runner's World", label: "Runner's World — expert contributor" },
+    { name: 'UPWARD Women', label: 'UPWARD Women — profile and interview' },
   ],
 
   // ===========================================================================

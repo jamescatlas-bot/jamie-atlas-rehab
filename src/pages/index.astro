@@ -8,16 +8,16 @@ import PressStrip from '../components/PressStrip.astro';
 
 const problems = [
   {
-    title: 'Your PT ran out before you were better',
-    body: "Insurance capped your sessions at 12. Your physical therapist discharged you. You're still not back to your sport — and the gap is exactly where we work.",
+    title: 'The rehab ran out before you were back',
+    body: "Twelve sessions, a discharge note, and a body that still can't do the thing you actually miss. <strong>Nobody in that chain was paid to take you the rest of the way.</strong> That distance is where this work lives.",
   },
   {
-    title: 'The pain keeps coming back',
-    body: "You've tried PT, chiropractic, injections. The pain comes back the moment you try to do what you actually love. That's a nervous-system problem, not a tissue problem.",
+    title: 'The relief never lasted',
+    body: "PT, chiropractic, injections, a new mattress. Each one turned the volume down for a couple of weeks. <strong>You don't need more relief — you need to stop needing it.</strong>",
   },
   {
-    title: "Cleared, but scared to move",
-    body: "Your surgeon says you're fine. Your body says otherwise. You're scared to load the joint that took you out. The fix is graded exposure — done right.",
+    title: 'Cleared, and still not trusting it',
+    body: "Your surgeon says the joint is fine. Your body has not agreed to that yet. <strong>You don't talk yourself out of that. You out-train it</strong> — one graded step at a time.",
   },
 ];
 
@@ -25,23 +25,23 @@ const byArea = [
   {
     title: 'Back Pain & Sciatica',
     slug: '/what-we-treat/chronic-back-pain',
-    body: "When PT, chiropractic and injections haven't held. Cognitive Functional Therapy — the approach validated in the 2023 Lancet RESTORE trial.",
+    body: "Three months or more, and PT, adjustments and injections have all worn off. The tissue stopped being the story a while ago — this is the approach that treats what replaced it.",
     also: { label: 'Pain running down your leg? Sciatica →', slug: '/what-we-treat/sciatica' },
   },
   {
     title: 'Neck Pain',
     slug: '/what-we-treat/neck-pain',
-    body: 'Neck pain, stiffness and headaches that keep returning after massage, adjustments or a short course of PT. Build a neck that tolerates your day.',
+    body: 'Stiffness and headaches that come back no matter how the desk is set up. It is probably not your posture alone — and a neck with real strength behind it handles a long day.',
   },
   {
     title: 'Shoulder Pain',
     slug: '/what-we-treat/shoulder-pain',
-    body: "Rotator cuff pain, stiffness and shoulders that didn't settle with rest or a cortisone shot. Progressive loading rather than more rest.",
+    body: "You can't sleep on that side, and the rest and the cortisone both wore off. Shoulders don't come back from being protected. They come back from being loaded well.",
   },
   {
     title: 'Knee Pain',
     slug: '/what-we-treat/knee-pain',
-    body: 'Arthritis, meniscus problems and knees that flare on stairs or the trail. Strength work that raises what the joint can tolerate.',
+    body: 'Stairs, the descent on a hike, the word "degenerative" on a scan. "Bone on bone" describes an X-ray. It is not a prognosis and not a reason to stop loading the leg.',
   },
 ];
 
@@ -49,22 +49,22 @@ const bySituation = [
   {
     title: 'Post-Surgical Return-to-Sport',
     slug: '/what-we-treat/post-surgical-return-to-sport',
-    body: "When insurance PT ends but you're still not back on the bike, the slopes, or in the gym. The 9-month rebuild your surgeon doesn't tell you about.",
+    body: "Someone wrote \"functional\" on a form and the referral ran out. You didn't have surgery to be functional. This is the six-to-nine month rebuild nobody was paid to give you.",
   },
   {
     title: 'Masters Athlete Injuries',
     slug: '/what-we-treat/masters-athlete-injuries',
-    body: 'For runners, cyclists, skiers and lifters 40+. Break out of the recurring injury cycle and stay in your sport for the next 20 years.',
+    body: 'Runners, cyclists, skiers and lifters over 40. Train, break, rest, repeat — and each lap costs more than the last. The injuries are not the problem. The cycle is.',
   },
 ];
 
 const differentiators = [
-  '1-on-1 sessions, never group classes',
-  '60–90 minute sessions, not the 12-minute insurance rush',
-  'Programs designed around your sport — not a generic protocol',
-  'Your strength coach is also your therapist — no handoffs, no contradictions',
-  '30 years of progressive coaching experience plus current pain science',
-  'No insurance billing, no productivity quotas, no rushed discharge',
+  'One-on-one, every session. Never a class, never shared with three other people',
+  '60–90 minutes, because that is genuinely what the work takes',
+  'Built around your sport and your week — not a protocol printed for everybody',
+  'Your strength coach and your therapist are the same person. No handoffs, no contradicting advice',
+  'Thirty years of coaching, plus the pain science most providers were never taught',
+  'A number of sessions, and a graduation. Not an open tab',
 ];
 ---
 
@@ -107,12 +107,16 @@ const differentiators = [
   <!-- THE PROBLEM -->
   <section class="px-6 py-20 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-center mb-14">If any of this sounds familiar, you're in the right place</h2>
+      <h2 class="text-center mb-6">If any of this sounds familiar, you're in the right place</h2>
+      <p class="text-center text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto mb-14 leading-relaxed">
+        Most people who find this studio have already been somewhere else. Often several somewheres.
+        <strong class="text-[var(--color-text)]">We get it.</strong>
+      </p>
       <div class="grid md:grid-cols-3 gap-10 md:gap-12">
         {problems.map(p => (
           <div>
             <h3 class="mb-4">{p.title}</h3>
-            <p class="text-[var(--color-text-muted)]">{p.body}</p>
+            <p class="text-[var(--color-text-muted)] leading-relaxed" set:html={p.body} />
           </div>
         ))}
       </div>
@@ -123,12 +127,14 @@ const differentiators = [
   <section class="px-6 py-24">
     <div class="max-w-3xl mx-auto text-center">
       <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">The evidence</p>
-      <h2 class="mb-8">Backed by science most therapists don't know</h2>
+      <h2 class="mb-8">Backed by science most providers were never taught</h2>
       <p class="text-lg md:text-xl text-[var(--color-text-muted)] mb-6 leading-relaxed">
-        Cognitive Functional Therapy — the approach validated in the <strong class="text-[var(--color-text)]">2023 Lancet RESTORE trial</strong> and the 2025 three-year follow-up — produces large, durable effects for chronic back pain compared with usual care.
+        <strong class="text-[var(--color-text)]">Plenty of things help chronic pain for six weeks.</strong> Very little is still ahead of usual care three years later.
+        Cognitive Functional Therapy is. In the <strong class="text-[var(--color-text)]">2023 Lancet RESTORE trial</strong> — and again at the three-year follow-up published in 2025 — it produced large, durable improvements in pain and disability.
       </p>
       <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
-        I combine that approach with three decades of progressive strength coaching to do what most physical therapists can't: get you out of pain <em>and</em> back to your sport — without re-injury.
+        Then I add the part most CFT practitioners can't: three decades of strength coaching, so the change has something to stand on.
+        Calming a pain system without rebuilding capacity is temporary. Rebuilding capacity without calming it never gets started.
       </p>
     </div>
   </section>

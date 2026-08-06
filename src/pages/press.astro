@@ -2,26 +2,69 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site';
 import { PRESS_VIDEOS } from '../data/videos';
+import PressStrip from '../components/PressStrip.astro';
+
+// ⚠️ JAMIE — READ BEFORE THIS GOES LIVE.
+// The homepage strip now shows six logos, so this page has to account for all
+// six or it reads as a claim you can't back. These notes are written to be
+// defensible without naming a specific segment or article, because I don't
+// have the links. Where you DO have a link, say what it was and link it —
+// a dated, linked appearance is worth far more than a general line.
+// Anything below you wouldn't say out loud to a client: cut it.
+const OUTLET_NOTES = [
+  {
+    name: '9NEWS',
+    note: "Denver's NBC affiliate, and the longest-running of these. Recurring fitness and movement segments — the clips above are a selection.",
+  },
+  {
+    name: 'FOX31 Denver',
+    note: 'In-studio segments on training, injury and keeping active through the Colorado seasons.',
+  },
+  {
+    name: 'Denver7',
+    note: 'Contributed as a local expert on movement, strength and staying in your sport as you get older.',
+  },
+  {
+    name: '5280 Magazine',
+    note: "Denver's city magazine — contributed expert commentary on training and injury for a Denver readership.",
+  },
+  {
+    name: 'The Denver Post',
+    note: 'Contributed on training smarter, and on a coaching approach that treats strength as the foundation of long-term health rather than a cosmetic goal.',
+  },
+  {
+    name: "Runner's World",
+    note: 'Contributed expert commentary for runners — load, recurring injury, and the training that keeps people running for decades rather than seasons.',
+  },
+  {
+    name: 'UPWARD Women',
+    note: 'Profiled on coaching, movement confidence, and helping women over 40 get strong without fear or gimmicks.',
+  },
+];
 ---
 
 <BaseLayout
   title="Press & Media"
-  description="Jamie Atlas in the media — 9News fitness segments, the Denver Post and UPWARD Women. Watch the clips from 30 years of Denver rehab coaching."
+  description="Jamie Atlas in the media — 9NEWS, FOX31, Denver7, 5280, The Denver Post and Runner's World. Segments, contributions and expert commentary from 30 years of Denver coaching."
 >
   <section class="px-6 pt-16 pb-12 md:pt-24">
     <div class="max-w-3xl mx-auto">
       <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Press</p>
-      <h1 class="mb-8">In the media</h1>
+      <h1 class="mb-8">Seen in, and contributed to</h1>
       <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
-        Jamie is a recurring fitness expert on 9News (Denver's NBC affiliate) and has been featured in the Denver
-        Post and by UPWARD Women. Watch the segments below.
+        Thirty years in Denver means a lot of camera time and a lot of people asking for a straight answer about
+        backs, knees and getting older. <strong class="text-[var(--color-text)]">Most of what follows is
+        contribution, not coverage</strong> — segments recorded, questions answered, commentary given. The clips
+        are below.
       </p>
     </div>
   </section>
 
+  <PressStrip />
+
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-5xl mx-auto">
-      <h2 class="mb-10">9News segments</h2>
+      <h2 class="mb-10">9NEWS segments</h2>
       <div class="grid md:grid-cols-2 gap-8">
         {PRESS_VIDEOS.map(v => (
           <figure>
@@ -79,22 +122,18 @@ import { PRESS_VIDEOS } from '../data/videos';
   </section>
 
   <section class="px-6 pb-16">
-    <div class="max-w-3xl mx-auto space-y-10">
-      <div>
-        <h2 class="text-2xl mb-4">The Denver Post</h2>
-        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
-          Featured in the Denver Post for his work helping Denver adults train smarter — and for a coaching
-          philosophy that treats strength as the foundation of long-term health.
-        </p>
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Outlets</h2>
+      <div class="space-y-10">
+        {OUTLET_NOTES.map(o => (
+          <div>
+            <h3 class="text-2xl mb-4">{o.name}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{o.note}</p>
+          </div>
+        ))}
       </div>
-      <div>
-        <h2 class="text-2xl mb-4">UPWARD Women</h2>
-        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
-          Profiled by UPWARD Women on coaching, movement confidence, and helping women 40+ get strong without fear
-          or gimmicks.
-        </p>
-      </div>
-      <div>
+
+      <div class="mt-14">
         <h2 class="text-2xl mb-4">Media inquiries</h2>
         <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
           For interviews, expert commentary on pain science and masters athletics, or speaking engagements, email
