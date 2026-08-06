@@ -1,0 +1,157 @@
+---
+// Click-to-play YouTube facade, laid out for VERTICAL video.
+//
+// Two things drive this component:
+//
+// 1. PERFORMANCE. Each YouTube embed pulls ~700KB of player JS on load. Three
+//    on a page would wreck mobile load time, which is where nearly all of
+//    Jamie's clients arrive. This renders a thumbnail and only loads the real
+//    player when someone actually taps. With JavaScript off it degrades to a
+//    working link to YouTube.
+//
+// 2. SHAPE. These clips are YouTube Shorts — 9:16 portrait, not 16:9. A
+//    portrait video in a widescreen box gets black bars down both sides and
+//    reads as broken. The frame here is portrait, capped at 300px wide so it
+//    never dominates the row.
+//
+// The narrow video leaves natural room beside it, which is where the client's
+// history goes (`bio` in videos.ts). Desktop: text left, video right. Mobile:
+// video first, text underneath — the clip is the hook, the context is the
+// follow-up.
+//
+// Thumbnails: `oardefault.jpg` preserves a Short's original portrait framing.
+// It does not exist for every video, so there is an onerror fallback to
+// `hqdefault.jpg`, which always exists.
+import type { Testimonial } from '../data/videos';
+
+interface Props {
+  video: Testimonial;
+  headingLevel?: 'h3' | 'h4';
+}
+
+const { video, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
+const hasBio = Boolean(video.bio && video.bio.trim().length > 0);
+
+// Frame shape per clip. Getting this wrong is visible: a widescreen clip in a
+// portrait box loses both edges of the frame, and a portrait clip in a
+// widescreen box gets black bars down each side.
+//
+// Widescreen and 4:3 clips also need a wider column than a Short does, or they
+// render postage-stamp sized next to the text.
+const SHAPE = {
+  portrait: {
+    aspect: 'aspect-[9/16]',
+    maxWidth: 'max-w-[300px]',
+    column: 'md:grid-cols-[minmax(0,1fr)_300px]',
+    thumb: 'oardefault', // preserves a Short's portrait framing
+    w: 405,
+    h: 720,
+  },
+  landscape: {
+    aspect: 'aspect-video',
+    maxWidth: 'max-w-[560px]',
+    column: 'md:grid-cols-[minmax(0,1fr)_minmax(0,560px)]',
+    thumb: 'maxresdefault',
+    w: 1280,
+    h: 720,
+  },
+  classic: {
+    aspect: 'aspect-[4/3]',
+    maxWidth: 'max-w-[480px]',
+    column: 'md:grid-cols-[minmax(0,1fr)_minmax(0,480px)]',
+    thumb: 'hqdefault',
+    w: 480,
+    h: 360,
+  },
+} as const;
+
+const shape = SHAPE[video.orientation ?? 'portrait'];
+---
+
+<figure class={`m-0 grid gap-6 ${shape.column} md:gap-10 md:items-start`}>
+  <figcaption class="order-2 md:order-1">
+    <Heading class="mb-3">{video.headline}</Heading>
+
+    {hasBio ? (
+      <p class="text-base leading-relaxed text-[var(--color-text-muted)] whitespace-pre-line">
+        {video.bio}
+      </p>
+    ) : (
+      <p class="text-base leading-relaxed text-[var(--color-text-muted)]">
+        {video.title.replace(/^Client testimonial — /, '')}
+      </p>
+    )}
+
+    {video.note && (
+      <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)] opacity-75">
+        {video.note}
+      </p>
+    )}
+  </figcaption>
+
+  <a
+    class={`video-facade group relative order-1 block ${shape.aspect} w-full ${shape.maxWidth} overflow-hidden rounded-xl border border-[var(--color-border)] bg-black no-underline md:order-2`}
+    href={`https://www.youtube.com/watch?v=${video.id}`}
+    data-video-id={video.id}
+    data-video-title={video.title}
+    rel="noopener"
+  >
+    <img
+      src={`https://i.ytimg.com/vi/${video.id}/${shape.thumb}.jpg`}
+      data-fallback={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+      alt={video.title}
+      width={shape.w}
+      height={shape.h}
+      loading="lazy"
+      class="video-thumb absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+    />
+    <span class="absolute inset-0 bg-black/15 transition-colors group-hover:bg-black/25"></span>
+    <span
+      class="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 shadow-lg transition-transform duration-200 group-hover:scale-110"
+      aria-hidden="true"
+    >
+      <svg width="22" height="24" viewBox="0 0 22 24" fill="var(--color-primary)">
+        <path d="M21 12L0 24V0z" />
+      </svg>
+    </span>
+    <span class="sr-only">Play video: {video.title}</span>
+  </a>
+</figure>
+
+<script>
+  // Fall back to hqdefault.jpg where a Short has no oardefault.jpg.
+  document.querySelectorAll<HTMLImageElement>('img.video-thumb').forEach(img => {
+    img.addEventListener(
+      'error',
+      () => {
+        const fallback = img.dataset.fallback;
+        if (fallback && img.src !== fallback) img.src = fallback;
+      },
+      { once: true }
+    );
+  });
+
+  // Swap the thumbnail for the real player on click. Runs once per page.
+  document.querySelectorAll('.video-facade').forEach(el => {
+    el.addEventListener('click', (event: Event) => {
+      event.preventDefault();
+      const link = el as HTMLAnchorElement;
+      const id = link.dataset.videoId;
+      const title = link.dataset.videoTitle ?? 'Video';
+      if (!id) return;
+
+      const frame = document.createElement('iframe');
+      frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      frame.title = title;
+      frame.allow =
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.className = 'absolute inset-0 h-full w-full';
+      frame.setAttribute('frameborder', '0');
+
+      link.replaceChildren(frame);
+      link.classList.add('pointer-events-none');
+    });
+  });
+</script>

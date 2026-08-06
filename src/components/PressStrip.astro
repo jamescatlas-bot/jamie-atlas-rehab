@@ -1,0 +1,93 @@
+---
+// "As featured in" logo strip.
+//
+// Each outlet renders an <img> if it has a `file`, and a styled wordmark if it
+// doesn't. That means the strip looks finished TODAY with no image assets, and
+// adding a real logo is a one-line change: drop the file into public/ and set
+// `file` on that entry in site.ts. No layout work needed either way.
+//
+// Logos are forced to a single grey via a CSS filter. Six outlets in six brand
+// colours reads as a jumble of stickers; one grey reads as a press row. On
+// hover, and for anyone who prefers reduced motion, they resolve to full colour.
+//
+// Heights are normalised in CSS rather than by cropping the files, because
+// wordmarks (Denver Post) and badges (9NEWS) need different optical sizing to
+// look like they belong on the same line.
+import { PRESS } from '../data/site';
+
+interface Props {
+  heading?: string;
+  compact?: boolean;
+}
+const { heading = 'As featured in', compact = false } = Astro.props;
+---
+
+<section class={compact ? 'px-6 py-10' : 'px-6 py-14'}>
+  <div class="max-w-5xl mx-auto">
+    <p
+      class="text-center text-xs uppercase tracking-[0.18em] text-[var(--color-text-muted)] mb-7"
+    >
+      {heading}
+    </p>
+
+    <ul
+      class="press-strip flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14 list-none m-0 p-0"
+    >
+      {PRESS.map(outlet => (
+        <li class="shrink-0">
+          {outlet.file ? (
+            <img
+              src={`/${outlet.file}`}
+              alt={`${outlet.name} logo`}
+              loading="lazy"
+              class="press-logo w-auto"
+              style={`height:${Math.round((outlet.h ?? 32) * 0.85)}px;--h-md:${outlet.h ?? 32}px`}
+            />
+          ) : (
+            <span class="press-wordmark font-serif text-lg md:text-xl text-[var(--color-text)] whitespace-nowrap">
+              {outlet.name}
+            </span>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .press-logo,
+  .press-wordmark {
+    filter: grayscale(100%);
+    opacity: 0.55;
+    transition:
+      opacity 0.2s ease,
+      filter 0.2s ease;
+  }
+
+  .press-strip li:hover .press-logo,
+  .press-strip li:hover .press-wordmark {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
+  /* A wordmark has no artwork to desaturate, so fade it instead. */
+  .press-wordmark {
+    filter: none;
+    opacity: 0.7;
+  }
+
+  /* Desktop steps each logo up to its full tuned height (set inline as --h-md).
+     Phones get 85% so six marks still fit in two tidy rows at 390px. */
+  @media (min-width: 768px) {
+    .press-logo {
+      height: var(--h-md) !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .press-logo,
+    .press-wordmark {
+      transition: none;
+    }
+  }
+</style>

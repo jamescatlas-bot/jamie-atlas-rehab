@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VideoTestimonial from '../components/VideoTestimonial.astro';
+import SpeedExplainer from '../components/SpeedExplainer.astro';
+import { SITE } from '../data/site';
+import { TESTIMONIAL_VIDEOS, LEAD_TESTIMONIAL } from '../data/videos';
+import { CONDITIONS } from '../data/conditions';
+import { REVIEWS_URL, GOOGLE_RATING } from '../data/reviews';
+
+// Group by condition, in the same order the conditions are defined.
+// Proof sits next to the claim it supports — a visitor with neck pain
+// should be able to jump straight to necks.
+const groups = CONDITIONS.map(c => ({
+  slug: c.slug,
+  label: c.navTitle,
+  videos: TESTIMONIAL_VIDEOS.filter(v => v.condition === c.slug),
+})).filter(g => g.videos.length > 0);
+
+// VideoObject schema — can earn video thumbnails in search results.
+// uploadDate is emitted only where known; Google usually wants it.
+const videoSchema = [LEAD_TESTIMONIAL, ...TESTIMONIAL_VIDEOS].map(v => ({
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: v.title,
+  description: v.note || v.headline,
+  thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
+  embedUrl: `https://www.youtube-nocookie.com/embed/${v.id}`,
+  ...(v.uploadDate ? { uploadDate: v.uploadDate } : {}),
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+}));
+---
+
+<BaseLayout
+  title="Client Results on Video"
+  description="Watch Denver clients describe what changed — back, neck, shoulder and post-surgical recovery. Real sessions, honest timelines, no miracle claims."
+>
+  {videoSchema.map(s => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Client results</p>
+      <h1 class="mb-8">What it actually looks like</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        I started filming these because people didn't believe me. Watch a few — then read the bit underneath about
+        why this happens, because the mechanism matters more than the reaction.
+      </p>
+      <p class="mt-8">
+        <a href="/book" class="cta-button">Book a 30-minute consultation</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <SpeedExplainer />
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-5xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Start here</p>
+      <h2 class="mb-10">Not a joint. A life.</h2>
+      <VideoTestimonial video={LEAD_TESTIMONIAL} headingLevel="h3" />
+    </div>
+  </section>
+
+  {groups.length > 1 && (
+    <section class="px-6 py-10 border-t border-[var(--color-border)]">
+      <div class="max-w-5xl mx-auto">
+        <p class="text-sm text-[var(--color-text-muted)] mb-4">Or jump to a specific problem:</p>
+        <ul class="flex flex-wrap gap-3">
+          {groups.map(g => (
+            <li>
+              <a
+                href={`#${g.slug}`}
+                class="inline-block rounded-full border border-[var(--color-border)] px-4 py-2 text-sm no-underline hover:border-[var(--color-primary)]"
+              >
+                {g.label} ({g.videos.length})
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {groups.map((g, i) => (
+    <section
+      id={g.slug}
+      class={`px-6 py-16 scroll-mt-24 ${i % 2 === 1 ? 'bg-[var(--color-surface)] border-y border-[var(--color-border)]' : ''}`}
+    >
+      <div class="max-w-5xl mx-auto">
+        <div class="flex flex-wrap items-baseline justify-between gap-4 mb-10">
+          <h2>{g.label}</h2>
+          <a href={`/what-we-treat/${g.slug}`} class="text-base">How I treat this →</a>
+        </div>
+        <div class="grid gap-14">
+          {g.videos.map(v => <VideoTestimonial video={v} />)}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6">Prefer to read them?</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        {GOOGLE_RATING.count} verified Google reviews, rated {GOOGLE_RATING.stars.toFixed(1)} — verbatim and unpaid.
+      </p>
+      <p>
+        <a href="/reviews" class="font-semibold">Read client reviews →</a>
+        <span class="text-[var(--color-text-muted)] px-2">·</span>
+        <a href={REVIEWS_URL}>See them on Google</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Find out whether your pain is the changeable kind</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your story, an honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

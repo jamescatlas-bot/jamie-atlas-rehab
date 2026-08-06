@@ -1,0 +1,56 @@
+---
+// Stated ONCE above any block of testimonial videos.
+//
+// The job: convert "that looks too good to be true" into "oh — that's a
+// mechanism, not magic." A skeptic who understands why fast change is possible
+// stops discounting the videos. A caution line repeated under ten cards just
+// reads as throat-clearing, so the honesty lives here instead.
+//
+// `compact` = the short form, for use inside a condition page where the video
+// block is a section rather than the whole page.
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+{compact ? (
+  <div class="max-w-2xl">
+    <h3 class="mb-3">Why can it change this fast?</h3>
+    <p class="text-[var(--color-text-muted)] leading-relaxed">
+      Pain is produced by your nervous system, not simply reported by your tissues. When pain outlasts healing,
+      what usually keeps it going is a protection response — guarding, avoiding certain movements, a system that
+      has learned to read ordinary load as danger. That's a learned pattern, and patterns can shift quickly when
+      you give the system genuinely new information. Fast change proves the pain is changeable. Making it hold is
+      the work that follows, and for most people that's six to eight sessions.
+    </p>
+  </div>
+) : (
+  <div class="max-w-3xl mx-auto">
+    <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Before you watch</p>
+    <h2 class="mb-6">Why does this sometimes happen so fast?</h2>
+    <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+      <p>
+        Pain is produced by your nervous system — it isn't a direct readout of tissue damage. When pain persists
+        past the point where tissue has healed, what's usually keeping it going is a protection response:
+        guarding, fear of particular movements, a system that has learned to treat ordinary load as a threat.
+      </p>
+      <p>
+        That's a learned pattern, and patterns can change quickly when the system gets genuinely new information.
+        What you're watching in these videos is someone discovering — often inside one session — that a movement
+        they'd been avoiding for months doesn't have to hurt.
+      </p>
+      <p>
+        <strong class="text-[var(--color-text)]">What you're not watching is a cure.</strong> Fast change proves
+        the pain is changeable; it doesn't make the change permanent on its own. Consolidating it takes
+        progressive loading and time, which is why most people work with me for six to eight sessions.
+      </p>
+      <p>
+        And not everyone responds this quickly. Some pain is driven by things that need medical attention first —
+        screening for that is part of the first session, and I'll tell you plainly if that's you.
+      </p>
+    </div>
+  </div>
+)}

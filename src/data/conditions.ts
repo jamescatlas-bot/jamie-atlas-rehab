@@ -19,6 +19,17 @@ export interface Condition {
   faq: { q: string; a: string }[];
   /** Slugs of related conditions, rendered as internal links at the foot of the page. */
   related: string[];
+  /**
+   * The bridge between the two buyers. Someone arrives in pain; once the pain
+   * settles, a good proportion of them want to get back to a sport. This makes
+   * that path explicit instead of leaving them to find it.
+   * Only set on the four body-part pages.
+   */
+  nextStep?: {
+    heading: string;
+    body: string;
+    links: { label: string; slug: string }[];
+  };
 }
 
 export const CONDITIONS: Condition[] = [
@@ -98,7 +109,7 @@ export const CONDITIONS: Condition[] = [
       {
         heading: 'What about my MRI findings?',
         paragraphs: [
-          'Disc bulges, degeneration, and arthritis show up on scans of people with no pain at all — at rates that rise with age, like grey hair. Imaging findings matter in a small number of cases (and I screen for those), but for most persistent back pain they don’t explain the pain and they don’t predict recovery.',
+          'Disc bulges, degeneration, and arthritis show up on scans of people with no pain at all — at rates that rise with age, like gray hair. Imaging findings matter in a small number of cases (and I screen for those), but for most persistent back pain they don’t explain the pain and they don’t predict recovery.',
           'You are not your MRI. The plan is built around what your body can do and relearn — not around a picture.',
         ],
       },
@@ -118,6 +129,15 @@ export const CONDITIONS: Condition[] = [
       },
     ],
     related: ['cognitive-functional-therapy', 'sciatica'],
+    nextStep: {
+      heading: 'Once the pain settles, what then?',
+      body:
+        "Getting out of pain is the first half. Most people then discover the thing they actually wanted was to get back to something — the bike, the trail, the barbell, a full day on their feet without bracing for it. That rebuild is a different piece of work, and it's the part I've spent thirty years on.",
+      links: [
+        { label: 'Post-surgical return-to-sport', slug: '/what-we-treat/post-surgical-return-to-sport' },
+        { label: 'Masters athlete injuries (40+)', slug: '/what-we-treat/masters-athlete-injuries' },
+      ],
+    },
   },
   {
     slug: 'sciatica',
@@ -253,5 +273,207 @@ export const CONDITIONS: Condition[] = [
       },
     ],
     related: ['chronic-back-pain', 'sciatica'],
+  },
+  {
+    slug: 'neck-pain',
+    navTitle: 'Persistent Neck Pain',
+    title: 'Neck pain that keeps coming back',
+    metaTitle: 'Neck Pain Treatment in Denver',
+    metaDescription:
+      'Persistent neck pain, stiffness and headaches that returned after massage, adjustments or short-course PT. A nervous-system-informed approach in Denver.',
+    intro:
+      "You're in pain, and somewhere along the way you stopped expecting anyone to fix it. Not for lack of trying — the massage, the adjustments, the scan, somebody's theory about your posture. <strong>We get it.</strong> That's exactly who this studio was built for: the people who kept looking after everything else came up short.",
+    sections: [
+      {
+        heading: 'Why has the relief never lasted?',
+        paragraphs: [
+          "The maddening part was never the pain itself. It was Tuesday's relief being gone by Thursday. <strong>You don't need more relief — you need to stop needing it.</strong>",
+          "Massage, adjustment, dry needling, a new pillow. All of them are good at turning the volume down, and all of them aim at the spot that hurts. That is the symptom. It isn't what keeps producing it.",
+          "A neck that keeps flaring is almost never one angry muscle waiting to be switched on or dialed down. It's a web, and your neck is one strand of it:" +
+            '<ul>' +
+            '<li>how much load your neck and shoulders can genuinely handle</li>' +
+            '<li>how long you hold a position before anything moves</li>' +
+            '<li>sleep, stress, and the weeks when both are bad at once</li>' +
+            '<li>the movements you quietly stopped making months ago</li>' +
+            "<li>what you believe is going on in there</li>" +
+            '</ul>',
+          "<strong>Pull on one strand and the web hands the pain straight back.</strong> That's not a failure of the treatments you tried. It's what happens when a single thread gets treated in isolation.",
+        ],
+      },
+      {
+        heading: 'Is it my posture?',
+        paragraphs: [
+          "You've been told to sit up straight more times than you can count. You've tried it. It didn't hold. <strong>That isn't a discipline problem.</strong>",
+          "It's probably not your posture alone. The link between how you sit and how your neck feels is far weaker than you've been told, and plenty of people with textbook-bad posture have no pain at all.",
+          "What a neck objects to is staying in one position, not the position itself — and even that is only one strand. A neck with real strength behind it handles a long day at a desk. That part is trainable.",
+        ],
+      },
+      {
+        heading: 'My scan showed degeneration.',
+        paragraphs: [
+          'Almost everyone your age has it, including people with no pain at all. It shows up on a scan the way gray hair shows up in a mirror.',
+          "Finding it doesn't tell us it's causing your pain, and it doesn't predict how well you'll do. If yours is one of the few presentations that needs a physician first, I'll tell you plainly.",
+        ],
+      },
+      {
+        heading: 'What actually happens here?',
+        paragraphs: [
+          "First session, we work out what your neck responds to — what sets it off, what settles it, what you've stopped doing. Then we give those things back, alongside real strength work for the neck, upper back and shoulders.",
+          "<strong>We work the whole web, not the sore spot.</strong> Most people feel something shift in that first hour. That's the start, not the finish — holding onto it usually takes six to eight sessions.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Do you crack or adjust necks?',
+        a: 'No. Manipulation can feel good briefly, but it does not build the capacity that stops the pain returning. Everything here is active — movement, graded exposure and progressive strength work you can eventually do without me.',
+      },
+      {
+        q: 'My neck pain comes with headaches. Can that be helped?',
+        a: 'Often, yes. Headaches that originate from the neck usually improve as the neck desensitizes and gets stronger. I will also flag it if your headache pattern looks like something that needs a physician instead.',
+      },
+      {
+        q: 'How many sessions will I need?',
+        a: 'Most people land in the six to eight range. You will get an honest estimate after the first assessment, not an open-ended commitment.',
+      },
+    ],
+    related: ['cognitive-functional-therapy', 'shoulder-pain'],
+    nextStep: {
+      heading: 'Once the pain settles, what then?',
+      body:
+        "A neck that no longer hurts at rest is not the same as a neck that tolerates a long ride, an overhead session, or a full week at a desk. Building that tolerance is the second half of the job.",
+      links: [
+        { label: 'Masters athlete injuries (40+)', slug: '/what-we-treat/masters-athlete-injuries' },
+        { label: 'Post-surgical return-to-sport', slug: '/what-we-treat/post-surgical-return-to-sport' },
+      ],
+    },
+  },
+  {
+    slug: 'shoulder-pain',
+    navTitle: 'Shoulder Pain',
+    title: 'A shoulder that rest hasn’t fixed',
+    metaTitle: 'Shoulder Pain Treatment in Denver',
+    metaDescription:
+      'Rotator cuff pain, impingement and stiff shoulders that did not settle with rest or a cortisone shot. Graded loading and strength work in Denver.',
+    intro:
+      'You cannot sleep on that side. Reaching overhead has become something you plan around. You have rested it, maybe had a cortisone shot, and it was better right up until you tried to use it properly again. Shoulders rarely recover from rest alone — they recover from being loaded well.',
+    sections: [
+      {
+        heading: 'Why hasn’t rest worked?',
+        paragraphs: [
+          'Rest calms an irritated shoulder down, and it also lets the tissue lose capacity. When you return to what you were doing, the demand is unchanged but your tolerance is lower than when you stopped — so it flares, and the obvious conclusion is that you need more rest. That loop is where most people are stuck by the time they reach me.',
+          'The way out is loading the shoulder in a dose it can currently handle, then raising that dose steadily until it exceeds what your sport or your job asks of it.',
+        ],
+      },
+      {
+        heading: 'What about my rotator cuff tear?',
+        paragraphs: [
+          'Rotator cuff tears are found on scans of large numbers of people with no shoulder pain at all, and the rate climbs with age. A tear on a report does not, by itself, explain your symptoms or mean you need surgery.',
+          'Substantial evidence now supports progressive loading as a first-line approach for most degenerative cuff problems, with outcomes comparable to surgery in many cases. Some shoulders do need a surgeon — traumatic full-thickness tears and genuine loss of function among them — and I will tell you straight if yours is one of them.',
+        ],
+      },
+      {
+        heading: 'Is it impingement?',
+        paragraphs: [
+          'That label has fallen out of favor for good reason. The idea that a bony spur is mechanically pinching a tendon has not held up well, and decompression surgery has performed poorly against placebo in controlled trials.',
+          'What tends to be true instead: an irritable tendon, a shoulder that has lost strength through range, and a movement pattern built around protecting it. All three respond to the same thing — progressive, well-dosed loading.',
+        ],
+      },
+      {
+        heading: 'What does the work look like?',
+        paragraphs: [
+          'An assessment of what the shoulder can currently tolerate, then a programme that starts just inside that boundary and moves it. Alongside that, we address the sleep disruption and the guarding that come with any long-running shoulder problem.',
+          'You keep using the arm throughout, with modifications. Total rest is almost never the answer.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Should I get a cortisone injection?',
+        a: 'It can be a useful window — pain down far enough to start loading properly. As a standalone treatment it tends to disappoint, because it does not change the capacity problem underneath. That is a conversation for you and your physician; I will work with whatever you decide.',
+      },
+      {
+        q: 'Can I keep lifting or swimming?',
+        a: 'Usually yes, in a modified dose. Keeping you in your sport while we fix the shoulder is an explicit goal, not an afterthought.',
+      },
+      {
+        q: 'How long does a shoulder take?',
+        a: 'Shoulders are typically slower than backs — tendons adapt at their own pace. Expect six to eight sessions with meaningful independent work between them, and an honest estimate after the first assessment.',
+      },
+    ],
+    related: ['cognitive-functional-therapy', 'neck-pain'],
+    nextStep: {
+      heading: 'Once the pain settles, what then?',
+      body:
+        "Shoulders are where the gap between 'not painful' and 'actually reliable' is widest. Pressing, swimming, throwing and carrying all ask for capacity you don't get back by simply becoming pain-free — you get it back by building it.",
+      links: [
+        { label: 'Masters athlete injuries (40+)', slug: '/what-we-treat/masters-athlete-injuries' },
+        { label: 'Post-surgical return-to-sport', slug: '/what-we-treat/post-surgical-return-to-sport' },
+      ],
+    },
+  },
+  {
+    slug: 'knee-pain',
+    navTitle: 'Knee Pain',
+    title: 'A knee that hasn’t settled with rest',
+    metaTitle: 'Knee Pain Treatment in Denver',
+    metaDescription:
+      'Knee pain, arthritis and meniscus problems that did not settle with rest or an injection. Progressive strength work for Denver adults who want to keep moving.',
+    intro:
+      'Stairs. Getting out of the car. The first mile of a hike, or the last one. You have rested it, iced it, maybe had an injection or a scan that used the word "degenerative" — and it is still there. Knees very rarely recover from being protected. They recover from being loaded properly.',
+    sections: [
+      {
+        heading: 'Why hasn’t resting it worked?',
+        paragraphs: [
+          'Rest settles an irritated knee, and at the same time the muscles around it get weaker and the joint loses tolerance. When you go back to what you were doing, the demand has not changed but your capacity is lower than when you stopped. It flares. The obvious conclusion is that you need more rest, and the loop tightens.',
+          'What breaks it is loading the knee at a dose it can currently handle and then raising that dose deliberately, until it comfortably exceeds what your day and your sport ask of it.',
+        ],
+      },
+      {
+        heading: 'I’ve been told it’s arthritis — or “bone on bone”',
+        paragraphs: [
+          'Joint changes on imaging correlate poorly with how much pain someone has and how well they function. Plenty of people with significant radiographic osteoarthritis have little or no pain, and plenty with mild changes hurt a lot.',
+          'More usefully: exercise therapy is a first-line treatment for knee osteoarthritis in essentially every major clinical guideline, and it reliably improves both pain and function. "Bone on bone" is a description of an X-ray. It is not a prognosis, and it is not a reason to stop loading the leg.',
+        ],
+      },
+      {
+        heading: 'What about a meniscus tear? Do I need surgery?',
+        paragraphs: [
+          'For degenerative meniscal tears — the kind that show up gradually in middle age rather than from a specific traumatic twist — several high-quality randomised trials have found arthroscopic surgery produces outcomes no better than structured exercise therapy. Many people improve substantially without an operation.',
+          'Traumatic tears, locking knees, and genuine mechanical block are a different category and belong with a surgeon. Part of the first session is working out which one you are, and I will say so plainly if you need a referral rather than me.',
+        ],
+      },
+      {
+        heading: 'What does the work look like?',
+        paragraphs: [
+          'An honest assessment of what the knee currently tolerates, then progressive strength work for the quads, hips and calves — the structures that decide how much load actually reaches the joint. Alongside that, a graded return to whatever the pain has taken from you: stairs, hiking, running, skiing.',
+          'You keep moving throughout, with modifications. Most people work with me for six to eight sessions and then continue independently.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Will running or squatting wear my knees out faster?',
+        a: 'No. The evidence points the other way — recreational runners have lower rates of knee osteoarthritis than sedentary people, and loaded movement is how cartilage and bone stay healthy. What causes trouble is doing too much too soon, not the movement itself.',
+      },
+      {
+        q: 'I’m scheduled for a knee replacement. Is there any point?',
+        a: 'Yes, on both sides of it. Going into surgery stronger is one of the better predictors of how the recovery goes, and the work afterwards is where the outcome is actually decided. I do a lot of the second kind.',
+      },
+      {
+        q: 'How many sessions will I need?',
+        a: 'Typically six to eight. You will get a realistic estimate after the first assessment rather than an open-ended commitment.',
+      },
+    ],
+    related: ['post-surgical-return-to-sport', 'masters-athlete-injuries'],
+    nextStep: {
+      heading: 'Once the pain settles, what then?',
+      body:
+        "A quiet knee on the flat is not a knee you trust on a descent, in a squat rack, or on the last day of a ski week. Closing that gap is the work most people actually came for, whether or not they'd have said so at the start.",
+      links: [
+        { label: 'Post-surgical return-to-sport', slug: '/what-we-treat/post-surgical-return-to-sport' },
+        { label: 'Masters athlete injuries (40+)', slug: '/what-we-treat/masters-athlete-injuries' },
+      ],
+    },
   },
 ];

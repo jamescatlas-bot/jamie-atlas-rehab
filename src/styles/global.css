@@ -149,3 +149,30 @@
     padding-top: 2rem;
   }
 }
+
+/* Bullet lists inside condition-page copy. The copy strings carry raw <ul>,
+   so these need to be plain element selectors inside @layer components. */
+@layer components {
+  .condition-copy ul {
+    list-style: none;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .condition-copy ul li {
+    position: relative;
+    padding-left: 1.6rem;
+  }
+  .condition-copy ul li::before {
+    content: "";
+    position: absolute;
+    left: 0.25rem;
+    top: 0.75em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 9999px;
+    background: var(--color-primary);
+    opacity: 0.7;
+  }
+}

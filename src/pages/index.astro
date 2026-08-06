@@ -2,6 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site';
 import { REVIEWS, GOOGLE_RATING, REVIEWS_URL } from '../data/reviews';
+import { FEATURED_TESTIMONIALS } from '../data/videos';
+import VideoTestimonial from '../components/VideoTestimonial.astro';
+import PressStrip from '../components/PressStrip.astro';
 
 const problems = [
   {
@@ -18,31 +21,40 @@ const problems = [
   },
 ];
 
-const conditions = [
+const byArea = [
+  {
+    title: 'Back Pain & Sciatica',
+    slug: '/what-we-treat/chronic-back-pain',
+    body: "When PT, chiropractic and injections haven't held. Cognitive Functional Therapy — the approach validated in the 2023 Lancet RESTORE trial.",
+    also: { label: 'Pain running down your leg? Sciatica →', slug: '/what-we-treat/sciatica' },
+  },
+  {
+    title: 'Neck Pain',
+    slug: '/what-we-treat/neck-pain',
+    body: 'Neck pain, stiffness and headaches that keep returning after massage, adjustments or a short course of PT. Build a neck that tolerates your day.',
+  },
+  {
+    title: 'Shoulder Pain',
+    slug: '/what-we-treat/shoulder-pain',
+    body: "Rotator cuff pain, stiffness and shoulders that didn't settle with rest or a cortisone shot. Progressive loading rather than more rest.",
+  },
+  {
+    title: 'Knee Pain',
+    slug: '/what-we-treat/knee-pain',
+    body: 'Arthritis, meniscus problems and knees that flare on stairs or the trail. Strength work that raises what the joint can tolerate.',
+  },
+];
+
+const bySituation = [
   {
     title: 'Post-Surgical Return-to-Sport',
     slug: '/what-we-treat/post-surgical-return-to-sport',
-    body: 'When insurance PT ends but you\'re still not back on the bike, the slopes, or in the gym. The 9-month rebuild your surgeon doesn\'t tell you about.',
-  },
-  {
-    title: 'Chronic Back Pain',
-    slug: '/what-we-treat/chronic-back-pain',
-    body: "When traditional PT, chiropractic, and injections haven't worked. Cognitive Functional Therapy — the approach validated in the 2023 Lancet RESTORE trial.",
-  },
-  {
-    title: 'Persistent Sciatica',
-    slug: '/what-we-treat/sciatica',
-    body: "Radicular leg pain that didn't respond to chiropractic, epidural injections, or short-course physical therapy. Address the nervous-system component most providers miss.",
+    body: "When insurance PT ends but you're still not back on the bike, the slopes, or in the gym. The 9-month rebuild your surgeon doesn't tell you about.",
   },
   {
     title: 'Masters Athlete Injuries',
     slug: '/what-we-treat/masters-athlete-injuries',
-    body: 'For runners, cyclists, skiers, and lifters 40+. Break out of the recurring injury cycle and stay in your sport for the next 20 years.',
-  },
-  {
-    title: 'Cognitive Functional Therapy',
-    slug: '/what-we-treat/cognitive-functional-therapy',
-    body: "The evidence-based approach to chronic pain that most providers don't know — and that most patients with persistent pain need.",
+    body: 'For runners, cyclists, skiers and lifters 40+. Break out of the recurring injury cycle and stay in your sport for the next 20 years.',
   },
 ];
 
@@ -74,13 +86,10 @@ const differentiators = [
       <a href="/book" class="cta-button text-lg">
         Book a 30-minute consultation
       </a>
-      <p class="mt-10 text-sm text-[var(--color-text-muted)]">
-        Featured on <span class="font-semibold text-[var(--color-text)]">9News</span>
-        ·
-        <span class="font-semibold text-[var(--color-text)]">Denver Post</span>
-        ·
-        <span class="font-semibold text-[var(--color-text)]">UPWARD Women</span>
-      </p>
+    </div>
+
+    <div class="mt-14">
+      <PressStrip compact={true} />
     </div>
 
     <div class="max-w-5xl mx-auto mt-16 px-0">
@@ -124,21 +133,70 @@ const differentiators = [
     </div>
   </section>
 
+  <!-- PROOF: VIDEO TESTIMONIALS -->
+  <section class="px-6 py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-5xl mx-auto">
+      <div class="max-w-3xl mx-auto text-center mb-14">
+        <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">What that looks like</p>
+        <h2 class="mb-6">Watch pain change in real time</h2>
+        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
+          Not cures, and not typical of every case. When pain is driven by a protective nervous system rather
+          than damaged tissue, it turns out to be changeable — and that's where the work starts.
+        </p>
+      </div>
+
+      <div class="grid gap-14">
+        {FEATURED_TESTIMONIALS.map(v => <VideoTestimonial video={v} />)}
+      </div>
+
+      <p class="text-center mt-12">
+        <a href="/testimonials" class="font-semibold">See more client results →</a>
+      </p>
+    </div>
+  </section>
+
   <!-- WHAT WE TREAT -->
   <section class="px-6 py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-center mb-14">What we treat</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {conditions.map(c => (
+      <h2 class="text-center mb-4">Start here if you're in pain</h2>
+      <p class="text-center text-[var(--color-text-muted)] max-w-2xl mx-auto mb-14">
+        Pick the part that's stopping you. Same method behind all four — what changes is what we find driving it.
+      </p>
+      <div class="grid md:grid-cols-2 gap-6">
+        {byArea.map(c => (
+          <div class="p-7 border border-[var(--color-border)] rounded-xl bg-[var(--color-background)] hover:border-[var(--color-primary)] transition-all">
+            <h3 class="mb-3">
+              <a href={c.slug} class="text-[var(--color-primary)] no-underline">{c.title}</a>
+            </h3>
+            <p class="text-[var(--color-text-muted)] text-base leading-relaxed">{c.body}</p>
+            {c.also && (
+              <p class="mt-4 text-sm"><a href={c.also.slug}>{c.also.label}</a></p>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <h2 class="text-center mt-24 mb-4">Start here if your doctor already cleared you</h2>
+      <p class="text-center text-[var(--color-text-muted)] max-w-2xl mx-auto mb-14">
+        Signed off, told you're fine, and still nowhere near the bike, the slopes or the barbell.
+      </p>
+      <div class="grid md:grid-cols-2 gap-6">
+        {bySituation.map(c => (
           <a
             href={c.slug}
             class="block p-7 border border-[var(--color-border)] rounded-xl bg-[var(--color-background)] hover:border-[var(--color-primary)] hover:shadow-sm transition-all no-underline"
           >
-            <h3 class="mb-3 text-[var(--color-primary)]">{c.title}</h3>
+            <h4 class="mb-3 text-[var(--color-primary)]">{c.title}</h4>
             <p class="text-[var(--color-text-muted)] text-base leading-relaxed">{c.body}</p>
           </a>
         ))}
       </div>
+
+      <p class="text-center mt-16 text-lg">
+        Both routes run on the same method —
+        <a href="/what-we-treat/cognitive-functional-therapy">Cognitive Functional Therapy</a>,
+        plus thirty years of strength coaching.
+      </p>
     </div>
   </section>
 

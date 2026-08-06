@@ -85,6 +85,38 @@ export const SITE = {
     { name: 'UPWARD Women', label: 'Featured by UPWARD Women' },
   ],
 
+  // ===========================================================================
+  // "AS FEATURED IN" STRIP — homepage, under the hero.
+  //
+  // Confirmed by Jamie 2026-08-06: he appeared in all six.
+  //
+  // `file` is optional. Leave it out and the strip renders a styled wordmark,
+  // which looks finished on its own. To swap in a real logo:
+  //   1. drop the file into  public/
+  //   2. set  file: 'logo-9news.svg'  on that entry
+  // Nothing else changes. Prefer SVG; a transparent PNG is fine.
+  //
+  // The strip forces everything to one grey, so low-res files hold up far
+  // better here than they would at full colour.
+  // ===========================================================================
+  // `h` is the on-page height in px on desktop (mobile renders at 85%).
+  // It is set PER LOGO on purpose. A single shared height does not work here:
+  // FOX31 is a tall stacked box and The Denver Post is a 10:1 wordmark, so the
+  // same 32px would leave one unreadably narrow and the other 300px wide. These
+  // numbers are tuned so each mark carries roughly equal visual weight.
+  //
+  // Files live in public/press/. They were trimmed to their artwork and had
+  // their background flooded to transparent, so the heights below are real
+  // artwork heights, not padded canvas.
+  PRESS_OUTLETS: [
+    { name: 'FOX31', file: 'press/fox31.png', h: 54 },
+    { name: 'Denver7', file: 'press/denver7.png', h: 40 },
+    { name: '9NEWS', file: 'press/9news.png', h: 50 },
+    { name: '5280', file: 'press/5280.png', h: 34 },
+    { name: 'The Denver Post', file: 'press/denverpost.png', h: 17 },
+    { name: "Runner's World", file: 'press/runnersworld.png', h: 17 },
+  ],
+
   credentials: [
     { name: 'Cognitive Functional Therapy (CFT)', short: 'CFT' },
     { name: 'NSCA Certified Strength & Conditioning Specialist', short: 'NSCA-CSCS' },
@@ -92,3 +124,5 @@ export const SITE = {
     { name: 'BSc Neuroscience, University of Western Australia', short: 'BSc Neuroscience' },
   ],
 } as const;
+
+export const PRESS = SITE.PRESS_OUTLETS;
