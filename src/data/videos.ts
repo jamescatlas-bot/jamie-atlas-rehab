@@ -363,7 +363,24 @@ export const LEAD_TESTIMONIAL: Testimonial = {
   uploadDate: '2026-07-30',
 };
 
-export const FEATURED_TESTIMONIALS = TESTIMONIAL_VIDEOS.filter(t => t.featured);
+/**
+ * Homepage proof chain, in JAMIE'S CHOSEN ORDER (2026-08-07):
+ * Katrina leads, then Sandy (the tears), then Heather (the 10/10).
+ *
+ * Explicit ID list rather than file order, because the entries' positions in
+ * TESTIMONIAL_VIDEOS drive the condition pages' first-three — reordering the
+ * array to change the homepage would silently reshuffle those pages too.
+ * The `featured: true` flags on these three entries are documentation only.
+ */
+const FEATURED_ORDER = [
+  'T01Y32utAXU', // Katrina — 4 weeks of 6/10 back pain → 0/10 in 50 minutes
+  '-gdriOBWpS0', // Sandy — 3 years of 8/10 neck pain → 0, tears of happiness
+  '31I4nnADI_s', // Heather — 6 weeks of 10/10 shoulder nerve pain → 1/10
+];
+
+export const FEATURED_TESTIMONIALS = FEATURED_ORDER
+  .map(id => TESTIMONIAL_VIDEOS.find(t => t.id === id))
+  .filter((t): t is Testimonial => Boolean(t));
 
 /**
  * Videos for one condition page.
