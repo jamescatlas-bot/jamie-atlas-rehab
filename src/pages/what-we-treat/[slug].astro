@@ -74,6 +74,17 @@ const faqSchema = {
       </p>
       <h1 class="mb-8">{condition.title}</h1>
       <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed" set:html={condition.intro} />
+      <!-- Cold-traffic trust anchor: these pages receive first-touch visitors
+           (business-card QR jamieatlas.com/ready lands on post-surgical; future
+           Google Ads land here too). One line of who-is-this. -->
+      <p class="mt-6 text-base font-semibold text-[var(--color-primary)]">
+        Jamie Atlas — Pain &amp; Performance Specialist · 5× 5280 Top of the Town winner · 9NEWS Fitness Expert
+      </p>
+      <!-- Early CTA: without this, a phone visitor's first Book button is
+           several screens down. QR and ad traffic needs one near the top. -->
+      <p class="mt-7">
+        <a href="/book" class="cta-button">Book a 30-minute consultation</a>
+      </p>
     </div>
   </section>
 
