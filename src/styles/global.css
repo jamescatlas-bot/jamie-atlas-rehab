@@ -1,18 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1a4d3e;
-  --color-primary-dark: #143a30;
-  --color-accent: #c8a664;
-  --color-accent-dark: #b89554;
+  /* Brand palette — matched to the Jamie Atlas logo (JA_LogoReversedBlue).
+     Logo blue sampled at #0079C2. It passes WCAG AA on white (4.65:1),
+     so it's safe for links and button text. primary-dark is the hover shade. */
+  --color-primary: #0079C2;
+  --color-primary-dark: #00609A;
+  --color-accent: #F5921E;
+  --color-accent-dark: #E07E0A;
   --color-text: #1a1a1a;
   --color-text-muted: #525252;
-  --color-background: #fafaf7;
+  --color-background: #f7fafd;
   --color-surface: #ffffff;
-  --color-border: #e5e5e0;
+  --color-border: #e1e8ee;
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-serif: 'Lora', Georgia, serif;
+  /* NOTE: the variable is still named --font-serif because the markup uses
+     Tailwind's font-serif class throughout, but the display face is now
+     Quicksand — the rounded geometric sans that matches the logo lettering. */
+  --font-serif: 'Quicksand', 'Inter', -apple-system, sans-serif;
 }
 
 /* IMPORTANT: base and component styles must live inside @layer.
@@ -53,7 +59,9 @@
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
     font-weight: 600;
-    letter-spacing: -0.015em;
+    /* Quicksand is a rounded geometric — negative tracking makes the round
+       letterforms collide, so headings sit at neutral tracking. */
+    letter-spacing: 0;
     margin: 0;
     /* stop long headline words orphaning on narrow screens */
     text-wrap: balance;
@@ -122,6 +130,18 @@
   .cta-button-accent:hover {
     background-color: var(--color-accent-dark);
     color: var(--color-text) !important;
+  }
+
+  /* Footer sits on the brand blue — default link blue would vanish, so links
+     inside .footer-brand render white with a soft underline. */
+  .footer-brand a {
+    color: #ffffff;
+    text-decoration-color: rgba(255, 255, 255, 0.45);
+  }
+
+  .footer-brand a:hover {
+    color: #ffffff;
+    text-decoration-color: #ffffff;
   }
 
   .text-on-dark {

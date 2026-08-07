@@ -6,7 +6,7 @@ const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Jamie Atlas',
-  jobTitle: 'Rehabilitation Specialist & Strength Coach',
+  jobTitle: 'Pain & Performance Specialist',
   worksFor: { '@type': 'MedicalBusiness', name: SITE.name, url: SITE.url },
   url: `${SITE.url}/about`,
   email: SITE.contact.email,
@@ -22,14 +22,17 @@ const personSchema = {
 
 <BaseLayout
   title="About Jamie Atlas"
-  description="Jamie Atlas: BSc Neuroscience, 30 years of strength coaching, Cognitive Functional Therapy practitioner in Denver. The story behind the method."
+  description="Jamie Atlas, Pain & Performance Specialist in Denver: BSc Neuroscience, 30 years of strength coaching, certified in Cognitive Functional Therapy. The story behind the method."
 >
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
   <section class="px-6 pt-16 pb-12 md:pt-24">
     <div class="max-w-3xl mx-auto">
       <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">About</p>
-      <h1 class="mb-8">Thirty years of learning why bodies hurt — and how they heal</h1>
+      <h1 class="mb-5">Thirty years of learning why bodies hurt — and how they heal</h1>
+      <p class="text-xl font-semibold text-[var(--color-text)] mb-8">
+        Jamie Atlas, Pain &amp; Performance Specialist — certified in Cognitive Functional Therapy
+      </p>
     </div>
   </section>
 
@@ -37,7 +40,7 @@ const personSchema = {
     <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
       <img
         src="/jamie-portrait.jpg"
-        alt="Jamie Atlas, Cognitive Functional Therapist and strength coach in Denver"
+        alt="Jamie Atlas, Pain & Performance Specialist and strength coach in Denver"
         width="900"
         height="900"
         loading="lazy"

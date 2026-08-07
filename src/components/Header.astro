@@ -14,16 +14,26 @@ const nav = [
     <!-- whitespace-nowrap stops the wordmark breaking onto two lines on phones -->
     <a
       href="/"
-      class="font-serif text-lg sm:text-xl font-semibold no-underline text-[var(--color-text)] leading-none whitespace-nowrap shrink-0"
+      class="flex items-center gap-2.5 sm:gap-3 font-serif text-lg sm:text-xl font-bold no-underline text-[var(--color-primary)] uppercase tracking-[0.08em] leading-none whitespace-nowrap shrink-0"
     >
-      Jamie Atlas <span class="hidden md:inline">Rehabilitation</span>
+      <!-- Blue JA logo card so visitors know they're in the right place (Jamie, 2026-08-06) -->
+      <img
+        src="/logo-blue.png"
+        alt=""
+        width="400"
+        height="200"
+        class="h-9 sm:h-10 w-auto"
+      />
+      <!-- Jamie 2026-08-07: name lives in the logo card, so the text beside it
+           is the service line, not the name. -->
+      <span class="normal-case tracking-normal font-semibold text-sm sm:text-base xl:text-lg">Personal Training &amp; Rehabilitation</span>
     </a>
 
-    <nav class="hidden lg:flex items-center gap-7">
+    <nav class="hidden lg:flex items-center gap-5 xl:gap-7">
       {nav.map(item => (
         <a
           href={item.href}
-          class="text-sm no-underline text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+          class="text-sm no-underline whitespace-nowrap text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
         >
           {item.label}
         </a>
@@ -31,8 +41,10 @@ const nav = [
     </nav>
 
     <div class="flex items-center gap-1 sm:gap-3">
-      <!-- Compact on phones so the wordmark, CTA and menu all fit in 390px -->
-      <a href="/book" class="cta-button text-sm whitespace-nowrap px-3.5 py-2.5 sm:px-7 sm:py-3.5">
+      <!-- Jamie 2026-08-07: no Book button in the header on phones — the hero
+           CTA is already on the first screen. Desktop keeps it (the header is
+           sticky, so it's the persistent CTA once the hero scrolls away). -->
+      <a href="/book" class="cta-button text-sm whitespace-nowrap hidden sm:inline-block sm:px-7 sm:py-3.5">
         Book<span class="hidden sm:inline"> consultation</span>
       </a>
 

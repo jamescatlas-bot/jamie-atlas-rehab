@@ -2,22 +2,45 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site';
 import { REVIEWS, GOOGLE_RATING, REVIEWS_URL } from '../data/reviews';
-import { FEATURED_TESTIMONIALS } from '../data/videos';
+import { FEATURED_TESTIMONIALS, TESTIMONIAL_VIDEOS } from '../data/videos';
 import VideoTestimonial from '../components/VideoTestimonial.astro';
 import PressStrip from '../components/PressStrip.astro';
 
-const problems = [
+// Homepage structure decided with Jamie 2026-08-06:
+//  1. Hero names all THREE client segments (hurt-and-lost / cleared-but-not-
+//     ready / train-without-reinjury) — see memory: niche_post_surgical_rts.
+//  2. Video proof moves to position 2. His in-person close is "show one video,
+//     they say wow, show two more" — the page now does that before asking the
+//     visitor to read anything long. See memory: video_proof_loop.
+//  3. Credibility = 6× 5280 Top of the Town + 3 years as 9NEWS fitness expert.
+//     The Lancet section is DEMOTED to one linking line — regular humans don't
+//     know or care about the Lancet. See memory: credibility_hierarchy.
+
+// Count of pain-change clips. Deliberately excludes the Tom H. lead
+// testimonial — it's a lifestyle interview, not a before/after pain demo, and
+// Jamie's own count of "every video shows a result" is these 23.
+const clipCount = TESTIMONIAL_VIDEOS.length;
+
+// The three doors — headings and sublines are Jamie's own words (2026-08-06),
+// in his order: cleared-but-not-ready LEFT, still-in-pain MIDDLE, reinjury RIGHT.
+const doors = [
   {
-    title: 'The rehab ran out before you were back',
-    body: "Twelve sessions, a discharge note, and a body that still can't do the thing you actually miss. <strong>Nobody in that chain was paid to take you the rest of the way.</strong> That distance is where this work lives.",
+    title: 'Cleared by your PT but still not ready for sport/life',
+    body: "<strong>No plan ever worked without first understanding where you've been and what you're going through.</strong>",
+    cta: 'The rebuild nobody was paid to give you →',
+    href: '/what-we-treat/post-surgical-return-to-sport',
   },
   {
-    title: 'The relief never lasted',
-    body: "PT, chiropractic, injections, a new mattress. Each one turned the volume down for a couple of weeks. <strong>You don't need more relief — you need to stop needing it.</strong>",
+    title: "You've tried everything and you're still in pain",
+    body: '<strong>The system sometimes lets us down. Where it drops off is where we begin.</strong>',
+    cta: 'Start with the part that hurts →',
+    href: '#pick-the-part',
   },
   {
-    title: 'Cleared, and still not trusting it',
-    body: "Your surgeon says the joint is fine. Your body has not agreed to that yet. <strong>You don't talk yourself out of that. You out-train it</strong> — one graded step at a time.",
+    title: "You want to work out but you're worried about reinjuring your body",
+    body: "<strong>It's our job to personalize your exercises to set you up for success.</strong>",
+    cta: 'Train for your sport, with a safety net →',
+    href: '/what-we-treat/masters-athlete-injuries',
   },
 ];
 
@@ -45,16 +68,23 @@ const byArea = [
   },
 ];
 
-const bySituation = [
+// Numbers corrected by Jamie 2026-08-06: FIVE 5280 wins (not six), and he is
+// STILL the 9NEWS fitness expert — present tense, no year count on it.
+const credentials = [
   {
-    title: 'Post-Surgical Return-to-Sport',
-    slug: '/what-we-treat/post-surgical-return-to-sport',
-    body: "Someone wrote \"functional\" on a form and the referral ran out. You didn't have surgery to be functional. This is the six-to-nine month rebuild nobody was paid to give you.",
+    stat: '5×',
+    label: '5280 Top of the Town winner',
+    detail: "Voted one of Denver's best five times in 5280 Magazine's annual Top of the Town awards.",
   },
   {
-    title: 'Masters Athlete Injuries',
-    slug: '/what-we-treat/masters-athlete-injuries',
-    body: 'Runners, cyclists, skiers and lifters over 40. Train, break, rest, repeat — and each lap costs more than the last. The injuries are not the problem. The cycle is.',
+    stat: '9NEWS',
+    label: 'Fitness Expert',
+    detail: "The on-air fitness expert for Denver's biggest news station. You may already know this face.",
+  },
+  {
+    stat: '20+ yrs',
+    label: 'Helping Coloradans move and perform at their best',
+    detail: "Jamie arrived in 2001 after working at the Sydney Olympics. He's been helping every Coloradan looking for recovery, rehabilitation, or an edge over their competition — from recreational youth athletes to UFC, NFL, NBA and NHL athletes.",
   },
 ];
 
@@ -74,80 +104,57 @@ const differentiators = [
 >
 
   <!-- HERO -->
-  <section class="px-6 pt-16 pb-20 md:pt-28 md:pb-28">
+  <section class="px-6 pt-16 pb-16 md:pt-24 md:pb-20">
     <div class="max-w-4xl mx-auto text-center">
       <h1 class="mb-6">
-        Get out of chronic pain.<br />
-        Get back to your sport.
+        Get out of pain.<br />
+        Get your body back.
       </h1>
-      <p class="text-xl md:text-2xl text-[var(--color-text-muted)] max-w-2xl mx-auto mb-10 leading-snug">
-        Cognitive Functional Therapy + 30 years of strength coaching, for Denver adults 40+ who refuse to slow down.
+      <!-- Subline + three bullets are Jamie's wording, 2026-08-07 -->
+      <p class="text-xl md:text-2xl text-[var(--color-text-muted)] max-w-3xl mx-auto mb-5 leading-snug">
+        A specialty rehabilitation &amp; sports performance studio in downtown Denver
+        — for when you're:
+      </p>
+      <ul class="inline-block text-left list-disc pl-6 marker:text-[var(--color-primary)] text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed mb-7 space-y-1">
+        <li>hurt and out of answers</li>
+        <li>cleared by your therapist but don't feel ready to return</li>
+        <li>looking for a training program that won't aggravate your injuries</li>
+      </ul>
+      <p class="text-base font-semibold text-[var(--color-primary)] mb-9">
+        <span class="block">5× 5280 Top of the Town winner</span>
+        <span class="block mt-1">9NEWS Fitness Expert</span>
       </p>
       <a href="/book" class="cta-button text-lg">
         Book a 30-minute consultation
       </a>
     </div>
 
-    <div class="mt-14">
+    <div class="mt-12">
       <PressStrip compact={true} />
     </div>
-
-    <div class="max-w-5xl mx-auto mt-16 px-0">
-      <img
-        src="/studio-coaching.jpg"
-        alt="Jamie Atlas coaching two clients through a movement assessment at his downtown Denver studio"
-        width="1400"
-        height="718"
-        fetchpriority="high"
-        class="rounded-2xl border border-[var(--color-border)] w-full"
-      />
-    </div>
   </section>
 
-  <!-- THE PROBLEM -->
+  <!-- PROOF FIRST: the in-person close ("watch this") is now the page's second beat -->
   <section class="px-6 py-20 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-center mb-6">If any of this sounds familiar, you're in the right place</h2>
-      <p class="text-center text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto mb-14 leading-relaxed">
-        Most people who find this studio have already been somewhere else. Often several somewheres.
-        <strong class="text-[var(--color-text)]">We get it.</strong>
-      </p>
-      <div class="grid md:grid-cols-3 gap-10 md:gap-12">
-        {problems.map(p => (
-          <div>
-            <h3 class="mb-4">{p.title}</h3>
-            <p class="text-[var(--color-text-muted)] leading-relaxed" set:html={p.body} />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- THE LANCET CREDIBILITY HAMMER -->
-  <section class="px-6 py-24">
-    <div class="max-w-3xl mx-auto text-center">
-      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">The evidence</p>
-      <h2 class="mb-8">Backed by science most providers were never taught</h2>
-      <p class="text-lg md:text-xl text-[var(--color-text-muted)] mb-6 leading-relaxed">
-        <strong class="text-[var(--color-text)]">Plenty of things help chronic pain for six weeks.</strong> Very little is still ahead of usual care three years later.
-        Cognitive Functional Therapy is. In the <strong class="text-[var(--color-text)]">2023 Lancet RESTORE trial</strong> — and again at the three-year follow-up published in 2025 — it produced large, durable improvements in pain and disability.
-      </p>
-      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
-        Then I add the part most CFT practitioners can't: three decades of strength coaching, so the change has something to stand on.
-        Calming a pain system without rebuilding capacity is temporary. Rebuilding capacity without calming it never gets started.
-      </p>
-    </div>
-  </section>
-
-  <!-- PROOF: VIDEO TESTIMONIALS -->
-  <section class="px-6 py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-5xl mx-auto">
       <div class="max-w-3xl mx-auto text-center mb-14">
-        <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">What that looks like</p>
+        <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Don't take our word for anything</p>
         <h2 class="mb-6">Watch pain change in real time</h2>
-        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
-          Not cures, and not typical of every case. When pain is driven by a protective nervous system rather
-          than damaged tissue, it turns out to be changeable — and that's where the work starts.
+        <!-- Intro copy is Jamie's own words, 2026-08-06 -->
+        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-5">
+          Real clients, on camera, sharing the pain they are in before and after.
+          Your results may vary, but their results (and reactions) are 100% genuine.
+          When pain persists, sometimes the answer is more than just telling you to
+          "breathe through it." When utilizing other neuroscience-based systems as part
+          of a tolerable-movement integrated program, sometimes pain turns out to be changeable.
+        </p>
+        <p class="text-lg text-[var(--color-text)] font-semibold mb-6">
+          The videos below are examples of what's possible.
+        </p>
+        <p class="text-lg leading-relaxed">
+          There are {clipCount} of these videos on this site.<br />
+          One video is luck.<br />
+          <strong class="text-[var(--color-primary)]">{clipCount} shows a pattern of results you might not have thought possible.</strong>
         </p>
       </div>
 
@@ -156,17 +163,41 @@ const differentiators = [
       </div>
 
       <p class="text-center mt-12">
-        <a href="/testimonials" class="font-semibold">See more client results →</a>
+        <a href="/testimonials" class="font-semibold">Watch more — all {clipCount}, sorted by body part →</a>
       </p>
     </div>
   </section>
 
-  <!-- WHAT WE TREAT -->
-  <section class="px-6 py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+  <!-- THE THREE DOORS -->
+  <section class="px-6 py-24">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-center mb-4">Start here if you're in pain</h2>
+      <h2 class="text-center mb-6">Three kinds of people walk in here</h2>
+      <p class="text-center text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto mb-14 leading-relaxed">
+        Most of them have already been somewhere else. Often several somewheres.
+        <strong class="text-[var(--color-text)]">We get it.</strong> Find yourself below.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6">
+        {doors.map(d => (
+          <a
+            href={d.href}
+            class="flex flex-col p-7 border-2 border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] hover:border-[var(--color-primary)] hover:shadow-md transition-all no-underline"
+          >
+            <h3 class="mb-4 text-[var(--color-primary)]">{d.title}</h3>
+            <p class="text-[var(--color-text-muted)] leading-relaxed mb-6" set:html={d.body} />
+            <span class="mt-auto font-semibold text-[var(--color-primary)]">{d.cta}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PICK THE PART (door 1 lands here) -->
+  <section id="pick-the-part" class="px-6 py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)] scroll-mt-20">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-center mb-4">Pick the part that's stopping you</h2>
       <p class="text-center text-[var(--color-text-muted)] max-w-2xl mx-auto mb-14">
-        Pick the part that's stopping you. Same method behind all four — what changes is what we find driving it.
+        Same method behind all four — what changes is what we find driving it.
+        Each page has client videos for that body part.
       </p>
       <div class="grid md:grid-cols-2 gap-6">
         {byArea.map(c => (
@@ -182,32 +213,42 @@ const differentiators = [
         ))}
       </div>
 
-      <h2 class="text-center mt-24 mb-4">Start here if your doctor already cleared you</h2>
-      <p class="text-center text-[var(--color-text-muted)] max-w-2xl mx-auto mb-14">
-        Signed off, told you're fine, and still nowhere near the bike, the slopes or the barbell.
+      <!-- Decision 2026-08-06: CFT always travels with a plain-English
+           descriptor — the name means nothing to consumers on its own. -->
+      <p class="text-center mt-16 text-lg">
+        Every route runs on the same method —
+        <a href="/what-we-treat/cognitive-functional-therapy">Cognitive Functional Therapy</a>:
+        retraining how your body and nervous system respond to pain, backed by
+        thirty years of strength coaching.
       </p>
-      <div class="grid md:grid-cols-2 gap-6">
-        {bySituation.map(c => (
-          <a
-            href={c.slug}
-            class="block p-7 border border-[var(--color-border)] rounded-xl bg-[var(--color-background)] hover:border-[var(--color-primary)] hover:shadow-sm transition-all no-underline"
-          >
-            <h4 class="mb-3 text-[var(--color-primary)]">{c.title}</h4>
-            <p class="text-[var(--color-text-muted)] text-base leading-relaxed">{c.body}</p>
-          </a>
+    </div>
+  </section>
+
+  <!-- CREDIBILITY: local standing first; the science gets one linking line -->
+  <section class="px-6 py-24">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-center mb-14">You may already know this studio</h2>
+      <div class="grid md:grid-cols-3 gap-10 md:gap-12 text-center">
+        {credentials.map(c => (
+          <div>
+            <p class="font-serif font-bold text-5xl text-[var(--color-primary)] mb-2">{c.stat}</p>
+            <h3 class="mb-3">{c.label}</h3>
+            <p class="text-[var(--color-text-muted)] leading-relaxed">{c.detail}</p>
+          </div>
         ))}
       </div>
-
-      <p class="text-center mt-16 text-lg">
-        Both routes run on the same method —
-        <a href="/what-we-treat/cognitive-functional-therapy">Cognitive Functional Therapy</a>,
-        plus thirty years of strength coaching.
+      <p class="text-center mt-14 text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
+        All of it under one roof:
+        <strong class="text-[var(--color-text)]">Jamie Atlas, Pain &amp; Performance Specialist</strong>
+        — certified in Cognitive Functional Therapy, a method for retraining how your
+        body and nervous system respond to pain.
+        <a href="/what-we-treat/cognitive-functional-therapy">How it works →</a>
       </p>
     </div>
   </section>
 
   <!-- HOW IT'S DIFFERENT -->
-  <section class="px-6 py-24">
+  <section class="px-6 py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">
       <h2 class="text-center mb-14">How this is different from what you've tried</h2>
       <ul class="space-y-5">
@@ -222,23 +263,89 @@ const differentiators = [
   </section>
 
   <!-- REVIEWS -->
-  <section class="px-6 py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+  <section class="px-6 py-24">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-center mb-4">Rated {GOOGLE_RATING.stars.toFixed(1)} on Google</h2>
       <p class="text-center text-[var(--color-text-muted)] mb-14">Verbatim, verifiable, unpaid.</p>
-      <div class="grid md:grid-cols-3 gap-8">
-        {REVIEWS.slice(0, 3).map(r => (
-          <blockquote class="border-l-4 border-[var(--color-primary)] pl-5">
-            <p class="leading-relaxed mb-3">"{r.text}"</p>
+<!-- Rotating review wheel (Jamie, 2026-08-06): one review at a time, advances
+     every 7 seconds. Plain inline JS, no library — zero page-speed cost.
+     Pauses on hover, stops entirely for reduced-motion users, and shows the
+     first review statically if JavaScript is off. -->
+      <div id="review-wheel" class="relative max-w-2xl mx-auto min-h-[13rem] sm:min-h-[11rem]">
+        {REVIEWS.map((r, i) => (
+          <blockquote
+            class={`review-slide border-l-4 border-[var(--color-primary)] pl-5 absolute inset-x-0 top-0 transition-opacity duration-700 ${i === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            data-slide={i}
+          >
+            <p class="leading-relaxed mb-3 text-lg">"{r.text}"</p>
             <footer class="text-sm text-[var(--color-text-muted)]">— {r.name}</footer>
           </blockquote>
         ))}
       </div>
+      <div class="flex justify-center gap-2.5 mt-6" id="review-dots" aria-hidden="true">
+        {REVIEWS.map((_, i) => (
+          <button
+            class={`review-dot w-2.5 h-2.5 rounded-full border-0 p-0 cursor-pointer transition-colors ${i === 0 ? 'bg-[var(--color-primary)]' : 'bg-[var(--color-border)]'}`}
+            data-dot={i}
+            aria-label={`Show review ${i + 1}`}
+          ></button>
+        ))}
+      </div>
+
+      <script is:inline>
+        (function () {
+          var slides = document.querySelectorAll('.review-slide');
+          var dots = document.querySelectorAll('.review-dot');
+          if (slides.length < 2) return;
+          var current = 0;
+          var paused = false;
+          var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+          function show(i) {
+            slides[current].classList.remove('opacity-100');
+            slides[current].classList.add('opacity-0', 'pointer-events-none');
+            dots[current].style.background = 'var(--color-border)';
+            current = i;
+            slides[current].classList.remove('opacity-0', 'pointer-events-none');
+            slides[current].classList.add('opacity-100');
+            dots[current].style.background = 'var(--color-primary)';
+          }
+
+          dots.forEach(function (d) {
+            d.addEventListener('click', function () { show(+d.dataset.dot); });
+          });
+
+          var wheel = document.getElementById('review-wheel');
+          wheel.addEventListener('mouseenter', function () { paused = true; });
+          wheel.addEventListener('mouseleave', function () { paused = false; });
+
+          if (!reduced) {
+            setInterval(function () {
+              if (!paused) show((current + 1) % slides.length);
+            }, 7000);
+          }
+        })();
+      </script>
+
       <p class="text-center mt-12">
         <a href="/reviews" class="font-semibold">More client reviews →</a>
         <span class="text-[var(--color-text-muted)] px-2">·</span>
         <a href={REVIEWS_URL}>See all {GOOGLE_RATING.count} on Google</a>
       </p>
+    </div>
+  </section>
+
+  <!-- STUDIO PHOTO — proof of place, just before the ask -->
+  <section class="px-6 pb-4">
+    <div class="max-w-5xl mx-auto">
+      <img
+        src="/studio-coaching.jpg"
+        alt="Jamie Atlas coaching two clients through a movement assessment at his downtown Denver studio"
+        width="1400"
+        height="718"
+        loading="lazy"
+        class="rounded-2xl border border-[var(--color-border)] w-full"
+      />
     </div>
   </section>
 

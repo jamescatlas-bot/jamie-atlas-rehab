@@ -4,13 +4,13 @@ import { SITE } from '../data/site';
 import { PRESS_VIDEOS } from '../data/videos';
 import PressStrip from '../components/PressStrip.astro';
 
-// ⚠️ JAMIE — READ BEFORE THIS GOES LIVE.
-// The homepage strip now shows six logos, so this page has to account for all
-// six or it reads as a claim you can't back. These notes are written to be
-// defensible without naming a specific segment or article, because I don't
-// have the links. Where you DO have a link, say what it was and link it —
-// a dated, linked appearance is worth far more than a general line.
-// Anything below you wouldn't say out loud to a client: cut it.
+// The homepage strip shows six logos, so this page accounts for all of them —
+// a strip that claims more outlets than the page can name reads as a bluff.
+//
+// Jamie confirmed 2026-08-06 he appeared in all of these and will NOT be
+// supplying segment or article links. So these notes are deliberately written
+// to be true and defensible without naming a dated item. Don't add specifics
+// that aren't evidenced, and don't ask him for links again.
 const OUTLET_NOTES = [
   {
     name: '9NEWS',
@@ -44,7 +44,7 @@ const OUTLET_NOTES = [
 ---
 
 <BaseLayout
-  title="Press & Media"
+  title="Press & Media — Jamie Atlas, Denver"
   description="Jamie Atlas in the media — 9NEWS, FOX31, Denver7, 5280, The Denver Post and Runner's World. Segments, contributions and expert commentary from 30 years of Denver coaching."
 >
   <section class="px-6 pt-16 pb-12 md:pt-24">

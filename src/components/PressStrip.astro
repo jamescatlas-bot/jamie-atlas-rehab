@@ -6,9 +6,8 @@
 // adding a real logo is a one-line change: drop the file into public/ and set
 // `file` on that entry in site.ts. No layout work needed either way.
 //
-// Logos are forced to a single grey via a CSS filter. Six outlets in six brand
-// colours reads as a jumble of stickers; one grey reads as a press row. On
-// hover, and for anyone who prefers reduced motion, they resolve to full colour.
+// Logos render in FULL COLOUR — Jamie's call (2026-08-06): the strip is a
+// credibility play and grey logos didn't pop. Do not re-add a grayscale filter.
 //
 // Heights are normalised in CSS rather than by cropping the files, because
 // wordmarks (Denver Post) and badges (9NEWS) need different optical sizing to
@@ -59,23 +58,8 @@ const { heading = 'As seen in & contributed to', compact = false } = Astro.props
 <style>
   .press-logo,
   .press-wordmark {
-    filter: grayscale(100%);
-    opacity: 0.55;
-    transition:
-      opacity 0.2s ease,
-      filter 0.2s ease;
-  }
-
-  .press-strip li:hover .press-logo,
-  .press-strip li:hover .press-wordmark {
-    filter: grayscale(0%);
-    opacity: 1;
-  }
-
-  /* A wordmark has no artwork to desaturate, so fade it instead. */
-  .press-wordmark {
     filter: none;
-    opacity: 0.7;
+    opacity: 1;
   }
 
   /* Desktop steps each logo up to its full tuned height (set inline as --h-md).

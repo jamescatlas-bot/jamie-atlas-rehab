@@ -16,23 +16,33 @@ const pages = [
 ];
 ---
 
-<footer class="border-t border-[var(--color-border)] bg-[var(--color-surface)] mt-24">
+<!-- Brand-blue footer band: the reversed (white) logo lives here, on the same
+     blue it was designed for. Link colors are handled by .footer-brand in
+     global.css because the base `a` color would vanish on this background. -->
+<footer class="footer-brand bg-[var(--color-primary)] text-white mt-24">
   <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-12 text-sm">
 
     <div>
-      <p class="font-serif text-lg font-semibold mb-4">{SITE.name}</p>
-      <address class="not-italic text-[var(--color-text-muted)] leading-relaxed">
+      <img
+        src="/logo-white.png"
+        alt={`${SITE.name} — Love Your Body`}
+        width="560"
+        height="212"
+        loading="lazy"
+        class="w-44 h-auto mb-5"
+      />
+      <address class="not-italic text-white/85 leading-relaxed">
         {SITE.contact.address.street}<br />
         {SITE.contact.address.level}<br />
         {SITE.contact.address.city}, {SITE.contact.address.state} {SITE.contact.address.zip}
       </address>
-      <p class="mt-4 text-[var(--color-text-muted)] leading-relaxed">
+      <p class="mt-4 text-white/85 leading-relaxed">
         Serving {SITE.serviceArea.join(', ')}.
       </p>
     </div>
 
     <div>
-      <p class="font-semibold mb-4 text-[var(--color-text)]">Pages</p>
+      <p class="font-semibold mb-4 text-white">Pages</p>
       <ul class="space-y-2">
         {pages.map(p => (
           <li><a href={p.href}>{p.label}</a></li>
@@ -41,7 +51,7 @@ const pages = [
     </div>
 
     <div>
-      <p class="font-semibold mb-4 text-[var(--color-text)]">Contact</p>
+      <p class="font-semibold mb-4 text-white">Contact</p>
       <ul class="space-y-2">
         <li><a href={`tel:${SITE.contact.phoneTel}`}>{SITE.contact.phone}</a></li>
         <li><a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a></li>
@@ -51,8 +61,8 @@ const pages = [
     </div>
 
     <div>
-      <p class="font-semibold mb-4 text-[var(--color-text)]">Hours</p>
-      <ul class="space-y-2 text-[var(--color-text-muted)]">
+      <p class="font-semibold mb-4 text-white">Hours</p>
+      <ul class="space-y-2 text-white/85">
         <li>Monday – Friday: {SITE.hours.weekdays}</li>
         <li>Saturday: {SITE.hours.saturday}</li>
         <li>Sunday: {SITE.hours.sunday}</li>
@@ -61,7 +71,7 @@ const pages = [
 
   </div>
 
-  <div class="border-t border-[var(--color-border)] py-6 px-6 text-center text-xs text-[var(--color-text-muted)]">
+  <div class="border-t border-white/20 py-6 px-6 text-center text-xs text-white/75">
     © {year} {SITE.name}. Formerly Bonza Bodies Fitness. All rights reserved.
   </div>
 </footer>

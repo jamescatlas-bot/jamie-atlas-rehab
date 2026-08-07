@@ -4,6 +4,16 @@ import { REVIEWS_URL } from '../data/reviews';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+// Fonts are self-hosted via @fontsource (bundled by Astro) instead of the old
+// Google Fonts <link> — no render-blocking third-party request, and the brand
+// font (Quicksand, matched to the logo lettering) always loads.
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/quicksand/500.css';
+import '@fontsource/quicksand/600.css';
+import '@fontsource/quicksand/700.css';
 
 interface Props {
   title: string;
@@ -24,7 +34,9 @@ const founderSchema = {
   '@type': 'Person',
   '@id': `${SITE.url}/#jamie`,
   name: 'Jamie Atlas',
-  jobTitle: 'Cognitive Functional Therapist',
+  // Title decided 2026-08-07: plain-English title sells, certification
+  // credentials. CFT stays in hasCredential/knowsAbout, never as the title.
+  jobTitle: 'Pain & Performance Specialist',
   url: `${SITE.url}/about`,
   hasCredential: SITE.credentials.map(c => ({
     '@type': 'EducationalOccupationalCredential',
@@ -112,13 +124,6 @@ const localBusinessSchema = {
     <meta name="twitter:image" content={ogImageUrl} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
 
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
 

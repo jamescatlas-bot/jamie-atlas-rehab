@@ -198,6 +198,9 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     bio: "A fitness instructor with six weeks of nerve pain. Pain went from 10/10 to 1/10 in 45 minutes.",
     note: 'Your results may vary.',
     uploadDate: '2026-08-05',
+    // Featured 2026-08-06: gives the homepage a 10/10 case and a third body
+    // part (neck + back + shoulder), so the proof block reads as range.
+    featured: true,
   },
   {
     id: 'Mo2yzytV12M',
