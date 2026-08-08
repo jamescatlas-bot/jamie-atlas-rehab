@@ -23,48 +23,60 @@ const clipCount = TESTIMONIAL_VIDEOS.length;
 
 // The three doors — headings and sublines are Jamie's own words (2026-08-06),
 // in his order: cleared-but-not-ready LEFT, still-in-pain MIDDLE, reinjury RIGHT.
+// 2026-08-08: reframed as explicit "click here if this is you"; new blue lines
+// are Jamie's words verbatim.
 const doors = [
   {
     title: 'Cleared by your PT but still not ready for sport/life',
     body: "<strong>No plan ever worked without first understanding where you've been and what you're going through.</strong>",
-    cta: 'The rebuild nobody was paid to give you →',
+    cta: 'For when you need the next level of training — but safely',
     href: '/what-we-treat/post-surgical-return-to-sport',
   },
   {
     title: "You've tried everything and you're still in pain",
     body: '<strong>The system sometimes lets us down. Where it drops off is where we begin.</strong>',
-    cta: 'Start with the part that hurts →',
+    cta: "It's not your fault — your body might just need a different approach than you've tried already",
     href: '#pick-the-part',
   },
   {
     title: "You want to work out but you're worried about reinjuring your body",
     body: "<strong>It's our job to personalize your exercises to set you up for success.</strong>",
-    cta: 'Train for your sport, with a safety net →',
+    cta: "It's not your job to know which workouts are best for your body — it's mine",
     href: '/what-we-treat/masters-athlete-injuries',
   },
 ];
 
+// Box copy + joint illustrations are Jamie's, 2026-08-08 (images from his
+// reference file, cropped per joint; knee square-cropped to keep pain burst).
 const byArea = [
   {
     title: 'Back Pain & Sciatica',
     slug: '/what-we-treat/chronic-back-pain',
-    body: "Three months or more, and PT, adjustments and injections have all worn off. The tissue stopped being the story a while ago — this is the approach that treats what replaced it.",
+    body: "You never realize how much you use your low back for everything until it's hurt. This method starts with finding the exercises you can do free of pain.",
+    img: '/joints/back.webp',
+    alt: 'Illustration of the lumbar spine and pelvis with pain signals at the low back',
     also: { label: 'Pain running down your leg? Sciatica →', slug: '/what-we-treat/sciatica' },
   },
   {
     title: 'Neck Pain',
     slug: '/what-we-treat/neck-pain',
-    body: 'Stiffness and headaches that come back no matter how the desk is set up. It is probably not your posture alone — and a neck with real strength behind it handles a long day.',
+    body: "Stiffness, pain turning and trouble focusing. Headaches. There are 3 different factors that affect your neck pain that most treatment misses. Knowing how to solve them all? That's our business.",
+    img: '/joints/neck.webp',
+    alt: 'Illustration of the skull and cervical spine with pain signals at the neck',
   },
   {
     title: 'Shoulder Pain',
     slug: '/what-we-treat/shoulder-pain',
-    body: "You can't sleep on that side, and the rest and the cortisone both wore off. Shoulders don't come back from being protected. They come back from being loaded well.",
+    body: "It can come on suddenly — trouble picking up a cup, getting the shopping out or sleeping in a strange position. When a shoulder is hurt the best thing to do is the right movements. The worst thing to do is the wrong movements. Our job is knowing the difference.",
+    img: '/joints/shoulder.webp',
+    alt: 'Illustration of the shoulder joint with pain highlighted at the ball and socket',
   },
   {
     title: 'Knee Pain',
     slug: '/what-we-treat/knee-pain',
-    body: 'Stairs, the descent on a hike, the word "degenerative" on a scan. "Bone on bone" describes an X-ray. It is not a prognosis and not a reason to stop loading the leg.',
+    body: "It starts innocently enough. Discomfort getting up from a chair. The descent from a hike leaving you hobbled. The phrase 'bone-on-bone' from your doctor. It would be understandable that you're confused. We're here to help you make sense of what you've been missing.",
+    img: '/joints/knee.webp',
+    alt: 'Illustration of the knee joint with pain signals at the kneecap',
   },
 ];
 
@@ -88,13 +100,14 @@ const credentials = [
   },
 ];
 
+// Updated to Jamie's wording 2026-08-08 (45–60 min; twenty years).
 const differentiators = [
   'One-on-one, every session. Never a class, never shared with three other people',
-  '60–90 minutes, because that is genuinely what the work takes',
-  'Built around your sport and your week — not a protocol printed for everybody',
-  'Your strength coach and your therapist are the same person. No handoffs, no contradicting advice',
-  'Thirty years of coaching, plus the pain science most providers were never taught',
-  'A number of sessions, and a graduation. Not an open tab',
+  '45–60 minutes, because that is genuinely what the work takes',
+  "Built around your body's history, present and future goals — not a generic printed piece of paper with faceless figures",
+  'Your rehabilitation program, nutrition, performance, at-home plans and workouts are all kept in house. No handoffs, no confusion, only results',
+  'Twenty years of coaching, plus the pain science most providers were never taught',
+  "We're not here to hold you back from getting results. If we can't help you, we'll recommend the right person who can",
 ];
 ---
 
@@ -182,6 +195,7 @@ const differentiators = [
             href={d.href}
             class="flex flex-col p-7 border-2 border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] hover:border-[var(--color-primary)] hover:shadow-md transition-all no-underline"
           >
+            <span class="text-xs font-bold uppercase tracking-widest text-[var(--color-accent-dark)] mb-3">Click here if this is you</span>
             <h3 class="mb-4 text-[var(--color-primary)]">{d.title}</h3>
             <p class="text-[var(--color-text-muted)] leading-relaxed mb-6" set:html={d.body} />
             <span class="mt-auto font-semibold text-[var(--color-primary)]">{d.cta}</span>
@@ -202,9 +216,15 @@ const differentiators = [
       <div class="grid md:grid-cols-2 gap-6">
         {byArea.map(c => (
           <div class="p-7 border border-[var(--color-border)] rounded-xl bg-[var(--color-background)] hover:border-[var(--color-primary)] transition-all">
-            <h3 class="mb-3">
-              <a href={c.slug} class="text-[var(--color-primary)] no-underline">{c.title}</a>
-            </h3>
+            <div class="flex items-start justify-between gap-4 mb-3">
+              <h3 class="mb-0">
+                <a href={c.slug} class="text-[var(--color-primary)] no-underline">{c.title}</a>
+              </h3>
+              <a href={c.slug} aria-hidden="true" tabindex="-1" class="flex-shrink-0">
+                <img src={c.img} alt={c.alt} width="320" height="320" loading="lazy"
+                  class="w-24 h-24 md:w-28 md:h-28 rounded-lg" />
+              </a>
+            </div>
             <p class="text-[var(--color-text-muted)] text-base leading-relaxed">{c.body}</p>
             {c.also && (
               <p class="mt-4 text-sm"><a href={c.also.slug}>{c.also.label}</a></p>
@@ -213,14 +233,8 @@ const differentiators = [
         ))}
       </div>
 
-      <!-- Decision 2026-08-06: CFT always travels with a plain-English
-           descriptor — the name means nothing to consumers on its own. -->
-      <p class="text-center mt-16 text-lg">
-        Every route runs on the same method —
-        <a href="/what-we-treat/cognitive-functional-therapy">Cognitive Functional Therapy</a>:
-        retraining how your body and nervous system respond to pain, backed by
-        thirty years of strength coaching.
-      </p>
+      <!-- CFT closing line removed at Jamie's request 2026-08-08; the CFT
+           mention (with descriptor) in the credibility section remains. -->
     </div>
   </section>
 
