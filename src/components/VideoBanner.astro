@@ -1,0 +1,90 @@
+---
+// Rotating video banner (Jamie, 2026-08-08): one testimonial visible at a
+// time — big quote panel left, click-to-play video right — advancing every
+// 5 seconds. Pauses on hover, stops entirely once a visitor starts a video
+// (auto-advancing away from a playing clip would be hostile), and respects
+// reduced-motion. Slides stack in the same grid cell so the banner takes the
+// height of its tallest slide and cross-fades between them.
+//
+// Homepage: the 3 featured clips with Jamie's giant quotes. Other pages can
+// pass any subset of the 23 (per-condition on condition pages).
+import VideoTestimonial from './VideoTestimonial.astro';
+import type { Testimonial } from '../data/videos';
+
+interface Slide {
+  video: Testimonial;
+  quote?: string;
+  quoteName?: string;
+  badgeText?: string;
+}
+
+interface Props {
+  slides: Slide[];
+  intervalMs?: number;
+}
+
+const { slides, intervalMs = 5000 } = Astro.props;
+---
+
+<div class="vb-root" data-interval={intervalMs}>
+  <div class="grid">
+    {slides.map((s, i) => (
+      <div
+        class={`vb-slide [grid-area:1/1] transition-opacity duration-700 ${i === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      >
+        <VideoTestimonial video={s.video} quote={s.quote} quoteName={s.quoteName} badgeText={s.badgeText} />
+      </div>
+    ))}
+  </div>
+  {slides.length > 1 && (
+    <div class="flex justify-center gap-2.5 mt-8" aria-hidden="true">
+      {slides.map((_, i) => (
+        <button
+          class={`vb-dot w-2.5 h-2.5 rounded-full border-0 p-0 cursor-pointer transition-colors ${i === 0 ? 'bg-[var(--color-primary)]' : 'bg-[var(--color-border)]'}`}
+          data-dot={i}
+          aria-label={`Show video ${i + 1}`}
+        ></button>
+      ))}
+    </div>
+  )}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.vb-root').forEach(root => {
+    const slides = root.querySelectorAll<HTMLElement>('.vb-slide');
+    const dots = root.querySelectorAll<HTMLElement>('.vb-dot');
+    if (slides.length < 2) return;
+
+    let current = 0;
+    let paused = false;
+    let stopped = false; // set once a video starts playing — never advance away from it
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function show(i: number) {
+      slides[current].classList.add('opacity-0', 'pointer-events-none');
+      slides[current].classList.remove('opacity-100');
+      if (dots[current]) dots[current].style.background = 'var(--color-border)';
+      current = i;
+      slides[current].classList.remove('opacity-0', 'pointer-events-none');
+      slides[current].classList.add('opacity-100');
+      if (dots[current]) dots[current].style.background = 'var(--color-primary)';
+    }
+
+    dots.forEach(d => {
+      d.addEventListener('click', () => show(Number(d.dataset.dot)));
+    });
+
+    root.addEventListener('mouseenter', () => { paused = true; });
+    root.addEventListener('mouseleave', () => { paused = false; });
+    root.addEventListener('click', e => {
+      if ((e.target as Element | null)?.closest('.video-facade')) stopped = true;
+    });
+
+    if (!reduced) {
+      const interval = Number(root.dataset.interval) || 5000;
+      setInterval(() => {
+        if (!paused && !stopped) show((current + 1) % slides.length);
+      }, interval);
+    }
+  });
+</script>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BannerSection from '../components/BannerSection.astro';
 import { SITE } from '../data/site';
 import { OFFER } from '../data/reviews';
 
@@ -20,6 +21,9 @@ const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
       </p>
     </div>
   </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
 
   <section class="px-6 pb-14">
     <div class="max-w-3xl mx-auto">

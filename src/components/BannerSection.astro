@@ -1,0 +1,22 @@
+---
+// Site-wide rotating video banner section (Jamie, 2026-08-08): sits at the top
+// of every page, right under the page title. Defaults to all 23 testimonials
+// in library order; condition pages pass their own body-part subset. Left-side
+// giant quotes per video are coming from Jamie — until then each slide shows
+// the video's headline/bio (the VideoTestimonial default).
+import VideoBanner from './VideoBanner.astro';
+import { TESTIMONIAL_VIDEOS } from '../data/videos';
+import type { Testimonial } from '../data/videos';
+
+interface Props {
+  videos?: Testimonial[];
+}
+
+const { videos = TESTIMONIAL_VIDEOS } = Astro.props;
+---
+
+<section class="px-6 py-12 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+  <div class="max-w-5xl mx-auto">
+    <VideoBanner slides={videos.map(v => ({ video: v }))} />
+  </div>
+</section>

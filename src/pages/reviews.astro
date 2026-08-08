@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BannerSection from '../components/BannerSection.astro';
 import { REVIEWS, GOOGLE_RATING, REVIEWS_URL, WRITE_REVIEW_URL } from '../data/reviews';
 import { FEATURED_TESTIMONIALS, TESTIMONIAL_VIDEOS } from '../data/videos';
 import VideoTestimonial from '../components/VideoTestimonial.astro';
@@ -18,6 +19,9 @@ import VideoTestimonial from '../components/VideoTestimonial.astro';
       </p>
     </div>
   </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">

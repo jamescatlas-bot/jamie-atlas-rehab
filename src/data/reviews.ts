@@ -43,7 +43,7 @@ export const OFFER = {
     },
     {
       name: 'Pain & Performance Assessment',
-      body: 'Chronic back, neck, hip or knee pain that hasn\'t responded to what you\'ve tried. A Cognitive Functional Therapy–based assessment of how you actually move, load and guard — and a plan that isn\'t just more stretching.',
+      body: 'Chronic back, neck, hip or knee pain that hasn\'t responded to what you\'ve tried. An assessment based on Cognitive Functional Therapy and Applied Functional Science — how you actually move, load and guard — and a plan that isn\'t just more stretching.',
     },
     {
       name: 'Comeback Assessment',

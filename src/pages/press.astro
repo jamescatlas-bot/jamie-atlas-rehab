@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BannerSection from '../components/BannerSection.astro';
 import { SITE } from '../data/site';
 import { PRESS_VIDEOS } from '../data/videos';
 import PressStrip from '../components/PressStrip.astro';
@@ -45,20 +46,23 @@ const OUTLET_NOTES = [
 
 <BaseLayout
   title="Press & Media — Jamie Atlas, Denver"
-  description="Jamie Atlas in the media — 9NEWS, FOX31, Denver7, 5280, The Denver Post and Runner's World. Segments, contributions and expert commentary from 30 years of Denver coaching."
+  description="Jamie Atlas in the media — 9NEWS, FOX31, Denver7, 5280, The Denver Post and Runner's World. Segments, contributions and expert commentary from twenty years of Denver coaching."
 >
   <section class="px-6 pt-16 pb-12 md:pt-24">
     <div class="max-w-3xl mx-auto">
       <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Press</p>
       <h1 class="mb-8">Seen in, and contributed to</h1>
       <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
-        Thirty years in Denver means a lot of camera time and a lot of people asking for a straight answer about
+        Twenty years in Denver means a lot of camera time and a lot of people asking for a straight answer about
         backs, knees and getting older. <strong class="text-[var(--color-text)]">Most of what follows is
         contribution, not coverage</strong> — segments recorded, questions answered, commentary given. The clips
         are below.
       </p>
     </div>
   </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
 
   <PressStrip />
 

@@ -2,8 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../data/site';
 import { CONDITIONS } from '../../data/conditions';
-import { testimonialsFor, testimonialCount } from '../../data/videos';
-import VideoTestimonial from '../../components/VideoTestimonial.astro';
+import { testimonialsFor, testimonialCount, TESTIMONIAL_VIDEOS } from '../../data/videos';
+import VideoBanner from '../../components/VideoBanner.astro';
 import SpeedExplainer from '../../components/SpeedExplainer.astro';
 
 export function getStaticPaths() {
@@ -15,24 +15,15 @@ export function getStaticPaths() {
 
 const { condition } = Astro.props;
 
-// Related conditions, resolved from slugs — gives every service page more than
-// the two inbound links it had from the nav card and the index alone.
-const videos = testimonialsFor(condition.slug);
 const videoTotal = testimonialCount(condition.slug);
 
-// Videos are the strongest thing on the page, so they are spread across it
-// rather than parked in one block near the bottom. Someone in pain who lands
-// here should meet a person like themselves before they meet an explanation.
-//
-//   openingVideo  — straight after the intro, before any teaching
-//   middleVideo   — halfway down, as the reading gets heavier
-//   closingVideo  — last thing before the call to action
-//
-// Falls back gracefully: with two clips the page shows opening + closing, with
-// one it shows opening only.
-const openingVideo = videos[0] ?? null;
-const middleVideo = videos[1] ?? null;
-const closingVideo = videos[2] ?? null;
+// Rotating banner replaces the three in-page video placements (Jamie,
+// 2026-08-08): body-part pages rotate ONLY their own body part's clips;
+// every other condition page rotates through the full library.
+const BODY_PART_SLUGS = ['chronic-back-pain', 'sciatica', 'neck-pain', 'shoulder-pain', 'knee-pain'];
+const bannerVideos = BODY_PART_SLUGS.includes(condition.slug)
+  ? testimonialsFor(condition.slug, 99)
+  : TESTIMONIAL_VIDEOS;
 const midPoint = Math.ceil(condition.sections.length / 2);
 
 // Intro and section paragraphs render with set:html so copy can carry a single
@@ -88,13 +79,11 @@ const faqSchema = {
     </div>
   </section>
 
-  {openingVideo && (
-    <section class="px-6 pb-14">
-      <div class="max-w-5xl mx-auto">
-        <VideoTestimonial video={openingVideo} headingLevel="h2" />
-      </div>
-    </section>
-  )}
+  <section class="px-6 pb-14">
+    <div class="max-w-5xl mx-auto">
+      <VideoBanner slides={bannerVideos.map(v => ({ video: v }))} />
+    </div>
+  </section>
 
   {condition.sections.slice(0, midPoint).map((section, i) => (
     <section class={`px-6 py-14 ${i % 2 === 0 ? 'bg-[var(--color-surface)] border-y border-[var(--color-border)]' : ''}`}>
@@ -118,14 +107,6 @@ const faqSchema = {
       </div>
     </section>
   ))}
-
-  {middleVideo && (
-    <section class="px-6 py-14">
-      <div class="max-w-5xl mx-auto">
-        <VideoTestimonial video={middleVideo} headingLevel="h2" />
-      </div>
-    </section>
-  )}
 
   {condition.sections.slice(midPoint).map((section, i) => (
     <section class={`px-6 py-14 ${(i + midPoint) % 2 === 0 ? 'bg-[var(--color-surface)] border-y border-[var(--color-border)]' : ''}`}>
@@ -164,21 +145,18 @@ const faqSchema = {
     </div>
   </section>
 
-  {closingVideo && (
-    <section class="px-6 py-16">
-      <div class="max-w-5xl mx-auto">
-        <VideoTestimonial video={closingVideo} headingLevel="h2" />
-        <div class="mt-12"><SpeedExplainer compact={true} /></div>
-        <p class="mt-8">
-          <a href={`/testimonials#${condition.slug}`} class="font-semibold">
-            {videoTotal > videos.length
-              ? `All ${videoTotal} ${condition.navTitle.toLowerCase()} videos →`
-              : 'All client results →'}
-          </a>
-        </p>
-      </div>
-    </section>
-  )}
+  <section class="px-6 py-16">
+    <div class="max-w-5xl mx-auto">
+      <SpeedExplainer compact={true} />
+      <p class="mt-8">
+        <a href={`/testimonials#${condition.slug}`} class="font-semibold">
+          {videoTotal > 0
+            ? `All ${videoTotal} ${condition.navTitle.toLowerCase()} videos →`
+            : 'All client results →'}
+        </a>
+      </p>
+    </div>
+  </section>
 
   {condition.nextStep && (
     <section class="px-6 py-14">

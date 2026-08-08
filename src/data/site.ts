@@ -15,7 +15,7 @@ export const SITE = {
   shortName: 'Jamie Atlas',
   tagline: 'Get out of chronic pain. Get back to your sport.',
   description:
-    'Cognitive Functional Therapy + 30 years of strength coaching for Denver adults 40+. We work the gap between PT discharge and athletic performance.',
+    'Cognitive Functional Therapy combined with Applied Functional Science, plus twenty years of strength coaching, for Denver adults 40+. We work the gap between PT discharge and athletic performance.',
   url: 'https://jamieatlas.com',
   serviceArea: ['Denver', 'Lakewood', 'Aurora', 'Littleton', 'Boulder', 'Englewood', 'Highlands Ranch'],
 

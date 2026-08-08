@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BannerSection from '../components/BannerSection.astro';
 import { SITE } from '../data/site';
 
 const personSchema = {
@@ -12,7 +13,7 @@ const personSchema = {
   email: SITE.contact.email,
   telephone: SITE.contact.phone,
   sameAs: [SITE.social.instagramUrl],
-  knowsAbout: ['Cognitive Functional Therapy', 'Chronic pain rehabilitation', 'Strength and conditioning', 'Return-to-sport training'],
+  knowsAbout: ['Cognitive Functional Therapy', 'Applied Functional Science', 'Chronic pain rehabilitation', 'Strength and conditioning', 'Return-to-sport training'],
   hasCredential: SITE.credentials.map(c => ({
     '@type': 'EducationalOccupationalCredential',
     name: c.name,
@@ -22,19 +23,22 @@ const personSchema = {
 
 <BaseLayout
   title="About Jamie Atlas"
-  description="Jamie Atlas, Pain & Performance Specialist in Denver: BSc Neuroscience, 30 years of strength coaching, certified in Cognitive Functional Therapy. The story behind the method."
+  description="Jamie Atlas, Pain & Performance Specialist in Denver: BSc Neuroscience, twenty years of strength coaching, certified in Cognitive Functional Therapy combined with Applied Functional Science. The story behind the method."
 >
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
   <section class="px-6 pt-16 pb-12 md:pt-24">
     <div class="max-w-3xl mx-auto">
       <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">About</p>
-      <h1 class="mb-5">Thirty years of learning why bodies hurt — and how they heal</h1>
+      <h1 class="mb-5">Twenty years of learning why bodies hurt — and how they heal</h1>
       <p class="text-xl font-semibold text-[var(--color-text)] mb-8">
         Jamie Atlas, Pain &amp; Performance Specialist — certified in Cognitive Functional Therapy
       </p>
     </div>
   </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
 
   <section class="px-6 pb-20">
     <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
@@ -48,7 +52,7 @@ const personSchema = {
       />
       <p>
         I grew up in Australia and studied neuroscience at the University of Western Australia, because I wanted to
-        know how the brain drives the body. Then I spent thirty years finding out how much of that survives contact
+        know how the brain drives the body. Then I spent twenty years finding out how much of that survives contact
         with an actual person in actual pain.
       </p>
       <p>
@@ -70,13 +74,19 @@ const personSchema = {
         changes with them.
       </p>
       <p>
+        I combine it with <strong class="text-[var(--color-text)]">Applied Functional Science</strong> — a system
+        that identifies when the symptom and the cause of the pain are in different places, and how to use the
+        whole body to create a different outcome than traditional methods. The knee that hurts is often paying for
+        a hip or an ankle that stopped doing its job; AFS is how we find that, and CFT is how we change it.
+      </p>
+      <p>
         The combination is the part that's rare. <strong class="text-[var(--color-text)]">Most CFT practitioners
         aren't strength coaches, and most strength coaches have never heard of CFT.</strong> I do both, in the same
         room, in the same hour — calm the system down, then build the body back up, progressively and specifically
         for what <em>you</em> want back. Nothing gets handed between two providers who never speak to each other.
       </p>
       <p>
-        The studio is at {SITE.contact.address.street} in downtown Denver. One-on-one, 60–90 minutes, because that
+        The studio is at {SITE.contact.address.street} in downtown Denver. One-on-one, 45–60 minutes, because that
         is honestly what the work takes.
       </p>
     </div>

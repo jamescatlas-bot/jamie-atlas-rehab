@@ -56,7 +56,7 @@ export const CONDITIONS: Condition[] = [
             '<li>has your range come back to something close to the other side</li>' +
             '</ul>',
           'Clear all four and coverage ends, whether your goal was the grocery store or a century ride. The six to nine months of progressive loading between those two is real work, it is well described, and almost nobody sells it — because almost nobody gets reimbursed for it.',
-          'That is the part I do. One-on-one, sixty to ninety minutes, starting from your discharge and ending at your sport.',
+          'That is the part I do. One-on-one, 45–60 minutes, starting from your discharge and ending at your sport.',
         ],
       },
       {
@@ -71,7 +71,7 @@ export const CONDITIONS: Condition[] = [
       {
         heading: 'What actually happens here?',
         paragraphs: [
-          'First visit is ninety minutes: the whole history, a full movement assessment, and a straight conversation about your sport and your timeline. You leave with a plan and a number of sessions, not an open tab.',
+          'First visit is a full hour: the whole history, a full movement assessment, and a straight conversation about your sport and your timeline. You leave with a plan and a number of sessions, not an open tab.',
           'After that it is progressive strength work built around three things — the surgery you had, the sport you want back, and the week you actually live in. Usually one session a week with work of your own in between.',
           '<strong>We don’t guess at when you’re ready.</strong> Load, range and confidence get tracked, you pass sport-specific benchmarks, and then you graduate. That last part is the point.',
         ],
@@ -99,7 +99,7 @@ export const CONDITIONS: Condition[] = [
     title: 'Chronic back pain isn’t a life sentence',
     metaTitle: 'Chronic Back Pain Treatment in Denver',
     metaDescription:
-      'Cognitive Functional Therapy for chronic low back pain in Denver — validated in the 2023 Lancet RESTORE trial. For when PT and injections haven’t worked.',
+      'Cognitive Functional Therapy combined with Applied Functional Science for chronic low back pain in Denver. For when PT and injections haven’t worked.',
     intro:
       'You have done the physical therapy. You have been adjusted. Somewhere in there was an injection, or a scan that found something and still didn’t explain why Tuesday is fine and Thursday isn’t. <strong>We get it.</strong> By the time most people reach this studio they have stopped expecting an answer and started managing around the pain instead. That is a reasonable response to what you’ve been offered. It isn’t the only option left.',
     sections: [
@@ -120,11 +120,11 @@ export const CONDITIONS: Condition[] = [
         ],
       },
       {
-        heading: 'What is Cognitive Functional Therapy?',
+        heading: 'What’s the method?',
         paragraphs: [
-          'It is the thing that treats the whole web. <strong>And it is not fringe — it is one of the best-evidenced approaches in the field.</strong>',
-          'In the 2023 RESTORE trial published in The Lancet, nearly 500 people with chronic low back pain were randomized to CFT or usual care. CFT produced large improvements in pain and disability that were still holding at twelve months, and at the three-year follow-up. Durability like that is rare in this research.',
-          'What it looks like in the room is less dramatic than it sounds. We make sense of your pain story together — properly, not as a formality. Then we go back into the movements you have been avoiding, bending, lifting, sitting, whatever yours are, in doses your system can actually accept. Then we make you strong there, because that is what makes the change stay.',
+          'It is the thing that treats the whole web: <strong>Cognitive Functional Therapy combined with a method known as Applied Functional Science</strong> — a system that identifies when the symptom and the cause of the pain are in different places, and how to use the whole body to create a different outcome than traditional methods.',
+          'And it is not fringe. In the 2023 RESTORE trial published in The Lancet, nearly 500 people with chronic low back pain were randomized to CFT or usual care. CFT produced large improvements in pain and disability that were still holding at twelve months, and at the three-year follow-up. Durability like that is rare in this research.',
+          'What it looks like in the room is less dramatic than it sounds. We make sense of your pain story together — properly, not as a formality. We look at the whole body, not just the sore spot, to find where the problem is actually being driven from. Then we go back into the movements you have been avoiding, bending, lifting, sitting, whatever yours are, in doses your system can actually accept. Then we make you strong there, because that is what makes the change stay.',
         ],
       },
       {
@@ -139,7 +139,7 @@ export const CONDITIONS: Condition[] = [
     faq: [
       {
         q: 'How is this different from physical therapy?',
-        a: 'Sessions are 60–90 minutes one-on-one (not a rushed insurance slot), the approach targets the pain system rather than just the tissue, and the endpoint is your sport and your life — not discharge paperwork.',
+        a: 'Sessions are 45–60 minutes one-on-one (not a rushed insurance slot), the approach targets the pain system rather than just the tissue, and the endpoint is your sport and your life — not discharge paperwork.',
       },
       {
         q: 'Is it safe to move if it hurts?',
@@ -154,7 +154,7 @@ export const CONDITIONS: Condition[] = [
     nextStep: {
       heading: 'Once the pain settles, what then?',
       body:
-        "Getting out of pain is the first half. Most people then discover the thing they actually wanted was to get back to something — the bike, the trail, the barbell, a full day on their feet without bracing for it. That rebuild is a different piece of work, and it's the part I've spent thirty years on.",
+        "Getting out of pain is the first half. Most people then discover the thing they actually wanted was to get back to something — the bike, the trail, the barbell, a full day on their feet without bracing for it. That rebuild is a different piece of work, and it's the part I've spent twenty years on.",
       links: [
         { label: 'Post-surgical return-to-sport', slug: '/what-we-treat/post-surgical-return-to-sport' },
         { label: 'Masters athlete injuries (40+)', slug: '/what-we-treat/masters-athlete-injuries' },
@@ -276,9 +276,9 @@ export const CONDITIONS: Condition[] = [
     metaTitle: 'Cognitive Functional Therapy (CFT) in Denver',
     schemaType: 'MedicalTherapy',
     metaDescription:
-      'What Cognitive Functional Therapy is, the Lancet RESTORE evidence behind it, and how CFT works in practice. One of a handful of practitioners in Colorado.',
+      'What Cognitive Functional Therapy is, the Lancet RESTORE evidence behind it, and how it combines with Applied Functional Science in practice. One of a handful of practitioners in Colorado.',
     intro:
-      'If you have already read the other pages on this site, this is the method underneath all of them. <strong>Cognitive Functional Therapy treats the whole system that produces your pain, not the tissue that stopped being the story months ago.</strong> The beliefs, the guarding, the movements you quietly dropped, the sleep and the stress that turn the volume up. It is the approach validated in the 2023 Lancet RESTORE trial, and I am one of a handful of practitioners in Colorado trained in it.',
+      'If you have already read the other pages on this site, this is the method underneath all of them: <strong>Cognitive Functional Therapy combined with a method known as Applied Functional Science</strong> — a system that identifies when the symptom and the cause of the pain are in different places, and how to use the whole body to create a different outcome than traditional methods. CFT treats the whole system that produces your pain, not the tissue that stopped being the story months ago — the beliefs, the guarding, the movements you quietly dropped, the sleep and the stress that turn the volume up. It is the approach validated in the 2023 Lancet RESTORE trial, and I am one of a handful of practitioners in Colorado trained in it.',
     sections: [
       {
         heading: 'What’s the evidence?',
@@ -295,7 +295,7 @@ export const CONDITIONS: Condition[] = [
           'Most histories are taken to fill a form. This one is taken to work out why your system became protective in the first place — because pain that makes sense to you is pain you can start to change. People often feel something shift in that conversation alone.',
           'Second, it uses graded experiments rather than instructions. We go into a movement you were told, or told yourself, is dangerous — and you feel the pain change in the room, with your own body, while you are standing there. That is a different kind of evidence from being reassured.',
           'Third, it takes the amplifiers seriously: sleep, stress, and the boom-and-bust activity pattern almost everyone falls into. Ignore those and the rest doesn’t hold.',
-          '<strong>Then I add the part most CFT practitioners can’t.</strong> Thirty years of strength coaching, to rebuild real capacity once the system has calmed down. Desensitizing without strengthening is temporary. Strengthening without desensitizing never gets off the ground.',
+          '<strong>Then I add the part most CFT practitioners can’t.</strong> Twenty years of strength coaching, to rebuild real capacity once the system has calmed down. Desensitizing without strengthening is temporary. Strengthening without desensitizing never gets off the ground.',
         ],
       },
       {

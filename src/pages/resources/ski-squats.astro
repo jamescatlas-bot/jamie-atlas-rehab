@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
 import { SITE } from '../../data/site';
 
 const title = 'Ski Squats: Train for the Turn, Not the Gym';
@@ -94,6 +95,9 @@ const variations = [
       </p>
     </div>
   </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
 
   <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">

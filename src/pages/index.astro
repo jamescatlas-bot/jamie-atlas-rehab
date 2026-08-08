@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site';
 import { REVIEWS, GOOGLE_RATING, REVIEWS_URL } from '../data/reviews';
 import { FEATURED_TESTIMONIALS, TESTIMONIAL_VIDEOS } from '../data/videos';
-import VideoTestimonial from '../components/VideoTestimonial.astro';
+import VideoBanner from '../components/VideoBanner.astro';
 import PressStrip from '../components/PressStrip.astro';
 
 // Homepage structure decided with Jamie 2026-08-06:
@@ -23,28 +23,49 @@ const clipCount = TESTIMONIAL_VIDEOS.length;
 
 // The three doors — headings and sublines are Jamie's own words (2026-08-06),
 // in his order: cleared-but-not-ready LEFT, still-in-pain MIDDLE, reinjury RIGHT.
-// 2026-08-08: reframed as explicit "click here if this is you"; new blue lines
-// are Jamie's words verbatim.
+// 2026-08-08: reframed as explicit "click here if this is you" (solid orange
+// badge); each door now opens its own /this-is-you/ landing page.
 const doors = [
   {
     title: 'Cleared by your PT but still not ready for sport/life',
     body: "<strong>No plan ever worked without first understanding where you've been and what you're going through.</strong>",
     cta: 'For when you need the next level of training — but safely',
-    href: '/what-we-treat/post-surgical-return-to-sport',
+    href: '/this-is-you/cleared-but-not-ready',
   },
   {
     title: "You've tried everything and you're still in pain",
     body: '<strong>The system sometimes lets us down. Where it drops off is where we begin.</strong>',
     cta: "It's not your fault — your body might just need a different approach than you've tried already",
-    href: '#pick-the-part',
+    href: '/this-is-you/still-in-pain',
   },
   {
     title: "You want to work out but you're worried about reinjuring your body",
     body: "<strong>It's our job to personalize your exercises to set you up for success.</strong>",
     cta: "It's not your job to know which workouts are best for your body — it's mine",
-    href: '/what-we-treat/masters-athlete-injuries',
+    href: '/this-is-you/worried-about-reinjury',
   },
 ];
+
+// Big quote panels beside the three featured videos + the "click here to see
+// her results" badge on each clip — Jamie's words and picks (Option B + circle
+// badge), 2026-08-08.
+const FEATURED_QUOTES: Record<string, { quote: string; quoteName: string; badgeText: string }> = {
+  T01Y32utAXU: {
+    quote: "I was thrown from a horse and couldn't bend over without pain",
+    quoteName: 'Katrina',
+    badgeText: 'CLICK HERE TO SEE HER RESULTS',
+  },
+  '-gdriOBWpS0': {
+    quote: "After 3 years I didn't think anyone could help me fix my neck",
+    quoteName: 'Sandy',
+    badgeText: 'CLICK HERE TO SEE HER RESULTS',
+  },
+  '31I4nnADI_s': {
+    quote: 'My shoulder numbness and tingling was so bad I drove 2 hours to see Jamie Atlas',
+    quoteName: 'Heather',
+    badgeText: 'CLICK HERE TO SEE HER RESULTS',
+  },
+};
 
 // Box copy + joint illustrations are Jamie's, 2026-08-08 (images from his
 // reference file, cropped per joint; knee square-cropped to keep pain burst).
@@ -106,7 +127,7 @@ const differentiators = [
   '45–60 minutes, because that is genuinely what the work takes',
   "Built around your body's history, present and future goals — not a generic printed piece of paper with faceless figures",
   'Your rehabilitation program, nutrition, performance, at-home plans and workouts are all kept in house. No handoffs, no confusion, only results',
-  'Twenty years of coaching, plus the pain science most providers were never taught',
+  'Twenty years of serving Coloradans and those around the world via pain and performance online video sessions',
   "We're not here to hold you back from getting results. If we can't help you, we'll recommend the right person who can",
 ];
 ---
@@ -171,9 +192,10 @@ const differentiators = [
         </p>
       </div>
 
-      <div class="grid gap-14">
-        {FEATURED_TESTIMONIALS.map(v => <VideoTestimonial video={v} />)}
-      </div>
+      <!-- Rotating banner (Jamie, 2026-08-08): one video at a time, the three
+           featured clips cycling every 5 seconds. -->
+      <VideoBanner slides={FEATURED_TESTIMONIALS.map(v => ({ video: v, ...(FEATURED_QUOTES[v.id] ?? {}) }))} />
+
 
       <p class="text-center mt-12">
         <a href="/testimonials" class="font-semibold">Watch more — all {clipCount}, sorted by body part →</a>
@@ -195,7 +217,7 @@ const differentiators = [
             href={d.href}
             class="flex flex-col p-7 border-2 border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] hover:border-[var(--color-primary)] hover:shadow-md transition-all no-underline"
           >
-            <span class="text-xs font-bold uppercase tracking-widest text-[var(--color-accent-dark)] mb-3">Click here if this is you</span>
+            <span class="self-start inline-block bg-[var(--color-accent)] text-white text-sm font-extrabold uppercase tracking-wider rounded-lg px-4 py-2 mb-4">Click here if this is you</span>
             <h3 class="mb-4 text-[var(--color-primary)]">{d.title}</h3>
             <p class="text-[var(--color-text-muted)] leading-relaxed mb-6" set:html={d.body} />
             <span class="mt-auto font-semibold text-[var(--color-primary)]">{d.cta}</span>
@@ -254,8 +276,10 @@ const differentiators = [
       <p class="text-center mt-14 text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
         All of it under one roof:
         <strong class="text-[var(--color-text)]">Jamie Atlas, Pain &amp; Performance Specialist</strong>
-        — certified in Cognitive Functional Therapy, a method for retraining how your
-        body and nervous system respond to pain.
+        — and the results you see on this site come from Cognitive Functional Therapy
+        combined with a method known as Applied Functional Science: a system that
+        identifies when the symptom and the cause of the pain are in different places,
+        and how to use the whole body to create a different outcome than traditional methods.
         <a href="/what-we-treat/cognitive-functional-therapy">How it works →</a>
       </p>
     </div>
@@ -296,14 +320,28 @@ const differentiators = [
           </blockquote>
         ))}
       </div>
-      <div class="flex justify-center gap-2.5 mt-6" id="review-dots" aria-hidden="true">
-        {REVIEWS.map((_, i) => (
-          <button
-            class={`review-dot w-2.5 h-2.5 rounded-full border-0 p-0 cursor-pointer transition-colors ${i === 0 ? 'bg-[var(--color-primary)]' : 'bg-[var(--color-border)]'}`}
-            data-dot={i}
-            aria-label={`Show review ${i + 1}`}
-          ></button>
-        ))}
+      <!-- Up/down arrows added at Jamie's request 2026-08-08 so readers can
+           flip back to a review or skip ahead, alongside the 7s auto-rotate. -->
+      <div class="flex justify-center items-center gap-4 mt-6">
+        <button
+          id="review-prev"
+          class="w-10 h-10 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-background)] text-[var(--color-primary)] text-xl leading-none cursor-pointer transition-colors hover:bg-[var(--color-primary)] hover:text-white"
+          aria-label="Previous review"
+        >&#8593;</button>
+        <div class="flex justify-center gap-2.5" id="review-dots" aria-hidden="true">
+          {REVIEWS.map((_, i) => (
+            <button
+              class={`review-dot w-2.5 h-2.5 rounded-full border-0 p-0 cursor-pointer transition-colors ${i === 0 ? 'bg-[var(--color-primary)]' : 'bg-[var(--color-border)]'}`}
+              data-dot={i}
+              aria-label={`Show review ${i + 1}`}
+            ></button>
+          ))}
+        </div>
+        <button
+          id="review-next"
+          class="w-10 h-10 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-background)] text-[var(--color-primary)] text-xl leading-none cursor-pointer transition-colors hover:bg-[var(--color-primary)] hover:text-white"
+          aria-label="Next review"
+        >&#8595;</button>
       </div>
 
       <script is:inline>
@@ -327,6 +365,15 @@ const differentiators = [
 
           dots.forEach(function (d) {
             d.addEventListener('click', function () { show(+d.dataset.dot); });
+          });
+
+          var prev = document.getElementById('review-prev');
+          var next = document.getElementById('review-next');
+          if (prev) prev.addEventListener('click', function () {
+            show((current - 1 + slides.length) % slides.length);
+          });
+          if (next) next.addEventListener('click', function () {
+            show((current + 1) % slides.length);
           });
 
           var wheel = document.getElementById('review-wheel');

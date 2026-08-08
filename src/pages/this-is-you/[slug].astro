@@ -1,0 +1,55 @@
+---
+// Landing page per homepage door — "click here if this is you" (Jamie, 2026-08-08).
+// Empathetic sell for one segment, then the tell-me form (no assessment picker;
+// Jamie chooses the assessment after reading). Copy lives in src/data/segments.ts.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import TellUsForm from '../../components/TellUsForm.astro';
+import { SEGMENTS } from '../../data/segments';
+
+export function getStaticPaths() {
+  return SEGMENTS.map(s => ({ params: { slug: s.slug }, props: { segment: s } }));
+}
+
+const { segment } = Astro.props;
+---
+
+<BaseLayout title={segment.metaTitle} description={segment.metaDescription}>
+
+  <!-- HERO -->
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="mb-6">
+        <span class="inline-block bg-[var(--color-accent)] text-white text-sm font-extrabold uppercase tracking-wider rounded-lg px-4 py-2">
+          This is you
+        </span>
+      </p>
+      <h1 class="mb-8">{segment.h1}</h1>
+      <div class="space-y-6">
+        {segment.intro.map(p => (
+          <div class="text-lg leading-relaxed text-[var(--color-text-muted)] [&_strong]:text-[var(--color-text)] [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mt-3 [&_ul]:space-y-2 [&_ul]:marker:text-[var(--color-primary)]" set:html={p} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <!-- WHY US -->
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-8">{segment.whyUsHeading}</h2>
+      <div class="space-y-6">
+        {segment.whyUs.map(p => (
+          <p class="text-lg leading-relaxed text-[var(--color-text-muted)]" set:html={p} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TELL ME WHAT'S GOING ON -->
+  <!-- "Rather just talk to a person" blue section removed at Jamie's request 2026-08-08 -->
+  <TellUsForm segment={segment.slug} />
+
+</BaseLayout>

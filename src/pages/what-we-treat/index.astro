@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
 import { SITE } from '../../data/site';
 import { CONDITIONS } from '../../data/conditions';
 ---
 
 <BaseLayout
   title="What We Treat"
-  description="Chronic back pain, sciatica, post-surgical return-to-sport and masters athlete injuries — treated with Cognitive Functional Therapy in Denver."
+  description="Chronic back pain, sciatica, post-surgical return-to-sport and masters athlete injuries — treated with Cognitive Functional Therapy combined with Applied Functional Science in Denver."
 >
   <section class="px-6 pt-16 pb-12 md:pt-24">
     <div class="max-w-3xl mx-auto">
@@ -21,12 +22,18 @@ import { CONDITIONS } from '../../data/conditions';
         <p>
           The common thread in those cases is a pain system stuck in protection mode — and a body that lost capacity
           while everyone focused on the sore spot. My work addresses both: calm the system down with
-          <a href="/what-we-treat/cognitive-functional-therapy">Cognitive Functional Therapy</a>, then rebuild real
-          strength so the change lasts. One-on-one, 60–90 minutes at a time, with a clear endpoint.
+          <a href="/what-we-treat/cognitive-functional-therapy">Cognitive Functional Therapy</a> combined with a
+          method known as Applied Functional Science — a system that identifies when the symptom and the cause of
+          the pain are in different places, and how to use the whole body to create a different outcome than
+          traditional methods — then rebuild real strength so the change lasts. One-on-one, 45–60 minutes at a
+          time, with a clear endpoint.
         </p>
       </div>
     </div>
   </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-6xl mx-auto">

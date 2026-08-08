@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
 import { SITE } from '../../data/site';
 
 // Articles land here from the monthly content-production pipeline
@@ -30,6 +31,9 @@ const articles: { title: string; slug: string; description: string; date: string
       </p>
     </div>
   </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">

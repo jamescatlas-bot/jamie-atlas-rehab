@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BannerSection from '../components/BannerSection.astro';
 import { SITE } from '../data/site';
 
 const steps = [
@@ -17,7 +18,7 @@ const steps = [
   },
   {
     title: '4. The actual work',
-    body: "Weekly or every other week, 60–90 minutes. Three things at once: settling the pain system down, going back into the movements you quietly stopped making, and loading you until your capacity clears what your life and your sport ask of it.",
+    body: "Weekly or every other week, 45–60 minutes. Three things at once: settling the pain system down, going back into the movements you quietly stopped making, and loading you until your capacity clears what your life and your sport ask of it.",
   },
   {
     title: '5. Benchmarks, not guesswork',
@@ -46,6 +47,9 @@ const steps = [
       </p>
     </div>
   </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto space-y-12">

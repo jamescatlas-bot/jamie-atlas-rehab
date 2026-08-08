@@ -1,0 +1,66 @@
+---
+// "Tell me what's going on" intake — same Formspree endpoint as /book, but
+// WITHOUT the three-assessment picker (Jamie, 2026-08-08): on the this-is-you
+// pages Jamie determines which assessment fits after reading the submission.
+// The hidden `segment` field tells him which door the visitor came through.
+const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
+
+interface Props {
+  segment: string;
+}
+
+const { segment } = Astro.props;
+---
+
+<section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-center mb-3">Tell me what's going on</h2>
+    <p class="text-center text-[var(--color-text-muted)] mb-10">
+      Three quick questions. Jamie reads every submission personally and will text you
+      within one business day. There's no menu to pick from — once he's read your story,
+      he'll know which assessment fits you and set it up when he texts you back.
+    </p>
+    <form action={FORMSPREE_URL} method="POST" class="space-y-6">
+      <input type="hidden" name="_subject" value={`New enquiry (${segment}) from jamieatlas.com`} />
+      <input type="hidden" name="segment" value={segment} />
+
+      <label class="block">
+        <span class="font-semibold">How did this start?</span>
+        <span class="block text-sm text-[var(--color-text-muted)] mb-2">Injury, surgery, or did it creep up? Short version is fine.</span>
+        <textarea name="how_it_started" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+      </label>
+
+      <label class="block">
+        <span class="font-semibold">Why now?</span>
+        <span class="block text-sm text-[var(--color-text-muted)] mb-2">What is it stopping you from doing that you want back?</span>
+        <textarea name="why_now" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+      </label>
+
+      <label class="block">
+        <span class="font-semibold">What have you tried already?</span>
+        <span class="block text-sm text-[var(--color-text-muted)] mb-2">PT, chiro, injections, massage, rest, YouTube...</span>
+        <textarea name="tried_already" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+      </label>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        <label class="block">
+          <span class="font-semibold">Your name</span>
+          <input type="text" name="name" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-2 bg-[var(--color-background)]" />
+        </label>
+        <label class="block">
+          <span class="font-semibold">Mobile</span>
+          <span class="block text-xs text-[var(--color-text-muted)]">texting preferred</span>
+          <input type="tel" name="phone" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-1 bg-[var(--color-background)]" />
+        </label>
+        <label class="block">
+          <span class="font-semibold">Email</span>
+          <input type="email" name="email" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-2 bg-[var(--color-background)]" />
+        </label>
+      </div>
+
+      <div class="text-center pt-2">
+        <button type="submit" class="cta-button text-lg">Send my story</button>
+      </div>
+    </form>
+  </div>
+</section>
