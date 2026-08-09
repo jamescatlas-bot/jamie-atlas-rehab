@@ -2,8 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BannerSection from '../components/BannerSection.astro';
 import { REVIEWS, GOOGLE_RATING, REVIEWS_URL, WRITE_REVIEW_URL } from '../data/reviews';
-import { FEATURED_TESTIMONIALS, TESTIMONIAL_VIDEOS } from '../data/videos';
-import VideoTestimonial from '../components/VideoTestimonial.astro';
 ---
 
 <BaseLayout
@@ -23,38 +21,70 @@ import VideoTestimonial from '../components/VideoTestimonial.astro';
   <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
   <BannerSection />
 
+  <!-- Rotating review slider (Jamie, 2026-08-09): one review at a time, slides
+       every 10 seconds, left/right arrows. Stacked videos removed — the
+       rotating banner above is the only video element on this page. -->
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">
-      <div class="space-y-10">
-        {REVIEWS.map(r => (
-          <blockquote class="border-l-4 border-[var(--color-primary)] pl-6">
-            <p class="text-lg leading-relaxed mb-3">"{r.text}"</p>
-            <footer class="text-[var(--color-text-muted)]">— {r.name}</footer>
-          </blockquote>
-        ))}
+      <div id="rv-root" data-interval="10000">
+        <div class="grid">
+          {REVIEWS.map((r, i) => (
+            <blockquote
+              class={`rv-slide [grid-area:1/1] border-l-4 border-[var(--color-primary)] pl-6 transition-opacity duration-700 ${i === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            >
+              <p class="text-lg leading-relaxed mb-3">"{r.text}"</p>
+              <footer class="text-[var(--color-text-muted)]">— {r.name}</footer>
+            </blockquote>
+          ))}
+        </div>
+        <div class="flex justify-center items-center gap-5 mt-8">
+          <button
+            class="rv-prev w-11 h-11 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-background)] text-[var(--color-primary)] text-xl leading-none cursor-pointer transition-colors hover:bg-[var(--color-primary)] hover:text-white"
+            aria-label="Previous review"
+          >&#8592;</button>
+          <span class="rv-count text-sm text-[var(--color-text-muted)] min-w-[3.5rem] text-center">1 / {REVIEWS.length}</span>
+          <button
+            class="rv-next w-11 h-11 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-background)] text-[var(--color-primary)] text-xl leading-none cursor-pointer transition-colors hover:bg-[var(--color-primary)] hover:text-white"
+            aria-label="Next review"
+          >&#8594;</button>
+        </div>
       </div>
-      <p class="mt-12">
+      <p class="mt-12 text-center">
         <a href={REVIEWS_URL} class="font-semibold">Read all {GOOGLE_RATING.count} reviews on Google →</a>
       </p>
     </div>
   </section>
 
-  <section class="px-6 py-16">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="mb-4">Watch it happen</h2>
-      <p class="text-lg text-[var(--color-text-muted)] mb-10">
-        Real clients, real sessions — including back pain changing inside a single visit.
-      </p>
-      <div class="grid gap-14">
-        {FEATURED_TESTIMONIALS.map(v => <VideoTestimonial video={v} headingLevel="h3" />)}
-      </div>
-      <p class="mt-12">
-        <a href="/testimonials" class="font-semibold">
-          Watch all {TESTIMONIAL_VIDEOS.length} client videos →
-        </a>
-      </p>
-    </div>
-  </section>
+  <script>
+    const root = document.getElementById('rv-root');
+    if (root) {
+      const slides = root.querySelectorAll<HTMLElement>('.rv-slide');
+      const count = root.querySelector<HTMLElement>('.rv-count');
+      let current = 0;
+      let paused = false;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const show = (i: number) => {
+        slides[current].classList.add('opacity-0', 'pointer-events-none');
+        slides[current].classList.remove('opacity-100');
+        current = i;
+        slides[current].classList.remove('opacity-0', 'pointer-events-none');
+        slides[current].classList.add('opacity-100');
+        if (count) count.textContent = `${current + 1} / ${slides.length}`;
+      };
+
+      root.querySelector('.rv-prev')?.addEventListener('click', () => show((current - 1 + slides.length) % slides.length));
+      root.querySelector('.rv-next')?.addEventListener('click', () => show((current + 1) % slides.length));
+      root.addEventListener('mouseenter', () => { paused = true; });
+      root.addEventListener('mouseleave', () => { paused = false; });
+
+      if (!reduced && slides.length > 1) {
+        setInterval(() => {
+          if (!paused) show((current + 1) % slides.length);
+        }, Number(root.dataset.interval) || 10000);
+      }
+    }
+  </script>
 
   <section class="px-6 py-20 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto text-center">

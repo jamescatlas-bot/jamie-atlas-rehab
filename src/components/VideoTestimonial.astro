@@ -182,8 +182,17 @@ const facadeOrder = quote ? 'order-2 mx-auto md:mx-0' : 'order-1 md:order-2';
   });
 
   // Swap the thumbnail for the real player on click. Runs once per page.
+  //
+  // MOBILE (Jamie, 2026-08-09): phones reported taps "not working" — the inline
+  // embed + autoplay is unreliable on mobile browsers (iOS often loads the
+  // player but refuses to start it, which reads as a dead tap). On touch
+  // devices we let the link do its natural thing instead: open the video in
+  // the YouTube app / player, which always works. Desktop keeps the inline
+  // embed.
+  const touchDevice = window.matchMedia('(pointer: coarse)').matches;
   document.querySelectorAll('.video-facade').forEach(el => {
     el.addEventListener('click', (event: Event) => {
+      if (touchDevice) return; // follow the link → YouTube app/player
       event.preventDefault();
       const link = el as HTMLAnchorElement;
       const id = link.dataset.videoId;

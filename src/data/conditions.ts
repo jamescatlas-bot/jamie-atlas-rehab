@@ -163,7 +163,7 @@ export const CONDITIONS: Condition[] = [
   },
   {
     slug: 'sciatica',
-    navTitle: 'Persistent Sciatica',
+    navTitle: 'Back Pain and Sciatica',
     title: 'Sciatica that hasn’t responded to the usual treatments',
     metaTitle: 'Persistent Sciatica Treatment in Denver',
     metaDescription:
@@ -271,7 +271,7 @@ export const CONDITIONS: Condition[] = [
   },
   {
     slug: 'cognitive-functional-therapy',
-    navTitle: 'Cognitive Functional Therapy',
+    navTitle: 'Cognitive Functional Therapy and AFS — our special sauce',
     title: 'The evidence-based approach most providers don’t know',
     metaTitle: 'Cognitive Functional Therapy (CFT) in Denver',
     schemaType: 'MedicalTherapy',

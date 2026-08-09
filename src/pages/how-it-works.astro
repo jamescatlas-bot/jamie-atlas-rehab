@@ -9,7 +9,7 @@ const steps = [
     body: "You tell me the story — when it started, what you've already tried, what you actually want back. Then I tell you honestly whether I can help. <strong>If I can't, I'll say so and point you at someone who can.</strong> Either way you leave with a clearer picture than you arrived with.",
   },
   {
-    title: '2. Full assessment — first session, 90 minutes',
+    title: '2. Full assessment — first session, 60 minutes',
     body: "I assess how you move, not just where it hurts. <strong>The sore spot is the symptom. It's rarely where the problem is being decided.</strong> We usually change your pain in that session, in real time, so you get to feel what's possible before you commit to anything.",
   },
   {
@@ -35,7 +35,19 @@ const steps = [
   title="How It Works — Rehab in Denver, Start to Graduation"
   description="Discovery Session → full assessment → a plan with a number on it → progressive work → return-to-sport benchmarks → graduation. How rehab works at Jamie Atlas."
 >
-  <section class="px-6 pt-16 pb-12 md:pt-24">
+  <!-- Blue booking box moved ABOVE the page heading (Jamie, 2026-08-09) so a
+       visitor can click straight through to /book before reading anything. -->
+  <section class="px-6 pt-10 pb-2">
+    <div class="max-w-3xl mx-auto">
+      <a href="/book" class="block no-underline bg-[var(--color-primary)] text-on-dark rounded-2xl p-8 md:p-10 text-center hover:opacity-95 transition-opacity">
+        <h2 class="mb-4 text-white">Step one is one session</h2>
+        <p class="text-lg md:text-xl mb-6 opacity-95 text-white">Book the 30-minute Discovery Session — $57 right now, normally $97 — and find out if this is the right fit.</p>
+        <span class="cta-button cta-button-accent text-lg">Book a consultation</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="px-6 pt-12 pb-12">
     <div class="max-w-3xl mx-auto">
       <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">How it works</p>
       <h1 class="mb-8">A clear process, with an end date</h1>
@@ -62,7 +74,25 @@ const steps = [
     </div>
   </section>
 
+  <!-- The method card — moved here from What We Treat (Jamie, 2026-08-09) -->
   <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <a
+        href="/what-we-treat/cognitive-functional-therapy"
+        class="block no-underline p-8 border-2 border-[var(--color-border)] rounded-2xl bg-[var(--color-surface)] hover:border-[var(--color-primary)] hover:shadow-md transition-all"
+      >
+        <h2 class="mb-4 text-[var(--color-primary)]">Cognitive Functional Therapy and AFS — our special sauce.</h2>
+        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-4">
+          The method behind every step above: Cognitive Functional Therapy combined with Applied Functional
+          Science — a system that identifies when the symptom and the cause of the pain are in different places,
+          and how to use the whole body to create a different outcome than traditional methods.
+        </p>
+        <span class="font-semibold text-[var(--color-primary)]">How the method works →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">
       <h2 class="mb-6">What you won't get</h2>
       <ul class="space-y-4 text-lg text-[var(--color-text-muted)]">
@@ -76,7 +106,7 @@ const steps = [
         </li>
         <li class="flex items-start gap-4">
           <span class="text-[var(--color-primary)] text-xl leading-none mt-1.5 flex-shrink-0">✕</span>
-          <span>Passive treatment — heat, ultrasound, adjustments — that feels good on the day and changes nothing by Thursday</span>
+          <span>Passive treatment — heat, ultrasound, adjustments — that might give immediate care but somehow the problem keeps finding a way back</span>
         </li>
         <li class="flex items-start gap-4">
           <span class="text-[var(--color-primary)] text-xl leading-none mt-1.5 flex-shrink-0">✕</span>
@@ -86,11 +116,5 @@ const steps = [
     </div>
   </section>
 
-  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="mb-6 text-white">Step one is one session</h2>
-      <p class="text-xl mb-10 opacity-95">Book the 30-minute Discovery Session — $57 right now, normally $97 — and find out if this is the right fit.</p>
-      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
-    </div>
-  </section>
+
 </BaseLayout>

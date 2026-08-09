@@ -23,7 +23,8 @@ interface Props {
   intervalMs?: number;
 }
 
-const { slides, intervalMs = 5000 } = Astro.props;
+// 7 seconds per slide (Jamie, 2026-08-09 — was 5).
+const { slides, intervalMs = 7000 } = Astro.props;
 ---
 
 <div class="vb-root" data-interval={intervalMs}>
@@ -36,15 +37,18 @@ const { slides, intervalMs = 5000 } = Astro.props;
       </div>
     ))}
   </div>
+  <!-- Left/right arrows replace the dots (Jamie, 2026-08-09) -->
   {slides.length > 1 && (
-    <div class="flex justify-center gap-2.5 mt-8" aria-hidden="true">
-      {slides.map((_, i) => (
-        <button
-          class={`vb-dot w-2.5 h-2.5 rounded-full border-0 p-0 cursor-pointer transition-colors ${i === 0 ? 'bg-[var(--color-primary)]' : 'bg-[var(--color-border)]'}`}
-          data-dot={i}
-          aria-label={`Show video ${i + 1}`}
-        ></button>
-      ))}
+    <div class="flex justify-center items-center gap-5 mt-6">
+      <button
+        class="vb-prev w-11 h-11 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-background)] text-[var(--color-primary)] text-xl leading-none cursor-pointer transition-colors hover:bg-[var(--color-primary)] hover:text-white"
+        aria-label="Previous video"
+      >&#8592;</button>
+      <span class="vb-count text-sm text-[var(--color-text-muted)] min-w-[3.5rem] text-center">1 / {slides.length}</span>
+      <button
+        class="vb-next w-11 h-11 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-background)] text-[var(--color-primary)] text-xl leading-none cursor-pointer transition-colors hover:bg-[var(--color-primary)] hover:text-white"
+        aria-label="Next video"
+      >&#8594;</button>
     </div>
   )}
 </div>
@@ -52,7 +56,7 @@ const { slides, intervalMs = 5000 } = Astro.props;
 <script>
   document.querySelectorAll<HTMLElement>('.vb-root').forEach(root => {
     const slides = root.querySelectorAll<HTMLElement>('.vb-slide');
-    const dots = root.querySelectorAll<HTMLElement>('.vb-dot');
+    const count = root.querySelector<HTMLElement>('.vb-count');
     if (slides.length < 2) return;
 
     let current = 0;
@@ -63,15 +67,17 @@ const { slides, intervalMs = 5000 } = Astro.props;
     function show(i: number) {
       slides[current].classList.add('opacity-0', 'pointer-events-none');
       slides[current].classList.remove('opacity-100');
-      if (dots[current]) dots[current].style.background = 'var(--color-border)';
       current = i;
       slides[current].classList.remove('opacity-0', 'pointer-events-none');
       slides[current].classList.add('opacity-100');
-      if (dots[current]) dots[current].style.background = 'var(--color-primary)';
+      if (count) count.textContent = `${current + 1} / ${slides.length}`;
     }
 
-    dots.forEach(d => {
-      d.addEventListener('click', () => show(Number(d.dataset.dot)));
+    root.querySelector('.vb-prev')?.addEventListener('click', () => {
+      show((current - 1 + slides.length) % slides.length);
+    });
+    root.querySelector('.vb-next')?.addEventListener('click', () => {
+      show((current + 1) % slides.length);
     });
 
     root.addEventListener('mouseenter', () => { paused = true; });
@@ -81,7 +87,7 @@ const { slides, intervalMs = 5000 } = Astro.props;
     });
 
     if (!reduced) {
-      const interval = Number(root.dataset.interval) || 5000;
+      const interval = Number(root.dataset.interval) || 7000;
       setInterval(() => {
         if (!paused && !stopped) show((current + 1) % slides.length);
       }, interval);

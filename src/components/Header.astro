@@ -1,11 +1,32 @@
 ---
+// Desktop nav with hover dropdowns (Jamie, 2026-08-09): What We Treat and
+// Resources open a menu of their sub-pages on hover; the other items show a
+// one-line hover message (title tooltip). Mobile keeps the hamburger menu.
+import { CONDITIONS } from '../data/conditions';
+
+const treatChildren = CONDITIONS.map(c => ({
+  label: c.navTitle,
+  href: `/what-we-treat/${c.slug}`,
+}));
+
 const nav = [
-  { label: 'What We Treat', href: '/what-we-treat' },
-  { label: 'How It Works', href: '/how-it-works' },
-  { label: 'About', href: '/about' },
-  { label: 'Studio', href: '/studio' },
-  { label: 'Reviews', href: '/reviews' },
-  { label: 'Resources', href: '/resources' },
+  {
+    label: 'What We Treat',
+    href: '/what-we-treat',
+    children: [...treatChildren, { label: 'Everything we treat →', href: '/what-we-treat' }],
+  },
+  { label: 'How It Works', href: '/how-it-works', hint: 'The process, first call to graduation — and the method behind it' },
+  { label: 'About', href: '/about', hint: 'Who Jamie is and why this studio exists' },
+  { label: 'Studio', href: '/studio', hint: 'Location, parking, and a look inside' },
+  { label: 'Reviews', href: '/reviews', hint: 'Google reviews and client video results' },
+  {
+    label: 'Resources',
+    href: '/resources',
+    children: [
+      { label: 'Ski season squat guide', href: '/resources/ski-squats' },
+      { label: 'All resources →', href: '/resources' },
+    ],
+  },
 ];
 ---
 
@@ -30,14 +51,40 @@ const nav = [
     </a>
 
     <nav class="hidden lg:flex items-center gap-5 xl:gap-7">
-      {nav.map(item => (
-        <a
-          href={item.href}
-          class="text-sm no-underline whitespace-nowrap text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-        >
-          {item.label}
-        </a>
-      ))}
+      {nav.map(item =>
+        item.children ? (
+          <div class="relative group">
+            <a
+              href={item.href}
+              class="text-sm no-underline whitespace-nowrap text-[var(--color-text-muted)] hover:text-[var(--color-text)] inline-flex items-center gap-1"
+            >
+              {item.label}
+              <svg width="9" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+            </a>
+            <!-- pt-3 bridge keeps the menu open while the mouse travels down to it -->
+            <div class="absolute left-1/2 -translate-x-1/2 top-full pt-3 hidden group-hover:block z-50">
+              <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-lg p-2 w-72 flex flex-col">
+                {item.children.map(c => (
+                  <a
+                    href={c.href}
+                    class="px-3 py-2.5 rounded-lg text-sm no-underline text-[var(--color-text)] hover:bg-[var(--color-background)] hover:text-[var(--color-primary)]"
+                  >
+                    {c.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <a
+            href={item.href}
+            title={item.hint}
+            class="text-sm no-underline whitespace-nowrap text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+          >
+            {item.label}
+          </a>
+        )
+      )}
     </nav>
 
     <div class="flex items-center gap-1 sm:gap-3">

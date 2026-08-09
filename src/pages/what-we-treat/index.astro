@@ -37,8 +37,10 @@ import { CONDITIONS } from '../../data/conditions';
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-6xl mx-auto">
+      <!-- CFT+AFS card moved to /how-it-works (Jamie, 2026-08-09) — the method
+           isn't a condition; the page itself still lives under this URL. -->
       <div class="grid md:grid-cols-2 gap-6">
-        {CONDITIONS.map(c => (
+        {CONDITIONS.filter(c => c.slug !== 'cognitive-functional-therapy').map(c => (
           <a
             href={`/what-we-treat/${c.slug}`}
             class="block p-7 border border-[var(--color-border)] rounded-xl bg-[var(--color-background)] hover:border-[var(--color-primary)] hover:shadow-sm transition-all no-underline"

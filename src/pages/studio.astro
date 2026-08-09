@@ -80,10 +80,19 @@ const mapQuery = encodeURIComponent(`${addr.street}, ${addr.city}, ${addr.state}
         </div>
 
         <h3 class="mt-10 mb-4">Parking (read this — it's downtown)</h3>
+        <!-- Parking policy per Jamie 2026-08-09: regulars park free in his
+             AVIS lot at 19th & Broadway; first visit is on your own dime. -->
         <ul class="space-y-3 text-lg text-[var(--color-text-muted)] leading-relaxed list-disc pl-5">
-          <li>Metered street parking on Glenarm, California, and Welton — usually easiest before 9 AM and after 4 PM.</li>
-          <li>Paid lots and garages within a block in every direction; budget $10–15 for a session.</li>
-          <li>RTD: the D/H/L lines stop at 18th &amp; California, a 2-minute walk. Honestly the easiest option.</li>
+          <li>
+            <strong class="text-[var(--color-text)]">Regular clients: parking is taken care of.</strong> After your
+            first session, park in the AVIS lot at 19th &amp; Broadway — it's on us.
+          </li>
+          <li>
+            <strong class="text-[var(--color-text)]">First visit:</strong> metered street parking on Glenarm,
+            California, and Welton is the cheapest option, and there are paid lots and garages within a block in
+            every direction.
+          </li>
+          <li>RTD: the D/H/L lines stop at 18th &amp; California, a 2-minute walk.</li>
         </ul>
       </div>
 
@@ -106,22 +115,39 @@ const mapQuery = encodeURIComponent(`${addr.street}, ${addr.city}, ${addr.state}
   <section class="px-6 py-16">
     <div class="max-w-5xl mx-auto">
       <h2 class="mb-8">Inside the studio</h2>
-      <div class="grid md:grid-cols-2 gap-6">
+      <!-- Photos replaced with Jamie's four new ones, 2026-08-09 -->
+      <div class="grid grid-cols-2 gap-4 md:gap-6">
         <img
-          src="/studio-coaching.jpg"
-          alt="Jamie Atlas coaching two clients through a movement assessment in the Denver studio"
-          width="1400"
-          height="718"
+          src="/studio-inside-1.jpg"
+          alt="The main training floor of the Jamie Atlas studio, with its graffiti mural wall, Pilates reformer and free-weight area"
+          width="1050"
+          height="1400"
           loading="lazy"
-          class="rounded-xl border border-[var(--color-border)] w-full h-full object-cover"
+          class="rounded-xl border border-[var(--color-border)] w-full aspect-[3/4] object-cover"
         />
         <img
-          src="/studio-space.jpg"
-          alt="A client working through a loaded hinge pattern in the Jamie Atlas Rehab studio"
-          width="1100"
-          height="1467"
+          src="/studio-inside-2.jpg"
+          alt="The studio entrance, with the wall of client photos visible through the open door"
+          width="1050"
+          height="1400"
           loading="lazy"
-          class="rounded-xl border border-[var(--color-border)] w-full h-full object-cover"
+          class="rounded-xl border border-[var(--color-border)] w-full aspect-[3/4] object-cover"
+        />
+        <img
+          src="/studio-inside-3.jpg"
+          alt="Jamie Atlas lifting a smiling client across his shoulders in the studio"
+          width="1375"
+          height="1400"
+          loading="lazy"
+          class="rounded-xl border border-[var(--color-border)] w-full aspect-[3/4] object-cover"
+        />
+        <img
+          src="/studio-inside-4.jpg"
+          alt="Jamie Atlas with a client's dog on the studio floor mid-session"
+          width="868"
+          height="895"
+          loading="lazy"
+          class="rounded-xl border border-[var(--color-border)] w-full aspect-[3/4] object-cover"
         />
       </div>
     </div>
