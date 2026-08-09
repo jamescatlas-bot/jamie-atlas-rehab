@@ -36,7 +36,7 @@ export const CONDITIONS: Condition[] = [
   {
     slug: 'post-surgical-return-to-sport',
     navTitle: 'Post-Surgical Return-to-Sport',
-    title: 'Finish the rehab your insurance didn’t pay for',
+    title: 'Your post-surgery recovery took you almost to the finish line. We’re here to get you the rest of the way — and then some',
     metaTitle: 'Post-Surgical Return-to-Sport Rehab, Denver',
     schemaType: 'MedicalProcedure',
     metaDescription:
