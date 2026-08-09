@@ -29,10 +29,10 @@ export const SEGMENTS: Segment[] = [
       "The gap you're feeling is real: <ul><li>Cleared for daily life — not for what you love</li><li>Strong in the clinic, hesitant everywhere else</li><li>Exercises you outgrew months ago, with nothing to replace them</li><li>Range of motion that came back without the confidence to use it</li></ul>",
       "That hesitation isn't weakness, and it isn't in your head. It's your nervous system asking for evidence before it lets you go all-in again. Nobody was ever paid to provide that evidence — that's the part of the process the system leaves out.",
     ],
-    whyUsHeading: 'The rebuild nobody was paid to give you',
+    whyUsHeading: "The system took you to ready to move — but you're looking to be ready for action",
     whyUs: [
       "This is the specialty of the studio: the ground between “medically cleared” and “genuinely ready.” We start from your full story — the injury, the surgery if there was one, the rehab you already did, and the goals nobody asked you about. Then we load you, step by step, until your body has proof it can trust itself again. Not pushed past what it accepts — shown what it can do.",
-      "Every session is one-on-one with Jamie Atlas, Pain &amp; Performance Specialist — 45–60 minutes at a private downtown Denver studio. Your rehabilitation, your training and your at-home plan are all built by the same person, so nothing gets lost in a handoff.",
+      "Every session is one-on-one with Jamie Atlas, Pain &amp; Performance Specialist — 45–60 minutes at the private downtown Denver studio. Pain and performance coaching sessions are also offered via video call — both are available, and plenty of clients do a mix. Your rehabilitation, your training and your at-home plan are all built by the same person, so nothing gets lost in a handoff.",
       "And if your case isn't a fit, we'll tell you plainly and point you to the right person who can help. No pressure either way.",
     ],
   },

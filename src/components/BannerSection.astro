@@ -5,7 +5,7 @@
 // giant quotes per video are coming from Jamie — until then each slide shows
 // the video's headline/bio (the VideoTestimonial default).
 import VideoBanner from './VideoBanner.astro';
-import { TESTIMONIAL_VIDEOS } from '../data/videos';
+import { TESTIMONIAL_VIDEOS, bannerSlideProps } from '../data/videos';
 import type { Testimonial } from '../data/videos';
 
 interface Props {
@@ -17,6 +17,6 @@ const { videos = TESTIMONIAL_VIDEOS } = Astro.props;
 
 <section class="px-6 py-12 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
   <div class="max-w-5xl mx-auto">
-    <VideoBanner slides={videos.map(v => ({ video: v }))} />
+    <VideoBanner slides={videos.map(bannerSlideProps)} />
   </div>
 </section>

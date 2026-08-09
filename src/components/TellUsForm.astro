@@ -42,19 +42,37 @@ const { segment } = Astro.props;
         <textarea name="tried_already" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
       </label>
 
+      <fieldset class="border border-[var(--color-border)] rounded-xl p-5">
+        <legend class="font-semibold px-2">How would you rather meet?</legend>
+        <div class="space-y-3 mt-2">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="radio" name="meeting_preference" value="In person at the studio" class="mt-1.5 accent-[var(--color-primary)]" />
+            <span>In person at the downtown Denver studio</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="radio" name="meeting_preference" value="Video call" class="mt-1.5 accent-[var(--color-primary)]" />
+            <span>Via video call</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Every column carries a hint row (empty where there's no hint) so the
+           three inputs sit on the same line — fixes the phone-box misalignment. -->
       <div class="grid md:grid-cols-3 gap-4">
         <label class="block">
           <span class="font-semibold">Your name</span>
-          <input type="text" name="name" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-2 bg-[var(--color-background)]" />
+          <span class="block text-xs text-[var(--color-text-muted)] min-h-[1.1rem]"></span>
+          <input type="text" name="name" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-1 bg-[var(--color-background)]" />
         </label>
         <label class="block">
           <span class="font-semibold">Mobile</span>
-          <span class="block text-xs text-[var(--color-text-muted)]">texting preferred</span>
+          <span class="block text-xs text-[var(--color-text-muted)] min-h-[1.1rem]">texting preferred</span>
           <input type="tel" name="phone" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-1 bg-[var(--color-background)]" />
         </label>
         <label class="block">
           <span class="font-semibold">Email</span>
-          <input type="email" name="email" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-2 bg-[var(--color-background)]" />
+          <span class="block text-xs text-[var(--color-text-muted)] min-h-[1.1rem]"></span>
+          <input type="email" name="email" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-1 bg-[var(--color-background)]" />
         </label>
       </div>
 

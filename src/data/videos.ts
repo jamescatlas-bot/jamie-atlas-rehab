@@ -99,6 +99,10 @@ export interface Testimonial {
   // default. The two older uploads are widescreen and 4:3 respectively, and
   // would be badly cropped by a portrait frame.
   orientation?: 'portrait' | 'landscape' | 'classic';
+  /** Jamie's giant left-side banner quote (his wording, 2026-08-09). */
+  quote?: string;
+  /** Drives the badge: CLICK HERE TO SEE HER/HIS/THEIR RESULTS. */
+  pronoun?: 'her' | 'his' | 'their';
   uploadDate?: string;
   featured?: boolean; // true = also appears on the homepage
 }
@@ -111,6 +115,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   // ===========================================================================
   {
     id: 'X5EquRG2d24',
+    quote: "I picked up my daughter and my neck went numb",
+    pronoun: 'her',
     condition: 'neck-pain',
     title: "Client testimonial — Monique, 4 weeks of neck pain rated 7/10",
     headline: "Monique — 4 weeks of 7/10 neck pain",
@@ -120,6 +126,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'SkaGhF5C628',
+    quote: "I tried a new move in yoga. I woke up the next morning and couldn't move my neck",
+    pronoun: 'her',
     condition: 'neck-pain',
     title: "Client testimonial — Danielle, 6 weeks of neck pain rated 7/10",
     headline: "Danielle — 6 weeks of 7/10 neck pain",
@@ -129,6 +137,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: '-gdriOBWpS0',
+    quote: "After 3 years I didn't think anyone could help me fix my neck",
+    pronoun: 'her',
     condition: 'neck-pain',
     title: "Client testimonial — Sandy, 3 years of neck pain rated 8/10",
     headline: "Sandy — 3 years of 8/10 neck pain",
@@ -139,6 +149,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'Y3SSXfeul9M',
+    quote: "My office job means my neck is in constant pain — nothing seems to help",
+    pronoun: 'her',
     condition: 'neck-pain',
     title: "Client testimonial — Natasha, 4 weeks of neck pain rated 7/10",
     headline: "Natasha — 4 weeks of 7/10 neck pain",
@@ -152,6 +164,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   // ===========================================================================
   {
     id: 'Ar2YTC_8vTY',
+    quote: "It's too hard to get in shape when I've had knee pain ever since I can remember",
+    pronoun: 'her',
     condition: 'knee-pain',
     title: "Client testimonial — Cindy, a lifetime of knee pain rated 6/10",
     headline: "Cindy — a lifetime of 6/10 knee pain",
@@ -161,6 +175,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'nPUisex9g_s',
+    quote: "I tore my ACL in an MMA match and haven't been able to train since",
+    pronoun: 'her',
     condition: 'knee-pain',
     title: "Client testimonial — Meghan, knee pain after an ACL tear, 4 out of 10 down to 0",
     headline: "Meghan — 4/10 knee pain after an ACL tear",
@@ -170,6 +186,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'Vc04UjsZ8wA',
+    quote: "After my fall my knee was in pain and I couldn't stand on one leg",
+    pronoun: 'his',
     condition: 'knee-pain',
     title: "Client testimonial — Brad, 6 months of knee pain rated 6/10",
     headline: "Brad — 6 months of 6/10 knee pain",
@@ -183,6 +201,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   // ===========================================================================
   {
     id: 'r76KZHBcyNk',
+    quote: "I got surgery on my shoulder 2 years ago and have been getting rolfing and PT",
+    pronoun: 'her',
     condition: 'shoulder-pain',
     title: "Client testimonial — Samantha, 5 years of shoulder pain rated 7/10",
     headline: "Samantha — 5 years of 7/10 shoulder pain",
@@ -192,6 +212,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: '31I4nnADI_s',
+    quote: "My shoulder numbness and tingling was so bad I drove 2 hours to see Jamie Atlas",
+    pronoun: 'her',
     condition: 'shoulder-pain',
     title: "Client testimonial — Heather, 6 weeks of shoulder nerve pain rated 10/10",
     headline: "Heather — 6 weeks of 10/10 shoulder nerve pain",
@@ -204,6 +226,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'Mo2yzytV12M',
+    quote: "I've been in physical therapy for 6 months and I'm stalled on my results",
+    pronoun: 'her',
     condition: 'shoulder-pain',
     title: "Client testimonial — Judy, 6 months of shoulder pain rated 10/10",
     headline: "Judy — 6 months of 10/10 shoulder pain",
@@ -213,6 +237,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'oVUovrIO0m8',
+    quote: "My shoulder pain meant I couldn't take my shirt on or off without hurting",
+    pronoun: 'her',
     condition: 'shoulder-pain',
     title: "Client testimonial — Sharon, 4 months of shoulder pain rated 6/10",
     headline: "Sharon — 4 months of 6/10 shoulder pain",
@@ -222,6 +248,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'ijhLo50nWpA',
+    quote: "3 surgeries over 10 years and I still can't get my shoulder above my head",
+    pronoun: 'his',
     condition: 'shoulder-pain',
     title: "Client testimonial — Clay, 10 years of shoulder pain rated 7/10",
     headline: "Clay — 10 years of 7/10 shoulder pain",
@@ -231,6 +259,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: '3ElcDHKLHVY',
+    quote: "Taking my dog for a walk he pulled on my shoulder and now it hurts to move",
+    pronoun: 'their',
     condition: 'shoulder-pain',
     title: "Client testimonial — Kendall, 2 weeks of shoulder pain rated 6/10",
     headline: "Kendall — 2 weeks of 6/10 shoulder pain",
@@ -244,6 +274,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   // ===========================================================================
   {
     id: 'Ts1vlG3fz_0',
+    quote: "I was squatting at the gym when I felt a pop and my leg went numb",
+    pronoun: 'her',
     condition: 'chronic-back-pain',
     title: "Client testimonial — Kelly, 12 months of back pain rated 8/10",
     headline: "Kelly — 12 months of 8/10 back pain",
@@ -253,6 +285,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'qGHHUMxU_NU',
+    quote: "After the car accident the hospital said I was fine but my back pain says otherwise",
+    pronoun: 'his',
     condition: 'chronic-back-pain',
     title: "Client testimonial — Dax, 5 days of back pain rated 10/10",
     headline: "Dax — 5 days of 10/10 back pain",
@@ -262,6 +296,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'qHzrGaiAB-Q',
+    quote: "Playing football has left me with constant back pain that I can't get rid of",
+    pronoun: 'his',
     condition: 'chronic-back-pain',
     title: "Client testimonial — Matthew, 7 weeks of back pain rated 7/10",
     headline: "Matthew — 7 weeks of 7/10 back pain",
@@ -271,6 +307,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'DcPAJmkb1z8',
+    quote: "I went to Pilates to fix my back but it ended up making it worse",
+    pronoun: 'her',
     condition: 'chronic-back-pain',
     title: "Client testimonial — Colleen, 8 weeks of back pain rated 7/10",
     headline: "Colleen — 8 weeks of 7/10 back pain",
@@ -280,6 +318,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'T01Y32utAXU',
+    quote: "I was thrown from a horse and couldn't bend over without pain",
+    pronoun: 'her',
     condition: 'chronic-back-pain',
     title: "Client testimonial — Katrina, 4 weeks of back pain rated 6/10",
     headline: "Katrina — 4 weeks of 6/10 back pain",
@@ -290,6 +330,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'oLZDLUR8BP0',
+    quote: "This 9/10 back pain is stopping me from sleeping at night",
+    pronoun: 'her',
     condition: 'chronic-back-pain',
     title: "Client testimonial — Alexis, 2 months of back pain rated 10/10",
     headline: "Alexis — 2 months of 10/10 back pain",
@@ -299,6 +341,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: '83raGZissVc',
+    quote: "My back pain is so bad I can't put on my shoes",
+    pronoun: 'her',
     condition: 'chronic-back-pain',
     title: "Client testimonial — Penelope, 5 weeks of back pain rated 7/10",
     headline: "Penelope — 5 weeks of 7/10 back pain",
@@ -308,6 +352,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'erAOrteinvo',
+    quote: "Living with back pain has me living at a 7/10 pain that I can't find relief from",
+    pronoun: 'his',
     condition: 'chronic-back-pain',
     title: "Client testimonial — Chris, 8 weeks of back pain rated 7/10",
     headline: "Chris — 8 weeks of 7/10 back pain",
@@ -321,6 +367,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   // ===========================================================================
   {
     id: 'jj9HW5h-Myc',
+    quote: "I have a herniated L4/L5 and my sciatic pain feels like a screwdriver in my back",
+    pronoun: 'her',
     condition: 'sciatica',
     title: "Client testimonial — Kendra, two years of shooting sciatic pain resolved",
     headline: "Kendra — 2 years of shooting sciatic pain",
@@ -331,6 +379,8 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
   },
   {
     id: 'WZARvxb52uk',
+    quote: "The doctor told me my spondylolisthesis back pain could only be cured with surgery",
+    pronoun: 'his',
     condition: 'sciatica',
     title: "Client testimonial — Tony, two weeks of severe back pain down to 1 out of 10",
     headline: "Tony — 2 weeks of lightning-bolt back pain",
@@ -391,6 +441,19 @@ export const FEATURED_TESTIMONIALS = FEATURED_ORDER
  * sorted by body part read as "this happens here routinely" rather than as
  * cherry-picking.
  */
+
+/** Props for a rotating-banner slide: Jamie's giant quote + badge when the
+ *  video has one (2026-08-09), otherwise the headline/bio default. */
+export function bannerSlideProps(v: Testimonial) {
+  if (!v.quote) return { video: v };
+  return {
+    video: v,
+    quote: v.quote,
+    quoteName: v.headline.split(' — ')[0],
+    badgeText: `CLICK HERE TO SEE ${(v.pronoun ?? 'their').toUpperCase()} RESULTS`,
+  };
+}
+
 export function testimonialsFor(slug: string, limit = 3): Testimonial[] {
   return TESTIMONIAL_VIDEOS.filter(t => t.condition === slug).slice(0, limit);
 }

@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site';
 import { REVIEWS, GOOGLE_RATING, REVIEWS_URL } from '../data/reviews';
-import { FEATURED_TESTIMONIALS, TESTIMONIAL_VIDEOS } from '../data/videos';
+import { FEATURED_TESTIMONIALS, TESTIMONIAL_VIDEOS, bannerSlideProps } from '../data/videos';
 import VideoBanner from '../components/VideoBanner.astro';
 import PressStrip from '../components/PressStrip.astro';
 
@@ -46,32 +46,15 @@ const doors = [
   },
 ];
 
-// Big quote panels beside the three featured videos + the "click here to see
-// her results" badge on each clip — Jamie's words and picks (Option B + circle
-// badge), 2026-08-08.
-const FEATURED_QUOTES: Record<string, { quote: string; quoteName: string; badgeText: string }> = {
-  T01Y32utAXU: {
-    quote: "I was thrown from a horse and couldn't bend over without pain",
-    quoteName: 'Katrina',
-    badgeText: 'CLICK HERE TO SEE HER RESULTS',
-  },
-  '-gdriOBWpS0': {
-    quote: "After 3 years I didn't think anyone could help me fix my neck",
-    quoteName: 'Sandy',
-    badgeText: 'CLICK HERE TO SEE HER RESULTS',
-  },
-  '31I4nnADI_s': {
-    quote: 'My shoulder numbness and tingling was so bad I drove 2 hours to see Jamie Atlas',
-    quoteName: 'Heather',
-    badgeText: 'CLICK HERE TO SEE HER RESULTS',
-  },
-};
+// Quote panels + badges are data-driven from videos.ts as of 2026-08-09 —
+// every clip now carries Jamie's giant left-side quote (see `quote` fields).
 
 // Box copy + joint illustrations are Jamie's, 2026-08-08 (images from his
 // reference file, cropped per joint; knee square-cropped to keep pain burst).
 const byArea = [
   {
     title: 'Back Pain & Sciatica',
+    clickLabel: 'back pain & sciatica',
     slug: '/what-we-treat/chronic-back-pain',
     body: "You never realize how much you use your low back for everything until it's hurt. This method starts with finding the exercises you can do free of pain.",
     img: '/joints/back.webp',
@@ -80,6 +63,7 @@ const byArea = [
   },
   {
     title: 'Neck Pain',
+    clickLabel: 'neck pain',
     slug: '/what-we-treat/neck-pain',
     body: "Stiffness, pain turning and trouble focusing. Headaches. There are 3 different factors that affect your neck pain that most treatment misses. Knowing how to solve them all? That's our business.",
     img: '/joints/neck.webp',
@@ -87,6 +71,7 @@ const byArea = [
   },
   {
     title: 'Shoulder Pain',
+    clickLabel: 'shoulder pain',
     slug: '/what-we-treat/shoulder-pain',
     body: "It can come on suddenly — trouble picking up a cup, getting the shopping out or sleeping in a strange position. When a shoulder is hurt the best thing to do is the right movements. The worst thing to do is the wrong movements. Our job is knowing the difference.",
     img: '/joints/shoulder.webp',
@@ -94,6 +79,7 @@ const byArea = [
   },
   {
     title: 'Knee Pain',
+    clickLabel: 'knee pain',
     slug: '/what-we-treat/knee-pain',
     body: "It starts innocently enough. Discomfort getting up from a chair. The descent from a hike leaving you hobbled. The phrase 'bone-on-bone' from your doctor. It would be understandable that you're confused. We're here to help you make sense of what you've been missing.",
     img: '/joints/knee.webp',
@@ -194,7 +180,7 @@ const differentiators = [
 
       <!-- Rotating banner (Jamie, 2026-08-08): one video at a time, the three
            featured clips cycling every 5 seconds. -->
-      <VideoBanner slides={FEATURED_TESTIMONIALS.map(v => ({ video: v, ...(FEATURED_QUOTES[v.id] ?? {}) }))} />
+      <VideoBanner slides={FEATURED_TESTIMONIALS.map(bannerSlideProps)} />
 
 
       <p class="text-center mt-12">
@@ -217,10 +203,11 @@ const differentiators = [
             href={d.href}
             class="flex flex-col p-7 border-2 border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] hover:border-[var(--color-primary)] hover:shadow-md transition-all no-underline"
           >
-            <span class="self-start inline-block bg-[var(--color-accent)] text-white text-sm font-extrabold uppercase tracking-wider rounded-lg px-4 py-2 mb-4">Click here if this is you</span>
             <h3 class="mb-4 text-[var(--color-primary)]">{d.title}</h3>
-            <p class="text-[var(--color-text-muted)] leading-relaxed mb-6" set:html={d.body} />
-            <span class="mt-auto font-semibold text-[var(--color-primary)]">{d.cta}</span>
+            <p class="text-[var(--color-text-muted)] leading-relaxed mb-5" set:html={d.body} />
+            <span class="font-semibold text-[var(--color-primary)] mb-6">{d.cta}</span>
+            <!-- Badge moved to the bottom of the box (Jamie, 2026-08-09): read first, then click -->
+            <span class="mt-auto self-start inline-block bg-[var(--color-accent)] text-white text-sm font-extrabold uppercase tracking-wider rounded-lg px-4 py-2">Click here if this is you</span>
           </a>
         ))}
       </div>
@@ -248,6 +235,12 @@ const differentiators = [
               </a>
             </div>
             <p class="text-[var(--color-text-muted)] text-base leading-relaxed">{c.body}</p>
+            <!-- Orange click-through box per joint (Jamie, 2026-08-09) -->
+            <p class="mt-5">
+              <a href={c.slug} class="inline-block bg-[var(--color-accent)] text-white text-sm font-extrabold uppercase tracking-wider rounded-lg px-4 py-2 no-underline hover:bg-[var(--color-accent-dark)] transition-colors">
+                Click here to see how we handle {c.clickLabel}
+              </a>
+            </p>
             {c.also && (
               <p class="mt-4 text-sm"><a href={c.also.slug}>{c.also.label}</a></p>
             )}
