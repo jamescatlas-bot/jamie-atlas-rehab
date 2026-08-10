@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BannerSection from '../components/BannerSection.astro';
 import { SITE } from '../data/site';
 import { OFFER } from '../data/reviews';
 
@@ -22,84 +21,21 @@ const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
     </div>
   </section>
 
-  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
-  <BannerSection />
-
-  <section class="px-6 pb-14">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-center mb-3">Start here: pick your assessment</h2>
-      <p class="text-center text-lg mb-10">
-        <span class="text-[var(--color-text-muted)]">One price, three doors. Pick the one that sounds like you.</span>
-      </p>
-      <div class="grid md:grid-cols-3 gap-6 mb-4">
-        {OFFER.assessments.map((a, i) => (
-          <div class="p-6 border border-[var(--color-border)] rounded-xl bg-[var(--color-surface)]">
-            <h3 class="mb-3 text-[var(--color-primary)] text-lg">{i + 1}. {a.name}</h3>
-            <p class="text-base text-[var(--color-text-muted)] leading-relaxed">{a.body}</p>
-          </div>
-        ))}
-      </div>
-      <p class="text-center text-sm text-[var(--color-text-muted)] mb-2">
-        <em>Every assessment is 1-on-1 with Jamie at the downtown studio. You leave with a clear picture of what's
-        going on and a concrete plan — whether or not you continue.</em>
-      </p>
-    </div>
-  </section>
+  <!-- "Pick your assessment" section removed (Jamie, 2026-08-09): he chooses the right assessment for each person. -->
 
   <!-- INTAKE FORM (Formspree) -->
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-2xl mx-auto">
       <h2 class="text-center mb-3">Tell me what's going on</h2>
       <p class="text-center text-[var(--color-text-muted)] mb-10">
-        Three quick questions. Jamie reads every submission personally and will text you within one business day to
-        set up your time.
+        Your details, then three quick questions. Jamie reads every submission personally, chooses the right
+        assessment for you, and will text you within one business day to set up your time — or grab a time in the
+        calendar below and he'll take it from there.
       </p>
       <form action={FORMSPREE_URL} method="POST" class="space-y-6">
         <input type="hidden" name="_subject" value="New assessment request from jamieatlas.com" />
 
-        <fieldset class="border border-[var(--color-border)] rounded-xl p-5">
-          <legend class="font-semibold px-2">Which assessment sounds like you?</legend>
-          <div class="space-y-3 mt-2">
-            {OFFER.assessments.map((a, i) => (
-              <label class="flex items-start gap-3 cursor-pointer">
-                <input type="radio" name="assessment" value={a.name} required class="mt-1.5 accent-[var(--color-primary)]" />
-                <span>{i + 1}. {a.name}</span>
-              </label>
-            ))}
-          </div>
-        </fieldset>
-
-        <label class="block">
-          <span class="font-semibold">How did this start?</span>
-          <span class="block text-sm text-[var(--color-text-muted)] mb-2">Injury, surgery, or did it creep up? Short version is fine.</span>
-          <textarea name="how_it_started" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
-        </label>
-
-        <label class="block">
-          <span class="font-semibold">Why now?</span>
-          <span class="block text-sm text-[var(--color-text-muted)] mb-2">What is it stopping you from doing that you want back?</span>
-          <textarea name="why_now" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
-        </label>
-
-        <label class="block">
-          <span class="font-semibold">What have you tried already?</span>
-          <span class="block text-sm text-[var(--color-text-muted)] mb-2">PT, chiro, injections, massage, rest, YouTube...</span>
-          <textarea name="tried_already" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
-        </label>
-
-        <fieldset class="border border-[var(--color-border)] rounded-xl p-5">
-          <legend class="font-semibold px-2">How would you rather meet?</legend>
-          <div class="space-y-3 mt-2">
-            <label class="flex items-start gap-3 cursor-pointer">
-              <input type="radio" name="meeting_preference" value="In person at the studio" class="mt-1.5 accent-[var(--color-primary)]" />
-              <span>In person at the downtown Denver studio</span>
-            </label>
-            <label class="flex items-start gap-3 cursor-pointer">
-              <input type="radio" name="meeting_preference" value="Video call" class="mt-1.5 accent-[var(--color-primary)]" />
-              <span>Via video call</span>
-            </label>
-          </div>
-        </fieldset>
+        <!-- assessment picker removed — Jamie assigns the assessment after reading -->
 
         <!-- Every column carries a hint row (empty where there's no hint) so the
              three inputs sit on the same line — fixes the phone-box misalignment. -->
@@ -120,6 +56,38 @@ const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
             <input type="email" name="email" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-1 bg-[var(--color-background)]" />
           </label>
         </div>
+
+        <fieldset class="border border-[var(--color-border)] rounded-xl p-5">
+          <legend class="font-semibold px-2">How would you rather meet?</legend>
+          <div class="space-y-3 mt-2">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="radio" name="meeting_preference" value="In person at the studio" class="mt-1.5 accent-[var(--color-primary)]" />
+              <span>In person at the downtown Denver studio</span>
+            </label>
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="radio" name="meeting_preference" value="Video call" class="mt-1.5 accent-[var(--color-primary)]" />
+              <span>Via video call</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <label class="block">
+          <span class="font-semibold">How did this start?</span>
+          <span class="block text-sm text-[var(--color-text-muted)] mb-2">Injury, surgery, or did it creep up? Short version is fine.</span>
+          <textarea name="how_it_started" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+        </label>
+
+        <label class="block">
+          <span class="font-semibold">Why now?</span>
+          <span class="block text-sm text-[var(--color-text-muted)] mb-2">What is it stopping you from doing that you want back?</span>
+          <textarea name="why_now" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+        </label>
+
+        <label class="block">
+          <span class="font-semibold">What have you tried already?</span>
+          <span class="block text-sm text-[var(--color-text-muted)] mb-2">PT, chiro, injections, massage, rest, YouTube...</span>
+          <textarea name="tried_already" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+        </label>
 
         <div class="text-center pt-2">
           <button type="submit" class="cta-button text-lg">Book my assessment</button>

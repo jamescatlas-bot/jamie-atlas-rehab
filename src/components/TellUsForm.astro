@@ -24,38 +24,6 @@ const { segment } = Astro.props;
       <input type="hidden" name="_subject" value={`New enquiry (${segment}) from jamieatlas.com`} />
       <input type="hidden" name="segment" value={segment} />
 
-      <label class="block">
-        <span class="font-semibold">How did this start?</span>
-        <span class="block text-sm text-[var(--color-text-muted)] mb-2">Injury, surgery, or did it creep up? Short version is fine.</span>
-        <textarea name="how_it_started" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
-      </label>
-
-      <label class="block">
-        <span class="font-semibold">Why now?</span>
-        <span class="block text-sm text-[var(--color-text-muted)] mb-2">What is it stopping you from doing that you want back?</span>
-        <textarea name="why_now" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
-      </label>
-
-      <label class="block">
-        <span class="font-semibold">What have you tried already?</span>
-        <span class="block text-sm text-[var(--color-text-muted)] mb-2">PT, chiro, injections, massage, rest, YouTube...</span>
-        <textarea name="tried_already" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
-      </label>
-
-      <fieldset class="border border-[var(--color-border)] rounded-xl p-5">
-        <legend class="font-semibold px-2">How would you rather meet?</legend>
-        <div class="space-y-3 mt-2">
-          <label class="flex items-start gap-3 cursor-pointer">
-            <input type="radio" name="meeting_preference" value="In person at the studio" class="mt-1.5 accent-[var(--color-primary)]" />
-            <span>In person at the downtown Denver studio</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer">
-            <input type="radio" name="meeting_preference" value="Video call" class="mt-1.5 accent-[var(--color-primary)]" />
-            <span>Via video call</span>
-          </label>
-        </div>
-      </fieldset>
-
       <!-- Every column carries a hint row (empty where there's no hint) so the
            three inputs sit on the same line — fixes the phone-box misalignment. -->
       <div class="grid md:grid-cols-3 gap-4">
@@ -75,6 +43,38 @@ const { segment } = Astro.props;
           <input type="email" name="email" required class="w-full border border-[var(--color-border)] rounded-lg p-3 mt-1 bg-[var(--color-background)]" />
         </label>
       </div>
+
+      <fieldset class="border border-[var(--color-border)] rounded-xl p-5">
+        <legend class="font-semibold px-2">How would you rather meet?</legend>
+        <div class="space-y-3 mt-2">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="radio" name="meeting_preference" value="In person at the studio" class="mt-1.5 accent-[var(--color-primary)]" />
+            <span>In person at the downtown Denver studio</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="radio" name="meeting_preference" value="Video call" class="mt-1.5 accent-[var(--color-primary)]" />
+            <span>Via video call</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <label class="block">
+        <span class="font-semibold">How did this start?</span>
+        <span class="block text-sm text-[var(--color-text-muted)] mb-2">Injury, surgery, or did it creep up? Short version is fine.</span>
+        <textarea name="how_it_started" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+      </label>
+
+      <label class="block">
+        <span class="font-semibold">Why now?</span>
+        <span class="block text-sm text-[var(--color-text-muted)] mb-2">What is it stopping you from doing that you want back?</span>
+        <textarea name="why_now" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+      </label>
+
+      <label class="block">
+        <span class="font-semibold">What have you tried already?</span>
+        <span class="block text-sm text-[var(--color-text-muted)] mb-2">PT, chiro, injections, massage, rest, YouTube...</span>
+        <textarea name="tried_already" rows="3" class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"></textarea>
+      </label>
 
       <div class="text-center pt-2">
         <button type="submit" class="cta-button text-lg">Send my story</button>
