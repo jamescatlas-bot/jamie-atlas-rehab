@@ -1,0 +1,312 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Balance Training for Ski Season: Train the Recovery, Not Just the Legs';
+const description =
+  'Strong legs get you down the mountain. Balance is what saves you when an edge catches. Four progressions — rocker board, BOSU, Core-Tex, and a drill that needs no equipment at all.';
+const published = '2026-08-10';
+const url = `${SITE.url}/resources/balance-training`;
+
+const VIDEO_ID = 'J7wGWcvBugw';
+
+const faq = [
+  {
+    q: 'Is balance training good for skiing and snowboarding?',
+    a: 'Yes, and it covers something strength work cannot. Squats and lunges build the engine, but skiing and riding constantly move the ground underneath you — an edge catches, the snow changes, a landing is not where you expected it. Balance training teaches your ankles, hips, and trunk to react and recover in that moment. Strength gets you down the mountain; balance is what keeps a surprise from becoming a fall.',
+  },
+  {
+    q: 'What equipment do I need for balance training?',
+    a: 'Less than you would think. A rocker or balance board and a BOSU ball cover most of it, and both are common in Denver gyms. A reactive trainer like the Core-Tex — where the platform actually translates under you — is the closest thing to snow you will find indoors, but it is not required. And the most underrated balance drill of all needs no equipment: standing on one leg while turning your head, which is far closer to how balance is actually challenged in real life than standing still and staring at a spot on the wall.',
+  },
+  {
+    q: 'Does standing on one leg actually improve balance?',
+    a: 'It is a start, but the way most people do it misses the point. Locking your eyes on a fixed point and holding still trains a situation that almost never happens in real life. Falls and near-misses happen mid-motion — you are walking, talking, looking at something else, and suddenly your foot is not where you thought it was. Adding head turns to a single-leg stance trains your balance system to cope when your eyes and inner ear are busy doing something else, which is exactly when you need it.',
+  },
+  {
+    q: 'How often should I do balance training?',
+    a: 'Little and often beats occasional and heroic. Balance work is skill practice more than muscle work, so it responds well to short, frequent doses — a few minutes between strength sets, or five minutes most days. It makes an ideal filler between exercises: instead of standing around watching the clock, you are training the reactions you will want on the mountain.',
+  },
+  {
+    q: 'Is balance training only for older adults worried about falling?',
+    a: 'No — the same ability serves two very different goals. An athlete trains balance to perform: to hold an edge, recover from a bad landing, change direction under control. Someone who has had a close call on stairs or ice trains balance to protect: to make sure a slip stays a slip. The drills overlap almost completely. What changes is the intensity and the intent.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const videoSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: 'Workout Wednesday: Balance training — 9NEWS',
+  description:
+    'Jamie Atlas demonstrates balance training progressions on 9NEWS: rocker board, BOSU ball, Core-Tex reactive trainer, and a no-equipment single-leg drill.',
+  thumbnailUrl: `https://i.ytimg.com/vi/${VIDEO_ID}/hqdefault.jpg`,
+  uploadDate: '2017-04-05',
+  contentUrl: `https://www.youtube.com/watch?v=${VIDEO_ID}`,
+  embedUrl: `https://www.youtube-nocookie.com/embed/${VIDEO_ID}`,
+};
+
+const progressions = [
+  {
+    name: 'The rocker board, side to side',
+    what: 'Stand on the board with the rocker running so it tips left and right. Let it move — the job is not to freeze it, it is to keep recovering it. Once that feels steady, add slow squats, and let each one get a little deeper and a little more athletic.',
+    why: 'This is lateral agility training for your ankles. On snow, when an edge catches or the surface changes, your ankles have to react and not roll over. There is no way to train that reaction by holding still.',
+  },
+  {
+    name: 'The rocker board, front to back',
+    what: 'Turn ninety degrees so the board now tips toes-down and heels-down. Same rules: let it move, keep recovering, then add squats.',
+    why: 'It feels like a completely different exercise — because it is. Front-to-back control is what catches you when a foot slips forward off a step, a patch of ice, or the back of a mogul. Different direction, different reflex, and most people have only ever trained one of them.',
+  },
+  {
+    name: 'The BOSU ball squat',
+    what: 'Place one foot on the edge of the dome, find the opposite edge with the other foot, and stand up onto it. Settle, then squat. One note: BOSU balls are inflated to different firmness in different gyms, so what works on one may feel very different on another.',
+    why: 'Now the surface can go anywhere — forward, back, side to side, at any moment. It is also an honest mirror: the ball will show you where your body wants to cheat. If your toes roll forward or you drift to one side, that is information. Shift your weight back toward your heels and watch the squat clean itself up.',
+  },
+  {
+    name: 'The Core-Tex reactive trainer',
+    what: 'This is the one that surprises people. The platform does not tip — it translates, sliding underneath you like the ground itself is moving. Hold both handles and step on. Start with an easy squat, hands hovering above the bar. Then take one hand off. Then add a squat with a twist, each direction.',
+    why: 'Everything else in the gym teeter-totters. This slides — which is what snow actually does. It is the closest thing to a snowboard, skis, or a surfboard you will find indoors, and taking a hand away converts it from a supported exercise into genuine balance work that looks and feels like the sport you are training for.',
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Skiing
+      </p>
+      <h1 class="mb-8">Balance training: train the recovery, not just the legs</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Ski prep in most Denver gyms means squats, lunges, and wall sits. Useful — but they all assume the ground stays
+        still, and the mountain never signed that agreement. Here is how to train what happens when it moves.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Performing or protecting?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          When you do balance work, it helps to know which question you are answering:
+          <strong>are you training to perform, or training to protect?</strong>
+        </p>
+        <p>
+          Training to perform is the athlete's version. You want to hold an edge through a hard turn, recover when a
+          landing is not where you expected, and change direction without your ankles filing a complaint. Training to
+          protect is quieter but just as real. I have lost count of the clients who have told me about a close shave — a
+          missed step on a stairwell, a patch of ice outside the front door — where they caught themselves and were
+          deeply glad they could.
+        </p>
+        <p>
+          The good news: the training is nearly identical. The drills below serve both — as filler between strength
+          sets so you are not just standing around watching the clock, or as its own short session. What changes is how
+          hard you push each progression.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Watch it first</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        I demonstrated every progression in this article on 9NEWS during my years as their fitness expert — five
+        minutes, all four tools, including the moment the Core-Tex gets real.
+      </p>
+      <a
+        class="video-embed-facade group relative block aspect-video w-full overflow-hidden rounded-xl border border-[var(--color-border)] bg-black no-underline"
+        href={`https://www.youtube.com/watch?v=${VIDEO_ID}`}
+        data-video-id={VIDEO_ID}
+        data-video-title="Workout Wednesday: Balance training — 9NEWS"
+        rel="noopener"
+      >
+        <img
+          src={`https://i.ytimg.com/vi/${VIDEO_ID}/hqdefault.jpg`}
+          alt="Jamie Atlas demonstrating balance training on 9NEWS"
+          width="1280"
+          height="720"
+          loading="lazy"
+          class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+        />
+        <span class="absolute inset-0 bg-black/15 transition-colors group-hover:bg-black/25"></span>
+        <span
+          class="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 shadow-lg transition-transform duration-200 group-hover:scale-110"
+          aria-hidden="true"
+        >
+          <svg width="22" height="24" viewBox="0 0 22 24" fill="var(--color-primary)">
+            <path d="M21 12L0 24V0z" />
+          </svg>
+        </span>
+        <span class="sr-only">Play video: Workout Wednesday balance training segment on 9NEWS</span>
+      </a>
+      <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)] opacity-75">
+        From my time as the 9NEWS fitness expert. The principles have not changed — good balance training still looks
+        like the sport you are training for.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Four progressions, easiest to hardest</h2>
+      <div class="space-y-10">
+        {progressions.map((p, i) => (
+          <div>
+            <h3 class="mb-3">{i + 1}. {p.name}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-3">{p.what}</p>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed italic">{p.why}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-10 space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A bonus for the trainers and the self-coached: <strong>the BOSU doubles as a squat assessment.</strong> Put
+          someone on it and watch where their body wants to go. A lean to one side, toes rolling forward — the ball
+          reveals in ten seconds what a stable floor hides. It is one of the fastest ways I know to find out what a
+          squat actually looks like under the surface.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The drill that needs no equipment at all</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Stand on one leg. Most people stop there — eyes locked on a point across the room, perfectly still, quietly
+          proud. <strong>That is about as far from the real world as balance training gets.</strong>
+        </p>
+        <p>
+          Think about when you actually need balance. You are walking and talking, looking at the person next to you,
+          and you miss a step — and your head snaps around trying to work out where your foot is going. The challenge
+          was never standing still. It was rebalancing while your eyes and attention were somewhere else.
+        </p>
+        <p>So train that. Fair warning: it feels a bit like a sobriety test.</p>
+        <ul class="list-disc pl-6 space-y-2">
+          <li>Stand on one leg. Hold both thumbs up at arm's width, and look at one thumb.</li>
+          <li>On your own count, snap your head to look at the other thumb — and hold your balance.</li>
+          <li>Snap back. Hold again.</li>
+          <li>When that gets easy: double snap — boom, boom — and freeze.</li>
+        </ul>
+        <p>
+          It is harder than it sounds, it needs nothing but a hallway, and it trains the exact reflex that turns a
+          missed step into a story instead of an injury.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The quiet reason this matters</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          If you are reading this as ski prep, the payoff is obvious: more control, more confidence, fewer of those
+          moments where the run ends differently than you planned.
+        </p>
+        <p>
+          But there is a second audience, and I want to speak to them directly. Past a certain age, a fall stops being
+          a trivial thing — a bad one can mean a hospital stay, and the road back is not guaranteed. That is not a
+          reason to fear movement. <strong>It is a reason to train it.</strong> The people who catch themselves on the
+          icy step are not lucky — they are the ones whose ankles and reflexes had practiced the recovery before it was
+          needed.
+        </p>
+        <p>
+          Balance is trainable at any age. The progressions above scale from "holding the handles with both hands" to
+          "squatting with a twist on a moving platform." Wherever you are on that line, the next step is available.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Want your balance tested before the mountain tests it?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can. I
+        have been running ski conditioning in Denver since 2008, and the Core-Tex lives in my studio.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/resources/ski-squats" class="text-white underline">Read the ski squats article</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Click-to-play facade for the 9NEWS embed — same behaviour as the
+  // testimonial component: desktop swaps in the player inline, touch devices
+  // follow the link to the YouTube app/player (inline autoplay is unreliable
+  // on mobile and reads as a dead tap).
+  const touchDevice = window.matchMedia('(pointer: coarse)').matches;
+  document.querySelectorAll('.video-embed-facade').forEach(el => {
+    el.addEventListener('click', (event: Event) => {
+      if (touchDevice) return;
+      event.preventDefault();
+      const link = el as HTMLAnchorElement;
+      const id = link.dataset.videoId;
+      const title = link.dataset.videoTitle ?? 'Video';
+      if (!id) return;
+
+      const frame = document.createElement('iframe');
+      frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      frame.title = title;
+      frame.allow =
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.className = 'absolute inset-0 h-full w-full';
+      frame.setAttribute('frameborder', '0');
+
+      link.replaceChildren(frame);
+      link.classList.add('pointer-events-none');
+    });
+  });
+</script>
