@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Glute Exercises: The Missing Piece in Most Back and Knee Stories';
+const description =
+  'Weak or sleepy glutes quietly tax the back and knees. Why glute training is about angles, not just squeezing — with the 9NEWS segment on three exercises worth adding.';
+const published = '2026-08-11';
+const url = `${SITE.url}/resources/glute-exercises`;
+
+const faq = [
+  {
+    q: 'Why do glutes matter if my problem is my back or my knees?',
+    a: 'Because the glutes are the shock absorbers and force producers for the whole lower half. When they under-deliver — from long sitting, old habits or pain-related shutdown — the work does not disappear; it gets re-billed to the lower back above and the knees below. A large share of the "mystery" back and knee complaints I see improve when the hips start doing their share again.',
+  },
+  {
+    q: 'What is the best glute exercise?',
+    a: 'The one that loads the fibers you are missing. Glute fibers wrap the hip at roughly forty-five degrees, so straight-ahead movements only train part of the muscle. A useful trio covers three demands: a hinge or bridge for pure extension, a single-leg movement for stability under real-life loading, and something rotational or angled — because that is the range daily life and sport actually use.',
+  },
+  {
+    q: 'I squeeze my glutes all day like I was told. Is that enough?',
+    a: 'Conscious clenching is not training — muscles adapt to progressive load through range, not to being politely tensed at a desk. A few focused sets a couple of times a week, getting gradually harder, does more than a thousand daily squeezes. If squeezing was prescribed because your glutes "don’t fire," know that they almost certainly do — they may just be weak, and weakness has a well-marked exit.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Strength
+      </p>
+      <h1 class="mb-8">Glute exercises: the missing piece in most back and knee stories</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        When a back or knee keeps complaining and nothing found at the sore spot explains it, I look one joint over.
+        <strong class="text-[var(--color-text)]">The glutes are where lower-body problems hide their cause</strong> —
+        and where a lot of them end.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Watch the segment</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        Three glute exercises worth adding to your workout, from my 9NEWS years.
+      </p>
+      <ResourceVideo
+        id="ji3xvNk3T4M"
+        title="3 glute exercises to add to your workout — 9NEWS"
+        caption="From my recurring 9NEWS fitness segments."
+      />
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Angles, not just squeezing</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong>Muscles work like cables — they pull along the line their fibers run.</strong> Your biceps run
+          more or less straight, which is why a simple curl trains them well. Glute fibers wrap the hip at close to
+          forty-five degrees. Train them only with straight-ahead movements — squats, lunges, leg presses — and a
+          large share of the muscle never gets the memo. Add angle and rotation, and suddenly you are training the
+          part that catches you on stairs, on ice, and coming out of a ski turn.
+        </p>
+        <p>
+          This is why glute training shows up in every sport article on this site: the
+          <a href="/resources/ski-squats">rotational ski squat</a>, the hiking descent work, the golf swing's
+          trail-hip coil. Same muscle, same principle, different costume.
+        </p>
+        <p>
+          And it is why glutes appear so often in pain stories. Sitting shortens and quiets them; pain inhibits
+          them further; and the lower back and knees inherit their unfinished work — for years, sometimes, before
+          anyone asks the hips what they have been doing. If your back is the part that has been complaining, the
+          <a href="/what-we-treat/chronic-back-pain">chronic back pain page</a> picks up this thread properly.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Suspect your hips have been mailing it in?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Read about chronic back pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

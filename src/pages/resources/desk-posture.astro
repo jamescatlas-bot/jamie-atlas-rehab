@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Desk Posture: What Actually Helps (It’s Not Sitting Up Straighter)';
+const description =
+  'Neck aches, tight shoulders and back pain from desk work are movement problems, not posture crimes. What helps in a downtown Denver workday — with the 9NEWS segment.';
+const published = '2026-08-11';
+const url = `${SITE.url}/resources/desk-posture`;
+
+const faq = [
+  {
+    q: 'Is bad posture the cause of my neck and back pain?',
+    a: 'Less than you have been told. Research keeps failing to find one "correct" posture that prevents pain — people with textbook alignment hurt, and people who slouch happily do not. What bodies genuinely dislike is any single position held for hours. The strongest lever is not sitting straighter; it is changing position more often and giving the stiff areas real movement.',
+  },
+  {
+    q: 'What can I actually do during a workday?',
+    a: 'Think in small frequent doses: a position change every 30–45 minutes, even a small one; a few chin tucks and shoulder-blade squeezes at natural breaks; standing hip-flexor and chest openers when you grab coffee. None of it requires a gym or athletic wear. The habit of moving matters far more than any single exercise done perfectly once.',
+  },
+  {
+    q: 'Will a standing desk fix my pain?',
+    a: 'It changes the position you are stuck in — which helps some people and simply relocates the complaint for others. Standing motionless for six hours is not much kinder than sitting motionless for six. The winning setup is one that makes changing positions easy: sit, stand, perch, walk to the printer you deliberately did not put next to your desk.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Desk work
+      </p>
+      <h1 class="mb-8">Desk posture: what actually helps</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        If sitting up straight cured desk pain, downtown Denver would have the healthiest necks in America by now.
+        <strong class="text-[var(--color-text)]">It's probably not your posture alone</strong> — it is the hours
+        spent in any one shape, and that has a different fix.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Watch the segment</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        Three workplace posture tips from my 9NEWS years — the two-minute version of this article.
+      </p>
+      <ResourceVideo
+        id="f_SoiKUqHak"
+        title="3 tips for better posture in the workplace — 9NEWS"
+        caption="From my recurring 9NEWS fitness segments."
+      />
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Reframing the problem</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong>Your next posture is your best posture.</strong> The body treats stillness as the enemy, not
+          slouching. Muscles that hold one position for hours tire, tighten and start reporting discomfort — no
+          structural damage required. That is why the ache builds through the afternoon and eases when you finally
+          move: it is a request, not an injury announcement.
+        </p>
+        <p>
+          What a desk day steals, specifically: the hips lose extension (they have been folded since 8 am), the
+          mid-back loses rotation and extension (it has been braced over a keyboard), and the neck — sitting on top
+          of that stiff foundation — does all the compensating, which is why it so often carries the complaint for
+          the whole chain. If your neck is the loudest voice, the <a href="/what-we-treat/neck-pain">neck pain
+          page</a> goes deeper on why relief so often has not lasted.
+        </p>
+        <p>
+          The workday counter-moves are small and unheroic: position changes every half hour or so, a handful of
+          chin tucks and shoulder-blade squeezes, a doorway chest opener, a standing hip-flexor stretch while the
+          coffee brews. Then, outside work hours, restore what the chair took — extension, rotation and strength
+          through the hips and mid-back. Ten focused minutes a few times a week outperforms an ergonomic shopping
+          spree.
+        </p>
+        <p>
+          For the many people whose studio is a short walk from their office — mine sits at 1800 Glenarm Place,
+          in the middle of it all — this is also the most common starting story I hear: "it began as desk
+          stiffness, and now it is a thing." It does not have to stay a thing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Work downtown? The studio is a short walk away.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+        Early and lunchtime appointments fit around office hours.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/neck-pain" class="text-white underline">Read about neck pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

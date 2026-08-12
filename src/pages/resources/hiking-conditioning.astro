@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Hiking Conditioning for Colorado: Stretches and Strength That Hold Up on the Trail';
+const description =
+  'Downhills, not climbs, are what wreck Colorado hikers. The stretches and strength work that prepare knees, hips and ankles for real trails — with the 9NEWS segment.';
+const published = '2026-08-11';
+const url = `${SITE.url}/resources/hiking-conditioning`;
+
+const faq = [
+  {
+    q: 'Why do my knees hurt hiking downhill but not uphill?',
+    a: 'Descending is braking. Every downhill step asks your quads and glutes to absorb your bodyweight — more with a pack, more still on steep grades — while lengthening under load. When those muscles fatigue, the braking job shifts to the knee joint itself, and it lets you know. The fix is usually not new knees; it is training the braking muscles the way the trail actually uses them: eccentrically, one leg at a time.',
+  },
+  {
+    q: 'What exercises prepare you for fourteeners?',
+    a: 'Three categories cover most of it: step-work for the climb (step-ups onto a box, building toward weighted), eccentric single-leg work for the descent (slow step-downs are gold), and carrying capacity (time under a loaded pack, even on neighborhood walks). Add the calf and hip mobility work and you have covered what the mountain checks. Altitude fitness is its own subject — but legs that are not wrecked help there too.',
+  },
+  {
+    q: 'Should I stretch before or after hiking?',
+    a: 'Before: briefly and dynamically — leg swings, deep squats, ankle circles, two or three minutes at the trailhead. After: this is where longer holds earn their keep, especially calves, hip flexors and quads, which have spent hours working in a short range. The stiffness you feel two days after a big hike is mostly eccentric-load soreness; stretching after helps, but training before helps more.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Hiking
+      </p>
+      <h1 class="mb-8">Hiking conditioning: it's the downhills that get you</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Everyone trains for the climb. Then the summit photo gets taken, the descent starts, and two hours later a
+        pair of knees files a formal complaint. <strong class="text-[var(--color-text)]">Colorado hiking is a
+        braking sport</strong> — and braking is trainable.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Watch the segment</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        I covered hiking stretches and preparation on 9NEWS during my years as their fitness expert — a quick,
+        practical primer to pair with the deeper dive below.
+      </p>
+      <ResourceVideo
+        id="NUTTTyyo8qE"
+        title="Wellness Wednesday: Stretches and exercises for hiking — 9NEWS"
+        caption="From my recurring 9NEWS fitness segments."
+      />
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What the trail actually tests</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong>The descent is an eccentric-strength exam.</strong> Going up, muscles shorten as they work —
+          hard, but familiar. Coming down, your quads and glutes must produce force while lengthening, step after
+          step, often for longer than the climb took. Almost nobody trains this, which is why the soreness after a
+          big hike lives in the fronts of the thighs and why knee pain so often starts on the way down.
+        </p>
+        <p>
+          Three things to build in the weeks before big objectives. <strong>Slow step-downs:</strong> stand on a
+          step, lower one foot to the floor over three slow seconds, and come back up — the single most
+          trail-relevant exercise there is. <strong>Step-ups with intent:</strong> drive through the top leg rather
+          than bouncing off the bottom one, adding a pack as it gets easy. <strong>Single-leg balance on uneven
+          input:</strong> trails are not flat, and ankles that can react — the same reactive work in the
+          <a href="/resources/balance-training">balance training article</a> — are what turn a rolled rock into a
+          non-event.
+        </p>
+        <p>
+          And the hips deserve their usual mention: hours of desk sitting shorten the hip flexors, then the trail
+          asks for full stride extension a few thousand times. That tug-of-war frequently presents as lower-back
+          ache at mile six. It is one of the most fixable patterns I see.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">If a joint already complains on the trail</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A knee that flares on descents or a hip that tightens by the second hour does not usually mean hiking is
+          over — it usually means the load is arriving somewhere untrained. Pain is information, not automatically
+          damage. Finding the version of the movement you can do without a lasting flare, then building from it, is
+          how hikers get their mileage back. That is the work this studio does every week.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Want your knees to outlast the trail?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/knee-pain" class="text-white underline">Read about knee pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

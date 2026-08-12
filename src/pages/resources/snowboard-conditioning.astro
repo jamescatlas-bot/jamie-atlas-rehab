@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Snowboard Conditioning: Train for the Board, Not the Skis';
+const description =
+  'Snowboarding is a sideways sport with its own injury pattern — wrists, shoulders, and the front knee. The conditioning that matches a board stance, plus the 9NEWS segment on it.';
+const published = '2026-08-11';
+const url = `${SITE.url}/resources/snowboard-conditioning`;
+
+const faq = [
+  {
+    q: 'Is snowboard conditioning different from ski conditioning?',
+    a: 'Meaningfully, yes. Skiing loads two independent legs facing forward; snowboarding locks both feet to one board, sideways. That changes everything downstream — riders live in rotation through the trunk, absorb terrain with both legs as a unit, and fall differently, which is why snowboard injuries skew toward wrists and shoulders while ski injuries skew toward knees. Shared foundation, different emphasis.',
+  },
+  {
+    q: 'What muscles matter most for snowboarding?',
+    a: 'The trunk rotators and hips run the show — every toe-to-heel transition is a rotation driven from the middle of the body. Underneath that, quads and glutes absorb chatter and landings, and the often-ignored muscles around the shins and calves manage the constant fine adjustments of edge pressure. Riders who only train quads find out quickly what they skipped.',
+  },
+  {
+    q: 'How do I stop being sore for a week after the first day of riding?',
+    a: 'That first-weekend soreness is mostly eccentric load — muscles working hard while lengthening, absorbing chatter and holding edges — hitting tissue that has not done it for months. The fix is to give your body a preview: rotational squats, lateral work and balance training in the six or so weeks before the season, so opening day is a reunion rather than an ambush.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Snowboarding
+      </p>
+      <h1 class="mb-8">Snowboard conditioning: train for the board, not the skis</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Most "ski and snowboard conditioning" is ski conditioning with the word snowboard added. But you ride
+        sideways, turn from your trunk, and fall onto your hands.
+        <strong class="text-[var(--color-text)]">Different sport. Different preparation.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Watch the segment</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        I put three snowboard-specific exercises on 9NEWS during my time as their fitness expert — ninety seconds,
+        board stance and all.
+      </p>
+      <ResourceVideo
+        id="9XuJlyHwfeM"
+        title="3 muscle exercises for snowboarders — 9NEWS"
+        caption="From my recurring 9NEWS fitness segments."
+      />
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What makes riding different</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong>Both feet on one board changes the physics.</strong> A skier can recover with the other leg; a
+          rider cannot. Every correction happens through edge pressure and trunk rotation instead. That is why the
+          rotational work matters more for riders than for almost any other winter athlete — the toe-to-heel
+          transition is a rotation, initiated from the middle of the body, hundreds of times a day.
+        </p>
+        <p>
+          The injury pattern is different too. Skiers hurt knees; riders hurt wrists and shoulders, because when a
+          board's edge catches there is no stepping out of it — the fall arrives, and hands go down. Conditioning
+          cannot promise to prevent that, but upper-body and trunk strength change what a fall costs, and hip
+          control changes how many falls happen in the first place.
+        </p>
+        <p>
+          Three training directions that pay off on a board: <strong>rotation under load</strong> (squats with a
+          twist, band or cable chops), <strong>lateral power and landing control</strong> (side-to-side hops onto a
+          stable landing, stuck and held), and <strong>reactive balance</strong> — the moving-surface work covered
+          in the <a href="/resources/balance-training">balance training article</a>, which is the closest thing to
+          riding you can do in a gym. On the Core-Tex in my studio, the platform slides under you exactly the way
+          snow does.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">If something already hurts</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A wrist that never fully recovered from last season's slam, a shoulder that grumbles on toe-side turns, a
+          front knee that has opinions about moguls — these are the things that quietly shrink what you are willing
+          to ride. Pain and damage are not the same thing, avoidance tends to make joints more sensitive rather
+          than less, and the distance between "healed" and "trusting it at speed" is closeable. That distance is
+          the work I do.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Want to ride this season without babying an old injury?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+        Ski and snowboard conditioning in Denver since 2008.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/resources/ski-season-prep" class="text-white underline">The complete ski season prep guide</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

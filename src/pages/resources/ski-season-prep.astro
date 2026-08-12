@@ -1,0 +1,225 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Ski Season Prep: The Complete Denver Guide';
+const description =
+  'How to get ready for ski season without getting hurt doing it — strength, balance, stretches and snowboard-specific work, with the 9NEWS segments where Jamie demonstrates each piece.';
+const published = '2026-08-11';
+const url = `${SITE.url}/resources/ski-season-prep`;
+
+const faq = [
+  {
+    q: 'When should I start training for ski season?',
+    a: 'Eight to twelve weeks before your first day is the realistic runway for noticeable change, which in Colorado means September or early October. Less is still worth doing — even four weeks of targeted work beats arriving at the gondola with legs that last did anything athletic in April.',
+  },
+  {
+    q: 'What is the best exercise to get ready for skiing?',
+    a: 'There is no single one, and that is the point of this guide. Skiing asks four different things of your body: leg strength in the shape of a turn, balance that reacts when the surface moves, mobility that lets you absorb terrain, and the rotational control that connects all of it. A program that only covers one of those — usually squats — leaves the other three to luck.',
+  },
+  {
+    q: 'I have not exercised since last season. Where do I start?',
+    a: 'Start with the wide-stance and uneven squat variations in the ski squats article, plus five minutes of balance work most days. Build for two or three weeks before adding load or the harder single-leg work. The most common early-season injury story is not weakness — it is doing too much, too fast, in the two weeks before opening day.',
+  },
+  {
+    q: 'Does ski conditioning actually prevent injuries?',
+    a: 'No program can promise that, and any that does is overselling. What preparation reliably changes is how your body handles the unplanned moment — the caught edge, the flat-light bump you did not see. Trained hips, reactive ankles and rotational control give the surprise somewhere to go besides your knee. Better odds, not guarantees.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const cluster = [
+  {
+    href: '/resources/ski-squats',
+    title: 'Ski squats: train for the turn, not the gym',
+    blurb: 'Why the standard squat is the wrong shape for skiing, and four variations that match the turn.',
+  },
+  {
+    href: '/resources/balance-training',
+    title: 'Balance training: train the recovery, not just the legs',
+    blurb: 'Rocker board, BOSU, Core-Tex, and the head-snap drill — with the 9NEWS segment.',
+  },
+  {
+    href: '/resources/ski-stretches',
+    title: 'Ski stretches that actually help',
+    blurb: 'The mobility side of ski prep — and the video that proves how long this has been part of the toolkit.',
+  },
+  {
+    href: '/resources/snowboard-conditioning',
+    title: 'Snowboard conditioning',
+    blurb: 'Riding is not skiing. The strength work that matches a sideways stance.',
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Skiing
+      </p>
+      <h1 class="mb-8">Ski season prep: the complete Denver guide</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Every fall the same thing happens: two months of good intentions get compressed into two weeks of squats,
+        and the mountain gets to deliver the verdict. <strong class="text-[var(--color-text)]">Ski prep is not one
+        exercise — it is four jobs</strong>, and this guide covers all of them.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The four jobs of ski prep</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Think about what a day on the mountain actually asks of your body. <strong>Strength</strong>, in the shape
+          of a turn — wide stance, one leg more bent than the other, rotating. <strong>Balance</strong> that reacts —
+          because snow moves under you, and edges catch. <strong>Mobility</strong> that lets your hips and ankles
+          absorb terrain instead of your knees taking the bill. And <strong>endurance</strong> in all three, because
+          the injury statistics pile up in the afternoon, on tired legs, on the "one last run."
+        </p>
+        <p>
+          Most ski conditioning covers the first job and ignores the rest. That is why you can be gym-strong and
+          still find your legs cooked by lunch — or worse, strong and still hurt, because nothing you trained looked
+          like the moment that got you.
+        </p>
+        <p>
+          I covered this ground across several seasons of 9NEWS segments. Three of them are below — short, practical,
+          and each one attacking the problem from a different angle.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto space-y-12">
+      <div>
+        <h2 class="mb-4">Getting ready for ski season</h2>
+        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-6">
+          The rust-removal segment: if last season ended in April and your training ended with it, this is the
+          starting point — how to wake the right muscles back up while staying injury free.
+        </p>
+        <ResourceVideo
+          id="cRGFMTXOeGc"
+          title="Workout Wednesday: Getting ready for ski season — 9NEWS"
+          caption="From my recurring 9NEWS fitness segments."
+        />
+      </div>
+      <div>
+        <h2 class="mb-4">Getting in shape before hitting the slopes</h2>
+        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-6">
+          The conditioning segment: building the work capacity that keeps the afternoon runs as controlled as the
+          morning ones.
+        </p>
+        <ResourceVideo
+          id="MQT-vEJoAIU"
+          title="Workout Wednesday: Getting in shape before hitting the slopes — 9NEWS"
+        />
+      </div>
+      <div>
+        <h2 class="mb-4">For skiers and boarders both</h2>
+        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-6">
+          The two sports share a mountain but not a stance. This segment covers preparation that serves both — and
+          where they part ways, the <a href="/resources/snowboard-conditioning">snowboard conditioning article</a>
+          picks up the story.
+        </p>
+        <ResourceVideo
+          id="knOOnKnnAc4"
+          title="Workout Wednesday: Helping skiers and boarders get ready for the season — 9NEWS"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">A season plan that survives real life</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong>September:</strong> re-establish the patterns. Wide-stance and uneven squats, easy balance work,
+          the stretches. Two or three short sessions a week. <strong>October:</strong> add load and rotation —
+          squats with a twist, single-leg work, harder balance progressions. <strong>November:</strong> add
+          endurance — longer sets, less rest, legs finishing sessions tired but controlled. First powder day: enjoy
+          being the one whose legs still work at 2 pm.
+        </p>
+        <p>
+          If a knee, hip or back is already complaining as you read this, that changes the plan — not by removing
+          the training, but by shaping it. Pain during movement is information, not automatically damage, and the
+          gap between "cleared" and "confident on a steep run" is exactly the gap this studio exists to close.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">The full ski prep series</h2>
+      <div class="space-y-8">
+        {cluster.map(c => (
+          <a href={c.href} class="block no-underline group">
+            <h3 class="text-2xl mb-2 text-[var(--color-primary)] group-hover:text-[var(--color-primary-dark)]">{c.title}</h3>
+            <p class="text-[var(--color-text-muted)] leading-relaxed">{c.blurb}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Want a ski prep plan built around your actual body?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+        I have been running ski conditioning in Denver since 2008.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat" class="text-white underline">See what we treat</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

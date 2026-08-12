@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import { SITE } from '../../data/site';
+
+const title = 'A Workout You Can Do With Your Kids (and Why It Counts)';
+const description =
+  'Training with children in the house is not a compromise — done right, it is movement-pattern practice for you and play for them. The 9NEWS segment, and how to make it stick.';
+const published = '2026-08-11';
+const url = `${SITE.url}/resources/family-workout`;
+
+const faq = [
+  {
+    q: 'Can a workout with kids around actually be effective?',
+    a: 'Yes — if you build it around movement patterns rather than sets and rest timers. Squats, crawls, carries, balance games and hinges deliver real training stimulus and survive interruption, because the structure is "do good movement for a while," not "complete 4×10 undisturbed." Ten imperfect minutes most days reliably beats the perfect hour that keeps not happening.',
+  },
+  {
+    q: 'What movements work best with children joining in?',
+    a: 'Animal crawls (genuinely hard for adults, hilarious for kids), squat and balance games ("who can hold longest"), carries (you take the heavy thing, they take the teddy), and anything involving the floor — getting down to it and up from it is one of the most underrated abilities to keep for life, and children are the world’s most natural coaches for it.',
+  },
+  {
+    q: 'Does it matter that my kids see me exercise?',
+    a: 'More than almost anything you tell them. Children copy what the household does, not what it says — a parent who moves, plays on the floor and treats activity as normal is running the most effective long-term health intervention there is. The workout is for your body; the example is for theirs.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Home training
+      </p>
+      <h1 class="mb-8">A workout your kids are allowed to interrupt</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Most parents' training dies in the gap between "no time alone" and "waiting for time alone."
+        <strong class="text-[var(--color-text)]">Stop defending the workout from the kids and build one they can
+        join.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Watch the segment</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        A fun and easy workout you can do with your kids, from my 9NEWS years.
+      </p>
+      <ResourceVideo
+        id="1Sd2bqiRIx8"
+        title="A fun and easy workout you can do with your kids — 9NEWS"
+        caption="From my recurring 9NEWS fitness segments."
+      />
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Why this counts as real training</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong>Movement patterns are the workout.</strong> Squatting, hinging, crawling, carrying, balancing —
+          these are the abilities that keep a body capable for decades, and every one of them can be trained with a
+          child underfoot, because the structure is play, not protocol. A bear crawl race is eccentric shoulder and
+          trunk work wearing a costume. Getting off the floor thirty times an evening is, quietly, one of the best
+          longevity exercises known.
+        </p>
+        <p>
+          <strong>Consistency is the multiplier.</strong> The parent-training math is simple: interrupted ten-minute
+          sessions that happen five times a week beat the pristine hour that happens twice a month. Kids do not
+          break that plan — they are built into it.
+        </p>
+        <p>
+          And when life allows a more focused block, the <a href="/resources/resistance-band-training">resistance
+          band article</a> covers the equipment side of training at home — the two pages are designed as a pair.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Want to move well enough to keep up with them for decades?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat" class="text-white underline">See what we treat</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

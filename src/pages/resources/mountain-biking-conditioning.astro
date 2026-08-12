@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Mountain Biking Conditioning: Skills Start in the Body, Not the Bike';
+const description =
+  'Better mountain biking is not just fitness — it is hip hinge, grip endurance and reactive balance. Three training directions that show up on the trail, plus the 9NEWS segment.';
+const published = '2026-08-11';
+const url = `${SITE.url}/resources/mountain-biking-conditioning`;
+
+const faq = [
+  {
+    q: 'What exercises improve mountain biking?',
+    a: 'The ones that match riding positions. The attack position is a loaded hip hinge held for minutes at a time, so hinge strength and endurance (deadlift patterns, iso-holds) transfer directly. Rotation and anti-rotation work stabilize you when the trail kicks the bike sideways. And single-leg strength covers punchy climbs and the pedal-strike moments where one leg suddenly does everything.',
+  },
+  {
+    q: 'Why do my hands and forearms give out on descents?',
+    a: 'Descending is a grip-endurance event — brakes feathered, bars absorbing chatter, often for ten minutes straight. When forearms cook, braking gets choppy and confidence goes with it. Loaded carries, dead hangs, and simply riding more chunk build it. If numbness or tingling comes with it, that is a different conversation worth having — nerve irritation and pump are not the same problem.',
+  },
+  {
+    q: 'Does core strength really matter for mountain biking?',
+    a: 'On a mountain bike your trunk is the suspension linkage between two contact patches — soft where it should be firm and the bike wanders; rigid where it should be springy and every hit reaches your neck. What riders need is less crunch strength and more control: the ability to hold a hinge while arms and legs move independently, and to resist rotation when the trail applies it. That is very trainable.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Mountain biking
+      </p>
+      <h1 class="mb-8">Mountain biking: the skills start in your body</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Riders chase skills clinics and suspension setups, and both help. But the platform every skill stands on is
+        physical: <strong class="text-[var(--color-text)]">a hinge you can hold, a grip that outlasts the descent,
+        and balance that reacts faster than you think.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Watch the segment</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        Three exercises to improve mountain biking, from my 9NEWS years — short and trail-focused.
+      </p>
+      <ResourceVideo
+        id="v4rXPkDZVIc"
+        title="Wellness Wednesday: 3 exercises to improve mountain biking skills — 9NEWS"
+        caption="From my recurring 9NEWS fitness segments."
+      />
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Three directions that show up on the trail</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong>Own the hinge.</strong> The attack position — hips back, chest low, arms soft — is a barely
+          disguised deadlift held for minutes. Riders with weak hinge endurance drift upright as they tire, weight
+          creeps forward, and the front wheel starts making decisions. Deadlift patterns, kettlebell swings and
+          timed hinge holds transfer almost one-to-one.
+        </p>
+        <p>
+          <strong>Train rotation — and the resisting of it.</strong> When a root kicks your rear wheel sideways,
+          what saves the line is your trunk absorbing rotation your arms did not order. Band chops, single-arm
+          carries and anti-rotation presses build exactly that. This is the same principle running through the whole
+          series: sports rotate, so training should too.
+        </p>
+        <p>
+          <strong>Make balance reactive.</strong> Track stands are nice; reacting is nicer. The moving-surface work
+          in the <a href="/resources/balance-training">balance training article</a> — where the ground shifts under
+          you and your ankles and hips answer without a committee meeting — is the gym version of every off-camber
+          root section in Colorado.
+        </p>
+        <p>
+          One more, for riders over 40 especially: the neck and low back absorb what the suspension does not. If
+          rides end with a stiff neck or a familiar back ache, that is not the price of the sport — it is usually a
+          position and capacity problem with a fix.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Riding around an old injury instead of through your potential?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat" class="text-white underline">See what we treat</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

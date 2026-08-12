@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Ski Stretches That Actually Help (and When to Do Them)';
+const description =
+  'The mobility side of ski prep — what to stretch, when stretching helps, when it does not, and the Denver ski stretches video that has been part of this toolkit since the beginning.';
+const published = '2026-08-11';
+const url = `${SITE.url}/resources/ski-stretches`;
+
+const faq = [
+  {
+    q: 'Should I stretch before skiing?',
+    a: 'Not the way most people do it. Long static holds in the cold parking lot do little for performance and nothing for warmth. Before skiing, movement beats holding: leg swings, deep bodyweight squats, trunk rotations — two or three minutes that raise temperature and rehearse the ranges you are about to use. Save the longer holds for after the day, or for evenings during the season.',
+  },
+  {
+    q: 'What should skiers actually stretch?',
+    a: 'The hips and ankles earn most of the attention. Hip flexors and quads shorten from all the sitting we do between ski days; tight ones steal range from your turn and hand extra work to the lower back. Ankles matter because a boot fixes them in one position all day — the range you have when you buckle in is all you get. Calves, glutes and the trunk rotators round out the list.',
+  },
+  {
+    q: 'Is being flexible enough to prevent ski injuries?',
+    a: 'No — and flexibility without control can even work against you. Range of motion you cannot produce strength in is range your joints pass through unprotected. That is why this article pairs with the strength and balance work in the rest of the series: mobility opens the range, strength owns it. Do both and the mountain has fewer surprises for you.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Skiing
+      </p>
+      <h1 class="mb-8">Ski stretches that actually help</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Stretching is the most argued-about corner of ski prep — oversold by one camp, dismissed by the other.
+        <strong class="text-[var(--color-text)]">The truth is quieter: the right mobility work, at the right time,
+        earns its place.</strong> Here is what that looks like.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">From the archive — and proudly so</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        This one is older than the others in the series, from my early Denver years — and that is exactly why it is
+        here. I have been preparing Denver skiers for the mountain since 2008, and the fundamentals in this clip
+        have not changed: they have just been joined by better strength and balance methods, covered in the rest of
+        the series.
+      </p>
+      <ResourceVideo
+        id="ZburB-FNu_M"
+        title="Ski stretches — Denver ski conditioning video from Jamie's early years"
+        caption="From the archive — my early Denver ski conditioning era. The fundamentals still hold."
+      />
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Where mobility fits in ski prep</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong>A ski turn is a mobility test you take at speed.</strong> Absorbing a compression asks your ankles
+          and hips for range. Angulating into an edge asks your trunk and hips to rotate while your legs do
+          something different. If the range is not there, the movement still happens — it just gets borrowed from
+          somewhere less suited to it, usually the knees or the lower back.
+        </p>
+        <p>
+          The modern picture on stretching is more useful than the old one: <strong>timing decides its value.</strong>
+          Before you ski, move through range dynamically — leg swings, deep squats, rotations — to warm up and
+          rehearse. After the day, or on off evenings, longer holds for hip flexors, quads, calves and glutes help
+          restore what boots and chairlifts took. And through the season, mobility work paired with strength — the
+          approach in the <a href="/resources/ski-squats">ski squats article</a> — turns new range into range you
+          can actually use.
+        </p>
+        <p>
+          One area deserves special mention for anyone over 40: the hips. Desk hours shorten the front of the hip
+          year-round, then ski season asks that same hip to extend, rotate and absorb. The gap between those two
+          demands is where a lot of Decembers go wrong — and it is very trainable.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Stiff where skiing needs you supple?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+        Denver ski conditioning since 2008.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/resources/ski-season-prep" class="text-white underline">The complete ski season prep guide</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Holiday Nutrition: Skip the January Penance';
+const description =
+  'The holidays are not the problem — the January overcorrection is. A saner way to eat through the season, from Jamie’s guest-expert segment on Denver7.';
+const published = '2026-08-11';
+const url = `${SITE.url}/resources/holiday-nutrition`;
+
+const faq = [
+  {
+    q: 'How do I avoid holiday weight gain without skipping everything good?',
+    a: 'Guard the ordinary days rather than policing the special ones. Most seasonal drift comes not from the feast itself but from six weeks of leftovers, office trays and abandoned routines around it. Keep protein and vegetables anchoring your regular meals, keep moving most days, enjoy the actual occasions fully — and there is usually not much damage to speak of in January.',
+  },
+  {
+    q: 'Is it worth exercising through the holidays if I can’t train properly?',
+    a: 'Emphatically yes — and this is the part most people get backwards. Shrunk training beats stopped training by a wide margin: two short sessions a week maintains most of what you have built, while six weeks of nothing followed by a fierce January restart is the classic recipe for the strains and flare-ups I see every winter. Consistency is a smaller ask than perfection, and it pays better.',
+  },
+  {
+    q: 'What should I actually do in January?',
+    a: 'Resume, don’t atone. The punishing January program — daily workouts, slashed calories, penance framing — reliably produces two outcomes: injury or abandonment, often both by February. Return to your normal training at slightly reduced loads for a week or two, eat like a person with a long-term plan, and let the season have been what it was: a season.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Nutrition
+      </p>
+      <h1 class="mb-8">Holiday nutrition: skip the January penance</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Every year the same cycle: December abandons the habits, January punishes the body for it — and February
+        fills my schedule with the resulting strains.
+        <strong class="text-[var(--color-text)]">The holidays were never the problem. The overcorrection is.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Watch the segment</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        I covered this as the guest expert on Denver7 — the expert chair was never limited to one station, or to
+        the exercise half of health.
+      </p>
+      <ResourceVideo
+        id="Cko37-BwqTs"
+        title="Avoiding holiday weight gain — Denver7"
+        caption="As the guest expert on Denver7."
+      />
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">A saner way through the season</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong>Guard the ordinary days; enjoy the special ones.</strong> Thanksgiving dinner is one meal. The
+          real seasonal drift lives in the six ordinary weeks around it — leftovers for days, the office treat
+          table, routines suspended "until January." Keep your normal meals normal, and the celebrations can simply
+          be celebrations.
+        </p>
+        <p>
+          <strong>Shrink the training, don't stop it.</strong> This is the piece that matters most to what I do.
+          Bodies keep most of their strength on remarkably little maintenance — two short sessions a week through
+          the season protects months of work. Bodies that stop entirely, then meet an ambitious January program,
+          are how winter injury stories start. If you keep one habit through December, keep moving.
+        </p>
+        <p>
+          <strong>January is for resuming, not atoning.</strong> The penance mindset — punishing workouts, slashed
+          eating, guilt as fuel — produces flare-ups and quitting far more reliably than it produces results. Come
+          back to normal training at slightly reduced loads, be a little patient, and the season costs you close to
+          nothing. That is the whole trick, and it is not a dramatic one — which is exactly why it works.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Did last January’s comeback leave something aching?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat" class="text-white underline">See what we treat</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

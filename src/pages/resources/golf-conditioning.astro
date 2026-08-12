@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Golf Conditioning: Mobility and Strength for a Swing That Lasts';
+const description =
+  'The golf swing is the fastest rotation most bodies ever produce. Workouts and stretches that protect the back, add distance, and keep you playing — with the 9NEWS segment.';
+const published = '2026-08-11';
+const url = `${SITE.url}/resources/golf-conditioning`;
+
+const faq = [
+  {
+    q: 'Can exercise really add distance to my drives?',
+    a: 'Often, yes — but usually not the way people expect. Distance leaks less from weak arms than from a body that cannot coil: limited hip and mid-back rotation caps how much energy you can store in the backswing, no matter how hard you swing. Restore that rotation and add ground-force strength, and speed frequently shows up without a single swing change.',
+  },
+  {
+    q: 'Why does my back hurt after golf?',
+    a: 'The swing concentrates ferocious rotation somewhere, and the body spends it where it has range. When hips and mid-back are stiff, the lumbar spine — designed for stability more than rotation — gets handed the job, eighty-plus times a round including practice swings. The usual fix is not swinging less; it is restoring rotation where it belongs and building the trunk control to transfer it.',
+  },
+  {
+    q: 'What should golfers stretch before a round?',
+    a: 'Move, rather than hold: hip circles, torso rotations with a club across the shoulders, arm swings, a few half-speed swings building to full. Ninety seconds of that beats ten static stretches on the first tee. Save longer holds — hip flexors, glutes, the mid-back over a foam roller — for after the round or evenings, where they do their real work.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Golf
+      </p>
+      <h1 class="mb-8">Golf conditioning: a swing that lasts</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        The golf swing is the fastest rotational movement most bodies will ever produce — and most golfers train
+        for it by golfing more. <strong class="text-[var(--color-text)]">Your body is the only club you swing every
+        shot.</strong> It deserves at least as much attention as the driver.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Watch the segment</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        Workouts and stretches to help your golf game, from my 9NEWS years — the quick version of what this article
+        unpacks.
+      </p>
+      <ResourceVideo
+        id="5EhGpjWFBgU"
+        title="Workouts and stretches to help your golf game — 9NEWS"
+        caption="From my recurring 9NEWS fitness segments."
+      />
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Where golf games actually leak</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong>Rotation is stored in the hips and mid-back — or it is not stored at all.</strong> A full turn
+          needs the trail hip to accept rotation and the thoracic spine to coil over it. Desk years quietly remove
+          both. The swing then either shortens (there goes distance) or borrows rotation from the lower back (there
+          goes Monday). This is the same lesson running through every sport in this series: rotation is trainable,
+          and almost nobody trains it.
+        </p>
+        <p>
+          Three directions that repay golfers fastest. <strong>Hip and mid-back mobility:</strong> half-kneeling
+          rotations, open-books, deep hip work — range first, because you cannot swing through range you do not
+          own. <strong>Rotational strength:</strong> band and cable chops in both directions, because the
+          follow-through decelerates everything the backswing stored — and deceleration strength is injury
+          protection you can measure. <strong>Ground force:</strong> the swing starts from the floor; split-stance
+          and single-leg strength turn leg drive into clubhead speed.
+        </p>
+        <p>
+          For golfers past 50, one reframe matters more than any exercise: stiffness is not a life sentence, and
+          "my back means I only play nine" is a pattern I unwind in the studio regularly. Range returns when it is
+          asked for properly.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Want your swing checked by someone who reads bodies, not just ball flight?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Read about chronic back pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

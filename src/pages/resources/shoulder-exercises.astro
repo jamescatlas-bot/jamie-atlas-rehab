@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Shoulder Exercises That Won’t Cause Aggravation';
+const description =
+  'How to train shoulders that complain — why total rest backfires, the principles behind non-aggravating shoulder work, and the 9NEWS segment on it.';
+const published = '2026-08-11';
+const url = `${SITE.url}/resources/shoulder-exercises`;
+
+const faq = [
+  {
+    q: 'Should I stop working out if my shoulder hurts?',
+    a: 'Usually not entirely — and complete rest often backfires. Shoulders that stop moving tend to become more protective and more sensitive, not less. The better question is which versions of which movements you can do today without a flare that lasts, and that answer exists for almost every shoulder. Modify range, angle and load first; abandon movements last.',
+  },
+  {
+    q: 'Why does my shoulder hurt on some exercises but not others?',
+    a: 'Because "the shoulder" is really a partnership between the ball-and-socket joint, the shoulder blade gliding on the rib cage, and the mid-back that sets the foundation for both. Change the angle, the grip or how the blade moves, and you change which tissues take the load. That is useful news: it means the aggravating version of an exercise usually has a non-aggravating cousin.',
+  },
+  {
+    q: 'Do I need an MRI before training a painful shoulder?',
+    a: 'Rarely as a first step. Imaging of shoulders finds "abnormalities" in huge numbers of people with no pain at all — rotator cuff changes and labral fraying are close to normal aging, like grey hair on the inside. Red flags aside (trauma, night pain that will not settle, rapid weakness), how a shoulder responds to well-chosen movement usually says more than a scan. Your clinician can help you judge which camp you are in.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Shoulders
+      </p>
+      <h1 class="mb-8">Shoulder exercises that won't cause aggravation</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        A cranky shoulder puts people in an unfair spot: training it seems to make it angry, and resting it makes
+        it weaker and just as angry later. <strong class="text-[var(--color-text)]">There is a third option</strong>
+        — and it is the one that actually works.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Watch the segment</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        Three shoulder exercises chosen specifically not to poke the bear, from my 9NEWS years.
+      </p>
+      <ResourceVideo
+        id="GHTku-enqy0"
+        title="3 shoulder exercises that won't cause aggravation — 9NEWS"
+        caption="From my recurring 9NEWS fitness segments."
+      />
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The principles behind non-aggravating shoulder work</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong>Start where the shoulder is happy, not where the program says.</strong> Almost every irritated
+          shoulder has ranges and angles it tolerates well right now. Work generously inside those, and the
+          tolerated zone tends to expand. Charge into the provocative range because the plan said "overhead press,"
+          and you re-run the flare cycle that brought you here.
+        </p>
+        <p>
+          <strong>Train the shoulder blade and the mid-back, not just the arm.</strong> The shoulder joint sits on
+          a moving platform. When the blade does not glide or the upper back does not extend, the joint runs out of
+          room at the top of movements — and pinches. Rows, controlled reaches and mid-back mobility often calm a
+          shoulder faster than anything aimed at the sore spot itself.
+        </p>
+        <p>
+          <strong>Let load in earlier than instinct suggests, gently.</strong> Tendons and muscles adapt to load —
+          it is the only language they speak. Isometrics (pushing against something that does not move) are often
+          the doorway: they build strength, frequently settle pain, and give a nervous shoulder evidence that
+          effort is safe. From there, range and resistance grow together.
+        </p>
+        <p>
+          Why has the relief never lasted before? Usually because something only treated the symptom — the sore
+          tissue got attention while the reason it was overloaded went unexamined. A shoulder is part of a bigger
+          web. Change what the web is doing and the sore spot finally gets to stop compensating. That is the
+          approach behind everything on the <a href="/what-we-treat/shoulder-pain">shoulder pain page</a>, where
+          you can also watch clients describe the before-and-after themselves.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Tired of guessing which exercises your shoulder will tolerate?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/shoulder-pain" class="text-white underline">Read about shoulder pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
