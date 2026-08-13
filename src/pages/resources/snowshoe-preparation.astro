@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Snowshoeing Is Not Hiking, and Your Hips Will Tell You Why';
+const description =
+  'The wide stance and the high step are the two demands snowshoeing adds — and they are the two things a summer of Colorado trail miles never trained.';
+const published = '2026-08-12';
+const url = `${SITE.url}/resources/snowshoe-preparation`;
+
+const faq = [
+  {
+    q: 'Why am I sore in different places after snowshoeing than after hiking?',
+    a: 'Two things change. Snowshoes are wider than your feet, so you walk with your legs further apart than normal for hours — which loads the inner and outer thigh continuously in a way walking does not. And in anything deeper than a few inches you cannot swing the leg through; you have to lift it, hip flexed high, and place it on an unpredictable surface. Wide stance plus high step is why the soreness lands in places hiking never finds.',
+  },
+  {
+    q: 'What exercise best prepares you for snowshoeing?',
+    a: 'A squat with a lateral step-over. Tip a sturdy chair sideways so the seat forms a vertical barrier about knee height, stand beside it, squat, and as you stand lift one leg high and bring it over the barrier — placing it down slowly and lightly before bringing it back. Three sets of ten to twelve per leg. It trains hip flexor strength at height, adductor and abductor control, single-leg balance and trunk control, which is more or less the whole job.',
+  },
+  {
+    q: 'Can I snowshoe after a knee or hip operation?',
+    a: 'Usually yes, but "usually" depends on specifics: how much hip flexion under load, how much lateral demand, and for how long. Those are answerable questions, and answering them before you go is a better plan than finding out four miles in. If you have been cleared but nobody has tested your repaired side against this particular demand, that gap is worth closing first.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Snowshoeing
+      </p>
+      <h1 class="mb-8">Snowshoeing is not hiking, and your hips will tell you why</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        People assume snowshoeing is hiking with more resistance — fitter legs, more calories, same movement.
+        <strong class="text-[var(--color-text)]">It isn't the same movement.</strong> Two things change, and both load
+        structures a summer of trail miles never touched.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The stance gets wider, and the step gets high</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">Change one: width.</strong> Snowshoes are wider than your feet. To
+          avoid clipping one frame with the other, you walk with your legs further apart than you ever normally would —
+          for hours. That widened stance loads the inner and outer thigh continuously in a way walking does not. The
+          adductors work to control the leg, and the glute medius on the outside of the hip works to hold the pelvis
+          level over a base that keeps changing width.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Change two: height.</strong> In anything deeper than a few inches
+          you can't swing the leg through. You have to lift it — hip flexed high, foot clearing the snow — then place
+          it down and transfer weight onto an unpredictable surface. That's a high-knee march under load, repeated for
+          thousands of steps, with a brief single-leg balance on soft ground between each one.
+        </p>
+        <p>
+          Combine them and you get the actual demand: lift high, place wide, balance on it, repeat — while the ground
+          gives way differently every time. Compare that with the braking-heavy demand of
+          <a href="/resources/hiking-conditioning">summer trail hiking</a> and it's clear why one doesn't prepare you
+          for the other.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Train the specific thing</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          The drill that matches this best is a squat with a lateral step-over. Tip a sturdy chair over sideways, so
+          the seat forms a vertical barrier about knee height. Stand beside it, feet shoulder-width, in a squat
+          position.
+        </p>
+        <p>
+          Squat down. As you stand up, lift one leg high — knee up, foot clearing — and bring it over the barrier.
+          Place it down slowly and lightly on the other side. Then bring it back over to where it started. Three sets
+          of ten to twelve per leg.
+        </p>
+        <p>
+          Keep the pelvis level and the torso tall. <strong class="text-[var(--color-text)]">If you have to lean away
+          to get the leg over, the leg is going higher than your hip can actually take it, and you're borrowing the
+          difference from your low back.</strong> Lower the barrier.
+        </p>
+        <p>
+          What it trains: hip flexor strength at height, adductor and abductor control through the lateral movement,
+          single-leg balance on the standing side, and trunk control holding the whole thing together. Add the
+          <a href="/resources/glute-exercises">glute work</a> for the lateral hip, and the
+          <a href="/resources/balance-training">reactive balance progressions</a> for the soft, unpredictable surface.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The backcountry variable nobody trains</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Fatigue changes movement quality before it changes pace. The step gets lower, the foot starts catching the
+          snow, and the trip risk climbs — usually on the way back, when you're furthest from the car and least
+          interested in slowing down.
+        </p>
+        <p>
+          Train the drill to good form, not to failure. Form failure under fatigue is the exact thing you're trying to
+          push further out.
+        </p>
+        <p>
+          And the altitude arithmetic is real. A trailhead at 9,000 feet with a pack, in cold, breaking trail, is a
+          different physiological event from the same distance in July. Plan the turnaround before you start. If you're
+          building a whole winter season, the <a href="/resources/ski-season-prep">ski season prep guide</a> covers the
+          strength, balance, mobility and endurance base that all of this sits on.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">If you're coming back from something</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A repaired knee, a hip that's been operated on, or a back that's had a bad episode will all tolerate this —
+          but <em>will tolerate</em> depends on specifics: how much hip flexion under load, how much lateral demand,
+          how long. Those are answerable questions, and answering them beforehand is a better plan than finding out
+          four miles in.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-12 text-base text-[var(--color-text-muted)] leading-relaxed italic border-l-2 border-[var(--color-border)] pl-5">
+        I first covered snowshoe preparation in
+        <a
+          href="https://www.denverpost.com/2011/12/23/venturing-into-backcountry-this-will-prep-you-for-powder-2/"
+          target="_blank"
+          rel="noopener"
+          >The Denver Post</a
+        >, December 2011. See the full <a href="/press">Denver Post series</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Want to know what your repaired side can actually take?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/knee-pain" class="text-white underline">Read about knee pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

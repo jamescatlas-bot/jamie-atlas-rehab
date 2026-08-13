@@ -8,10 +8,16 @@ import PressStrip from '../components/PressStrip.astro';
 // The homepage strip shows six logos, so this page accounts for all of them —
 // a strip that claims more outlets than the page can name reads as a bluff.
 //
-// Jamie confirmed 2026-08-06 he appeared in all of these and will NOT be
-// supplying segment or article links. So these notes are deliberately written
-// to be true and defensible without naming a dated item. Don't add specifics
-// that aren't evidenced, and don't ask him for links again.
+// Jamie confirmed 2026-08-06 he appeared in all of these. For FIVE of them he
+// will NOT be supplying segment or article links, so those notes are
+// deliberately written to be true and defensible without naming a dated item.
+// Don't add specifics that aren't evidenced, and don't ask him for those links
+// again.
+//
+// EXCEPTION (2026-08-12): he supplied nine Denver Post URLs unprompted. Eight
+// are listed in DENVER_POST_SERIES below (the ninth, a 2016 body-composition
+// column, was dropped on purpose — wrong positioning for a rehab practice).
+// Denver Post owns that text: link and cite only, never republish or reword it.
 const OUTLET_NOTES = [
   {
     name: '9NEWS',
@@ -31,7 +37,7 @@ const OUTLET_NOTES = [
   },
   {
     name: 'The Denver Post',
-    note: 'Contributed on training smarter, and on a coaching approach that treats strength as the foundation of long-term health rather than a cosmetic goal.',
+    note: 'Ran a functional-fitness column built around exercises I designed and directed — eight of them are linked above. Also contributed on training smarter, and on a coaching approach that treats strength as the foundation of long-term health rather than a cosmetic goal.',
   },
   {
     name: "Runner's World",
@@ -40,6 +46,68 @@ const OUTLET_NOTES = [
   {
     name: 'UPWARD Women',
     note: 'Profiled on coaching, movement confidence, and helping women over 40 get strong without fear or gimmicks.',
+  },
+];
+
+// Denver Post functional-fitness series. URLs verified live and free to read
+// 2026-08-12. Where an article on this site covers the same ground, `resource`
+// links the two so the archive and the resources reinforce each other.
+const DENVER_POST_SERIES = [
+  {
+    headline: 'Step-up exercise gives hikers a leg up',
+    date: '25 July 2010',
+    note: 'Hiking-specific glute and quad loading.',
+    href: 'https://www.denverpost.com/2010/07/25/step-up-exercise-gives-hikers-a-leg-up/',
+    resource: '/resources/hiking-conditioning',
+  },
+  {
+    headline: 'Build pedal power for speed, stamina',
+    date: '15 August 2010',
+    note: 'Single-leg loading for the bottom of the pedal stroke.',
+    href: 'https://www.denverpost.com/2010/08/15/build-pedal-power-for-speed-stamina/',
+    resource: '/resources/road-cycling-power',
+  },
+  {
+    headline: "Learn to maintain balance while your body's in motion",
+    date: '3 October 2010',
+    note: 'Why balance fails in motion, not in stillness.',
+    href: 'https://www.denverpost.com/2010/10/03/learn-to-maintain-balance-while-your-bodys-in-motion/',
+    resource: '/resources/balance-training',
+  },
+  {
+    headline: 'Shake up your ski shape-up',
+    date: '4 December 2010',
+    note: 'Ski conditioning beyond the squat and the lunge, with my six-point pre-season list.',
+    href: 'https://www.denverpost.com/2010/12/04/shake-up-your-ski-shape-up/',
+    resource: '/resources/ski-season-prep',
+  },
+  {
+    headline: "Runner's pull with band",
+    date: '17 April 2011',
+    note: 'Restoring the upper-to-lower body connection runners lose over winter.',
+    href: 'https://www.denverpost.com/2011/04/17/runners-pull-with-band/',
+    resource: '/resources/running-return-to-training',
+  },
+  {
+    headline: 'Better backs for bent bikers',
+    date: '15 May 2011',
+    note: "Why cyclists' low backs hurt when the problem is at the hip.",
+    href: 'https://www.denverpost.com/2011/05/15/better-backs-for-bent-bikers/',
+    resource: '/resources/cycling-low-back-pain',
+  },
+  {
+    headline: 'Keep your shoulders working swimmingly',
+    date: '18 September 2011',
+    note: 'Rotator cuff pain that starts at the shoulder blade and mid-back.',
+    href: 'https://www.denverpost.com/2011/09/18/keep-your-shoulders-working-swimmingly/',
+    resource: '/resources/swimmers-shoulder',
+  },
+  {
+    headline: 'Venturing into backcountry? This will prep you for powder',
+    date: '23 December 2011',
+    note: 'Loading the wide, high step that snowshoeing demands.',
+    href: 'https://www.denverpost.com/2011/12/23/venturing-into-backcountry-this-will-prep-you-for-powder-2/',
+    resource: '/resources/snowshoe-preparation',
   },
 ];
 ---
@@ -186,7 +254,31 @@ const OUTLET_NOTES = [
     </div>
   </section>
 
-  <section class="px-6 pb-16">
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-4">The Denver Post functional-fitness series, 2010–2011</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-10">
+        For two years The Denver Post ran a functional-fitness column built around exercises I designed and directed.
+        Eight of those columns are below. They were published under Bonza Bodies, the practice I ran before I moved
+        into clinical rehabilitation — <strong class="text-[var(--color-text)]">the brand changed, the thinking
+        didn't</strong>. Every one of them starts from the same question I still start from: what is this body actually
+        being asked to do, and what is stopping it?
+      </p>
+      <ol class="space-y-7 list-none pl-0">
+        {DENVER_POST_SERIES.map(item => (
+          <li>
+            <a href={item.href} target="_blank" rel="noopener" class="text-lg font-semibold">{item.headline}</a>
+            <p class="mt-1 text-base text-[var(--color-text-muted)] leading-relaxed">
+              The Denver Post, {item.date} · {item.note}
+              {' '}<a href={item.resource}>Read my current article on this</a>.
+            </p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
     <div class="max-w-3xl mx-auto">
       <h2 class="mb-10">Outlets</h2>
       <div class="space-y-10">

@@ -1,0 +1,204 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Road Cycling Power: The Dead Spot in Your Pedal Stroke';
+const description =
+  'Road riders chase power at the top of the stroke and ignore the bottom. That gap shows up as fatigue on long climbs — and eventually as hip and low back pain.';
+const published = '2026-08-12';
+const url = `${SITE.url}/resources/road-cycling-power`;
+
+const faq = [
+  {
+    q: 'Why does my low back hurt more the fitter I get on the bike?',
+    a: 'Because fitness lets you hold a compensation for longer. If the bottom of your pedal stroke is weak, the body recruits the low back and hip flexors to pull you through it. Better aerobic fitness means more hours doing that, not fewer. Riders who have never crashed regularly arrive with back pain that has tracked their training volume upward for years. The fix is loading the hip through the range the bike never asks for, not riding less.',
+  },
+  {
+    q: 'Is training for road cycling different from mountain biking?',
+    a: 'Yes, and it matters. Mountain biking is intermittent and postural — out of the saddle, absorbing terrain, changing position constantly, which loads the hip through a wide range whether you plan it or not. Road riding is seated, single-position, and holds cadence in a narrow band for hours. That repetition is what makes road riders efficient, and it is also what makes a weak section of the stroke expensive. If you do both, train for both.',
+  },
+  {
+    q: 'Should I stretch my hamstrings if they feel tight from riding?',
+    a: 'Usually not as the main strategy. A hamstring that is tight because it is weak at length and working overtime will feel better for about twenty minutes after stretching and then go straight back. Strength through the full range is what holds the change. Load it — single-leg hinges, slow and heavy for six to eight reps — rather than trying to lengthen it passively.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Road cycling
+      </p>
+      <h1 class="mb-8">The dead spot in your pedal stroke is costing you more than watts</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Every road rider has a part of the pedal circle where the power drops off. You feel it as fatigue in the back
+        half of a long climb. <strong class="text-[var(--color-text)]">What you don't feel, until later, is what the
+        rest of your body does to cover for it.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">This is a road problem, not a mountain bike problem</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Worth separating the two, because riders assume time on any bike trains the same thing. It doesn't.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Mountain biking is intermittent and postural.</strong> You're out
+          of the saddle constantly, absorbing terrain, braking, cornering, changing position. The demand is broad and
+          unpredictable, and it loads the hip through a wide range whether you plan it or not — which is a different
+          set of problems, covered in the
+          <a href="/resources/mountain-biking-conditioning">mountain biking article</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Road riding is the opposite.</strong> Seated, one position,
+          cadence held in a narrow band, the same arc of hip motion repeated for hours. That repetition is what makes
+          road riders efficient — and it is exactly what makes a weak section of the stroke so expensive. On a
+          mountain bike a dead spot gets covered by the next thing that happens. On the road there is no next thing.
+          There's just the same rotation, thousands more times.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Compensation always has an address</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          For most riders the weak section is the bottom of the circle — roughly four o'clock through seven, where the
+          leg is extending and the hip is opening. When one section is weak, the body doesn't simply produce less
+          power. It recruits from somewhere else to hold the pace.
+        </p>
+        <p>
+          On the road that somewhere else is usually the low back and hip flexors. You start pulling yourself through
+          the dead spot from above rather than driving through it from below. Over a three-hour ride that's tens of
+          thousands of repetitions of a pattern you never chose.
+        </p>
+        <p>
+          It's why so many riders who have never crashed arrive with
+          <a href="/resources/cycling-low-back-pain">low back pain that gets worse the fitter they get</a>. They aren't
+          overtraining. They're training a compensation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The bottom of the stroke is a posterior chain job</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Driving through the bottom of the circle is glute, hamstring and calf firing in sequence, with the trunk
+          stable enough to give them something to push against. Road cycling on its own builds almost none of it. The
+          hip range is small, the load is light and continuous rather than heavy and intermittent, and the posterior
+          chain is never once asked to work at length. Riders end up strong in a narrow band and weak either side of
+          it — fine until the gradient changes or the ride goes long.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Single-leg hip hinge.</strong> Split stance, most of the weight on
+          the front foot, weight held in the opposite hand. Hinge from the hip — not the low back — until the hamstring
+          loads, then drive the floor away. The opposite-hand load is deliberate: it forces the trunk to resist
+          rotation, which is what it has to do when you're out of the saddle on a climb.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Slow, heavy, few reps.</strong> Six to eight controlled reps beats
+          twenty rushed ones. You're recruiting muscle that has been quiet, not building endurance you already have in
+          abundance. Pair it with the
+          <a href="/resources/glute-exercises">glute work</a> that underpins most back and knee stories.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">The tell.</strong> Get off the bike and stand on one leg. Hinge
+          forward, reaching toward the floor, back leg staying in line with your spine. If your low back rounds before
+          your hip has moved far, or you can't do it at all on one side, you've found the reason the bottom of your
+          stroke is empty.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">When it isn't a training problem</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Low back pain that wakes you at night, radiates below the knee, or comes with numbness or weakness in the leg
+          is a different conversation and should be assessed rather than trained around.
+        </p>
+        <p>
+          The far more common story is a strong, fit road rider with a hip that has never been loaded outside a
+          90-degree arc, and a back that has been quietly paying for it for years. That version responds fast.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-12 text-base text-[var(--color-text-muted)] leading-relaxed italic border-l-2 border-[var(--color-border)] pl-5">
+        I first covered single-leg loading for cyclists in
+        <a
+          href="https://www.denverpost.com/2010/08/15/build-pedal-power-for-speed-stamina/"
+          target="_blank"
+          rel="noopener"
+          >The Denver Post</a
+        >, August 2010. See the full <a href="/press">Denver Post series</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Riding well, hurting anyway?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Read about back pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

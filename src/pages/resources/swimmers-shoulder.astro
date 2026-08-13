@@ -1,0 +1,198 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Shoulder Pain in Swimmers Usually Starts in the Mid-Back';
+const description =
+  'You feel it deep in the shoulder, so that is where the treatment goes. But the rotator cuff is often the victim, not the cause — and the cause sits below it.';
+const published = '2026-08-12';
+const url = `${SITE.url}/resources/swimmers-shoulder`;
+
+const faq = [
+  {
+    q: 'Why does my shoulder only hurt after a few hundred meters?',
+    a: 'Because the problem is cumulative, not structural in the way people assume. If your mid-back is stiff, your shoulder blade cannot rotate as far, and the remaining range gets taken from the shoulder joint itself. Early in a session there is enough tolerance to absorb that. After a few hundred repetitions there is not, and the structures inside the joint start to complain. The pain arriving at a predictable point in the session is a strong clue that mechanics, not tissue damage, is driving it.',
+  },
+  {
+    q: 'Will strengthening my rotator cuff fix swimmer’s shoulder?',
+    a: 'It helps some people and it is not wrong — a stronger cuff tolerates more. But strengthening a muscle that is being pinched at end range does not address why it arrives at end range so early. The order that tends to work is: restore mid-back and shoulder blade motion first, build strength into the range you just recovered, then rebuild volume. Doing it in the other order is why so many people stall.',
+  },
+  {
+    q: 'When should shoulder pain be assessed rather than managed?',
+    a: 'Night pain, weakness rather than pain, an inability to lift the arm at all, or shoulder pain persisting past six weeks of sensible modification all warrant a proper assessment. So does any shoulder that has previously dislocated or been surgically repaired — the rules for those are different and generic advice does not serve them.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Swimming
+      </p>
+      <h1 class="mb-8">Shoulder pain in swimmers usually starts in the mid-back</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        It shows up around the catch. Fine for the first few hundred meters, then not. You drop your volume, it
+        settles. You build back up, it returns at the same point.
+        <strong class="text-[var(--color-text)]">The pain is in the shoulder. The problem often isn't.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The shoulder blade moves on the ribcage</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Raise your arm overhead. Roughly a third of that motion happens at the shoulder joint itself. The rest comes
+          from the shoulder blade rotating upward across the back of the ribcage — and the ribcage has to be able to
+          extend and rotate for it to do that.
+        </p>
+        <p>
+          Which means your overhead range depends on the mobility of your mid-back: a region that spends most of the
+          modern day flexed forward over a desk or a steering wheel. If that describes your working hours, the
+          <a href="/resources/desk-posture">desk posture article</a> is the other half of this story.
+        </p>
+        <p>
+          Stiffen the mid-back and the shoulder blade can't rotate as far. But the arm still has to get overhead —
+          thousands of times per session. The remaining range gets taken from the shoulder joint, which reaches the end
+          of its own range early and starts compressing the structures inside it.
+          <strong class="text-[var(--color-text)]">The rotator cuff is what gets irritated. Mid-back stiffness is
+          often what put it in that position.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Why the usual approach stalls</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Rest calms it down, because rest removes the repetition. Then you return to the same volume with the same
+          mid-back and the same shoulder blade mechanics, and it comes back on schedule.
+        </p>
+        <p>
+          Cuff strengthening helps some people, and it isn't wrong — a stronger cuff tolerates more. But strengthening
+          a muscle that's being pinched at end range doesn't address why it's arriving at end range so early. The order
+          that tends to work: restore the mid-back and shoulder blade motion first, then build strength into the range
+          you just got back, then rebuild volume. The
+          <a href="/resources/shoulder-exercises">non-aggravating shoulder work</a> covers that middle step in detail.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Test your overhead range honestly</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Lie on your back, knees bent, low back flat to the floor. Keep it flat — this is the whole test. Now reach
+          both arms overhead toward the floor behind you.
+        </p>
+        <p>
+          If your arms reach the floor with the low back still flat, your overhead range is genuinely available. If
+          your ribs lift and your back arches to get there, you don't have the range — you have a substitution.
+          <strong class="text-[var(--color-text)]">And that substitution is exactly what you're doing in the water,
+          thirty times a minute.</strong>
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">What to work on.</strong> Mid-back extension and rotation first:
+          rotation drills on your side, extension over a foam roller at the mid-back, and an overhead reach that
+          lengthens one side of the body at a time so the shoulder blade integrates with the ribcage rather than
+          working in isolation. Then load it — overhead work in the new range, starting light, because range without
+          strength doesn't hold. Then technique: a crossover entry, a dropped elbow in the catch, or breathing
+          exclusively to one side will keep reproducing the problem no matter what your mid-back does. Worth getting a
+          set filmed.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">When to stop self-managing</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Night pain, weakness rather than pain, an inability to lift the arm at all, or shoulder pain persisting past
+          six weeks of sensible modification all warrant a proper assessment. So does any shoulder that has previously
+          dislocated or been surgically repaired — the rules for those are different and generic advice doesn't serve
+          them.
+        </p>
+        <p>
+          If you've been cleared post-surgery but nobody has actually tested whether your shoulder tolerates a full
+          session's volume, that gap between <em>cleared</em> and <em>ready</em> is a real and specific thing — and it
+          is assessable. That is most of what this studio does. More on the
+          <a href="/what-we-treat/shoulder-pain">shoulder pain page</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-12 text-base text-[var(--color-text-muted)] leading-relaxed italic border-l-2 border-[var(--color-border)] pl-5">
+        I first covered the swimmer's shoulder and thoracic spine work in
+        <a
+          href="https://www.denverpost.com/2011/09/18/keep-your-shoulders-working-swimmingly/"
+          target="_blank"
+          rel="noopener"
+          >The Denver Post</a
+        >, September 2011. See the full <a href="/press">Denver Post series</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Cleared to swim, but the shoulder still says no?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/shoulder-pain" class="text-white underline">Read about shoulder pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

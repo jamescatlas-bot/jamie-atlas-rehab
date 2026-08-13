@@ -1,0 +1,198 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+const title = "Cyclists' Low Back Pain Usually Isn't Coming From the Back";
+const description =
+  "You've stretched it, foam rolled it, and had the bike fitted twice. If the low back pain keeps coming back, the hip is the more likely culprit.";
+const published = '2026-08-12';
+const url = `${SITE.url}/resources/cycling-low-back-pain`;
+
+const faq = [
+  {
+    q: 'Why does my bike fit keep not fixing my back pain?',
+    a: "A fit changes the geometry you're placed into, and a genuinely bad fit is worth correcting. But a fit cannot change what your hip is capable of. If your hip extension is limited before you get on the bike, adjusting the saddle just changes which structure compensates. That's why fits so often produce a few good weeks — a new position redistributes load, the irritated tissue calms down, then the new arrangement finds its own weak link. The better question isn't whether your position is right; it's whether your hip has the range that position requires.",
+  },
+  {
+    q: 'Is stretching enough to fix a cyclist’s tight hips?',
+    a: "Rarely on its own. Range you can't control is range your nervous system won't let you use under load — it will simply guard it back within hours. What works is range plus load: get into the position, work actively in it, then load the hip through that new range with split-stance hinges and single-leg work so the range becomes something your body trusts at 40rpm on a climb.",
+  },
+  {
+    q: 'When should cycling back pain be properly assessed?',
+    a: 'If it radiates below the knee, comes with numbness, pins and needles, or weakness in the leg, or wakes you at night — those warrant assessment rather than self-management. So does back pain you have had for more than three months. Persistent pain changes how the nervous system processes load, and at that point the useful work is as much about how you move and what you believe about your back as it is about tissue.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Cycling
+      </p>
+      <h1 class="mb-8">Cyclists' low back pain usually isn't coming from the back</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        You stretched it. You foam rolled it. You got the bike refitted, twice, and the second fitter contradicted the
+        first. It helped for a few weeks, then the ache came back exactly where it was.
+        <strong class="text-[var(--color-text)]">Brief relief, reliable return — that's the signature of treating a
+        symptom where it's felt rather than where it's generated.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What hours in the saddle do to a hip</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A riding position holds the hip in deep flexion for hours. The muscles at the front of the hip sit short the
+          entire time. The adductors on the inside of the thigh work continuously to stabilize the leg through the
+          stroke, and they also sit short.
+        </p>
+        <p>
+          Muscle held short and working hard for long periods adapts to that length. It gets strong in a narrow range
+          and stiff outside it.
+        </p>
+        <p>
+          Then you stand up off the bike, and the pelvis is asked to return to neutral by tissue that has spent four
+          hours deciding it lives somewhere else. The pelvis tilts forward. The lumbar spine takes up the extra range,
+          because something has to.
+          <strong class="text-[var(--color-text)]">Your back isn't the problem. Your back is the part that moved
+          because the hip wouldn't.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Test it off the bike</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Kneel on one knee, other foot forward, knee bent to about 90 degrees. Keep your ribs down and your pelvis
+          tucked under — this is the part everyone skips, and skipping it lets you fake the whole test with your lower
+          back. Now gently push your hips forward.
+        </p>
+        <p>
+          You should feel a clear pull across the front of your kneeling-side hip. If you feel it in your low back
+          instead, or you feel almost nothing until you let your ribs flare, your hip extension is limited and your
+          spine has been covering for it.
+        </p>
+        <p>
+          Add the second layer: reach the same-side arm overhead and tilt away. That should produce a deep stretch
+          through the inner thigh and groin. If it doesn't, and you're a rider, that's the adductor stiffness that has
+          been quietly tilting your pelvis.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What actually changes it</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Not passive stretching alone. Range you can't control is range your nervous system won't let you use under
+          load — it will simply guard it back.
+        </p>
+        <p>
+          What works is range <em>plus</em> load. Get into the position, then work actively in it: shift the hips side
+          to side while holding the overhead reach, hold the end position and gently push into it. Then load the hip
+          through that new range with strength work — split-stance hinges, single-leg work, the same pattern that fills
+          in <a href="/resources/road-cycling-power">the dead spot in your pedal stroke</a> — so the range becomes
+          something your body trusts at 40rpm on a climb.
+        </p>
+        <p>
+          Three sets, twenty seconds a side, then load it. Daily through a heavy riding block. The
+          <a href="/resources/glute-exercises">glute work</a> belongs here too — a hip that can't extend and a glute
+          that isn't contributing are usually the same story told twice.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The part that needs a real assessment</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Back pain that radiates below the knee, comes with numbness, pins and needles, or weakness in the leg, or
+          that wakes you at night, is a different category and should be assessed properly.
+        </p>
+        <p>
+          So should back pain you have had for more than three months. Persistent pain changes how the nervous system
+          processes load, and at that point the useful work is as much about how you move and what you believe about
+          your back as it is about tissue. That is the specific thing Cognitive Functional Therapy is built for, and
+          it is why I trained in it. More on that on the
+          <a href="/what-we-treat/chronic-back-pain">chronic back pain page</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-12 text-base text-[var(--color-text-muted)] leading-relaxed italic border-l-2 border-[var(--color-border)] pl-5">
+        I first covered the cyclist's hip and groin work in
+        <a
+          href="https://www.denverpost.com/2011/05/15/better-backs-for-bent-bikers/"
+          target="_blank"
+          rel="noopener"
+          >The Denver Post</a
+        >, May 2011. See the full <a href="/press">Denver Post series</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Has your back been shortening your rides for months?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Read about back pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

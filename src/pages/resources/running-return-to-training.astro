@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Your First Spring Run Hurts Because Winter Broke the Connection';
+const description =
+  "Winter on a treadmill — or off your feet entirely — doesn't just cost fitness. It costs the coordination between your arms and legs, and that's what gets injured in April.";
+const published = '2026-08-12';
+const url = `${SITE.url}/resources/running-return-to-training`;
+
+const faq = [
+  {
+    q: 'Why does my hip hurt when I start running outside again?',
+    a: "Usually timing, not weakness. Every stride is a brief single-leg balance with the opposite arm swinging back as a counterweight, and that counter-rotation cancels the rotational force your leg swing generates. When the connection is sharp, running is efficient. When it's dulled by a winter indoors, the rotation has to be absorbed somewhere — and it gets absorbed by the hip, the low back, and the structures on the outside of the knee.",
+  },
+  {
+    q: 'Does treadmill running keep me ready for outdoor running?',
+    a: "Aerobically, largely yes. Structurally, no. A treadmill belt pulls your leg back for you, the surface is fixed, and there is no wind, camber or direction change. The demand on stabilization and counter-rotation drops sharply, so you maintain fitness and quietly lose the coordination underneath it. The engine comes back before the chassis does — and the engine is what decides how far you go on the first nice Saturday.",
+  },
+  {
+    q: 'How fast should I build mileage back up?',
+    a: 'Gradually, and add either distance or intensity in a given week rather than both. Keep the first two outdoor weeks below what you feel capable of, because what you can do aerobically and what your tendons have adapted to are different numbers. Achilles and patellar tendon problems in particular are volume-spike injuries, and once established they are months of work — which makes two conservative weeks an extremely good trade.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Running
+      </p>
+      <h1 class="mb-8">Your first spring run hurts because winter broke the connection</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        The weather turns, you get outside, and four miles in something is off. A hip that aches. A calf that's tight
+        in a way it never used to be. <strong class="text-[var(--color-text)]">You blame the layoff and assume it's
+        fitness. It usually isn't.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Running is a cross-body task</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Every stride is a brief single-leg balance with the opposite arm swinging back as a counterweight. Left leg
+          forward, right arm back. That counter-rotation isn't decoration — it cancels the rotational force your leg
+          swing generates, so your torso can stay pointed down the road instead of twisting with every step.
+        </p>
+        <p>
+          When that connection is sharp, running is efficient and quiet. When it's dulled, the rotation has to be
+          absorbed somewhere, and it gets absorbed by the hip, the low back, and the structures on the outside of the
+          knee. That's your April hip pain. Not weakness. Timing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Why winter dulls it specifically</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Treadmill running has a belt pulling your leg back for you, a fixed surface, and no wind, camber or direction
+          change. The demand on stabilization and counter-rotation drops sharply. You maintain aerobic fitness and
+          quietly lose the coordination underneath it.
+        </p>
+        <p>
+          Not running at all is more obvious but no worse. Six weeks of cycling and lifting keeps you fit and keeps you
+          from ever standing on one leg with a swinging opposite arm.
+        </p>
+        <p>
+          Either way, <strong class="text-[var(--color-text)]">the engine comes back before the chassis does</strong> —
+          and the engine is what determines how far you decide to go on the first nice Saturday.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Rebuild the connection before the mileage</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          The most useful drill I know here is deliberately unglamorous. Anchor a light resistance band at knee height
+          in front of you and hold it in your left hand. Step back until it's taut and settle into a shallow split
+          stance.
+        </p>
+        <p>
+          Now draw the left hand toward your ribs while simultaneously bringing the left knee up to hip height, letting
+          the right arm counter-swing back. One smooth motion, not two separate ones. Return under control and repeat.
+          Two or three on the left, then switch.
+        </p>
+        <p>
+          What it restores is the same-side arm-and-knee timing, the brief single-leg balance, and the trunk's job of
+          not letting rotation escape into the spine. It takes four minutes, and it is the closest thing to a
+          pre-season insurance policy runners have. If you have bands at home already, the
+          <a href="/resources/resistance-band-training">band training article</a> covers using them properly.
+        </p>
+        <p>
+          Pair it with <a href="/resources/balance-training">reactive balance work</a> — the ankle and hip corrections
+          that road camber and uneven ground demand and a treadmill never asks for.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Load the mileage like you mean it</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          The other half is arithmetic, and everyone knows it and nobody does it. Increase weekly volume gradually. Add
+          either distance or intensity in a given week, not both. Take the first two outdoor weeks below what you think
+          you're capable of — because what you're capable of aerobically and what your tendons have adapted to are
+          different numbers, and tendons adapt slowly.
+        </p>
+        <p>
+          Achilles and patellar tendon problems in particular are volume-spike injuries. They're also, once
+          established, months of work — which makes the two conservative weeks in April an extremely good trade.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">When it's not just rust:</strong> pain that's sharp rather than achy,
+          pain that gets worse within a run rather than better after the first mile, or pain that persists at rest is
+          worth having looked at properly. So is any hip or groin pain in a runner over 45 that doesn't settle within a
+          couple of weeks.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-12 text-base text-[var(--color-text-muted)] leading-relaxed italic border-l-2 border-[var(--color-border)] pl-5">
+        I first covered the runner's band pull in
+        <a href="https://www.denverpost.com/2011/04/17/runners-pull-with-band/" target="_blank" rel="noopener"
+          >The Denver Post</a
+        >, April 2011. See the full <a href="/press">Denver Post series</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Same injury, every season?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/knee-pain" class="text-white underline">Read about knee pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
