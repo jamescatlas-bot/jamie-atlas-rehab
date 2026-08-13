@@ -1,0 +1,191 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import VideoTestimonial from '../../components/VideoTestimonial.astro';
+import { TESTIMONIAL_VIDEOS } from '../../data/videos';
+import { SITE } from '../../data/site';
+
+const title = 'Ski Rehab & Conditioning in Denver — For Skiers Who Want the Whole Season';
+const description =
+  "Knee, back or shoulder holding you back from the season? One-on-one rehab and ski conditioning in downtown Denver — from a specialist who has run ski prep here since 2008.";
+const published = '2026-08-13';
+const url = `${SITE.url}/for/skiers`;
+
+// Picked by ID rather than condition, because this page is organised around a
+// person (a skier) rather than a body part. Danielle actually skis; Brad and
+// Meghan carry the knee story that most skiers arrive with.
+const PICKS = ['SkaGhF5C628', 'Vc04UjsZ8wA', 'nPUisex9g_s'];
+const videos = PICKS.map(id => TESTIMONIAL_VIDEOS.find(v => v.id === id)).filter(
+  (v): v is (typeof TESTIMONIAL_VIDEOS)[number] => Boolean(v)
+);
+
+const faq = [
+  {
+    q: 'When should I start getting ready for ski season in Colorado?',
+    a: 'Six to eight weeks before your first day gives the tissue time to adapt — so late September or early October for most Colorado skiers. That window matters more than the total amount of work: tendons and connective tissue respond to load slowly, and there is no way to compress that into the week before opening day. If you are coming back from a knee or back problem, start earlier and get assessed first, because the question is not how fit you are but what the repaired side currently tolerates under lateral load.',
+  },
+  {
+    q: 'I was cleared after my knee surgery but I am scared to ski. Is that normal?',
+    a: 'Extremely. Discharge from physical therapy usually means you met a functional benchmark — stairs, walking, basic strength. It rarely means anyone tested you against a ski turn at speed on variable snow. The hesitation you feel is your nervous system asking for evidence it has not been given yet. That gap between cleared and genuinely ready is specific, it is measurable, and it is most of what this studio does.',
+  },
+  {
+    q: 'Why do so many ski injuries happen on the first and last run?',
+    a: 'First run, nothing is warm and the movement pattern has not been used since last season. Last run, the muscles that decelerate you are fatigued and the joint starts absorbing what the muscle no longer can. Both are load-management problems rather than bad luck. Conditioning that builds endurance in the specific braking muscles — not just general fitness — is what moves both ends of that day.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">For skiers</p>
+      <h1 class="mb-8">You have a season coming. Something in your body is arguing about it.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Maybe it's a knee that never came all the way back. A low back that tightens by the third run. Or nothing at
+        all yet — just the memory of last season and no interest in repeating it.
+        <strong class="text-[var(--color-text)]">Skiing is the last thing most people are willing to give up, and
+        usually the first thing they stop doing.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Which of these is you?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">You're hurting now, and the season is coming.</strong> The knee, the
+          back, the shoulder — you've had it looked at, or you haven't, and either way it hasn't resolved. Start with
+          <a href="/this-is-you/still-in-pain">what to do when you've tried everything</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You've been cleared, but you don't trust it.</strong> Surgery or a
+          serious injury, rehab completed, paperwork signed — and you still haven't booked the trip.
+          <a href="/this-is-you/cleared-but-not-ready">This is the gap between cleared and ready</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You're fine, and you want to stay that way.</strong> You've watched
+          friends lose a season to one bad afternoon.
+          <a href="/this-is-you/worried-about-reinjury">Training so it doesn't happen to you</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Why skiing catches people out</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Almost nothing about a ski turn resembles the way people train for it. The stance is asymmetric — one ski
+          loaded far more than the other. The hips are rotated relative to the feet. The ground under one foot is
+          higher than under the other. The torso is doing something different from the legs, and the terrain changes
+          the demand every few seconds.
+        </p>
+        <p>
+          Then there's the arithmetic of a ski day. For most Colorado skiers, day one is more total leg volume than
+          anything they've done in eight months — at altitude, in the cold, on unfamiliar snow. Treating it as the
+          first session of the season rather than a normal day isn't caution. It's just counting.
+        </p>
+        <p>
+          The full breakdown lives in the <a href="/resources/ski-season-prep">ski season prep guide</a>, along with
+          <a href="/resources/ski-squats">squats that match the turn</a>,
+          <a href="/resources/balance-training">balance that saves you when an edge catches</a>, and
+          <a href="/resources/ski-stretches">the mobility side</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">People who came in with this</h2>
+      <div class="space-y-14">
+        {videos.map(v => <VideoTestimonial video={v} />)}
+      </div>
+      <p class="mt-10 text-base text-[var(--color-text-muted)] leading-relaxed">
+        <a href="/testimonials">All client videos</a> · results vary from person to person.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What working together actually looks like</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          It starts with a 60-minute assessment — your history, the injury or surgery if there was one, the rehab you
+          already did, and the specific thing you want back. Then we test what the body currently accepts under the
+          kind of load skiing actually applies: single leg, sideways, decelerating, on an uneven base.
+        </p>
+        <p>
+          From there it's one-on-one sessions of 45 to 60 minutes with me, at the private studio at 1800 Glenarm
+          Place downtown. Not a printed sheet of exercises. Not a shared appointment. If your case isn't a fit, I'll
+          say so plainly and point you at whoever is.
+        </p>
+        <p>
+          I've been running ski conditioning in Denver since 2008 — The Denver Post ran my ski prep work in
+          <a href="/press">December 2010</a>, and I've covered it on 9NEWS through my years as their fitness expert.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">How many seasons do you have left to waste?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+        Best booked six to eight weeks before your first day.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/knee-pain" class="text-white underline">Knee pain</a>
+        · <a href="/what-we-treat/post-surgical-return-to-sport" class="text-white underline">Post-surgical return to sport</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
