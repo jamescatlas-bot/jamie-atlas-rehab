@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Are Burpees Bad for Your Knees and Back? Revisiting My Denver Post Column';
+const description =
+  'In 2013 I wrote in The Denver Post that nobody should ever do burpees again. Twelve years and a clinical qualification later, here is what I got right and what I got wrong.';
+const published = '2026-08-13';
+const url = `${SITE.url}/resources/burpee-alternatives`;
+
+const faq = [
+  {
+    q: 'Are burpees bad for your knees and back?',
+    a: 'Not inherently. The load in a burpee is well within what a healthy knee and spine tolerate. The problems come from dose and context — hundreds of fast repetitions, performed while fatigued, by someone whose hips and ankles do not have the range the movement asks for. That combination is what produces the aching knee and the stiff back, not the exercise itself. A burpee done twelve times as a test is a very different thing from a burpee done two hundred times as a daily staple.',
+  },
+  {
+    q: 'What should I do instead of burpees?',
+    a: 'It depends what you wanted from them. For the conditioning effect, intervals of anything you can perform with good form under fatigue will do — the burpee is not special. For the get-down-and-up-fast skill, keep the pattern but step the feet back rather than flinging them, or start with your hands on a bench to shorten the range. If it is the challenge you like, keep burpees and cut the reps until form holds throughout.',
+  },
+  {
+    q: 'Should I stop doing an exercise that hurts?',
+    a: 'Stop doing the version that hurts — which is rarely the same as stopping altogether. Pain during a movement is information about how your body is currently interpreting that load, not proof of damage. The more useful question is what version you can do without a lasting flare, then how to build from there. Complete avoidance tends to shrink what you can do over time, which is its own problem.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Revisited
+      </p>
+      <h1 class="mb-8">I told Denver to stop doing burpees. Here's what twelve years changed.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        In December 2013 The Denver Post ran a column of mine with the headline
+        <em>Burpees: the exercise you should never do again</em>. It got eight comments, most of them telling me I
+        was wrong. <strong class="text-[var(--color-text)]">Some of them were right — and the part I got most wrong
+        is the part I now spend my working life correcting.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What I got right</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          The burpee was invented in the 1930s by Royal H. Burpee as a <em>test</em> — a short assessment of agility
+          and coordination, scored over about twenty seconds. Eight was a poor result. Thirteen was excellent. One
+          set, and you were done.
+        </p>
+        <p>
+          It was never designed as a daily staple, and that distinction still matters. Somewhere between the 1930s
+          and the modern group class, a twenty-second assessment turned into a hundred repetitions on a Tuesday.
+          <strong class="text-[var(--color-text)]">A test and a training tool are different objects.</strong> Using
+          one as the other is how a reasonable movement becomes an unreasonable dose.
+        </p>
+        <p>
+          I also still think it's a poor default for most people who walk into a gym. Not because it's dangerous —
+          I'll come back to that — but because it demands hip and ankle range that a lot of desk-bound bodies simply
+          don't have available yet, and it demands it fast, repeatedly, while tired. There are better first choices.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What I got wrong</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          One commenter wrote that making absolutist claims without evidence was a reason to ignore me. He had a
+          point. I wrote <em>never</em>, and <em>never</em> was not something I could support.
+        </p>
+        <p>
+          Another said he'd done ten thousand burpees in a month for a fundraiser with no ill effects, and that the
+          fault was in how I'd described the movement. Also fair. A well-organised burpee, performed by someone with
+          the range to do it and at a dose their tissue is prepared for, is not a threat to anybody's knees.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">But the thing I got most wrong wasn't about burpees at all. It
+          was the framing.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The part I'd take back</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          I told a general audience that a common exercise would wreck the two body parts they were most afraid of
+          damaging. I used words like <em>imminent injury</em>. I said they'd miss their knees when they were gone.
+        </p>
+        <p>
+          In the years since, I trained in Cognitive Functional Therapy, and the central thing it taught me is that
+          <strong class="text-[var(--color-text)]">what people believe about movement changes how their body
+          responds to it.</strong> Someone who believes bending is dangerous braces before they bend. The bracing
+          itself becomes the problem. Fear of a movement reliably makes that movement worse, and the fear usually
+          arrived from somewhere — a scan, a clinician's throwaway line, an article by a confident trainer.
+        </p>
+        <p>
+          I now spend most of my week unpicking exactly that in people who've been told their spine is crumbling or
+          their knees are bone-on-bone. And in 2013 I was writing the sort of thing that puts it there. That's an
+          uncomfortable thing to notice about your own back catalogue, and it's the honest reason this page exists.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">So — should you do burpees?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">If you enjoy them and they don't leave a lasting flare: yes.</strong>
+          Keep them. Watch the dose rather than the exercise. Form that holds for eight reps and falls apart by
+          twenty means your working set is closer to eight.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">If they leave your knees or back sore for days: change the
+          version, not the plan.</strong> Step the feet back instead of flinging them. Put your hands on a bench to
+          shorten the range. Slow the descent. All three reduce the demand without removing the movement — which
+          matters, because removing movements is how people end up with a shorter and shorter list of things they
+          trust their body to do.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">If you're doing them because a class told you to and you hate
+          every second: that's a fine reason to stop.</strong> The conditioning effect isn't unique to burpees.
+          Intervals of anything you can perform well while tired will do the same job. If your ankles or hips are
+          the limiting factor, the <a href="/resources/glute-exercises">glute work</a> and
+          <a href="/resources/balance-training">balance progressions</a> are a better use of the same twenty minutes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">When it isn't about the exercise</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Pain that persists for months, wakes you at night, radiates down a limb, or comes with numbness or
+          weakness is a different conversation and should be assessed properly — not trained around and not simply
+          avoided.
+        </p>
+        <p>
+          But the more common story in my studio isn't a damaged knee. It's someone who has quietly stopped doing
+          fifteen things, each for a sensible-sounding reason, and now moves through a life that has narrowed around
+          them. That's the pattern <a href="/what-we-treat/cognitive-functional-therapy">Cognitive Functional
+          Therapy</a> is built for, and it's why I'd write that 2013 column very differently today.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-12 text-base text-[var(--color-text-muted)] leading-relaxed italic border-l-2 border-[var(--color-border)] pl-5">
+        The original column ran as a guest post on The Denver Post's Colorado Fit blog,
+        <a
+          href="https://web.archive.org/web/20140502023815/http://blogs.denverpost.com/fitness/2013/12/02/burpees-the-exercise-you-should-never-do-again/13492/"
+          target="_blank"
+          rel="noopener">2 December 2013</a
+        >. The blog has since been retired; the link goes to the archived copy. More on
+        <a href="/press">the press page</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">How short has your list of safe movements got?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Back pain</a>
+        · <a href="/what-we-treat/knee-pain" class="text-white underline">Knee pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
