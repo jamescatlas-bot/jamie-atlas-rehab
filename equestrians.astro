@@ -1,0 +1,221 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import VideoTestimonial from '../../components/VideoTestimonial.astro';
+import { TESTIMONIAL_VIDEOS } from '../../data/videos';
+import { SITE } from '../../data/site';
+
+const title = 'Back Pain from Riding — Rehab for Colorado Equestrians | Jamie Atlas';
+const description =
+  "Lower back pain after riding, or getting back on after a fall? A rider's back is usually paying for a hip that stopped contributing. One-on-one rehab in downtown Denver.";
+const published = '2026-08-23';
+const url = `${SITE.url}/for/equestrians`;
+
+// The deepest sport proof on the site: two filmed riders. Katrina was thrown;
+// Colleen is a riding instructor.
+const PICKS = ['T01Y32utAXU', 'DcPAJmkb1z8'];
+const videos = PICKS.map(id => TESTIMONIAL_VIDEOS.find(v => v.id === id)).filter(
+  (v): v is (typeof TESTIMONIAL_VIDEOS)[number] => Boolean(v)
+);
+
+const faq = [
+  {
+    q: 'Why does my lower back hurt after riding?',
+    a: 'Usually because it is absorbing movement that the hips are no longer taking. A horse moves your pelvis several thousand times an hour, and that movement has to be accepted somewhere. If the hips have full, easy rotation, they take most of it. If they have quietly lost range — from age, from an old injury, from a great deal of sitting between rides — the lumbar spine takes it instead, and the lumbar spine is not built to be the primary shock absorber for a moving animal. The back is where you feel it. It is rarely where the problem started.',
+  },
+  {
+    q: 'Can I ride again after a back injury or a fall?',
+    a: 'Most people can, and the honest answer is that it depends on what your back currently tolerates rather than on what happened to it. Falls produce two separate problems: whatever the tissue actually did, and a nervous system that has since learned to expect the ground. Both are addressable, and they need addressing in that order. What I would not do is test it by getting back on and finding out — graded exposure to the specific demands of the seat, on the ground first, gives you far better information and a much shorter route back.',
+  },
+  {
+    q: "What core work actually helps a rider's seat?",
+    a: 'Not the sort you do lying on the floor. A rider needs a pelvis that can stay independent of a moving upper body, in rotation, while the legs do something else entirely — which is close to the opposite of a plank. The work that transfers is upright, loaded, rotational and asymmetric: single-leg control, hip rotation under load, and trunk work where the arms and legs are doing different jobs at the same time. Riders often have excellent endurance and very little rotational range, which is a specific combination and a very fixable one.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">For riders</p>
+      <h1 class="mb-8">Your back is not the problem. Your back is the one paying for it.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        A horse moves your pelvis a few thousand times an hour and that movement has to go somewhere.
+        <strong class="text-[var(--color-text)]">If your hips take it, you ride well and nothing hurts. If your
+        hips have quietly stopped taking it, your lower back becomes the shock absorber for a large animal — a job
+        it did not apply for and is not built to hold down.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Which of these is you?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">It aches after every ride and you've stopped mentioning it.</strong>
+          You've adjusted the saddle, you've had it looked at, and it's still there on the drive home.
+          <a href="/this-is-you/still-in-pain">Start here</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You came off, and something changed.</strong> Whether or not the
+          scans found anything, you don't sit the same way you did, and you both know it.
+          <a href="/this-is-you/cleared-but-not-ready">The gap between cleared and ready</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You're fine and you intend to still be riding at seventy.</strong>
+          <a href="/this-is-you/worried-about-reinjury">Building a body that lasts the discipline</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Riders get told to strengthen their core. It's the wrong core.</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Riding asks for something genuinely unusual, and it's worth naming precisely, because the precision is
+          where the fix lives.
+        </p>
+        <p>
+          You need a pelvis that follows the horse. An upper body that stays quiet and independent of it. Legs
+          doing a third thing entirely. All of it in rotation, all of it asymmetric, all of it responding to an
+          animal that has its own opinions about the next four seconds.
+        </p>
+        <p>
+          Now consider what "core strengthening" usually means. Planks. Crunches. Something on the floor, facing
+          up, holding still. Every one of those trains your trunk to <em>resist</em> movement. You have just spent
+          an hour needing yours to <em>absorb</em> it, in three planes, while remaining relaxed.
+        </p>
+        <p>
+          There is nothing wrong with a plank. It just answers a question nobody on a horse is being asked.
+        </p>
+        <p>
+          What I look for first with riders is hip rotation, and it is very often the thing that has gone without
+          anybody noticing — because a rider is fit, and fitness lets you hold a compensation for a long time
+          before it complains. The back is the loudest structure in the chain, so the back is what you feel. It's
+          seldom where it started.
+        </p>
+        <p>
+          The groundwork lives in <a href="/resources/glute-exercises">the hip and glute work</a> and
+          <a href="/resources/balance-training">balance and control</a>. The clinical detail, if the back is the
+          part that's shouting, is in <a href="/what-we-treat/chronic-back-pain">chronic back pain</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Two riders who came in with this</h2>
+      <div class="space-y-14">
+        {videos.map(v => <VideoTestimonial video={v} />)}
+      </div>
+      <p class="mt-10 text-base text-[var(--color-text-muted)] leading-relaxed">
+        <a href="/testimonials">All client videos</a> · results vary from person to person.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The part after a fall that nobody schedules</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          If you've come off, there are two separate things to deal with and only one of them tends to get an
+          appointment.
+        </p>
+        <p>
+          The first is whatever the tissue actually did, and that gets assessed, imaged and treated. The second is
+          that your nervous system has now met the ground at speed and has updated its file accordingly. That
+          second one shows up as guarding, as a seat that won't soften, as a body that braces a quarter-second
+          before it needs to. It is not nervousness and it is not something to be talked out of. It's a protective
+          response doing exactly its job, on information that is now out of date.
+        </p>
+        <p>
+          Changing it takes graded exposure to the specific demands of riding — on the ground first, where the
+          variables are yours to set. That work is most of what Cognitive Functional Therapy is for, and it's
+          described properly in <a href="/what-we-treat/cognitive-functional-therapy">how the method works</a>.
+        </p>
+        <p>
+          Sessions are 60 minutes for the first assessment, then 45 to 60 one-on-one with me at 1800 Glenarm Place
+          downtown. If what you have needs a physician before it needs me, I'll say so in the first half hour.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So the sport is rotational and asymmetric and responsive, and the preparation everyone recommends for it
+          is symmetrical, still, and on the floor. Once you've seen that mismatch it's difficult to look at a plank
+          the same way — which I'm aware is an inconvenient thing to have done to your Tuesday routine, and I'd
+          apologise except that it's true.
+        </p>
+        <p>
+          Anyway. You know it now.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">You'd like to be riding in twenty years.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Chronic back pain</a>
+        · <a href="/what-we-treat/post-surgical-return-to-sport" class="text-white underline">Post-surgical return to sport</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import VideoTestimonial from '../../components/VideoTestimonial.astro';
+import { TESTIMONIAL_VIDEOS } from '../../data/videos';
+import { SITE } from '../../data/site';
+
+const title = 'Pickleball Injuries in Denver — Shoulder and Knee Rehab for Players Over 50';
+const description =
+  "Shoulder or knee pain from pickleball? The sport is easy to start and hard on joints that haven't moved sideways in decades. One-on-one rehab in downtown Denver.";
+const published = '2026-08-23';
+const url = `${SITE.url}/for/pickleball`;
+
+// Picked by person: Clay actually plays pickleball (shoulder, three surgeries).
+// Cindy carries the knee story most players over 50 arrive with.
+const PICKS = ['ijhLo50nWpA', 'Ar2YTC_8vTY'];
+const videos = PICKS.map(id => TESTIMONIAL_VIDEOS.find(v => v.id === id)).filter(
+  (v): v is (typeof TESTIMONIAL_VIDEOS)[number] => Boolean(v)
+);
+
+const faq = [
+  {
+    q: 'Why does pickleball hurt my shoulder when tennis never did?',
+    a: 'Mostly volume and height. A pickleball point involves far more short, sharp actions per minute than a tennis point, many of them at or above shoulder height, and the court is small enough that you rarely get the walking-back reset that tennis builds in. Add a lighter paddle, which encourages faster arm-led swings rather than whole-body ones, and you have a shoulder doing a great many repetitions in the exact range it is least conditioned for. It is not that the sport is dangerous. It is that the dose is much higher than it feels.',
+  },
+  {
+    q: 'Is pickleball bad for your knees after 50?',
+    a: 'The sport is not the problem; the direction is. Pickleball is played sideways — split step, push off, change direction, stop. For most people over 50 that is the first significant sideways loading their knees have seen since a school sports field, because walking, cycling, running and every gym machine in the building all move forwards and backwards. A knee that has only been asked to go one way for thirty years is not weak. It is unrehearsed, which is a different problem and a more fixable one.',
+  },
+  {
+    q: 'How do I get back on court after a shoulder injury?',
+    a: 'By finding out what the shoulder currently tolerates and building from there, rather than testing it in a game and hoping. In practice that means checking overhead range and control first, then loading the positions the sport actually uses — overhead, across the body, decelerating — and only then adding speed. Most people need six to eight sessions to know where they stand and to have a plan they trust. Complex or long-standing cases take longer, and I will tell you which one you are after the assessment rather than after the money.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">For pickleball players</p>
+      <h1 class="mb-8">The gentle sport is sending me more shoulders than skiing is.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Which surprised me, and I've stopped being surprised by much. Everyone arrives saying the same slightly
+        sheepish sentence — <em>it's only pickleball</em> — as though the joint files a report on what the sport is
+        called. <strong class="text-[var(--color-text)]">It doesn't. It files a report on how many times you went
+        overhead and how many times you changed direction, and on both counts this sport is quietly enormous.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Which of these is you?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">You're playing through something.</strong> It grumbles on Tuesday,
+          it's fine by Thursday, and you've built a little routine of ice and hope around it.
+          <a href="/this-is-you/still-in-pain">Start here</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You've had it treated and you're not back properly.</strong> The
+          surgery or the physio is behind you, and you're still playing at about seventy per cent and calling it
+          eighty. <a href="/this-is-you/cleared-but-not-ready">The gap between cleared and ready</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You're fine and you'd like to stay on court.</strong> You've
+          watched three people in your group go down this year and you'd rather not be the fourth.
+          <a href="/this-is-you/worried-about-reinjury">Playing without collecting injuries</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Why the easiest sport to start is a hard sport to absorb</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Pickleball's genius is that you can play a real point within about four minutes of picking up a paddle.
+          No sport has ever been so generous about letting you in.
+        </p>
+        <p>
+          That generosity is also the problem. The barrier that keeps people out of most sports — the year of being
+          bad at it — is the same barrier that would otherwise have built the tissue up slowly. You skipped
+          straight to competitive, at pace, three times a week, on a body that agreed to none of this.
+        </p>
+        <p>
+          Two things then take the load. <strong class="text-[var(--color-text)]">The shoulder</strong>, because
+          the game lives overhead and the points are short, so the repetitions per hour are far higher than they
+          feel. And <strong class="text-[var(--color-text)]">the knee</strong>, because pickleball is played
+          sideways — and sideways is the direction almost nothing else in a modern adult life asks for.
+        </p>
+        <p>
+          That second one is worth sitting with. Think honestly about the last decade of your movement. Walking:
+          forwards. Cycling: forwards. Running: forwards. Every machine at every gym you've belonged to since the
+          Reagan administration: forwards, backwards, up, down. Then on a Tuesday evening somebody dinks it wide
+          and your knee is asked to brake, sideways, at speed, for the first time since a school sports day.
+        </p>
+        <p>
+          That knee isn't failing. It's being asked a question it was never taught the answer to. Which is
+          genuinely good news, because unrehearsed is a much more solvable state than damaged.
+        </p>
+        <p>
+          The shoulder half of the work starts with
+          <a href="/resources/shoulder-exercises">these overhead patterns</a>, and the sideways half starts with
+          <a href="/resources/balance-training">balance and deceleration</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">People who came in with this</h2>
+      <div class="space-y-14">
+        {videos.map(v => <VideoTestimonial video={v} />)}
+      </div>
+      <p class="mt-10 text-base text-[var(--color-text-muted)] leading-relaxed">
+        <a href="/testimonials">All client videos</a> · results vary from person to person.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What working together actually looks like</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A 60-minute assessment first: what happened, what's been done about it, what your playing week looks
+          like, and then testing what the shoulder and the knee currently accept — overhead, across the body, and
+          sideways under load. That last one is the test most people have never had, and it is usually the
+          revealing one.
+        </p>
+        <p>
+          Then one-on-one sessions of 45 to 60 minutes with me at the studio on Glenarm Place downtown. The goal
+          isn't a shoulder that behaves in a clinic. It's a shoulder that behaves in the third game, when you're
+          tired and the ball is above your head and you're going to go for it anyway, because of course you are.
+        </p>
+        <p>
+          And if what you've got needs a physician before it needs me, I'll say so in the first half hour.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So the sport that let you in without an entrance exam also skipped the part where your body got ready
+          for it, and the joint doesn't care what the sport is called. Once you've seen that, "it's only
+          pickleball" stops being available as an explanation — which is a shame, because it was a good one and I
+          liked hearing it.
+        </p>
+        <p>
+          Anyway. You know it now. See you on Tuesday.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">How many seasons of this do you want?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/shoulder-pain" class="text-white underline">Shoulder pain</a>
+        · <a href="/what-we-treat/knee-pain" class="text-white underline">Knee pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

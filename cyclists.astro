@@ -1,0 +1,214 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import VideoTestimonial from '../../components/VideoTestimonial.astro';
+import { TESTIMONIAL_VIDEOS } from '../../data/videos';
+import { SITE } from '../../data/site';
+
+const title = 'Cycling Back Pain & Sciatica — Denver Rehab for Road and Mountain Riders';
+const description =
+  "Back worse the fitter you get? Fitness lets you hold a compensation for longer. One-on-one rehab for road and mountain cyclists in downtown Denver.";
+const published = '2026-08-23';
+const url = `${SITE.url}/for/cyclists`;
+
+// Picked by person: Tony is a mountain biker who came in with sciatic pain.
+const PICKS = ['WZARvxb52uk'];
+const videos = PICKS.map(id => TESTIMONIAL_VIDEOS.find(v => v.id === id)).filter(
+  (v): v is (typeof TESTIMONIAL_VIDEOS)[number] => Boolean(v)
+);
+
+const faq = [
+  {
+    q: 'Why does my back hurt more the fitter I get on the bike?',
+    a: 'Because fitness is what lets you hold a position long enough for it to matter. When you were less conditioned you got off the bike before the compensation had time to accumulate; now you can hold the same slightly-off shape for four hours instead of one. Nothing got worse — your capacity to keep going got better, and the tissue that was quietly absorbing the difference is now doing it four times as long. It feels like a betrayal by your own training. It is really just arithmetic catching up.',
+  },
+  {
+    q: 'Will a professional bike fit fix my back pain?',
+    a: 'A good fit is genuinely worth having and it solves a real category of problem — if your saddle height, reach or cleat position is wrong, no amount of strength work compensates for it, and a fitter will find that faster than I will. What a fit cannot do is change what your hips and back are currently capable of. If the fit is correct and the pain persists, the constraint has moved from the bike to the body. Get the fit first. Then, if it is still there, the question is a different one.',
+  },
+  {
+    q: 'Should I stop riding while my sciatica settles?',
+    a: 'Usually not completely, and complete rest is rarely the right prescription — guidance for persistent back pain has moved firmly towards staying active. What normally changes is the dose and the shape: shorter rides, a more upright position, less time in the drops, fewer big efforts, and specific work off the bike in between. Some presentations do need a physician first, and those need identifying before anything else — which is part of what an assessment is for. Riding through worsening leg symptoms without getting it looked at is the version I would argue against.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">For cyclists</p>
+      <h1 class="mb-8">You got fitter and your back got worse, and those two facts are related.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Which feels like an insult from your own body, so let me put it the right way round.
+        <strong class="text-[var(--color-text)]">Nothing about you deteriorated. Your engine improved to the point
+        where you can now hold a slightly compromised position for four hours instead of one</strong> — and the
+        tissue that was quietly absorbing the difference is now doing it four times as long.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Which of these is you?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">It's there on every long ride now.</strong> You've moved the
+          saddle, you've had the fit done, you've bought the other stem.
+          <a href="/this-is-you/still-in-pain">Start here</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">There's something going down the leg.</strong> Not just the back
+          any more. <a href="/what-we-treat/sciatica">Sciatica that hasn't responded to the usual treatments</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You're fine and you'd like to keep the volume up.</strong>
+          <a href="/this-is-you/worried-about-reinjury">Riding a lot without paying for it later</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Eight hours at a desk, then two hours in the same shape</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Here's the thing nobody wants to hear, and I say it as someone who has ridden a great deal and enjoyed
+          all of it: the position you adopt on a road bike is not enormously different from the position you adopt
+          at a desk.
+        </p>
+        <p>
+          Hips flexed. Trunk forward. Shoulders reaching. Head lifted against the whole arrangement so you can see
+          where you're going. If you spend the working day in that shape and then choose it again as recreation,
+          you have found a way to spend ten hours in one posture and call half of it exercise.
+        </p>
+        <p>
+          The muscular version is that the hip flexors and the front of the chest spend all that time shortened,
+          the glutes and the back of the shoulder spend it lengthened and largely unrecruited, and the pedal stroke
+          itself tends to become quad-dominant — pushing down hard, and doing much less through the back half of
+          the circle. That last one is the piece riders most often don't know about themselves.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Road and mountain are genuinely different problems, though</strong>,
+          and it's worth splitting them. Road is a duration problem: one position, held for hours, with the load
+          almost entirely predictable. Mountain is an impact and reaction problem: constant changes of direction,
+          absorbing terrain through the arms and legs, and repeated short efforts out of the saddle. A rider who
+          does both has two separate demands and usually one set of preparation, which is normally none.
+        </p>
+        <p>
+          The specifics: <a href="/resources/cycling-low-back-pain">low back pain on the bike</a>,
+          <a href="/resources/road-cycling-power">power on the road</a>, and
+          <a href="/resources/mountain-biking-conditioning">conditioning for the trail</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Someone who came in with this</h2>
+      <div class="space-y-14">
+        {videos.map(v => <VideoTestimonial video={v} />)}
+      </div>
+      <p class="mt-10 text-base text-[var(--color-text-muted)] leading-relaxed">
+        <a href="/testimonials">All client videos</a> · results vary from person to person.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What working together actually looks like</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A 60-minute assessment first — history, what's been tried, whether you've had a proper fit done, and what
+          your riding week actually is rather than what you'd like it to be. Then we test hip range, trunk control
+          and what your back tolerates in the positions cycling puts you in, off the bike, where I can change one
+          variable at a time.
+        </p>
+        <p>
+          Then one-on-one sessions of 45 to 60 minutes with me at the studio on Glenarm Place. The work is mostly
+          upright and mostly loaded, which is the direct opposite of what you've spent your season doing — that's
+          rather the point.
+        </p>
+        <p>
+          One honest note. If you haven't had a professional bike fit, get one before you spend money with me. It
+          solves a real category of problem faster and cheaper than I will, and I would rather tell you that now
+          than take six sessions to arrive at it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So the fitness didn't cause the problem — it extended the window in which the problem could happen. And
+          the recreation you chose to escape the desk is, from your hips' point of view, more desk.
+        </p>
+        <p>
+          I appreciate that is not what anyone wants read back to them about a bike they saved up for. Anyway. You
+          know it now.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">You've got a season's worth of rides planned.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/sciatica" class="text-white underline">Sciatica</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Chronic back pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

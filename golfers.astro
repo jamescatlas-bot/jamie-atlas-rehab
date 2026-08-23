@@ -1,0 +1,290 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import VideoTestimonial from '../../components/VideoTestimonial.astro';
+import { TESTIMONIAL_VIDEOS } from '../../data/videos';
+import { SITE } from '../../data/site';
+
+const title = 'Golf Back Pain in Denver — What the Evidence Actually Says';
+const description =
+  "Back pain after 18 holes? The swing-fault story has not held up in the research. What the evidence does support, and one-on-one rehab for golfers in downtown Denver.";
+const published = '2026-08-23';
+const url = `${SITE.url}/for/golfers`;
+
+// Dax is a golfer who came in after a car accident with 10/10 back pain.
+const PICKS = ['qGHHUMxU_NU'];
+const videos = PICKS.map(id => TESTIMONIAL_VIDEOS.find(v => v.id === id)).filter(
+  (v): v is (typeof TESTIMONIAL_VIDEOS)[number] => Boolean(v)
+);
+
+const faq = [
+  {
+    q: 'Why does my back hurt after 18 holes?',
+    a: 'Low back pain is the most commonly reported complaint in golfers at every level, and the honest answer to why is usually accumulated load rather than a fault in your swing. A round is four or five hours of walking, standing, bending to the ball and around sixty to ninety full-speed rotations, and the back is the region that shows it first. In a prospective study following 910 amateur golfers with a median age of 60 across a season, the lumbosacral spine carried the highest injury burden of any body region — while the same study concluded that amateur golf injury rates are low relative to other sports. Both of those things are true at once.',
+  },
+  {
+    q: 'Can I keep golfing with a disc problem?',
+    a: 'Very often yes, and the decision should be made with whoever is managing the disc rather than from a website. What can be said generally is that findings like disc degeneration and bulges are extremely common in people with no pain at all and become more common with age, so a scan finding on its own does not settle the question. In athletes generally, return-to-play rates after lumbar disc herniation are high, and reviews have found no significant difference between those treated surgically and non-surgically. In one case series of 34 golfers following lumbar fusion, about half were back on the course within a year. Those are other people, not a prediction about you.',
+  },
+  {
+    q: 'Does golf fitness training actually add distance?',
+    a: 'Some of it does, and it is probably not the part you expect. A 2024 meta-analysis of the physical qualities associated with clubhead speed found the strongest relationships were with jump impulse, upper-body explosive strength and peak power. Flexibility and balance showed essentially no association with clubhead speed at all. A twelve-week supervised strength programme, at one session a week, produced a meaningful clubhead speed increase in competitive youth golfers. So the evidence points at force production rather than at getting looser — which is close to the opposite of what most golfers are handed.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">For golfers</p>
+      <h1 class="mb-8">Somebody has told you your swing is why your back hurts. There's a problem with that.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        It's been looked for, properly, more than once.
+        <strong class="text-[var(--color-text)]">A 2023 systematic review of the swing biomechanics literature
+        put it about as plainly as these things get: there is no conclusive evidence to support the commonly held
+        belief that low back pain is associated with "poor" golf swing technique.</strong> Which is awkward,
+        because an entire industry is built on the opposite sentence.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Which of these is you?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">It's there by the back nine and you've stopped mentioning it.</strong>
+          You've had the lesson, you've had the fitting, you take the anti-inflammatories in the cart.
+          <a href="/this-is-you/still-in-pain">Start here</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You've had surgery or an injection and you're tentative.</strong>
+          Cleared, technically. Not swinging freely.
+          <a href="/this-is-you/cleared-but-not-ready">The gap between cleared and ready</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Nothing hurts and you intend to keep playing into your eighties.</strong>
+          <a href="/this-is-you/worried-about-reinjury">Building a body that lasts the game</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The swing-fault story, and what happened when it was tested</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          You will have met some version of this. There is a named fault in your swing — too much side bend, too
+          much separation, the spine angle, the early extension — and that named fault is what your back is paying
+          for. Screen the fault, fix the fault, fix the back.
+        </p>
+        <p>
+          It is a wonderful story. It has a villain you can see on video. I have told versions of it.
+        </p>
+        <p>
+          The best-known of these is the <em>crunch factor</em> — side bend combined with rotation speed through
+          impact. In 2013 researchers put golfers with golf-related low back pain and golfers without it through
+          3D motion analysis and compared them directly. Peak crunch factor: 4,879 in the pain group, 4,920 in
+          the pain-free group. A p-value of 0.96. There is no polite way to describe that result other than
+          nothing whatsoever.
+        </p>
+        <p>
+          The <em>X-factor</em> — the separation between your shoulders and hips at the top — has a genuine
+          relationship with ball speed, and it's a reasonable thing for a coach to care about. Its relationship
+          with injury is a different matter: the systematic review that pooled the risk-factor literature found
+          no support for a relationship between swing characteristics and the development of golf-related pain.
+        </p>
+        <p>
+          And screening? In elite golfers followed for six months, thirty movement screening tests were applied
+          to forty-one injury-free players. Three were associated with going on to develop back pain, all weakly
+          — and the golfers who developed pain had performed <em>better</em> on them. The authors' own conclusion
+          was that this brings the usefulness of such screening into question.
+        </p>
+        <p>
+          What actually survived meta-analysis as associated with golfers' low back pain was rather less
+          marketable: age, body mass, and having had back pain before.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">So what do I actually look at?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Hips. And I want to be careful about how strongly I put this, because being careful about it is rather
+          the point of everything above.
+        </p>
+        <p>
+          Golfers with a history of low back pain have been found, on average, to have less internal rotation in
+          the lead hip than golfers without — around seven to ten degrees in one study of amateurs. Outside golf,
+          restricted hip internal rotation is the one hip movement that keeps turning up alongside low back pain.
+        </p>
+        <p>
+          Now the limits, which most people selling you a hip programme will leave out.
+          <strong class="text-[var(--color-text)]">Those studies compare people who already have pain.</strong>
+          Whether the stiff hip came first or arrived as a consequence of guarding a sore back has never been
+          established, no study has shown that measuring it predicts who will develop pain, and the pooled golf
+          analysis didn't find hip range among its associated factors at all.
+        </p>
+        <p>
+          So it is a reasonable thing to assess and often a useful thing to change. It is not your root cause,
+          and anyone who tells you it is has gone further than the evidence goes.
+        </p>
+        <p>
+          What has better support is unglamorous: strength, and graded loading of the positions the game asks for.
+          Across sports, strength training reduces injury risk to roughly a third of the control rate — that's
+          across sports rather than golf specifically, and I'll flag it rather than quietly upgrade it. And for
+          clubhead speed, the 2024 meta-analysis is unambiguous: jump impulse, upper-body explosive strength and
+          peak power are what correlate. Flexibility correlates with essentially nothing.
+        </p>
+        <p>
+          The practical version is in <a href="/resources/golf-conditioning">the golf conditioning guide</a>, and
+          the clinical detail if the back is the loud part is in
+          <a href="/what-we-treat/chronic-back-pain">chronic back pain</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">A golfer who came in with this</h2>
+      <div class="space-y-14">
+        {videos.map(v => <VideoTestimonial video={v} />)}
+      </div>
+      <p class="mt-10 text-base text-[var(--color-text-muted)] leading-relaxed">
+        <a href="/testimonials">All client videos</a> · results vary from person to person.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Before you worry: the game is good for you</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          I have just spent several hundred words on golfers' backs, so let me put the other side up with equal
+          prominence.
+        </p>
+        <p>
+          The 2018 international consensus statement on golf and health found unanimous expert agreement that
+          playing golf regularly is associated with increased longevity, and that it is likely to provide strength
+          and balance benefits for older adults. On injury it is similarly reassuring: the risk of injury per hour
+          played is low compared with other sports.
+        </p>
+        <p>
+          And in a randomised cross-over study of healthy older golfers with an average age of 68, eighteen holes
+          produced more favourable acute effects on blood glucose and lipids than either a six-kilometre Nordic
+          walk or a six-kilometre walk.
+        </p>
+        <p>
+          Nothing on this page is an argument for playing less. It's an argument about what to do with the
+          twenty minutes a week you were going to spend stretching your hamstrings anyway.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What working together actually looks like</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A 60-minute assessment — history, what's been tried, how much you play and walk, and then testing hip
+          rotation, trunk control and what your back accepts under rotational load. Then one-on-one sessions of 45
+          to 60 minutes with me at the studio at 1800 Glenarm Place downtown.
+        </p>
+        <p>
+          One thing I am not: a swing coach. I don't teach the golf swing, I don't film it and tell you what's
+          wrong with it, and after everything above you'll understand why I'm not in a hurry to. If your ball
+          flight is the problem, that's a professional's job and a good one is worth every penny. What I do is
+          the body underneath it.
+        </p>
+        <p>
+          And if what you have needs a physician before it needs me, I'll say so in the first half hour rather
+          than the fifth session.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So the named fault on the video has been tested and didn't separate the sore golfers from the
+          comfortable ones, the screen doesn't predict who gets hurt, and the things that do show up are age,
+          body mass and whether your back has been sore before. None of which fits on a launch monitor.
+        </p>
+        <p>
+          Oh, and if you'd like to spend a weekend going through the biomechanics literature to check my working
+          — genuinely, be my guest. I'll leave the light on. Mind the studies that all cite each other and none
+          of which followed anybody forwards in time.
+        </p>
+        <p>
+          Anyway. You know it now. Sorry about your next lesson.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">You'd like to still be playing in twenty years.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Chronic back pain</a>
+        · <a href="/what-we-treat/masters-athlete-injuries" class="text-white underline">Masters athlete injuries</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
