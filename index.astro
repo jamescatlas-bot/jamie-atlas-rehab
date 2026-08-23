@@ -3,81 +3,192 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BannerSection from '../../components/BannerSection.astro';
 import { SITE } from '../../data/site';
 
-// Identity-led landing pages. These sit ABOVE /this-is-you/ (problem-state) and
-// /what-we-treat/ (clinical detail) and route down into them — they must not
-// restate what those pages already say.
-//
-// 2026-08-23, Jamie's call: runners and golfers unblocked and built. The runner
-// page has no filmed runner and says so out loud rather than implying otherwise
-// — the article is about load, not technique, so video was never the proof it
-// needed. The golf page makes no TPI claim and doesn't need one: its argument is
-// that the swing-fault model TPI pages compete on isn't supported by the
-// evidence, which is a stronger position than the certification would buy.
-const activities: { title: string; slug: string; description: string }[] = [
+// Articles land here from the monthly content-production pipeline
+// (content_drafts/ → reviewed → published as markdown under src/content/resources/).
+// Until the content collection is wired up, list them manually here.
+const articles: { title: string; slug: string; description: string; date: string }[] = [
   {
-    title: 'For skiers',
-    slug: 'skiers',
+    title: 'Pain after a car accident, when the hospital said you were fine',
+    slug: 'pain-after-a-car-accident',
     description:
-      "The turn is asymmetric, the training is symmetrical, and day one is the biggest day of the year. Knee, back and shoulder rehab for people who intend to have a whole season.",
+      'The scan was clean and six weeks later you still hurt. What the research actually shows about who recovers after a collision \u2014 and what does not predict it.',
+    date: '2026-08-23',
   },
   {
-    title: 'For desk workers',
-    slug: 'desk-workers',
+    title: 'Why is it worse some weeks? Sleep, stress and flares',
+    slug: 'why-pain-flares-some-weeks',
     description:
-      "Nobody has ever fixed this with a chair. Why the posture story hasn't helped you, what actually holds up, and rehab five blocks from most of downtown.",
+      'Same back, same job, same chair \u2014 fine Tuesday, wrecked Thursday. Why persistent pain fluctuates, what the sleep research shows, and what it does not mean.',
+    date: '2026-08-23',
   },
   {
-    title: 'For pickleball players',
-    slug: 'pickleball',
+    title: 'I was wrong about treadmills \u2014 and what actually gets you in March',
+    slug: 'treadmill-to-outdoors',
     description:
-      "The easiest sport in the world to start, played overhead and sideways — two directions most bodies over 50 haven't loaded in decades. Shoulder and knee work.",
+      'I wrote \u201cnever run on a treadmill again\u201d in 2008. The central argument was wrong. What actually catches Denver runners in spring, and what the load research shows.',
+    date: '2026-08-23',
   },
   {
-    title: 'For hikers',
-    slug: 'hikers',
+    title: 'High heels and pain \u2014 I got the main part wrong in 2008',
+    slug: 'high-heels-and-pain',
     description:
-      "Everybody trains the climb. Nobody trains the descent, which is where the knees actually go. Braking strength, and what the research says about downhill damage.",
+      'The heel-to-pelvis-to-arched-back story has been tested and it does not hold up. What the evidence on high heels actually shows, and the part that survived.',
+    date: '2026-08-23',
   },
   {
-    title: 'For riders',
-    slug: 'equestrians',
+    title: 'Ski season prep: the complete Denver guide',
+    slug: 'ski-season-prep',
     description:
-      "A rider's back is usually paying for a hip that stopped contributing. Why the core work you were given is the wrong core, and getting back on after a fall.",
+      'The four jobs of ski prep — strength, balance, mobility, endurance — with three 9NEWS segments and links to the whole ski series. Start here.',
+    date: '2026-08-11',
   },
   {
-    title: 'For cyclists',
-    slug: 'cyclists',
+    title: 'Ski squats: train for the turn, not the gym',
+    slug: 'ski-squats',
     description:
-      "You got fitter and your back got worse, and those two facts are related. Road and mountain treated separately, because they are different problems.",
+      'Why the standard squat is the wrong shape for skiing, four variations that match the turn, and what to do if your knee already hurts.',
+    date: '2026-08-02',
   },
   {
-    title: 'For runners',
-    slug: 'runners',
+    title: 'Balance training: train the recovery, not just the legs',
+    slug: 'balance-training',
     description:
-      "It's the same injury every year, and that isn't bad luck — it's a pattern that was always there meeting a week where you asked for more. What the load research actually shows.",
+      'Strong legs get you down the mountain. Balance is what saves you when an edge catches. Four progressions — plus the 9NEWS segment where Jamie demonstrates all of them.',
+    date: '2026-08-10',
   },
   {
-    title: 'For golfers',
-    slug: 'golfers',
+    title: 'Ski stretches that actually help',
+    slug: 'ski-stretches',
     description:
-      "Somebody told you your swing is why your back hurts. That story has been tested more than once and it hasn't held up. What the evidence does support instead.",
+      'The mobility side of ski prep — what to stretch, when it helps, when it does not, and the archive video from Jamie’s early Denver ski conditioning years.',
+    date: '2026-08-11',
+  },
+  {
+    title: 'Snowboard conditioning: train for the board, not the skis',
+    slug: 'snowboard-conditioning',
+    description:
+      'Riding is sideways, rotational, and falls on its hands. The conditioning that matches a board stance — with the 9NEWS segment.',
+    date: '2026-08-11',
+  },
+  {
+    title: 'Snowshoeing is not hiking, and your hips will tell you why',
+    slug: 'snowshoe-preparation',
+    description:
+      'The wide stance and the high step are what snowshoeing adds — and what a summer of trail miles never trained. One drill that covers most of it.',
+    date: '2026-08-12',
+  },
+  {
+    title: 'Hiking conditioning: it’s the downhills that get you',
+    slug: 'hiking-conditioning',
+    description:
+      'Colorado hiking is a braking sport. The eccentric strength and stretches that protect knees on the descent — with the 9NEWS segment.',
+    date: '2026-08-11',
+  },
+  {
+    title: 'Mountain biking: the skills start in your body',
+    slug: 'mountain-biking-conditioning',
+    description:
+      'Hinge endurance, grip that outlasts the descent, and reactive balance — the physical platform under every riding skill, with the 9NEWS segment.',
+    date: '2026-08-11',
+  },
+  {
+    title: 'Road cycling: the dead spot in your pedal stroke',
+    slug: 'road-cycling-power',
+    description:
+      'Road riders chase power at the top of the stroke and ignore the bottom. That gap shows up as climbing fatigue — and eventually as hip and low back pain.',
+    date: '2026-08-12',
+  },
+  {
+    title: 'Cyclists’ low back pain usually isn’t coming from the back',
+    slug: 'cycling-low-back-pain',
+    description:
+      'Stretched it, rolled it, had the bike fitted twice, and it keeps returning. Why the hip is the more likely culprit — and the test that shows you.',
+    date: '2026-08-12',
+  },
+  {
+    title: 'Your first spring run hurts because winter broke the connection',
+    slug: 'running-return-to-training',
+    description:
+      'A winter indoors costs coordination, not just fitness. The four-minute drill that rebuilds it before you rebuild the mileage.',
+    date: '2026-08-12',
+  },
+  {
+    title: 'Shoulder pain in swimmers usually starts in the mid-back',
+    slug: 'swimmers-shoulder',
+    description:
+      'The rotator cuff is often the victim, not the cause. Why overhead range depends on your mid-back — and the honest test for it.',
+    date: '2026-08-12',
+  },
+  {
+    title: 'Golf conditioning: a swing that lasts',
+    slug: 'golf-conditioning',
+    description:
+      'The swing is the fastest rotation most bodies ever produce. Mobility and strength that protect the back and add distance — with the 9NEWS segment.',
+    date: '2026-08-11',
+  },
+  {
+    title: 'I told Denver to stop doing burpees. Here’s what twelve years changed.',
+    slug: 'burpee-alternatives',
+    description:
+      'Revisiting my 2013 Denver Post column — what I got right about dose, what I got wrong about danger, and the framing I’d take back entirely.',
+    date: '2026-08-13',
+  },
+  {
+    title: 'Shoulder exercises that won’t cause aggravation',
+    slug: 'shoulder-exercises',
+    description:
+      'Training a cranky shoulder without poking the bear: why rest backfires, and the principles behind non-aggravating shoulder work.',
+    date: '2026-08-11',
+  },
+  {
+    title: 'Desk posture: what actually helps',
+    slug: 'desk-posture',
+    description:
+      'It’s probably not your posture alone — it’s the hours in one shape. What helps during a downtown workday, with the 9NEWS segment.',
+    date: '2026-08-11',
+  },
+  {
+    title: 'Glute exercises: the missing piece in most back and knee stories',
+    slug: 'glute-exercises',
+    description:
+      'Glutes work at angles, not just straight ahead — and when they under-deliver, backs and knees pay. Three exercises worth adding, with the 9NEWS segment.',
+    date: '2026-08-11',
+  },
+  {
+    title: 'Resistance band training: the honest home gym',
+    slug: 'resistance-band-training',
+    description:
+      'Bands make rotation and angles easy to train at home — how to use them properly, with the 9NEWS segment.',
+    date: '2026-08-11',
+  },
+  {
+    title: 'A workout your kids are allowed to interrupt',
+    slug: 'family-workout',
+    description:
+      'Movement-pattern training that survives real family life — and why the example matters as much as the exercise. With the 9NEWS segment.',
+    date: '2026-08-11',
+  },
+  {
+    title: 'Holiday nutrition: skip the January penance',
+    slug: 'holiday-nutrition',
+    description:
+      'The holidays are not the problem — the January overcorrection is. A saner way through the season, from Jamie’s Denver7 guest-expert segment.',
+    date: '2026-08-11',
   },
 ];
 ---
 
 <BaseLayout
-  title="Rehab for Your Sport — Denver | Jamie Atlas"
-  description="Identity-led rehabilitation and performance pages: skiers, hikers, cyclists, riders, pickleball players and desk workers. Denver studio, one-on-one, 40+."
+  title="Free Rehab & Training Resources — Denver"
+  description="Articles on chronic pain, return-to-sport rehabilitation, and staying in your sport after 40 — from Jamie Atlas Rehab & Performance in Denver."
 >
   <section class="px-6 pt-16 pb-12 md:pt-24">
     <div class="max-w-3xl mx-auto">
-      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">For you</p>
-      <h1 class="mb-8">Nobody arrives here describing a body part.</h1>
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Resources</p>
+      <h1 class="mb-8">Straight answers about pain and performance</h1>
       <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
-        They arrive describing a thing they've stopped doing. The knee is how you explain it to a doctor; the
-        Saturday you gave up is the actual reason you're reading this.
-        <strong class="text-[var(--color-text)]">So these pages are organised the way people actually think — by
-        what you want back.</strong>
+        Articles on specific conditions, specific sports, and the evidence behind getting back to both. No fear, no
+        fluff.
       </p>
     </div>
   </section>
@@ -87,46 +198,33 @@ const activities: { title: string; slug: string; description: string }[] = [
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">
-      <div class="space-y-8">
-        {activities.map(a => (
-          <a href={`/for/${a.slug}`} class="block no-underline group">
-            <h2 class="text-2xl mb-2 text-[var(--color-primary)] group-hover:text-[var(--color-primary-dark)]">{a.title}</h2>
-            <p class="text-[var(--color-text-muted)] leading-relaxed">{a.description}</p>
-          </a>
-        ))}
-      </div>
+      {articles.length > 0 ? (
+        <div class="space-y-8">
+          {articles.map(a => (
+            <a href={`/resources/${a.slug}`} class="block no-underline group">
+              <h2 class="text-2xl mb-2 text-[var(--color-primary)] group-hover:text-[var(--color-primary-dark)]">{a.title}</h2>
+              <p class="text-[var(--color-text-muted)] leading-relaxed">{a.description}</p>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-8">
+          <p class="text-lg text-[var(--color-text-muted)] leading-relaxed max-w-xl mx-auto">
+            First articles are in production. While you wait, the
+            <a href="/what-we-treat">What We Treat</a> pages cover the most common questions about chronic back pain,
+            sciatica, post-surgical recovery, and masters athlete injuries.
+          </p>
+        </div>
+      )}
     </div>
   </section>
 
-  <section class="px-6 py-16">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="mb-6">Not on the list?</h2>
-      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
-        <p>
-          It doesn't matter much. The sport changes which demands we test for; it doesn't change the method. If
-          what you do isn't here, the quickest route in is by the thing that hurts —
-          <a href="/what-we-treat">everything we treat</a> — or by where you are with it:
-          <a href="/this-is-you/still-in-pain">still in pain</a>,
-          <a href="/this-is-you/cleared-but-not-ready">cleared but not ready</a>, or
-          <a href="/this-is-you/worried-about-reinjury">worried about doing it again</a>.
-        </p>
-        <p>
-          If there's an activity you'd like covered, email <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a>.
-          It's how most of these got chosen in the first place.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+  <section class="px-6 py-20">
     <div class="max-w-3xl mx-auto text-center">
-      <h2 class="mb-6 text-white">Whatever it is you've stopped doing.</h2>
-      <p class="text-xl mb-10 opacity-95">
-        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
-      </p>
-      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
-      <p class="mt-8 text-sm opacity-80">
-        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+      <h2 class="mb-6">Have a question an article should answer?</h2>
+      <p class="text-lg text-[var(--color-text-muted)] mb-8">
+        Email <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a> — reader questions become future
+        articles.
       </p>
     </div>
   </section>

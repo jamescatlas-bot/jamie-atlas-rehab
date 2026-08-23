@@ -1,0 +1,307 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import VideoTestimonial from '../../components/VideoTestimonial.astro';
+import { TESTIMONIAL_VIDEOS } from '../../data/videos';
+import { SITE } from '../../data/site';
+
+const title = 'Pain After a Car Accident — When the Hospital Said You Were Fine';
+const description =
+  'The scan was clean and six weeks later you still hurt. What the research actually shows about who recovers after a collision — and what does not predict it.';
+const published = '2026-08-23';
+const url = `${SITE.url}/resources/pain-after-a-car-accident`;
+
+// Dax came in five days after a collision with 10/10 back pain.
+const PICKS = ['qGHHUMxU_NU'];
+const videos = PICKS.map(id => TESTIMONIAL_VIDEOS.find(v => v.id === id)).filter(
+  (v): v is (typeof TESTIMONIAL_VIDEOS)[number] => Boolean(v)
+);
+
+const faq = [
+  {
+    q: 'The hospital said nothing was broken. Why do I still hurt?',
+    a: 'Because an emergency department is answering a different question from the one you are now asking. Its job is to rule out fracture, dislocation and the things that are dangerous tonight, and it is very good at that. Nothing in that assessment is designed to predict whether you will still be sore in three months. Those are two separate questions, and being cleared on the first tells you almost nothing about the second.',
+  },
+  {
+    q: 'My scan showed something. Is that what is causing the pain?',
+    a: 'Possibly not, and the guidelines are unusually direct about this. Australian clinical guidelines carrying their highest evidence grade advise clinicians to reassure patients that changes on X-ray, MRI and CT after a whiplash injury — including degenerative changes — are not associated with ongoing pain and disability. Separately, a review of imaging in people with no symptoms at all found disc degeneration in 37% of pain-free 20-year-olds, rising to 96% of pain-free 80-year-olds. Finding something on a scan does not establish that it is the reason you hurt.',
+  },
+  {
+    q: 'How long should this take?',
+    a: 'Honestly, it varies enormously and anyone offering you a timeline on a website is guessing. What the research can say is that recovery is front-loaded: most of the improvement that happens tends to happen in the first two to three months, after which it slows. Roughly half of people report some ongoing neck symptoms a year after a whiplash injury, and about a quarter are left with persistent moderate or severe problems. Those are population figures, not a prediction about you — and the most useful thing you can do with them is stop treating a slow week as evidence that something is wrong.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · After a collision
+      </p>
+      <h1 class="mb-8">The car came through the intersection at forty miles an hour and I did not have a moment of clarity.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        No slow motion. No flash of everything that matters. I've since read that people get those, and I feel a
+        bit cheated, frankly.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          What I got was one swear word, delivered under my breath with great sincerity, and then — genuinely,
+          this is what my brain produced with a vehicle arriving — <em>this is what I get for cutting off a nun in
+          traffic this morning.</em>
+        </p>
+        <p>
+          I had, in fact, cut off a nun in traffic that morning. She was very gracious about it, which made it
+          worse.
+        </p>
+        <p>
+          So there I am at the wheel, mid-impact, doing theology.
+        </p>
+        <p>
+          The thing that surprised me wasn't any of that. It was the next three months.
+        </p>
+        <p>
+          Because here's what nobody told me, and it's the same thing nobody has told you:
+          <strong class="text-[var(--color-text)]">nobody at the hospital lied.</strong> They X-rayed the right
+          things. They ruled out what kills people, which is exactly what an emergency department is for and it is
+          very good at it. No fracture, no dislocation, nothing that needed a surgeon at eleven at night. All of
+          it correct.
+        </p>
+        <p>
+          And then you go home, and four days later you can't turn your head to reverse off the driveway.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">How bad the crash looked tells you almost nothing</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          This is the one that takes people a minute.
+        </p>
+        <p>
+          There's a Task Force review — the big one, from the Bone and Joint Decade, published in <em>Spine</em> —
+          that went looking for what actually predicts whether someone is still in pain a year after a collision.
+          They tested the obvious candidates. Which seat you were in. Whether you saw it coming. Head restraint or
+          no head restraint. Seat belt type. Direction of impact. Whether your head was turned. How fast the other
+          car was going.
+        </p>
+        <p>
+          None of them predicted anything. Their words: collision-related factors "are not prognostics of recovery."
+        </p>
+        <p>
+          Read that again, because it runs both ways and both directions matter.
+        </p>
+        <p>
+          It means the person whose car was written off is not doomed. And it means the person whose bumper has a
+          scuff, who has been quietly told by a brother-in-law that it <em>couldn't have been that bad</em> — that
+          person is not making it up, and there is a body of research saying so.
+        </p>
+        <p>
+          Which raises a fairly obvious question. If it isn't the crash, what is it?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What does show up</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Two things, mostly, and neither is glamorous.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">How much pain and disability you had at the start.</strong> In a
+          study following people for twelve months, a high initial disability score was far and away the dominant
+          variable — an odds ratio of 7.49 for ending up in the persistent moderate-to-severe group. Everything
+          else in the model was a fraction of that.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">And what you expect is going to happen to you.</strong> In a
+          Saskatchewan cohort of just over six thousand people, those who expected to get better soon recovered
+          about 3.6 times faster than those who expected never to recover — and that held after adjusting for how
+          bad their pain was, for depression, and for their health before the crash. A separate Swedish study of
+          around a thousand people found the same pattern.
+        </p>
+        <p>
+          I want to be careful with that second one, because it is very easy to turn into something ugly. The
+          authors of the Swedish study say plainly that they cannot be confident the relationship is causal.
+          Expectations <em>predict</em>. Nobody has shown that changing your mind fixes your neck, and if anyone
+          implies you are still sore because you weren't positive enough, they have gone a long way past the
+          evidence and should be told so.
+        </p>
+        <p>
+          What it does mean is that the questions worth asking early are not the ones most people get asked.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The part that's awkward for me</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          My industry has a line it likes. Get treated early enough and you'll head off the chronic version.
+        </p>
+        <p>
+          There's a trial called MINT. Nearly four thousand people across fifteen English emergency departments.
+          Half got active management advice, half got usual care. The difference between them was half a point on
+          a fifty-point scale, with a confidence interval sitting cheerfully astride zero. A second stage offered
+          up to six physiotherapy sessions against a single advice session; that one did win, by about three
+          points, which the authors described as "a modest acceleration to early recovery."
+        </p>
+        <p>
+          Then there's PROMISE. A hundred and seventy-two people with chronic whiplash, randomised to a
+          twenty-session comprehensive physiotherapy exercise programme, or to <em>one</em> advice session with
+          some phone support.
+        </p>
+        <p>
+          The difference in pain at fourteen weeks was 0.0. Not nearly zero. Zero. At six months it was 0.2, at
+          twelve months it was minus 0.1, and every confidence interval was wide enough to drive a car through.
+          The authors wrote: "simple advice is equally as effective as a more intense and comprehensive
+          physiotherapy exercise programme."
+        </p>
+        <p>
+          Twenty sessions. One conversation. No difference.
+        </p>
+        <p>
+          I'm telling you this because I sell sessions, and it's the kind of thing you'd rather I left out. What it
+          honestly supports is not a package — it's getting you reassured, getting you moving, and getting you back
+          into normal life early. That's a considerably less impressive sentence to put on a website, and it's what
+          the two largest trials in the field actually say.
+        </p>
+        <p>
+          Guidelines have followed. Collars are graded at the highest evidence level as something that
+          <em>should not</em> be used for acute whiplash. Staying active is recommended. Reducing your usual
+          activities for more than about four days is not.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">So when is somebody like me any use?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Not in week one. In week one you want a doctor to rule out the dangerous things, and then you want
+          permission to move.
+        </p>
+        <p>
+          Where this studio is useful is later, and specifically: when the healing time has passed and the pain
+          hasn't, when you've been cleared but you're still bracing before you reverse the car, and when the thing
+          you actually want back is a sport or a job that nobody in the chain so far has been paid to get you to.
+        </p>
+        <p>
+          The method here is Cognitive Functional Therapy combined with Applied Functional Science. One honest
+          scoping note, because it matters: the large trial behind CFT — RESTORE, in <em>The Lancet</em> — studied
+          chronic low back pain that was explicitly <em>not</em> post-traumatic. It produced large, sustained
+          improvements in that population. It has not been tested specifically in people whose pain started with a
+          collision, and I'm not going to imply otherwise.
+        </p>
+        <p>
+          What I'll say instead is what the assessment does: sixty minutes on your history, what's been done, what
+          you're avoiding and why, and then finding out what your body currently accepts. If what you have needs a
+          physician before it needs me, you'll know inside the first half hour.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Somebody who came in five days after a collision</h2>
+      <div class="space-y-14">
+        {videos.map(v => <VideoTestimonial video={v} />)}
+      </div>
+      <p class="mt-10 text-base text-[var(--color-text-muted)] leading-relaxed">
+        <a href="/testimonials">All client videos</a> · results vary from person to person.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So the damage to the car doesn't predict the damage to you, the scan can be both clean and beside the
+          point, and the two biggest trials in the field say the expensive version isn't the part that helps.
+        </p>
+        <p>
+          None of which anybody explained at the hospital, because the hospital was busy doing its actual job
+          rather well.
+        </p>
+        <p>
+          Anyway. You know it now. Which should at least make the next conversation with your brother-in-law
+          about your bumper considerably shorter.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Still sore, months later, and out of people to ask</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/neck-pain" class="text-white underline">Neck pain</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Chronic back pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
