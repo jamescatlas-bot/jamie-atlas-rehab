@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+// Identity-led landing pages. These sit ABOVE /this-is-you/ (problem-state) and
+// /what-we-treat/ (clinical detail) and route down into them — they must not
+// restate what those pages already say.
+//
+// 2026-08-23, Jamie's call: runners and golfers unblocked and built. The runner
+// page has no filmed runner and says so out loud rather than implying otherwise
+// — the article is about load, not technique, so video was never the proof it
+// needed. The golf page makes no TPI claim and doesn't need one: its argument is
+// that the swing-fault model TPI pages compete on isn't supported by the
+// evidence, which is a stronger position than the certification would buy.
+const activities: { title: string; slug: string; description: string }[] = [
+  {
+    title: 'For skiers',
+    slug: 'skiers',
+    description:
+      "The turn is asymmetric, the training is symmetrical, and day one is the biggest day of the year. Knee, back and shoulder rehab for people who intend to have a whole season.",
+  },
+  {
+    title: 'For desk workers',
+    slug: 'desk-workers',
+    description:
+      "Nobody has ever fixed this with a chair. Why the posture story hasn't helped you, what actually holds up, and rehab five blocks from most of downtown.",
+  },
+  {
+    title: 'For pickleball players',
+    slug: 'pickleball',
+    description:
+      "The easiest sport in the world to start, played overhead and sideways — two directions most bodies over 50 haven't loaded in decades. Shoulder and knee work.",
+  },
+  {
+    title: 'For hikers',
+    slug: 'hikers',
+    description:
+      "Everybody trains the climb. Nobody trains the descent, which is where the knees actually go. Braking strength, and what the research says about downhill damage.",
+  },
+  {
+    title: 'For riders',
+    slug: 'equestrians',
+    description:
+      "A rider's back is usually paying for a hip that stopped contributing. Why the core work you were given is the wrong core, and getting back on after a fall.",
+  },
+  {
+    title: 'For cyclists',
+    slug: 'cyclists',
+    description:
+      "You got fitter and your back got worse, and those two facts are related. Road and mountain treated separately, because they are different problems.",
+  },
+  {
+    title: 'For runners',
+    slug: 'runners',
+    description:
+      "It's the same injury every year, and that isn't bad luck — it's a pattern that was always there meeting a week where you asked for more. What the load research actually shows.",
+  },
+  {
+    title: 'For golfers',
+    slug: 'golfers',
+    description:
+      "Somebody told you your swing is why your back hurts. That story has been tested more than once and it hasn't held up. What the evidence does support instead.",
+  },
+];
+---
+
+<BaseLayout
+  title="Rehab for Your Sport — Denver | Jamie Atlas"
+  description="Identity-led rehabilitation and performance pages: skiers, hikers, cyclists, riders, pickleball players and desk workers. Denver studio, one-on-one, 40+."
+>
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">For you</p>
+      <h1 class="mb-8">Nobody arrives here describing a body part.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        They arrive describing a thing they've stopped doing. The knee is how you explain it to a doctor; the
+        Saturday you gave up is the actual reason you're reading this.
+        <strong class="text-[var(--color-text)]">So these pages are organised the way people actually think — by
+        what you want back.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-8">
+        {activities.map(a => (
+          <a href={`/for/${a.slug}`} class="block no-underline group">
+            <h2 class="text-2xl mb-2 text-[var(--color-primary)] group-hover:text-[var(--color-primary-dark)]">{a.title}</h2>
+            <p class="text-[var(--color-text-muted)] leading-relaxed">{a.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Not on the list?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          It doesn't matter much. The sport changes which demands we test for; it doesn't change the method. If
+          what you do isn't here, the quickest route in is by the thing that hurts —
+          <a href="/what-we-treat">everything we treat</a> — or by where you are with it:
+          <a href="/this-is-you/still-in-pain">still in pain</a>,
+          <a href="/this-is-you/cleared-but-not-ready">cleared but not ready</a>, or
+          <a href="/this-is-you/worried-about-reinjury">worried about doing it again</a>.
+        </p>
+        <p>
+          If there's an activity you'd like covered, email <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a>.
+          It's how most of these got chosen in the first place.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Whatever it is you've stopped doing.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

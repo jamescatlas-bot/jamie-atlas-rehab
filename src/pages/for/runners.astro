@@ -1,0 +1,277 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import VideoTestimonial from '../../components/VideoTestimonial.astro';
+import { TESTIMONIAL_VIDEOS } from '../../data/videos';
+import { SITE } from '../../data/site';
+
+const title = 'Running Injuries in Denver — Why It Is the Same One Every Year';
+const description =
+  "Same injury, every season? That is not bad luck. It is an unaddressed pattern meeting a load spike. One-on-one running rehab in downtown Denver, 40+.";
+const published = '2026-08-23';
+const url = `${SITE.url}/for/runners`;
+
+// Neither of these clients is a runner, and the page says so out loud rather
+// than implying otherwise. Kendra (sciatica, volleyball) and Brad (knee, hiker)
+// carry the two problems runners most often arrive with.
+const PICKS = ['jj9HW5h-Myc', 'Vc04UjsZ8wA'];
+const videos = PICKS.map(id => TESTIMONIAL_VIDEOS.find(v => v.id === id)).filter(
+  (v): v is (typeof TESTIMONIAL_VIDEOS)[number] => Boolean(v)
+);
+
+const faq = [
+  {
+    q: 'Why do I get the same running injury every year?',
+    a: 'Because the thing that produced it the first time was never addressed, and every season you arrive back at the same load with the same pattern waiting. The most robust risk factor in the entire running-injury literature is not your shoes, your surface or your gait — it is previous injury. That is genuinely good news, because it means the recurring one is the most predictable problem you have. What it needs is not more rest. It is finding what the tissue actually tolerates and building it past the point where your usual season demands it.',
+  },
+  {
+    q: 'How fast should I build mileage after time off?',
+    a: 'More slowly than feels necessary, and with far more attention to single sessions than to weekly totals. In a study of 5,205 runners across 588,071 sessions, the injury hazard rose when a single run exceeded the longest run of the previous 30 days — more than doubling that longest run carried more than twice the hazard. Note what that measures: one run, against your recent history. It is worth adding that the famous ten per cent per week rule has actually been tested in a randomised trial of 532 novice runners and it made no difference at all — 20.8 per cent injured versus 20.3 per cent. Avoiding big single jumps is well supported. No specific weekly rule has ever been shown to work.',
+  },
+  {
+    q: 'Is it safe to run through knee pain?',
+    a: 'It depends entirely on what the pain is doing rather than on whether it is there. Pain that appears late in a run, settles within a day and is not getting worse week on week is a different situation from pain that arrives earlier each time, lingers longer, or has started changing how you land. The second pattern is the one to stop and get assessed, and the useful question is never simply whether it hurts — it is whether the trend across three weeks is going the right way. If you cannot tell, that is exactly what an assessment is for.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">For runners</p>
+      <h1 class="mb-8">It's the same one every year, isn't it.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Same side. Roughly the same point in the build. And every year you file it under bad luck, or getting older,
+        or that one hill.
+        <strong class="text-[var(--color-text)]">It is none of those. The single most robust risk factor in the
+        entire running-injury literature — ahead of shoes, surface, gait and age — is having been injured
+        before.</strong> Which sounds bleak for about four seconds and is actually the most useful sentence on
+        this page.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Which of these is you?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">It's flared again and you're already annoyed.</strong> You know
+          the drill. Two weeks off, a cautious return, and a countdown to the next one.
+          <a href="/this-is-you/still-in-pain">Start here</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You've been cleared and you don't trust the leg.</strong> The
+          physio ended, the notes said fine, and you still run the first mile listening to it.
+          <a href="/this-is-you/cleared-but-not-ready">The gap between cleared and ready</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You've got a race and you're building.</strong> And you'd like
+          this to be the year the build actually finishes.
+          <a href="/this-is-you/worried-about-reinjury">Training up without paying for it</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">A pattern waiting, and a spike to meet it</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Recurring running injuries are two things arriving at the same time. There's something in how you're
+          built or how you load — usually unremarkable, usually not painful on its own. And then there's a week
+          where the volume, the pace or the terrain steps up. Neither is a problem. Together, every season, they
+          are the same problem.
+        </p>
+        <p>
+          The load half has been measured properly and recently. In 2025 a group published data on 5,205 runners
+          across 588,071 individual running sessions, asking a very specific question: what happens when a single
+          run is longer than anything you've done in the past month? More than doubling your longest recent run
+          carried more than twice the injury hazard.
+        </p>
+        <p>
+          Read what that actually measures. Not your weekly mileage. Not your monthly total. <strong
+          class="text-[var(--color-text)]">One run, against your own recent history.</strong> Which is why the
+          spring Saturday and the last long run before a race are both such reliable sources of business for
+          people like me.
+        </p>
+        <p>
+          And while we're here — the ten per cent rule. Everybody's rule. I have said it out loud to people, with
+          a straight face, more times than I want to count. It's been tested. Five hundred and thirty-two novice
+          runners randomised to a thirteen-week graded programme built on it, against a standard eight-week one.
+          Injuries: 20.8 per cent versus 20.3 per cent.
+        </p>
+        <p>
+          A second trial, eight hundred and thirty-nine runners, compared building volume against building
+          intensity. No difference there either.
+        </p>
+        <p>
+          So both of these are true at once, and anyone telling you otherwise has read one of them: big single
+          jumps look genuinely risky, and no tidy weekly rule for avoiding them has ever been shown to work.
+        </p>
+        <p>
+          There's a related argument worth knowing about — the Garmin-RUNSAFE group have argued that overuse
+          running injuries often don't accumulate gradually at all, but appear suddenly, frequently inside a
+          single session. That one is their position rather than settled consensus, but it matches what walks
+          through my door with unhelpful regularity.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What actually helps, and what only sounds like it does</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">Strength training.</strong> Across sports, a meta-analysis of
+          randomised trials found strength training reduced injury risk to roughly a third of the control rate,
+          with a dose-response relationship. That's across sports rather than runners specifically, and I'll say
+          so rather than quietly upgrading it — but it is by a distance the best-evidenced thing on this list, and
+          it is the thing runners skip.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Cadence, honestly.</strong> Increasing step rate by five per
+          cent reduces the energy absorbed at the knee by around twenty per cent; ten per cent takes it to about
+          a third. That mechanism is well established. Whether it prevents injury is a much weaker claim — the
+          best review found only two trials reporting reduced injury incidence. So: a good tool for a knee that's
+          being asked too much, not a magic setting.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">And the downhills.</strong> Braking is where the muscle damage
+          actually comes from, and prior exposure is protective — the people who take the most damage from a
+          descent are consistently the ones least used to descending. In Denver, where the spring transition tends
+          to add distance, hills, terrain and altitude all on one Saturday, that matters more than it does most
+          places. The <a href="/for/hikers">longer version of that argument is on the hikers page</a>.
+        </p>
+        <p>
+          Two things I'd gently steer you away from spending money on first: your running surface, which the
+          systematic reviews have never established as a risk factor at all, and the acute-to-chronic workload
+          ratio, which was heavily promoted for years and has since been fairly comprehensively taken apart.
+        </p>
+        <p>
+          Building blocks live in <a href="/resources/running-return-to-training">return to running</a>,
+          <a href="/resources/glute-exercises">the glute work</a> and
+          <a href="/resources/balance-training">balance and control</a>. And if your winter was spent indoors,
+          <a href="/resources/treadmill-to-outdoors">the treadmill piece</a> covers what actually catches people in
+          March — including the bit where I take back what I wrote about treadmills in 2008.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Two people who came in with this — and neither of them runs</h2>
+      <p class="mb-10 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        I'm not going to pretend otherwise. Kendra plays volleyball and Brad is a hiker, and if you'd rather see a
+        runner on camera before you trust a word of this, that's a completely reasonable position and I don't have
+        one for you yet. What they do have is the two problems runners arrive with most often: something shooting
+        down the leg, and a knee that gave up on the descent.
+      </p>
+      <div class="space-y-14">
+        {videos.map(v => <VideoTestimonial video={v} />)}
+      </div>
+      <p class="mt-10 text-base text-[var(--color-text-muted)] leading-relaxed">
+        <a href="/testimonials">All client videos</a> · results vary from person to person.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What working together actually looks like</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A 60-minute assessment first: the injury history in detail — and with a recurring one, the history
+          <em>is</em> the diagnosis — what your training actually looked like in the four weeks before each flare,
+          and then testing what the leg tolerates under single-leg load, under braking, and repeatedly rather than
+          once.
+        </p>
+        <p>
+          Then one-on-one sessions of 45 to 60 minutes with me at the studio at 1800 Glenarm Place downtown.
+          Mostly strength, mostly single leg, progressed against what your tissue accepts rather than against a
+          calendar — alongside a plan for how the running itself gets rebuilt, because the running is the point
+          and I have no interest in you doing rehab instead of it.
+        </p>
+        <p>
+          If what you've got needs a physician before it needs me — and some presentations do — I'll say so in the
+          first half hour.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So it isn't bad luck, it isn't your age, and it wasn't that hill. It's a pattern that has been there the
+          whole time, meeting a week where you asked for more — and the fact that it's the same one every year is
+          the strongest evidence you have that it's predictable.
+        </p>
+        <p>
+          Anyway. You know it now. Which is going to make next February's build quite a bit harder to be casual about.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Or you could find out what it actually is.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/knee-pain" class="text-white underline">Knee pain</a>
+        · <a href="/what-we-treat/masters-athlete-injuries" class="text-white underline">Masters athlete injuries</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

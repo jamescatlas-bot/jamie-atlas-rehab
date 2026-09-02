@@ -1,0 +1,220 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import VideoTestimonial from '../../components/VideoTestimonial.astro';
+import { TESTIMONIAL_VIDEOS } from '../../data/videos';
+import { SITE } from '../../data/site';
+
+const title = 'Hiking Knee Pain in Denver — Rehab and Conditioning for the Descent';
+const description =
+  "Knees fine going up and wrecked coming down? Everyone trains the climb and nobody trains braking. One-on-one knee rehab and hiking conditioning in downtown Denver.";
+const published = '2026-08-23';
+const url = `${SITE.url}/for/hikers`;
+
+// Picked by person: Brad is a hiker who came in with a knee after a fall.
+const PICKS = ['Vc04UjsZ8wA'];
+const videos = PICKS.map(id => TESTIMONIAL_VIDEOS.find(v => v.id === id)).filter(
+  (v): v is (typeof TESTIMONIAL_VIDEOS)[number] => Boolean(v)
+);
+
+const faq = [
+  {
+    q: 'Why do my knees only hurt hiking downhill?',
+    a: 'Going up, your muscles shorten to lift you — the work is hard but the tissue is doing what it finds easiest. Coming down, the same muscles have to lengthen under load to stop you, which is a far more demanding kind of contraction and the one that produces genuine muscle damage. A review of the downhill running literature reports immediate strength losses in the knee extensors ranging from roughly 14 to 55 per cent, with recovery taking four to five days. So it is not that your knees are weak going down. It is that going down is a different and much harder job, and almost nobody trains for it.',
+  },
+  {
+    q: 'How do I train for a fourteener with a knee that already complains?',
+    a: 'Backwards from the descent. Most people build up their climbing fitness, arrive at the summit in good shape, and then spend four hours doing the thing they never practised. The useful work is loaded lowering — step-downs, controlled eccentric work, and progressive downhill exposure — because prior exposure is genuinely protective; the people who take the most damage from a descent are the ones least accustomed to descending. If the knee already has a history, get it assessed before you build the mileage rather than after, because the question is not how fit you are, it is what that knee currently tolerates under braking load.',
+  },
+  {
+    q: "What's the best conditioning for hiking at altitude?",
+    a: 'Altitude changes how hard the cardiovascular work feels; it does not change what the joints are being asked to do. Which means the conditioning that matters most is still load-based rather than lung-based: single-leg strength, controlled lowering, and enough endurance in the braking muscles that they are still working on the last mile down. Acclimatisation is real and worth respecting, but the knee that gives out at the trailhead at four in the afternoon almost never gave out because of the air.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">For hikers</p>
+      <h1 class="mb-8">Everybody trains for the way up. Nobody has ever trained for the way down.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        And the way down is where the knees go. Every single time.
+        <strong class="text-[var(--color-text)]">You got to the summit feeling strong, which is the part that
+        confuses people, because it means the fitness was never the issue.</strong> The four hours that followed
+        were a completely different job, and you'd done no preparation for it whatsoever. Neither had I, for about
+        twenty years.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Which of these is you?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">The knee has been grumbling for a season or two.</strong> You've
+          shortened the hikes, you take the poles now, and you've quietly stopped suggesting the big ones.
+          <a href="/this-is-you/still-in-pain">Start here</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You've had it operated on or treated and you're hesitant.</strong>
+          Cleared on paper, and still standing at the top of a steep section doing arithmetic.
+          <a href="/this-is-you/cleared-but-not-ready">The gap between cleared and ready</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Nothing's wrong and you'd like to keep it that way.</strong>
+          You've got a list of peaks and you'd like the knees to still be interested in ten years.
+          <a href="/this-is-you/worried-about-reinjury">Training so it doesn't happen</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The descent is a different sport</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Going up, your muscles shorten to lift you. It's hard, you breathe like a horse, and the tissue is doing
+          the job it finds most natural. That's why you can be genuinely unfit and still get up a mountain on
+          stubbornness.
+        </p>
+        <p>
+          Going down, the same muscles have to lengthen while resisting — braking you, step after step, for hours.
+          That contraction is where actual muscle damage comes from, and the numbers are not subtle. A review of
+          the downhill running literature reports immediate strength losses in the knee extensors of roughly 14 to
+          55 per cent, creatine kinase — a marker of muscle damage — elevated around 420 per cent at twenty-four
+          hours, and recovery taking four to five days.
+        </p>
+        <p>
+          Now here's the part that matters, and it's the most useful sentence on this page:
+          <strong class="text-[var(--color-text)]">prior exposure protects you.</strong> The people who take the
+          most damage from a descent are consistently the ones least accustomed to descending. Your body will
+          absorb this if you let it rehearse. It just has never once been asked to.
+        </p>
+        <p>
+          Which is why the standard advice — build up your cardio, get some miles in — reliably produces someone
+          who is superbly prepared for the first half of the day. We were all taught to train the climb. Trails
+          go up on the way out and everyone's watch measures elevation gained, and somewhere in there the entire
+          industry forgot that you have to come back.
+        </p>
+        <p>
+          The practical version is in the <a href="/resources/hiking-conditioning">hiking conditioning guide</a>,
+          with the winter equivalent in <a href="/resources/snowshoe-preparation">snowshoe preparation</a>. And if
+          the season after this one involves a chairlift, it's the same knee and the same conversation six weeks
+          earlier — <a href="/for/skiers">that's over here</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Someone who came in with this</h2>
+      <div class="space-y-14">
+        {videos.map(v => <VideoTestimonial video={v} />)}
+      </div>
+      <p class="mt-10 text-base text-[var(--color-text-muted)] leading-relaxed">
+        <a href="/testimonials">All client videos</a> · results vary from person to person.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What working together actually looks like</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A 60-minute assessment first — the knee's history, any surgery, what you've already tried, and the actual
+          hikes you want back. Then we test what it currently accepts going <em>down</em>: single leg, controlled,
+          under load, repeatedly. That last word is the one that finds things. Plenty of knees pass a step-down.
+          Fewer pass the fortieth.
+        </p>
+        <p>
+          From there, one-on-one sessions of 45 to 60 minutes with me at the studio at 1800 Glenarm Place. We build
+          braking capacity progressively, in doses your knee will accept, and then we build the endurance of it —
+          because the problem was never the first descent of the day.
+        </p>
+        <p>
+          I've covered the hiking version of this on 9NEWS as their fitness expert, and I've been doing this in
+          Colorado since 2001. If your case isn't a fit for what I do, I'll tell you in the first half hour and
+          point you at whoever is.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So half the day is a lifting job and half the day is a braking job, and we all trained one of them.
+          Written down like that it sounds like something you'd work out in an afternoon, which is roughly the
+          reaction I had when it was finally explained to me, some years into a career built on knowing things
+          about legs.
+        </p>
+        <p>
+          Anyway. You know it now. Good luck un-knowing it at four in the afternoon on the last mile down.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">There's a list of peaks and a finite number of summers.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/knee-pain" class="text-white underline">Knee pain</a>
+        · <a href="/what-we-treat/masters-athlete-injuries" class="text-white underline">Masters athlete injuries</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

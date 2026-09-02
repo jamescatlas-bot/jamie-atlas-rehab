@@ -1,0 +1,316 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+const title = 'High Heels and Pain — I Got the Main Part Wrong in 2008';
+const description =
+  'The heel-to-pelvis-to-arched-back story has been tested and it does not hold up. What the evidence on high heels actually shows, and the part that survived.';
+const published = '2026-08-23';
+const url = `${SITE.url}/resources/high-heels-and-pain`;
+
+const faq = [
+  {
+    q: 'Do high heels cause back pain?',
+    a: 'Not established, and the mechanism usually offered as the explanation has not held up. What is supported is narrower: high-heel wearing is associated with musculoskeletal pain generally, and in a study of fifty habitual wearers over a six-hour day, back discomfort was the first thing to appear and the most reported. That is transient discomfort during wear. A five-year prospective study of 356 women, median age 60, found that ever wearing heels of two inches or more was not associated with developing joint symptoms — and cumulative lifetime hours showed nothing either.',
+  },
+  {
+    q: 'Will heels give me arthritis in my knees?',
+    a: 'The honest answer is that nobody has shown it. Heels do change how the knee is loaded — that part is measured and real. But the 356-woman five-year study found no association with developing radiographic knee osteoarthritis, a systematic review found two studies looking at osteoarthritis and neither found a significant association, and a review of reviews described osteoarthritis as not yet evidenced by epidemiological studies. Changed loading is not the same thing as disease, and the researchers who measured the loading said only that it may predispose.',
+  },
+  {
+    q: 'Why do flat shoes feel horrible after years in heels?',
+    a: 'Because the tissue adapted to what it was asked to do. Women who habitually wear heels have been measured with calf muscle fascicles around eleven per cent shorter and a stiffer Achilles tendon than women who mostly wear flats — so the same flat-footed step puts more stretch through the calf. Worth saying clearly: that is adaptation, not damage. In the one prospective study to induce the same change deliberately, participants also became more metabolically economical walkers. A gradual reduction in heel height alongside calf work is the sensible approach, though there is no trial telling anyone the best way to do it.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Footwear
+      </p>
+      <h1 class="mb-8">I wrote fifteen hundred words about high heels in 2008. The central mechanism doesn't hold up.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        It was, for a while, the thing I was best known for. I sent it to people. I said it on camera.
+        <strong class="text-[var(--color-text)]">And the bit everybody remembers — the chain that runs heel to
+        pelvis to arched lower back — has been tested properly since, and it does not do what I said it does.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Not the whole piece. The parts about the ankle have aged rather well, and I'll come back to those,
+          because they turn out to be the interesting half.
+        </p>
+        <p>
+          In my defence, and it is a thin defence, I was repeating what the field was repeating. That's how most of
+          these things travel: somebody draws a plausible mechanism, it's easy to explain, it fits on a napkin, and
+          it gets handed down for thirty years without anyone going back to check.
+        </p>
+        <p>
+          I didn't check either. I had a diagram and a lot of confidence.
+        </p>
+        <p>
+          So — corrections first, then the part that survived.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Correction: the arch in your lower back</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          The story goes like this, and you've heard it, because everyone has. Heel goes up. Pelvis tips forward.
+          Lower back arches harder to compensate. Hence back pain.
+        </p>
+        <p>
+          It is a beautiful mechanism. You can draw it on a napkin. I have drawn it on a napkin.
+        </p>
+        <p>
+          In 2017 a group in Zurich put forty women through it with proper measurement — barefoot, four centimetres,
+          ten centimetres — and found lumbar curvature went <em>down</em>, not up.
+        </p>
+        <p>
+          The following year a German group tested it again in women wearing heels of seven to eleven centimetres
+          and reported, in about as flat a sentence as you'll find in a biomechanics journal, that their hypothesis
+          of increased lumbar lordosis "had to be rejected for standing as well as for walking." What moved was the
+          pelvis, by roughly one degree — and it moved backwards.
+        </p>
+        <p>
+          And it turns out somebody noticed this a while ago. In 2010 a researcher went through the literature and
+          found three studies showing lordosis decreased, three showing no change, and three showing an increase —
+          with all three of the increase studies having something wrong with them. He then wrote a paper whose
+          subtitle is, and I want you to appreciate this,
+          <em>"a discussion of the disconnect between Internet content and peer-reviewed literature."</em>
+        </p>
+        <p>
+          I was the internet content.
+        </p>
+        <p>
+          One caution while I'm correcting myself, so I don't simply install a new dogma: the honest position is not
+          "heels flatten your back." It's that the popular increase claim isn't supported, and studies find either
+          no change or a decrease. The author of that review called the literature equivocal, and he was right.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Correction: the knee, and what the famous numbers actually measured</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          This one is subtler and I nearly got it wrong a second time.
+        </p>
+        <p>
+          There are two well-known studies, both small, both in <em>The Lancet</em>, both twenty healthy women in a
+          gait lab. The 1998 one found that walking in heels produced greater force across the kneecap joint and
+          greater compressive force on the inner compartment of the knee — on average 23 per cent greater than
+          barefoot. The 2001 follow-up found wide-heeled and narrow-heeled shoes increased peak knee varus torque
+          by 26 and 22 per cent respectively.
+        </p>
+        <p>
+          Those are two different measurements, and half the internet — including, until recently, my own notes —
+          reports the 23 per cent as if it were the varus torque figure. It isn't. Related quantities, not the same
+          one.
+        </p>
+        <p>
+          So the loading changes. That much is measured and real.
+        </p>
+        <p>
+          What has not been shown is that it turns into arthritis. In 2021 researchers followed 356 women, median
+          age 60, for five years. Ever wearing heels of two inches or more was <strong
+          class="text-[var(--color-text)]">not</strong> associated with developing radiographic knee osteoarthritis,
+          nor with developing joint symptoms — and increasing cumulative lifetime hours in heels showed nothing
+          either. A systematic review found two studies that looked at osteoarthritis and neither found a
+          significant association.
+        </p>
+        <p>
+          The researchers who measured the forces were careful about this in a way the retellings were not. Their
+          wording was that the altered forces "may predispose to degenerative changes." Mine, in 2008, was rather
+          more confident than that.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">And one I'd have got wrong if I'd trusted the obvious answer</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Bunions. Obviously the heels, right?
+        </p>
+        <p>
+          The largest study of its kind — 2,627 women aged 50 to 89 — found hallux valgus associated with narrow
+          and very narrow toe boxes worn in a woman's twenties and thirties. The odds roughly doubled. And it found
+          <strong class="text-[var(--color-text)]">no association with heel height at either age period.</strong>
+        </p>
+        <p>
+          It is the shape of the front of the shoe, not the height of the back of it, that the best evidence points
+          at. Heels and narrow toe boxes are almost perfectly confounded in real footwear, which is exactly why
+          everyone blamed the visible half.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What actually holds up — and it's the useful part</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Here's the bit I'd keep, and it's not the bit anyone ever quoted.
+        </p>
+        <p>
+          Put your heel up and your ankle spends the whole day near the end of its range. Women who wear heels most
+          days measure with significantly less dorsiflexion — less ability to bring the shin forward over the foot.
+          And the ankle is your first shock absorber and your main push-off engine.
+        </p>
+        <p>
+          Take that away and the work doesn't vanish. It moves. Measured directly: less power from the ankle at
+          push-off, more from the knee extensors in mid-stance and more from the hip. A 2025 meta-analysis of
+          nineteen studies found muscle activity through the leg and trunk rises with heel height in a clean dose
+          gradient — low heels a small effect, medium moderate, high large.
+        </p>
+        <p>
+          And here's the counter-intuitive part that kills the popular version of this story: ground reaction
+          forces are <em>lower</em> in heels, not higher. Meta-analysis, both peaks, unambiguous.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">So this was never about pounding. It's about which structures
+          are doing the job.</strong>
+        </p>
+        <p>
+          Which is the same argument I've been making since 2008, about everything: the place that's working
+          hardest is often not the place that hurts, and the place that hurts is often the one that got handed a
+          job it wasn't built for.
+        </p>
+        <p>
+          I just attached it to the wrong joint, and then said it with a diagram.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What I'd actually say now</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Nothing here is an argument for throwing out your shoes, and I notice that 2008 me spent several hundred
+          words being fairly smug at women who weren't going to. That was neither useful nor particularly
+          attractive, and I'd like it struck from the record.
+        </p>
+        <p>
+          What I'd say instead:
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Duration matters more than height.</strong> In fifty habitual
+          wearers over a six-hour day, back discomfort appeared first at around two and a quarter hours and general
+          discomfort by about three and a half. Below about seven and a half centimetres, reported pain stayed
+          under one out of ten. One study, young women, so hold it loosely — but "how long" is clearly doing more
+          work than the industry's obsession with "how high."
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Look at the toe box.</strong> That's where the best foot
+          evidence actually points, and almost nobody shops for it.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">If flats feel wrong, that's information, not damage.</strong>
+          Reduce height gradually and give the calf and ankle some real work. The structural studies that found
+          shortened calf fascicles studied women wearing heels essentially all working hours, for years — not
+          occasional wear.
+        </p>
+        <p>
+          And if the ankle has genuinely lost range, that is assessable and often changeable, which is the one part
+          of this whole subject where somebody like me is any use at all.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So the arched-back story doesn't survive testing, the arthritis story was never demonstrated, the bunions
+          are about the front of the shoe, and the thing that actually changes is an ankle that stops absorbing and
+          a knee and hip that pick up the difference.
+        </p>
+        <p>
+          Which is a smaller, quieter claim than the one I made in 2008. It also has the advantage of being what
+          the measurements say.
+        </p>
+        <p>
+          Anyway. You know it now. And you're going to think about your toe box in a shoe shop for the rest of your
+          life, which I'm afraid is on me.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">If something has actually started hurting</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/knee-pain" class="text-white underline">Knee pain</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Chronic back pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

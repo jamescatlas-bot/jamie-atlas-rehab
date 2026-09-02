@@ -1,0 +1,296 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+const title = 'I Was Wrong About Treadmills — And What Actually Gets You in March';
+const description =
+  'I wrote "never run on a treadmill again" in 2008. The central argument was wrong. What actually catches Denver runners in spring, and what the load research shows.';
+const published = '2026-08-23';
+const url = `${SITE.url}/resources/treadmill-to-outdoors`;
+
+const faq = [
+  {
+    q: 'So is treadmill running bad for me?',
+    a: 'No, and the systematic review evidence is that it is far more similar to overground running than the internet suggests. Pooling 33 studies of 494 runners, the reviewers concluded that spatiotemporal, kinematic, kinetic and muscle measures are largely comparable between the two. There are real differences — the foot lands flatter, the knee moves through slightly less range, the pelvis rises less — but several are small enough to sit inside measurement error, and the review itself rates the underlying evidence as low certainty. The one genuinely notable difference runs the opposite way to the folklore: Achilles tendon loading was measured around 12 to 16 per cent higher on the treadmill.',
+  },
+  {
+    q: 'How should I increase my mileage in spring, then?',
+    a: 'Watch single runs rather than weekly totals. In 5,205 runners across 588,071 sessions, injury hazard rose when one run exceeded the longest run of the previous 30 days, and more than doubling that longest run carried more than twice the hazard. What I would not do is trust a tidy weekly percentage — the ten per cent rule was tested in a randomised trial of 532 novice runners and made no difference at all, and a second trial of 839 runners found no difference between building volume and building intensity. Avoiding big single jumps is well supported. No specific rule for doing so has ever been shown to work.',
+  },
+  {
+    q: 'Why do the first spring trail runs hurt so much?',
+    a: 'Almost certainly the descending. Running downhill forces muscles to lengthen under load while braking you, which is the contraction that produces genuine muscle damage — a review of the downhill running literature reports immediate strength losses in the knee extensors of roughly 14 to 55 per cent and recovery taking four to five days. A winter indoors gives you essentially no downhill exposure, and prior exposure is protective: the people who take the most damage from a descent are consistently the ones least accustomed to descending.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Running
+      </p>
+      <h1 class="mb-8">Seventeen years ago I wrote "never run on a treadmill again." The central argument was wrong.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Not "a bit strong." Not "we've learned more since." Wrong, in the specific way where the physics disagreed
+        with me the entire time and had been sitting in print since 1980 — a year in which I was seven years old
+        and had, in my defence, considerably more pressing news to process, because that was the year the rest of
+        us found out about Luke's father.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          You don't even care, do you. I taught this. In rooms. To other trainers, who then went and taught it to
+          <em>their</em> clients, so somewhere out there is a third generation of this nonsense wearing my
+          fingerprints. And you're already scanning ahead to find out what the right answer is. The audacity of
+          you, dear reader.
+        </p>
+        <p>
+          Fine. Here's what I said.
+        </p>
+        <p>
+          The belt drags your foot backwards, so your hamstrings and glutes never have to pull your body forward,
+          so you're training a run with a third of it missing. Great story. It has a mechanism, a villain, and a
+          diagram. I drew that diagram with roughly the confidence of a man explaining to a room full of people
+          that the best defence is, in fact, no defence at all.
+        </p>
+        <p>
+          Here's the problem. During stance your foot is planted and still <em>relative to the belt</em>, and your
+          body travels over it — which is precisely what happens on the ground. The frame moving with the belt is
+          an inertial frame; the mechanics are the same. Somebody wrote that down in 1980 and I did not read it
+          before getting confident.
+        </p>
+        <p>
+          And when people actually measured it: no significant difference in peak hip extension, across
+          thirty-three studies and four hundred and ninety-four runners. Then a study of muscle synergies found
+          treadmill running had <em>greater</em> activation in the swing-phase modules — the opposite of the
+          machine doing your work. Then a sprinting study found the treadmill produced a <em>faster</em> extending
+          hip.
+        </p>
+        <p>
+          Three for three, all against me. The references, since somebody always asks and quite right too: van
+          Ingen Schenau in <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 1980. Van Hooren and
+          colleagues, <em>Sports Medicine</em>, 2020. Oliveira and colleagues in <em>PLOS ONE</em>, 2016, for the
+          synergies. McKenna and Riches, <em>Scandinavian Journal of Medicine &amp; Science in Sports</em>, 2007,
+          for the sprinting.
+        </p>
+        <p>
+          And yes, alright. Feel free to take that one to the group chat. If you'd like to spend a Sunday under a
+          glaring LED light foraging for meaty study chunks in a haystack of gristly, poorly structured
+          faux-studies to check my working — be my guest. I'll leave the light on.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">One difference, and it runs the wrong way for my old argument</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          There are real differences between the two. The foot meets the belt about ten degrees flatter. The knee
+          moves through around six degrees less range from footstrike to mid-stance. The pelvis rises about a
+          centimetre and a half less.
+        </p>
+        <p>
+          Most of that is small, some of it sits inside measurement error, and the review that pooled it all rates
+          the certainty of the evidence as low. The honest summary is "largely comparable."
+        </p>
+        <p>
+          Except for one thing, and it's the one that finishes off the story I used to tell. Achilles tendon
+          loading was measured <strong class="text-[var(--color-text)]">higher on the treadmill</strong> — peak
+          force about 12.5 per cent greater, loading rate about 15.6 per cent greater, cumulative force per
+          kilometre about 14 per cent greater. Meanwhile peak tibial acceleration tends to be greater
+          <em>outdoors</em>.
+        </p>
+        <p>
+          So the treadmill is not the soft option either. It just distributes the work differently.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What actually gets people, and it's a load problem</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          In 2025 a group published data on 5,205 runners across 588,071 individual running sessions, asking a very
+          specific question: what happens when a single run is longer than anything you've done in the past month?
+        </p>
+        <p>
+          More than doubling your longest recent run carried more than twice the injury hazard.
+        </p>
+        <p>
+          Look at what that measures. Not weekly mileage. Not your monthly total.
+          <strong class="text-[var(--color-text)]">One run, against your own recent history.</strong>
+        </p>
+        <p>
+          While we're here — the ten per cent rule. Everybody's rule. I've said it out loud, with a straight face,
+          more times than I want to count. It's been tested: 532 novice runners randomised to a thirteen-week
+          graded programme built on it against a standard eight-week one. Injuries: 20.8 per cent versus 20.3 per
+          cent. A second trial, 839 runners, compared building volume against building intensity and found no
+          difference either.
+        </p>
+        <p>
+          Both things are true at once, and anyone telling you otherwise has read one of them: big single jumps
+          look genuinely risky, and no tidy weekly rule for avoiding them has ever been shown to work.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The thing your winter genuinely did not prepare you for</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Not your hamstrings. Downhill.
+        </p>
+        <p>
+          A treadmill run is flat, or it's uphill. What it essentially never is, in any meaningful dose, is
+          <em>downhill</em> — and downhill is where the muscle lengthens under load while braking you. That is the
+          contraction that actually damages tissue.
+        </p>
+        <p>
+          The numbers, from a review of the downhill running literature: immediate isometric strength losses of 14
+          to 55 per cent in the knee extensors and 15 to 25 per cent in the calves. Creatine kinase up around 420
+          per cent at twenty-four hours and still elevated a week later. Recovery taking four to five days.
+        </p>
+        <p>
+          And the part that matters for March:
+          <strong class="text-[var(--color-text)]">prior exposure protects you.</strong> The people who take the
+          most damage from a descent are consistently the ones least accustomed to descending.
+        </p>
+        <p>
+          Now look at what a Denver spring actually does to a person. First proper weekend, sun's out, and you go
+          at that trail with about the same energy as the final race in an 80s ski movie, where the hero has to win
+          the downhill or the rich kids get to keep the lodge and his father's memory is somehow also at stake.
+          Five variables changed at once — distance, hills, terrain, descent, altitude — and every one of them is
+          new since November.
+        </p>
+        <p>
+          Then on Monday your knee hurts, and you go looking on the internet for whether treadmills wreck your
+          running form, and you find a post some Australian wrote in 2008.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What I would actually do in February</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">Start descending before you need to.</strong> Small doses of
+          downhill, or loaded lowering work if the trails aren't open — step-downs, controlled eccentric work.
+          This is the single most specific thing on the list and almost nobody does it.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Strength train.</strong> Across sports, a meta-analysis of
+          randomised trials found strength training reduced injury risk to roughly a third of the control rate,
+          dose-dependently. That's across sports rather than runners specifically, and I'll say so rather than
+          quietly upgrading it — but it's the best-evidenced thing here and it's the thing runners skip.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Change one variable at a time.</strong> Longer, or hillier, or
+          rougher underfoot. Not all three on the same Saturday because the weather finally broke.
+        </p>
+        <p>
+          Two things I'd steer you away from paying for first: your running surface, which the systematic reviews
+          have never established as a risk factor, and the acute-to-chronic workload ratio, heavily promoted for
+          years and since fairly comprehensively taken apart.
+        </p>
+        <p>
+          More on rebuilding in <a href="/resources/running-return-to-training">return to running</a>, and the
+          descending argument in longer form on the <a href="/for/hikers">hikers page</a>.
+        </p>
+        <p>
+          One footnote I enjoy more than I should: the landmark study everybody cites about increasing your cadence
+          to reduce knee load — the one that found a five per cent increase cuts energy absorbed at the knee by
+          around twenty per cent — was conducted on a treadmill.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So the machine was never stealing your hamstrings. It was just never going to teach you to go downhill,
+          and then March arrived and asked you to do five new things in one afternoon.
+        </p>
+        <p>
+          Which is a less satisfying villain than a treadmill, I grant you. Nobody ever built a following out of
+          "your load management is a bit optimistic."
+        </p>
+        <p>
+          Anyway. You know it now. Best of luck un-knowing it on the first warm Saturday.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Or you could go into spring with a plan</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/for/runners" class="text-white underline">For runners</a>
+        · <a href="/what-we-treat/knee-pain" class="text-white underline">Knee pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

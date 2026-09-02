@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import VideoTestimonial from '../../components/VideoTestimonial.astro';
+import { TESTIMONIAL_VIDEOS } from '../../data/videos';
+import { SITE } from '../../data/site';
+
+const title = 'Desk Job Neck & Back Pain — Downtown Denver Rehab for Office Workers';
+const description =
+  "Neck, shoulder or back pain from a desk job in downtown Denver? It isn't your posture — it's eight hours in one shape. One-on-one rehab five blocks from your office.";
+const published = '2026-08-23';
+const url = `${SITE.url}/for/desk-workers`;
+
+// Picked by person, not condition: all three of these clients sit at a desk for
+// a living. Sandy (office worker, neck), Alexis (receptionist, back),
+// Kendall (office manager, shoulder).
+const PICKS = ['-gdriOBWpS0', 'oLZDLUR8BP0', '3ElcDHKLHVY'];
+const videos = PICKS.map(id => TESTIMONIAL_VIDEOS.find(v => v.id === id)).filter(
+  (v): v is (typeof TESTIMONIAL_VIDEOS)[number] => Boolean(v)
+);
+
+const faq = [
+  {
+    q: 'Why does my neck hurt more at the end of the work week?',
+    a: 'Because the load is cumulative and the recovery is not. Tissue tolerates a given position for a while and then starts asking for a change; by Thursday you have spent roughly thirty hours in a shape you spent none of your evolutionary history in, on top of whatever sleep and stress the week brought with it. The pattern is so common it is almost diagnostic. It also tells you something useful: a problem that tracks with accumulated load is a problem that responds to changing the load, which is a much better position to be in than a problem that arrives from nowhere.',
+  },
+  {
+    q: 'Will a standing desk fix my back pain?',
+    a: 'It helps some people and does nothing for others, and the reason is simple — a standing desk changes which single position you are stuck in, not the fact that you are stuck in one. Standing still for eight hours has its own bill. What actually seems to matter is variability: changing shape often, and having a body that tolerates a range of shapes rather than one. Buy the desk if you want it. Just do not expect furniture to do the work of movement.',
+  },
+  {
+    q: 'I stretch every day and it still comes back. Why?',
+    a: 'Almost certainly because stretching is aimed at a sensation rather than a cause. Range-of-motion gains from stretching track how much stretch you tolerate rather than any lasting change in muscle length, which is why the relief is real and short. If a tissue is being asked to hold a position for hours, the thing that changes its tolerance is loading it — building capacity in the muscles that hold you up, so holding you up stops being an event. That is a different piece of work from a morning stretch, and it lasts longer.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">For desk workers</p>
+      <h1 class="mb-8">Nobody has ever fixed this with a chair.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Not the ergonomic assessment. Not the lumbar roll. Not the standing desk that is currently at standing
+        height because you forgot about it in April.
+        <strong class="text-[var(--color-text)]">Your problem is not the shape you're in. It's that you've been in
+        one shape for eight hours.</strong> Those sound like the same sentence. They are not, and the difference is
+        the entire reason nothing has worked yet.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Which of these is you?</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          <strong class="text-[var(--color-text)]">It's been months and nothing has held.</strong> Massage helps for
+          two days. The chiropractor helps for three. Then Thursday happens again.
+          <a href="/this-is-you/still-in-pain">Start here</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You've been discharged and you still guard it.</strong> The course
+          of physio ended, the notes said improved, and you still turn your whole body to reverse the car.
+          <a href="/this-is-you/cleared-but-not-ready">This is the gap between cleared and ready</a>.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">You want to train and you're wary.</strong> You'd happily lift
+          again if you were confident it wouldn't set the neck off for a week.
+          <a href="/this-is-you/worried-about-reinjury">Training around a body with history</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The posture story, and why it hasn't helped you</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          You have been told, by somebody, that you sit badly. Possibly with a diagram. Possibly with a red line
+          drawn down a photograph of a stranger's spine.
+        </p>
+        <p>
+          In 2020 a group went through the whole literature on this — forty-one systematic reviews, more than four
+          thousand papers screened — asking a simple question: does the evidence show that spinal posture causes
+          back pain? Their answer was that there is no consensus that it does. Association, yes. Causation, no.
+        </p>
+        <p>
+          I want to be careful here, because this is where people hear something I don't mean. Your pain is real
+          and it is coming from somewhere. What the evidence doesn't support is the idea that you have been sitting
+          incorrectly and that assuming a better shape will fix it. That story has been sold hard for thirty years
+          — with furniture attached — and it has left an enormous number of people believing they are one posture
+          correction away from relief, and quietly failing at it.
+        </p>
+        <p>
+          Nobody set out to mislead you. The posture model is intuitive, it's easy to draw, and it was taught to
+          every one of us. I taught it. Confidently, with a whiteboard, for years.
+        </p>
+        <p>
+          The thing that does hold up is duration and capacity. Not <em>what shape</em>, but <em>how long</em>, and
+          <em>how much your tissue can currently tolerate</em>. Those are two things you can change. The angle of
+          your monitor is not really one of them.
+        </p>
+        <p>
+          The practical version is in the <a href="/resources/desk-posture">desk posture guide</a>, and the
+          unglamorous half nobody mentions —
+          <a href="/resources/glute-exercises">what happens to hips that sit all day</a> — is next door to it.
+         And if the week has a
+          shape to it — fine Tuesday, wrecked Thursday —
+          <a href="/resources/why-pain-flares-some-weeks">why it is worse some weeks</a> is the one to read next.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">People who came in with this</h2>
+      <div class="space-y-14">
+        {videos.map(v => <VideoTestimonial video={v} />)}
+      </div>
+      <p class="mt-10 text-base text-[var(--color-text-muted)] leading-relaxed">
+        <a href="/testimonials">All client videos</a> · results vary from person to person.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Five blocks, and a lunch hour</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          The studio is at 1800 Glenarm Place, basement level, downtown. If you work in the LoDo or Uptown core
+          you're walking distance, which matters more than it sounds — the single biggest predictor of whether
+          rehab works is whether you actually turn up to it, and a thing you can reach on foot at 12:15 gets
+          turned up to.
+        </p>
+        <p>
+          Sessions are 45 to 60 minutes, one-on-one, with me. First appointment is a 60-minute assessment: your
+          history, what's been tried, what your week actually looks like, and then testing what your neck, back and
+          hips currently accept. Not a shared appointment, not a printed sheet, and no part of it happens on a
+          machine that holds you still.
+        </p>
+        <p>
+          I've covered the desk-bound version of this on 9NEWS more than once —
+          <a href="/press">posture in the workplace, and returning to it</a> — which is a polite way of saying I've
+          been arguing about office chairs on regional television for some years now.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So it was never the chair. It was thirty hours a week in one shape, and a body that has quietly lost the
+          range it isn't being asked for. Which, read back, is not a complicated idea — and is a much more
+          hopeful one than being told your spine is wrong.
+        </p>
+        <p>
+          Anyway. You know it now. Enjoy the ergonomic assessment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">You've been managing this for a while.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+        Five blocks from most of downtown.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/neck-pain" class="text-white underline">Neck pain</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Chronic back pain</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

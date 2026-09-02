@@ -1,0 +1,274 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Why Is It Worse Some Weeks? Sleep, Stress and Flares';
+const description =
+  'Same back, same job, same chair — fine Tuesday, wrecked Thursday. Why persistent pain fluctuates, what the sleep research actually shows, and what it does not mean.';
+const published = '2026-08-23';
+const url = `${SITE.url}/resources/why-pain-flares-some-weeks`;
+
+const faq = [
+  {
+    q: 'Does this mean my pain is psychological?',
+    a: 'No, and that reading is worth heading off directly. Sleep and stress are inputs into a protective system that is doing its job — that is not the same sentence as "it is in your head," and anyone who blurs the two is either being careless or selling something. Pain that changes with sleep is behaving exactly the way pain is understood to behave. It does not make the pain less real, less physical, or your fault.',
+  },
+  {
+    q: 'If I fix my sleep, will the pain go?',
+    a: 'It might help, and it is unlikely to be the whole answer. Across six randomised trials in around 530 people with chronic musculoskeletal pain, cognitive behavioural therapy for insomnia produced a small-to-moderate effect on pain — a standardised mean difference of 0.43. Real, worth having, not a cure. And at least one trial improved sleep clearly while pain did not move at all. Treat sleep as one lever among several rather than the missing piece.',
+  },
+  {
+    q: 'How many hours should I be getting?',
+    a: 'There is no magic number, and more is not straightforwardly better. In a study of nearly 8,800 adults with chronic spinal pain followed across two decades, the risk was carried mostly by insomnia symptoms rather than by hours alone — and sleeping ten hours or more without insomnia also came with elevated risk. Short sleep on its own, without insomnia symptoms, was only borderline. So the useful question is less "how long" and more "is your sleep broken, and is that changing."',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Jamie Atlas' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Flares
+      </p>
+      <h1 class="mb-8">Same back. Same job. Same chair. Fine on Tuesday, can't put your shoes on by Thursday.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Everybody who has had a back for more than about a year has noticed this. Almost nobody gets told why —
+        partly because the honest answer is a downer for anyone selling one thing that fixes you, and partly
+        because it sounds, at first, like I'm about to tell you it's all in your head.
+        <strong class="text-[var(--color-text)]">I'm not.</strong> Stay with me, because what's actually been
+        found here is stranger and considerably more useful than that.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Up and down is the normal shape of it</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Start here, because it reframes everything that follows.
+        </p>
+        <p>
+          When researchers texted 1,208 people with neck pain every single week for forty-three weeks, ninety-four
+          per cent of them fell into one of two patterns: persistently fluctuating, or episodic. Constant,
+          unchanging pain was not the typical experience. It was barely an experience at all.
+        </p>
+        <p>
+          The low back trajectory work says the same thing in different words. After a decade of following people,
+          the conclusion was that low back pain is generally not a condition from which you either recover quickly
+          or slide into permanent severe pain — for most people it is a condition of persistent or fluctuating
+          pain of low or medium intensity.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Which means a bad week is not evidence that you have gone
+          backwards.</strong> It is what the thing does. I've watched a great many people conclude, on a Thursday,
+          that six weeks of good work had been undone — and they were reading a normal fluctuation as a verdict.
+        </p>
+        <p>
+          There's even an agreed definition of a flare, worked out with people who actually have back pain rather
+          than only with clinicians. Worth noting what it includes: a worsening that lasts hours to weeks, is hard
+          to tolerate, and affects your usual activities <em>and/or emotions</em>. Not pain intensity alone. The
+          people living with it insisted on that.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The input almost nobody checks</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Twenty-five healthy adults. One night without sleep. Then they measured the temperature at which heat
+          first became painful.
+        </p>
+        <p>
+          It dropped by about one and a half degrees. Same skin, same nerves, same people — a wider band of
+          perfectly ordinary sensation now registering as pain, after one bad night.
+        </p>
+        <p>
+          Another group took twenty-four young adults, kept them awake for twenty-four hours, and measured the
+          system that normally turns pain volume <em>down</em> — your own descending inhibition, the thing that
+          lets you not notice your shoes. Before: working, measurably. After: not detectable.
+        </p>
+        <p>
+          Now hold that next to the long-range data. Thirteen thousand Norwegians with no chronic musculoskeletal
+          complaints at the start, followed for eleven years. Insomnia at baseline came with roughly a 58 per cent
+          higher risk of developing chronic <em>widespread</em> complaints.
+        </p>
+        <p>
+          And here's the part the popular version of this article always leaves out, so I'll put it in bold:
+          <strong class="text-[var(--color-text)]">it runs both ways.</strong> The best and most recent synthesis —
+          2024, in <em>PAIN</em>, pooling sixteen articles and around 117,000 people — found sleep problems predict
+          later pain <em>and</em> pain predicts later sleep problems. The single largest effect in that entire
+          review was widespread pain predicting later sleep trouble.
+        </p>
+        <p>
+          So no, I'm not going to tell you sleep is the root cause. I don't think there is one. What I'll tell you
+          is that it's an input, it's a big one, it's measurable, and it is almost never on the list of things
+          anyone checks.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Stress, stated at its actual size</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Among 1,944 Danish healthcare workers followed for a year, those reporting high perceived stress at the
+          start had roughly double the odds of higher back pain intensity at follow-up — after adjusting for their
+          baseline pain, age, sex, education, seniority, how often they handled patients, and lifestyle.
+        </p>
+        <p>
+          A meta-analysis of eighteen workplace studies covering nearly twenty thousand people found chronic low
+          back pain more common where workload was higher, and less common where people had more decision
+          authority and more support from colleagues and supervisors.
+        </p>
+        <p>
+          Notice what that second one is actually describing. Not personality. Not resilience. Whether you have any
+          control over your own week, and whether anyone has your back at work. Those are conditions, not character
+          traits, and it is worth being annoyed on your own behalf about how often that gets flipped around.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What this does not mean</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          I want to be very direct here, because this territory gets used badly and I've heard it used badly by
+          people in my own industry.
+        </p>
+        <p>
+          This does not mean your pain is psychological. It does not mean you are stressed rather than injured. It
+          does not mean that if you slept better and worried less you'd be fine. And it absolutely does not mean
+          this is your fault.
+        </p>
+        <p>
+          Sleep and stress are two inputs among several into a protective system that is doing its job. That is not
+          the same sentence as "it's in your head," and anyone who blurs those two is either being careless or
+          selling something.
+        </p>
+        <p>
+          And while we're being honest — does fixing the sleep fix the pain? Sort of. Across six randomised trials
+          in around 530 people with chronic musculoskeletal pain, cognitive behavioural therapy for insomnia moved
+          pain with an effect size of 0.43. Small-to-moderate. Real. Not a cure. One trial improved the sleep
+          beautifully and the pain didn't move at all.
+        </p>
+        <p>
+          If anyone tells you sleep is the missing piece, note that in the one umbrella review that ranked all the
+          risk factors, <em>how much pain you had at the start</em> dwarfed every psychosocial factor on the list.
+        </p>
+        <p>
+          That's less exciting. It's also true, and you've probably had enough of the exciting version.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What we do with it in the room</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Mostly: ask. It is remarkable how rarely anyone has asked how you're sleeping, what your last three weeks
+          actually looked like, or which weeks were the bad ones and what else was going on in them.
+        </p>
+        <p>
+          That last question does more work than it sounds. Once you can see that the flare arrived in the week of
+          the deadline and the four hours' sleep, rather than out of a clear sky, two things change. The flare
+          stops feeling like a random ambush. And you get something you can actually act on, which is more than
+          "manage it" has ever given anybody.
+        </p>
+        <p>
+          One thing I won't do is pretend to deliver something I don't. CBT for insomnia is a specific structured
+          protocol — sleep restriction, stimulus control, cognitive work — and it is not the same thing as sleep
+          hygiene advice. If that's what you need, it's a referral, and I'll say so.
+        </p>
+        <p>
+          The rest of it — graded loading, working out what your system currently accepts, and rebuilding towards
+          what you actually want back — is described properly in
+          <a href="/what-we-treat/cognitive-functional-therapy">how the method works</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So the up-and-down was never you failing at recovery — it's the shape of the thing. And the week it goes
+          bad usually had something else in it, which is worth knowing, because a Thursday you can explain is a
+          very different Thursday from one that arrives out of nowhere.
+        </p>
+        <p>
+          Anyway. You know it now. Which is going to make the next bad week considerably less frightening, and I'd
+          call that a fair return on eleven minutes of reading.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Nobody has asked you how you're sleeping, have they</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/what-we-treat/chronic-back-pain" class="text-white underline">Chronic back pain</a>
+        · <a href="/what-we-treat/cognitive-functional-therapy" class="text-white underline">How the method works</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
