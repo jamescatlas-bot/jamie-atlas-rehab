@@ -1,0 +1,81 @@
+---
+// Three static video cards for the homepage (Version E, doc 70 §2.6).
+// Portrait click-to-play facades (the clips are Shorts), the client's own
+// words under each, and the before/after score. No rotation: the
+// proof-placement decision (23 Aug) killed sliders. Click-to-play comes from
+// VideoFacadeScript (shared with VideoTestimonial).
+import type { Testimonial } from '../data/videos';
+import VideoFacadeScript from './VideoFacadeScript.astro';
+
+interface Props {
+  videos: Testimonial[];
+}
+const { videos } = Astro.props;
+
+// Result line per featured clip. Scores are the ones already on the site
+// (videos.ts bios). Add an entry when the featured set changes.
+const RESULTS: Record<string, { area: string; since: string; result: string; who: string }> = {
+  T01Y32utAXU: { area: 'Back', since: '4 weeks', result: '6/10 to 0/10 in one session', who: 'Katrina' },
+  '-gdriOBWpS0': { area: 'Neck', since: '3 years', result: '8/10 to 0/10', who: 'Sandy' },
+  '31I4nnADI_s': { area: 'Shoulder', since: '6 weeks', result: '10/10 to 1/10', who: 'Heather' },
+};
+
+function pronounLabel(p?: 'her' | 'his' | 'their') {
+  return p === 'his' ? 'his' : p === 'their' ? 'their' : 'her';
+}
+---
+
+<div class="grid md:grid-cols-3 gap-4 mt-7">
+  {videos.map(v => {
+    const r = RESULTS[v.id];
+    return (
+      <div class="vcard">
+        <a
+          class="video-facade group relative block aspect-[9/16] max-h-[420px] w-full overflow-hidden bg-black no-underline"
+          href={`https://www.youtube.com/watch?v=${v.id}`}
+          data-video-id={v.id}
+          data-video-title={v.title}
+          rel="noopener"
+        >
+          <img
+            src={`https://i.ytimg.com/vi/${v.id}/oardefault.jpg`}
+            data-fallback={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
+            alt={v.title}
+            width="405"
+            height="720"
+            loading="lazy"
+            class="video-thumb absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+          <span class="absolute inset-0 bg-black/15 transition-colors group-hover:bg-black/25"></span>
+          {r && <span class="label">{r.area} · {r.since}</span>}
+          <span class="play" aria-hidden="true">
+            <svg width="22" height="24" viewBox="0 0 22 24" fill="#14202b"><path d="M21 12L0 24V0z" /></svg>
+          </span>
+          <span class="sr-only">Play video: {v.title}</span>
+        </a>
+        <div class="body">
+          {v.quote && <q>{v.quote}</q>}
+          {r && (
+            <p class="r">{r.who} · <b>{r.result}</b></p>
+          )}
+          <span class="cta">Click to see {pronounLabel(v.pronoun)} result →</span>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+<VideoFacadeScript />
+
+<style>
+  .vcard { background: #172230; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; }
+  .vcard .label { position: absolute; left: 14px; top: 12px; font: 700 11.5px 'Inter', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #7cc4f0; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+  .vcard .play { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: #f5921e; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,.4); transition: transform .2s; }
+  .vcard .play svg { margin-left: 4px; }
+  .vcard:hover .play { transform: scale(1.08); }
+  .vcard .body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .vcard q { font-family: 'Barlow Semi Condensed', 'Inter', sans-serif; font-size: 21px; line-height: 1.15; font-weight: 600; color: #fff; quotes: "\201C" "\201D"; }
+  .vcard .r { font-size: 14px; color: #a9bccb; margin: 0; }
+  .vcard .r b { color: #f5921e; }
+  .vcard .cta { margin-top: auto; font-size: 12.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #f5921e; }
+</style>
