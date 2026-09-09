@@ -36,8 +36,7 @@ const title = 'Best Personal Trainer in Denver, 3× by 5280 Magazine | Jamie Atl
 
 // The three doors (Jamie, 2026-09-09). Goals, not identities: a referral with
 // a bad knee is one person, not two. Door 1 leads (decided 5 Sep).
-// Door 3 and exit 2 re-point to /personal-trainer-denver/glp-1 and the
-// /personal-trainer-denver hub when doc 67 ships those pages.
+// Door 3 → the GLP-1 page, exit 2 → the training hub (both built in doc 71).
 const doors = [
   {
     tag: 'Most of what I do',
@@ -61,21 +60,16 @@ const doors = [
     tag: 'Third door',
     h: 'I want to lose the weight and keep the muscle.',
     p: 'On GLP-1 or not. Strength first, so what comes off is fat and what stays is you.',
-    href: '/how-it-works',
+    href: '/personal-trainer-denver/glp-1',
     img: doorMuscle,
     alt: 'A client in his sixties hinging with a kettlebell in front of the mural at the Denver studio',
     lead: false,
   },
 ];
 
-const walk = [
-  // Verified in Google Maps walking directions, 9 Sep 2026.
-  ['16th Street Mall', '2 blocks, 5 min'],
-  ['17th Street towers, Republic Plaza, Wells Fargo Center', 'about 5 min'],
-  ['State Capitol, Capitol Hill', 'about 15 min'],
-  ['Union Station, LoDo', 'about 20 min'],
-  ['Five Points, RiNo, Uptown, Golden Triangle, Ballpark', 'inside 2 miles'],
-];
+// Walk times live in site.ts (verified by Jamie 9 Sep 2026) so the hub and
+// /studio show the same numbers.
+const walk = SITE.walkTimes;
 
 const faq = [
   {
@@ -149,10 +143,10 @@ const videoSchema = FEATURED_TESTIMONIALS.map(v => ({
       <div class="hero-shade absolute inset-0" aria-hidden="true"></div>
       <div class="relative max-w-6xl mx-auto px-5 sm:px-6 pt-12 sm:pt-16 pb-10 sm:pb-12">
         <p class="who">
-          <b>Jamie Atlas</b> · 5280's Best Personal Trainer in Denver, three times · 9NEWS fitness expert
+          <b>Jamie Atlas</b> · {SITE.awardBadge} · 9NEWS fitness expert
         </p>
         <p class="greet">Hi, glad you're here.<br />Which one of these is you?</p>
-        <h1 class="kw">Voted Denver's best personal trainer three times by 5280 magazine. Rehab specialist. Downtown.</h1>
+        <h1 class="kw">Named Denver's Best Personal Trainer three times by 5280 Magazine. Rehab specialist. Downtown.</h1>
         <p class="sub">
           Pick a door and I'll talk to you about your thing, not everybody's thing. Rehab and nutrition coaching come
           with every session, one client at a time, two blocks off the 16th Street Mall.
@@ -186,7 +180,7 @@ const videoSchema = FEATURED_TESTIMONIALS.map(v => ({
             <Image src={portrait} alt="" width={68} height={68} format="webp" class="h-[34px] w-[34px] rounded-full object-cover border border-white/50" />
             Heard of Jamie? Tell me more before I decide. <span class="arrow">→</span>
           </a>
-          <a href="/resources">I'll have a look around myself. <span class="arrow">→</span></a>
+          <a href="/personal-trainer-denver">I'll have a look around myself. <span class="arrow">→</span></a>
         </div>
       </div>
     </section>
@@ -232,8 +226,8 @@ const videoSchema = FEATURED_TESTIMONIALS.map(v => ({
     <!-- PROOF BAND -->
     <div class="proof">
       <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4">
-        <div><b>3×</b><span>5280 Best Personal Trainer in Denver</span></div>
-        <div><b>7</b><span>Denver awards, trainer and studio, 5280 and the Denver A-List</span></div>
+        <div><b>6×</b><span>5280 Top of the Town winner</span></div>
+        <div><b>2×</b><span>Denver A-List winner</span></div>
         <div><b>9NEWS</b><span>The station's fitness expert · 25 years training Denver</span></div>
         <div><b>5.0</b><span>Google rating, {GOOGLE_RATING.count} reviews, all verbatim</span></div>
       </div>
@@ -265,8 +259,8 @@ const videoSchema = FEATURED_TESTIMONIALS.map(v => ({
           and nobody waiting for your rack. Walk over, train, walk back before your 8am.
         </p>
         <ul class="walk">
-          {walk.map(([place, time]) => (
-            <li><span>{place}</span><b>{time}</b></li>
+          {walk.map(w => (
+            <li><span>{w.from}</span><b>{w.time}</b></li>
           ))}
         </ul>
         <a href="/studio" class="see">See the studio, parking and how to find the door →</a>
@@ -279,14 +273,12 @@ const videoSchema = FEATURED_TESTIMONIALS.map(v => ({
         <div>
           <h2>You may already know this face</h2>
           <p>
-            Jamie arrived from Sydney in 2001 and has trained Denver ever since: recreational youth athletes, a few UFC,
-            NFL, NBA and NHL athletes he isn't allowed to name, and a great many Coloradans who just wanted their knee
-            back.
+            Jamie arrived from Sydney in 2001 and has trained Denver ever since: a few UFC, NFL, NBA and NHL athletes
+            he isn't allowed to name, and a great many Coloradans who just wanted their knee back.
           </p>
           <p>
-            5280 magazine's Top of the Town has named him Best Personal Trainer in Denver three times, and the studio
-            Best Boot Camp and Best Gym. Add the Denver A-List's Best Personal Trainer and Best Boot Camp and that is
-            seven awards in four years, one basement.
+            Six 5280 Top of the Town honours and two Denver A-List wins in four years, one basement. The basement has
+            been his since November 2010. Three of the 5280 ones say Best Personal Trainer in Denver on them.
           </p>
           <p>
             BSc Neuroscience (Australian National University). Cognitive Functional Therapy. Applied Functional Science,

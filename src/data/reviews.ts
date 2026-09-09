@@ -1,6 +1,4 @@
-// Verbatim Google reviews (5.0★, 20 reviews as of 2026-09-09 — doc 67/70).
-// Source: doc 21. Mary Jo's and Kelli's quotes are truncated on the listing
-// view — swap in full text once pulled from each review's "More" link.
+// Verbatim Google reviews (5.0 stars, 20 reviews as of 2026-09-09).
 
 export const GOOGLE_RATING = { stars: 5.0, count: 20 };
 
@@ -12,22 +10,22 @@ export interface Review {
   text: string;
 }
 
-// Only the 3 most recent reviews are shown (per Jamie, 2026-07-09).
-// Verified against the live listing: Mary Jo Brooks (1 mo), Colley Moe (1 mo),
-// Alia Nicholson (2 mo). Kelli Gould is also ~2 mo but her text is truncated
-// on the listing view, so Alia holds the third slot.
+// The three most recent reviews (Jamie sent the links 9 Sep 2026; pulled
+// verbatim from Google Maps). Order matches the homepage doors: return to
+// sport, hurt then training, strength over 60. Marcus's last sentence is cut
+// (it misspells the name); Adrienne and Susan run in full, per Jamie.
 export const REVIEWS: Review[] = [
   {
-    name: 'Mary Jo Brooks',
-    text: 'I went to him for knee pain because of a torn meniscus and arthritis. One doctor told me I needed surgery... A month after I started working with Jamie, my knee improved.',
+    name: 'Marcus Kret',
+    text: 'I met Jamie when I had maximized my physical therapy program after ACL and medial meniscus reconstruction. It was the perfect transition for a "back to sport" program. We worked a ton on functional strength and stability. Thanks to Jamie\'s guidance, I was able to ski 50 days in my return to skiing, 55 the following year, and 61 days in \'25–\'26. In addition to the results, I saw, Jamie had a good evidence based approach which really spoke to me as I am a medical doctor myself.',
   },
   {
-    name: 'Colley Moe',
-    text: 'Jamie really helped my chronic neck pain and provided ways I could ease the movement at home. My ankles continue to strengthen with his routine and guidance as well. Thanks for getting me back on the court Jamie!',
+    name: 'Adrienne Rule',
+    text: 'I found Jamie through a recommendation from a coworker after hurting my back after a strenuous backpacking trip and lucky for me we work in the same building! Since being rehabilitated from my back pain, I continue to see Jamie ongoing for regular workouts (since he\'s the only person i would trust to work me hard but not put me are risk of reinjury) and probably will forever. At Jamie\'s studio I get a caring, results focused top-tier personal trainer experience paired with the clinical precision of a physical therapist. Why would I go anywhere else?',
   },
   {
-    name: 'Alia Nicholson',
-    text: "Jamie is amazing to work with. He is so patient and responsive! He helped my daughter with back pain and a very unique rehab. He has a gift for this work and we couldn't be more grateful for his time and expertise helping her navigate her pain and rehab!! Five stars all the way. Thank you Jamie!",
+    name: 'Susan Keicher',
+    text: 'Jamie has been my trainer for 3 1/2 years. I came to him as a 60 something woman who had never been on a workout routine. He has transformed me into a lean, mean work out machine. I am in the best shape of my life. He excels in targeted therapies. If your hip is giving you pain, he has specific exercises to relieve the pain. Joint or spine issues, he has a solution. My workouts address weight training for strength, balance, stretching and Pilates. He excels in creating individual work outs that give results. I highly recommend him as a trainer if you need rehabilitation or just need to get into shape.',
   },
 ];
 
@@ -35,14 +33,14 @@ export const REVIEWS: Review[] = [
 export const OFFER = {
   regularPrice: '$97',
   specialPrice: '$57',
-  specialLabel: 'Summer Special',
+  specialLabel: 'first-visit price',
   assessments: [
     {
       name: 'Return-to-Sport Assessment',
       body: 'Insurance PT discharged you, but "cleared" isn\'t the same as confident. For skiers, lifters, cyclists and runners who want to get back to their sport — we find what\'s missing between rehab and performance, and map the rebuild.',
     },
     {
-      name: 'Pain & Performance Assessment',
+      name: 'Pain and Performance Assessment',
       body: 'Chronic back, neck, hip or knee pain that hasn\'t responded to what you\'ve tried. An assessment based on Cognitive Functional Therapy and Applied Functional Science — how you actually move, load and guard — and a plan that isn\'t just more stretching.',
     },
     {

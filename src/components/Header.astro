@@ -1,47 +1,24 @@
 ---
-// Desktop nav with hover dropdowns (Jamie, 2026-08-09): What We Treat and
-// Resources open a menu of their sub-pages on hover; the other items show a
-// one-line hover message (title tooltip). Mobile keeps the hamburger menu.
-import { CONDITIONS } from '../data/conditions';
-
-const treatChildren = CONDITIONS.map(c => ({
-  label: c.navTitle,
-  href: `/what-we-treat/${c.slug}`,
-}));
-
+// Nav per doc 70 §2.2 / doc 71 §3 (Jamie, 9 Sep 2026): five items plus the
+// Book button. "Who it's for" opens the three doors and the by-activity pages;
+// the condition pages live under Training (the hub) and in the footer.
 const nav = [
+  { label: 'Training', href: '/personal-trainer-denver', hint: 'Personal training in downtown Denver, studio or Zoom' },
   {
-    label: 'What We Treat',
-    href: '/what-we-treat',
-    children: [...treatChildren, { label: 'Everything we treat →', href: '/what-we-treat' }],
-  },
-  {
-    label: 'For You',
-    href: '/for',
+    label: "Who it's for",
+    href: '/this-is-you/worried-about-reinjury',
     children: [
-      { label: 'For skiers', href: '/for/skiers' },
-      { label: 'For desk workers', href: '/for/desk-workers' },
-      { label: 'For pickleball players', href: '/for/pickleball' },
-      { label: 'For hikers', href: '/for/hikers' },
-      { label: 'For riders', href: '/for/equestrians' },
-      { label: 'For cyclists', href: '/for/cyclists' },
-      { label: 'For runners', href: '/for/runners' },
-      { label: 'For golfers', href: '/for/golfers' },
-      { label: 'Everything, by activity →', href: '/for' },
+      { label: 'Get better at my sport without getting hurt again', href: '/this-is-you/worried-about-reinjury' },
+      { label: "I'm hurt and I want to get better", href: '/this-is-you/still-in-pain' },
+      { label: 'Lose the weight and keep the muscle', href: '/personal-trainer-denver/glp-1' },
+      { label: 'Cleared, but not feeling ready', href: '/this-is-you/cleared-but-not-ready' },
+      { label: 'By activity: skiers, golfers, runners...', href: '/for' },
+      { label: 'By body part: back, neck, knee, shoulder', href: '/what-i-work-with' },
     ],
   },
-  { label: 'How It Works', href: '/how-it-works', hint: 'The process, from the first assessment to ongoing sessions, and the method behind it' },
-  { label: 'About', href: '/about', hint: 'Who Jamie is and why this studio exists' },
-  { label: 'Studio', href: '/studio', hint: 'Location, parking, and a look inside' },
   { label: 'Reviews', href: '/reviews', hint: 'Google reviews and client video results' },
-  {
-    label: 'Resources',
-    href: '/resources',
-    children: [
-      { label: 'Ski season squat guide', href: '/resources/ski-squats' },
-      { label: 'All resources →', href: '/resources' },
-    ],
-  },
+  { label: 'Studio', href: '/studio', hint: 'Location, parking, and a look inside' },
+  { label: 'About', href: '/about', hint: 'Who Jamie is and why this studio exists' },
 ];
 ---
 
@@ -78,7 +55,7 @@ const nav = [
             </a>
             <!-- pt-3 bridge keeps the menu open while the mouse travels down to it -->
             <div class="absolute left-1/2 -translate-x-1/2 top-full pt-3 hidden group-hover:block z-50">
-              <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-lg p-2 w-72 flex flex-col">
+              <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-lg p-2 w-80 flex flex-col">
                 {item.children.map(c => (
                   <a
                     href={c.href}
@@ -107,7 +84,7 @@ const nav = [
            CTA is already on the first screen. Desktop keeps it (the header is
            sticky, so it's the persistent CTA once the hero scrolls away). -->
       <a href="/book" class="cta-button text-sm whitespace-nowrap hidden sm:inline-block sm:px-7 sm:py-3.5">
-        Book<span class="hidden sm:inline"> consultation</span>
+        Book · $57
       </a>
 
       <!-- Mobile menu: no-JS details/summary pattern -->
@@ -135,7 +112,7 @@ const nav = [
             href="/book"
             class="px-3 py-2.5 rounded-lg text-base no-underline font-semibold text-[var(--color-primary)] hover:bg-[var(--color-background)]"
           >
-            Book a consultation
+            Book a 30-minute assessment · $57
           </a>
         </nav>
       </details>

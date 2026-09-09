@@ -3,6 +3,26 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/what-we-treat",
+      "destination": "/what-i-work-with",
+      "statusCode": 301
+    },
+    {
+      "source": "/what-we-treat/",
+      "destination": "/what-i-work-with",
+      "statusCode": 301
+    },
+    {
+      "source": "/what-we-treat/:slug",
+      "destination": "/what-i-work-with/:slug",
+      "statusCode": 301
+    },
+    {
+      "source": "/what-we-treat/:slug/",
+      "destination": "/what-i-work-with/:slug",
+      "statusCode": 301
+    },
+    {
       "source": "/videos",
       "destination": "/testimonials",
       "statusCode": 301
@@ -14,12 +34,12 @@
     },
     {
       "source": "/ready",
-      "destination": "/what-we-treat/post-surgical-return-to-sport",
+      "destination": "/what-i-work-with/post-surgical-return-to-sport",
       "statusCode": 301
     },
     {
       "source": "/ready/",
-      "destination": "/what-we-treat/post-surgical-return-to-sport",
+      "destination": "/what-i-work-with/post-surgical-return-to-sport",
       "statusCode": 301
     },
     {

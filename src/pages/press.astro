@@ -4,6 +4,8 @@ import BannerSection from '../components/BannerSection.astro';
 import { SITE } from '../data/site';
 import { PRESS_VIDEOS } from '../data/videos';
 import PressStrip from '../components/PressStrip.astro';
+import { Image } from 'astro:assets';
+import press9news from '../assets/home/press-9news.jpg';
 
 // The homepage strip shows six logos, so this page accounts for all of them —
 // a strip that claims more outlets than the page can name reads as a bluff.
@@ -21,7 +23,7 @@ import PressStrip from '../components/PressStrip.astro';
 const OUTLET_NOTES = [
   {
     name: '9NEWS',
-    note: "Denver's NBC affiliate, and the longest-running of these. Recurring fitness and movement segments — the clips above are a selection.",
+    note: "Denver's NBC affiliate, and the longest-running of these. Recurring fitness and movement segments; the clips above are a selection.",
   },
   {
     name: 'FOX31 Denver',
@@ -33,15 +35,15 @@ const OUTLET_NOTES = [
   },
   {
     name: '5280 Magazine',
-    note: "Denver's city magazine — contributed expert commentary on training and injury for a Denver readership.",
+    note: "Denver's city magazine. Six-time 5280 Top of the Town winner (three for Jamie, three for the studio), profiled in the June 2015 workouts feature, and contributed expert commentary on training and injury for a Denver readership.",
   },
   {
     name: 'The Denver Post',
-    note: "Ran a functional-fitness column built around exercises I designed and directed — eight of them are linked above — and published my writing as a guest columnist on their Colorado Fit blog. Also contributed on training smarter, and on a coaching approach that treats strength as the foundation of long-term health rather than a cosmetic goal.",
+    note: "Ran a functional-fitness column built around exercises I designed and directed (eight of them are linked above) and published my writing as a guest columnist on their Colorado Fit blog. Also contributed on training smarter, and on a coaching approach that puts strength at the foundation of long-term health rather than a cosmetic goal.",
   },
   {
     name: "Runner's World",
-    note: 'Contributed expert commentary for runners — load, recurring injury, and the training that keeps people running for decades rather than seasons.',
+    note: 'Contributed expert commentary for runners: load, recurring injury, and the training that keeps people running for decades rather than seasons.',
   },
   {
     name: 'UPWARD Women',
@@ -113,18 +115,43 @@ const DENVER_POST_SERIES = [
 ---
 
 <BaseLayout
-  title="Press & Media — Jamie Atlas, Denver"
-  description="Jamie Atlas in the media — 9NEWS, FOX31, Denver7, 5280, The Denver Post and Runner's World. Segments, contributions and expert commentary from twenty years of Denver coaching."
+  title="Press & Awards | Jamie Atlas, Denver"
+  description="Six 5280 Top of the Town honours, two Denver A-List wins, and 25 years of 9NEWS, FOX31, Denver7, 5280, The Denver Post and Runner's World. Segments, contributions and the award years, with sources."
 >
   <section class="px-6 pt-16 pb-12 md:pt-24">
     <div class="max-w-3xl mx-auto">
-      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Press</p>
-      <h1 class="mb-8">Seen in, and contributed to</h1>
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Press &amp; awards</p>
+      <h1 class="mb-8">Seen in, contributed to, and named</h1>
       <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
-        Twenty years in Denver means a lot of camera time and a lot of people asking for a straight answer about
+        25 years training Denver means a lot of camera time and a lot of people asking for a straight answer about
         backs, knees and getting older. <strong class="text-[var(--color-text)]">Most of what follows is
-        contribution, not coverage</strong> — segments recorded, questions answered, commentary given. The clips
-        are below.
+        contribution, not coverage</strong>: segments recorded, questions answered, commentary given. The awards
+        come first, with their sources, then the clips.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-3">Awards</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-8">
+        Six 5280 Top of the Town honours and two Denver A-List wins, 2011 to 2014, all at {SITE.contact.address.street}.
+        Where 5280's page survives in the web archive, the line links to it.
+      </p>
+      <ol class="space-y-4 list-none pl-0">
+        {SITE.awardsDetail.map(a => (
+          <li class="flex gap-4 items-baseline">
+            <span class="font-serif font-bold text-[var(--color-primary)] w-24 shrink-0">{a.year}</span>
+            <span class="text-lg">
+              {a.url ? <a href={a.url} target="_blank" rel="noopener">{a.title}</a> : a.title}
+              <span class="block text-sm text-[var(--color-text-muted)]">{a.type}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-8 text-base text-[var(--color-text-muted)] leading-relaxed">
+        Also in 5280: <a href="https://5280.com/the-absolute-best-colorado-workouts-for-you/" target="_blank" rel="noopener">The Absolute Best Colorado Workouts for You</a>, June 2015, a profile of the studio.
+        5280 ran no personal-trainer category in 2013 and retired it after 2014.
       </p>
     </div>
   </section>
@@ -163,7 +190,7 @@ const DENVER_POST_SERIES = [
     <div class="max-w-5xl mx-auto">
       <h2 class="mb-4">Beyond 9NEWS</h2>
       <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-10 max-w-3xl">
-        The segments were never limited to one station. Here on Denver7, talking seasonal nutrition — a reminder
+        The segments were never limited to one station. Here on Denver7, talking seasonal nutrition, a reminder
         that the expert chair covered the whole picture of health, not just the exercise half.
       </p>
       <div class="grid md:grid-cols-2 gap-8">
@@ -171,7 +198,7 @@ const DENVER_POST_SERIES = [
           <div class="rounded-xl overflow-hidden border border-[var(--color-border)] aspect-video">
             <iframe
               src="https://www.youtube-nocookie.com/embed/Cko37-BwqTs"
-              title="Avoiding holiday weight gain — Denver7"
+              title="Avoiding holiday weight gain, Denver7"
               width="100%"
               height="100%"
               frameborder="0"
@@ -181,7 +208,7 @@ const DENVER_POST_SERIES = [
             ></iframe>
           </div>
           <figcaption class="mt-3 text-sm text-[var(--color-text-muted)]">
-            Avoiding holiday weight gain — as the guest expert on Denver7.
+            Avoiding holiday weight gain, as the guest expert on Denver7.
           </figcaption>
         </figure>
       </div>
@@ -193,7 +220,7 @@ const DENVER_POST_SERIES = [
       <h2 class="mb-4">From the archive: proving it works, since the beginning</h2>
       <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-10 max-w-3xl">
         Over thirteen years ago, so many clients were getting out of pain quickly that people frankly doubted it.
-        So we started filming. This is the very first before-and-after video we ever made — Jess, a 7/10 elbow
+        So we started filming. This is the very first before-and-after video we ever made: Jess, a 7/10 elbow
         pain, changed in two minutes on camera. The production values have improved since. The approach that made
         it possible is the same one running the studio today, now documented in
         <a href="/testimonials">23 client videos</a>.
@@ -203,7 +230,7 @@ const DENVER_POST_SERIES = [
           <div class="rounded-xl overflow-hidden border border-[var(--color-border)] aspect-video">
             <iframe
               src="https://www.youtube-nocookie.com/embed/ocdekC71prI"
-              title="Jess's 7/10 elbow pain changed in 2 minutes — the first before/after video, 13+ years ago"
+              title="Jess: 7/10 elbow pain changed in 2 minutes, the first before/after video, 13+ years ago"
               width="100%"
               height="100%"
               frameborder="0"
@@ -213,7 +240,7 @@ const DENVER_POST_SERIES = [
             ></iframe>
           </div>
           <figcaption class="mt-3 text-sm text-[var(--color-text-muted)]">
-            The first before/after, from the archive. Your results may vary.
+            The first before/after, from the archive. Results vary from person to person.
           </figcaption>
         </figure>
       </div>
@@ -223,6 +250,12 @@ const DENVER_POST_SERIES = [
   <section class="px-6 py-16">
     <div class="max-w-5xl mx-auto">
       <h2 class="mb-8">Television &amp; community appearances</h2>
+      <div class="grid md:grid-cols-2 gap-8 items-start mb-8">
+        <figure>
+          <Image src={press9news} alt="9NEWS on-air graphic naming Jamie Atlas as fitness expert" widths={[640, 1000]} sizes="(min-width: 768px) 50vw, 100vw" format="webp" loading="lazy" class="rounded-xl border border-[var(--color-border)] w-full" />
+          <figcaption class="mt-3 text-sm text-[var(--color-text-muted)]">9NEWS, the fitness expert segment.</figcaption>
+        </figure>
+      </div>
       <div class="grid md:grid-cols-2 gap-8 items-start">
         <figure>
           <img
@@ -234,7 +267,7 @@ const DENVER_POST_SERIES = [
             class="rounded-xl border border-[var(--color-border)] w-full"
           />
           <figcaption class="mt-3 text-sm text-[var(--color-text-muted)]">
-            Speaking at a LiveWell Colorado workplace-wellness event in downtown Denver, alongside city officials.
+            LiveWell Colorado, on stage with the Mayor. Somebody had to do the demo.
           </figcaption>
         </figure>
         <figure>
@@ -259,10 +292,10 @@ const DENVER_POST_SERIES = [
       <h2 class="mb-4">The Denver Post functional-fitness series, 2010–2011</h2>
       <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-10">
         For two years The Denver Post ran a functional-fitness column built around exercises I designed and directed.
-        Eight of those columns are below. They were published under Bonza Bodies, the practice I ran before I moved
-        into clinical rehabilitation — <strong class="text-[var(--color-text)]">the brand changed, the thinking
-        didn't</strong>. Every one of them starts from the same question I still start from: what is this body actually
-        being asked to do, and what is stopping it?
+        Eight of those columns are below. They were published under Bonza Bodies, the name this studio traded under
+        until 2026. <strong class="text-[var(--color-text)]">The name changed, the thinking didn't.</strong> Every one
+        of them starts from the same question I still start from: what is this body being asked to do, and what is
+        stopping it?
       </p>
       <div class="mb-10 p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)]">
         <p class="font-serif italic text-[var(--color-primary)] mb-2">Written, not just directed</p>
@@ -275,8 +308,8 @@ const DENVER_POST_SERIES = [
         <p class="mt-2 text-base text-[var(--color-text-muted)] leading-relaxed">
           The Denver Post, Colorado Fit, 2 December 2013 · A guest column under my own byline, rather than an
           exercise I directed for someone else's article. It drew eight comments, most of them telling me I was
-          wrong. Twelve years and a clinical qualification later I think several of them had a point —
-          <a href="/resources/burpee-alternatives">here's what I got right and what I got wrong</a>. The blog has
+          wrong. Twelve years and a clinical qualification later I think several of them had a point.
+          <a href="/resources/burpee-alternatives">Here's what I got right and what I got wrong</a>. The blog has
           since been retired, so the headline links to the archived copy.
         </p>
       </div>

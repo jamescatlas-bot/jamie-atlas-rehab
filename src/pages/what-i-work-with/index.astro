@@ -6,13 +6,13 @@ import { CONDITIONS } from '../../data/conditions';
 ---
 
 <BaseLayout
-  title="What We Treat"
-  description="Chronic back pain, sciatica, post-surgical return-to-sport and masters athlete injuries — treated with Cognitive Functional Therapy combined with Applied Functional Science in Denver."
+  title="What I Work With: Back, Neck, Knee, Shoulder | Jamie Atlas"
+  description="Chronic back pain, sciatica, neck, shoulder and knee pain, post-surgical return to sport and masters athlete injuries. One-on-one training with a rehab specialist in downtown Denver, using Cognitive Functional Therapy and Applied Functional Science."
 >
   <section class="px-6 pt-16 pb-12 md:pt-24">
     <div class="max-w-3xl mx-auto">
-      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">What we treat</p>
-      <h1 class="mb-8">Pain that outlasted the treatments you already tried</h1>
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">What I work with</p>
+      <h1 class="mb-8">Pain that outlasted what you already tried</h1>
       <div class="space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
         <p>
           Almost everyone who walks into my studio has already been somewhere else first. Physical therapy that ended
@@ -20,13 +20,12 @@ import { CONDITIONS } from '../../data/conditions';
           month. A scan that "showed something" but didn't explain the pain.
         </p>
         <p>
-          The common thread in those cases is a pain system stuck in protection mode — and a body that lost capacity
+          The common thread in those cases is a pain system stuck in protection mode, and a body that lost capacity
           while everyone focused on the sore spot. My work addresses both: calm the system down with
-          <a href="/what-we-treat/cognitive-functional-therapy">Cognitive Functional Therapy</a> combined with a
-          method known as Applied Functional Science — a system that identifies when the symptom and the cause of
+          <a href="/what-i-work-with/cognitive-functional-therapy">Cognitive Functional Therapy</a> combined with a
+          method known as Applied Functional Science, a system that identifies when the symptom and the cause of
           the pain are in different places, and how to use the whole body to create a different outcome than
-          traditional methods — then rebuild real strength so the change lasts. One-on-one, 45–60 minutes at a
-          time, with a clear endpoint.
+          traditional methods. Then we train. Properly. One-on-one, 60 minutes or 30, with a clear endpoint.
         </p>
       </div>
     </div>
@@ -42,7 +41,7 @@ import { CONDITIONS } from '../../data/conditions';
       <div class="grid md:grid-cols-2 gap-6">
         {CONDITIONS.filter(c => c.slug !== 'cognitive-functional-therapy').map(c => (
           <a
-            href={`/what-we-treat/${c.slug}`}
+            href={`/what-i-work-with/${c.slug}`}
             class="block p-7 border border-[var(--color-border)] rounded-xl bg-[var(--color-background)] hover:border-[var(--color-primary)] hover:shadow-sm transition-all no-underline"
           >
             <h2 class="mb-3 text-[var(--color-primary)] text-xl md:text-2xl">{c.navTitle}</h2>
@@ -57,10 +56,11 @@ import { CONDITIONS } from '../../data/conditions';
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="mb-6">Not sure your situation fits a category?</h2>
       <p class="text-lg text-[var(--color-text-muted)] mb-8">
-        Most don't, exactly. A 30-minute consultation sorts out whether this approach fits your case — before you
-        commit to anything.
+        Most don't, exactly. A 30-minute assessment, $57, sorts out whether this approach fits your case before you
+        commit to anything. Not in pain, just want to train hard without getting hurt?
+        <a href="/personal-trainer-denver">That's most of what I do →</a>
       </p>
-      <a href="/book" class="cta-button text-lg">Book a consultation</a>
+      <a href="/book" class="cta-button text-lg">Book a 30-minute assessment</a>
     </div>
   </section>
 </BaseLayout>
