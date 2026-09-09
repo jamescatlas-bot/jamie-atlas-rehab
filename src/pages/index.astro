@@ -69,17 +69,18 @@ const doors = [
 ];
 
 const walk = [
-  ['16th Street Mall', '1 block'],
+  // Verified in Google Maps walking directions, 9 Sep 2026.
+  ['16th Street Mall', '2 blocks, 5 min'],
   ['17th Street towers, Republic Plaza, Wells Fargo Center', 'about 5 min'],
-  ['State Capitol, Capitol Hill', 'about 12 min'],
-  ['Union Station, LoDo', '15 to 20 min'],
+  ['State Capitol, Capitol Hill', 'about 15 min'],
+  ['Union Station, LoDo', 'about 20 min'],
   ['Five Points, RiNo, Uptown, Golden Triangle, Ballpark', 'inside 2 miles'],
 ];
 
 const faq = [
   {
     q: 'Are you really the best personal trainer in Denver?',
-    a: '5280 magazine said so three times, in 2011, 2012 and 2014, and I\'m grateful. The truer answer is that "best" depends on what you need. If you want someone to count reps at you, there are cheaper trainers within four blocks and I\'ll happily name two. If you want to train hard around a knee, a back or a shoulder that has a history, with the rehab and the nutrition coaching handled by the same person, that is the thing I\'m best at, and the reviews above are the evidence.',
+    a: '5280 magazine said so three times, and I\'m grateful. The truer answer is that "best" depends on what you need. If you want someone to count reps at you, there are cheaper trainers within four blocks and I\'ll happily name two. If you want to train hard around a knee, a back or a shoulder that has a history, with the rehab and the nutrition coaching handled by the same person, that is the thing I\'m best at, and the reviews above are the evidence.',
   },
   {
     q: 'Is this a gym?',
@@ -148,13 +149,13 @@ const videoSchema = FEATURED_TESTIMONIALS.map(v => ({
       <div class="hero-shade absolute inset-0" aria-hidden="true"></div>
       <div class="relative max-w-6xl mx-auto px-5 sm:px-6 pt-12 sm:pt-16 pb-10 sm:pb-12">
         <p class="who">
-          <b>Jamie Atlas</b> · 5280's Best Personal Trainer in Denver, 2011 · 2012 · 2014 · 9NEWS fitness expert
+          <b>Jamie Atlas</b> · 5280's Best Personal Trainer in Denver, three times · 9NEWS fitness expert
         </p>
         <p class="greet">Hi, glad you're here.<br />Which one of these is you?</p>
         <h1 class="kw">Voted Denver's best personal trainer three times by 5280 magazine. Rehab specialist. Downtown.</h1>
         <p class="sub">
           Pick a door and I'll talk to you about your thing, not everybody's thing. Rehab and nutrition coaching come
-          with every session, one client at a time, one block off the 16th Street Mall.
+          with every session, one client at a time, two blocks off the 16th Street Mall.
         </p>
 
         <div class="grid md:grid-cols-3 gap-3.5 mt-7">
@@ -231,8 +232,8 @@ const videoSchema = FEATURED_TESTIMONIALS.map(v => ({
     <!-- PROOF BAND -->
     <div class="proof">
       <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4">
-        <div><b>3×</b><span>5280 Best Personal Trainer in Denver, 2011 · 2012 · 2014</span></div>
-        <div><b>6×</b><span>5280 Top of the Town honours, trainer and studio</span></div>
+        <div><b>3×</b><span>5280 Best Personal Trainer in Denver</span></div>
+        <div><b>7</b><span>Denver awards, trainer and studio, 5280 and the Denver A-List</span></div>
         <div><b>9NEWS</b><span>The station's fitness expert · 25 years training Denver</span></div>
         <div><b>5.0</b><span>Google rating, {GOOGLE_RATING.count} reviews, all verbatim</span></div>
       </div>
@@ -260,7 +261,7 @@ const videoSchema = FEATURED_TESTIMONIALS.map(v => ({
       <div class="tx px-6 sm:px-12 py-12 sm:py-16">
         <h2>Not a gym. A room with one client in it.</h2>
         <p>
-          Basement level, {SITE.contact.address.street}, one block off the 16th Street Mall. A rig, a reformer, a mural,
+          Basement level, {SITE.contact.address.street}, two blocks off the 16th Street Mall. A rig, a reformer, a mural,
           and nobody waiting for your rack. Walk over, train, walk back before your 8am.
         </p>
         <ul class="walk">
@@ -283,9 +284,9 @@ const videoSchema = FEATURED_TESTIMONIALS.map(v => ({
             back.
           </p>
           <p>
-            5280 magazine's Top of the Town has named him Best Personal Trainer in Denver three times (2011 and 2014
-            Editors' Choice, 2012 Readers' Choice), and the studio Best Boot Camp (2011) and Best Gym (2014). Six honours
-            in four years, one basement.
+            5280 magazine's Top of the Town has named him Best Personal Trainer in Denver three times, and the studio
+            Best Boot Camp and Best Gym. Add the Denver A-List's Best Personal Trainer and Best Boot Camp and that is
+            seven awards in four years, one basement.
           </p>
           <p>
             BSc Neuroscience (Australian National University). Cognitive Functional Therapy. Applied Functional Science,

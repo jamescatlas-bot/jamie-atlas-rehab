@@ -19,7 +19,7 @@ export const SITE = {
   tagline: 'Personal Trainer & Rehab Specialist, downtown Denver.',
   // Homepage meta description (doc 70 §2.1). 155 chars.
   description:
-    "Voted 5280's Best Personal Trainer in Denver in 2011, 2012 and 2014. Rehab specialist, private downtown studio, nutrition coaching included, one client at a time. $57 assessment.",
+    "Voted 5280's Best Personal Trainer in Denver three times. Rehab specialist, private downtown studio, nutrition coaching included, one client at a time. $57 assessment.",
   url: 'https://jamieatlas.com',
   serviceArea: ['Denver', 'Lakewood', 'Aurora', 'Littleton', 'Boulder', 'Englewood', 'Highlands Ranch'],
 
@@ -95,6 +95,8 @@ export const SITE = {
     '5280 Top of the Town, Best Personal Trainer, Denver (2011 Editors\' Choice, 2012 Readers\' Choice, 2014 Editors\' Choice)',
     '5280 Top of the Town, Best Boot Camp (2011)',
     '5280 Top of the Town, Best Health Club/Gym (2014)',
+    'Denver A-List, Best Personal Trainer, 1st place (2014)',
+    'Denver A-List, Best Boot Camp (2014)',
   ],
 
   // Shown as a list on /about. Framing decided by Jamie 2026-08-06: these are
