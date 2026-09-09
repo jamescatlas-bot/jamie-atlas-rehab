@@ -11,17 +11,22 @@
 // reports 80203 — that record is stale and wrong. Do NOT "fix" this to 80203.
 
 export const SITE = {
-  name: 'Jamie Atlas Rehabilitation & Personal Training',
+  // Name decided 2026-09-05 (brand pivot): site + citations first, GBP name LAST.
+  // GBP still reads "Jamie Atlas Rehabilitation & Personal Training" until Jamie
+  // changes it; the old form stays in alternateNames so Google reconciles both.
+  name: 'Jamie Atlas Personal Training & Rehabilitation',
   shortName: 'Jamie Atlas',
-  tagline: 'Get out of chronic pain. Get back to your sport.',
+  tagline: 'Personal Trainer & Rehab Specialist, downtown Denver.',
+  // Homepage meta description (doc 70 §2.1). 155 chars.
   description:
-    'Cognitive Functional Therapy combined with Applied Functional Science, plus twenty years of coaching, for Denver adults 40+. We work the gap between PT discharge and athletic performance.',
+    "Voted 5280's Best Personal Trainer in Denver in 2011, 2012 and 2014. Rehab specialist, private downtown studio, nutrition coaching included, one client at a time. $57 assessment.",
   url: 'https://jamieatlas.com',
   serviceArea: ['Denver', 'Lakewood', 'Aurora', 'Littleton', 'Boulder', 'Englewood', 'Highlands Ranch'],
 
   // Prior trading names, emitted as schema.org alternateName. This tells Google
   // that the legacy Bonza Bodies listings and the current business are one entity.
   alternateNames: [
+    'Jamie Atlas Rehabilitation & Personal Training',
     'Jamie Atlas Rehab & Performance',
     'Bonza Bodies',
     'Bonza Bodies Fitness',
@@ -71,12 +76,25 @@ export const SITE = {
   // Services offered, emitted as schema.org availableService. Every one of the
   // 24 third-party listings found in the Aug 2026 audit categorises this
   // business as a gym; this is the on-site counter-signal.
+  // Mirrors the Google Business Profile Services list word for word (doc 70 §3.3).
   services: [
-    'Post-surgical return-to-sport rehabilitation',
-    'Chronic back pain treatment',
-    'Cognitive Functional Therapy',
-    'Persistent sciatica rehabilitation',
-    'Masters athlete injury rehabilitation',
+    'Personal training',
+    'Training after an injury',
+    'Return to sport',
+    'Back, neck, knee and shoulder pain',
+    'Strength over 40, 50 and 60',
+    'Nutrition coaching (included)',
+    'Training on GLP-1 medication',
+    'Online sessions',
+  ],
+
+  // 5280 Top of the Town (verified in the 5280 archive, Sep 2026). Emitted as
+  // schema.org `award` on both the business and the Person. "Best personal
+  // trainer" appears on the site ONLY as this award's name, always attributed.
+  awards: [
+    '5280 Top of the Town, Best Personal Trainer, Denver (2011 Editors\' Choice, 2012 Readers\' Choice, 2014 Editors\' Choice)',
+    '5280 Top of the Town, Best Boot Camp (2011)',
+    '5280 Top of the Town, Best Health Club/Gym (2014)',
   ],
 
   // Shown as a list on /about. Framing decided by Jamie 2026-08-06: these are
@@ -131,6 +149,7 @@ export const SITE = {
     { name: 'NASM Certified Personal Trainer', short: 'NASM-CPT' },
     { name: 'BSc Neuroscience, Australian National University', short: 'BSc Neuroscience' },
     { name: 'Certified FAFS (Gray Institute) — Applied Functional Science', short: 'FAFS' },
+    { name: 'Certificate IV in Nutrition Coaching', short: 'Nutrition Coaching' },
   ],
 } as const;
 

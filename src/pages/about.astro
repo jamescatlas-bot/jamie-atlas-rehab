@@ -6,14 +6,16 @@ import { SITE } from '../data/site';
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': `${SITE.url}/#jamie`, // same node as BaseLayout's founder — one entity
   name: 'Jamie Atlas',
-  jobTitle: 'Pain & Performance Specialist',
-  worksFor: { '@type': 'MedicalBusiness', name: SITE.name, url: SITE.url },
+  jobTitle: 'Personal Trainer & Rehab Specialist',
+  award: [...SITE.awards],
+  worksFor: { '@id': SITE.url },
   url: `${SITE.url}/about`,
   email: SITE.contact.email,
   telephone: SITE.contact.phone,
   sameAs: [SITE.social.instagramUrl],
-  knowsAbout: ['Cognitive Functional Therapy', 'Applied Functional Science', 'Chronic pain rehabilitation', 'Strength and conditioning', 'Return-to-sport training'],
+  knowsAbout: ['Personal training', 'Strength and conditioning', 'Return-to-sport training', 'Cognitive Functional Therapy', 'Applied Functional Science', 'Nutrition coaching'],
   hasCredential: SITE.credentials.map(c => ({
     '@type': 'EducationalOccupationalCredential',
     name: c.name,

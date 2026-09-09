@@ -1,0 +1,52 @@
+---
+// Shared click-to-play behaviour for every `.video-facade` on a page.
+// Included by VideoTestimonial and VideoCards; Astro ships it once per page
+// however many times it is rendered, and the handlers are delegated so
+// facades injected later (VideoBanner's deferred slides) work too.
+---
+<script>
+  // Delegated handlers so facades injected later (VideoBanner's deferred
+  // slides, doc 69 item 8) behave exactly like the ones in the initial HTML.
+
+  // Fall back to hqdefault.jpg where a Short has no oardefault.jpg.
+  document.addEventListener(
+    'error',
+    (event: Event) => {
+      const img = event.target as HTMLImageElement | null;
+      if (!img || !img.classList?.contains('video-thumb')) return;
+      const fallback = img.dataset.fallback;
+      if (fallback && img.src !== fallback) img.src = fallback;
+    },
+    true
+  );
+
+  // Swap the thumbnail for the real player on click.
+  //
+  // MOBILE (Jamie, 2026-08-09): phones reported taps "not working" — the inline
+  // embed + autoplay is unreliable on mobile browsers (iOS often loads the
+  // player but refuses to start it, which reads as a dead tap). On touch
+  // devices we let the link do its natural thing instead: open the video in
+  // the YouTube app / player, which always works. Desktop keeps the inline
+  // embed.
+  const touchDevice = window.matchMedia('(pointer: coarse)').matches;
+  document.addEventListener('click', (event: Event) => {
+    const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('.video-facade');
+    if (!link || touchDevice) return; // follow the link → YouTube app/player
+    event.preventDefault();
+    const id = link.dataset.videoId;
+    const title = link.dataset.videoTitle ?? 'Video';
+    if (!id) return;
+
+    const frame = document.createElement('iframe');
+    frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+    frame.title = title;
+    frame.allow =
+      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    frame.allowFullscreen = true;
+    frame.className = 'absolute inset-0 h-full w-full';
+    frame.setAttribute('frameborder', '0');
+
+    link.replaceChildren(frame);
+    link.classList.add('pointer-events-none');
+  });
+</script>

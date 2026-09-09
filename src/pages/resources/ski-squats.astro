@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BannerSection from '../../components/BannerSection.astro';
 import { SITE } from '../../data/site';
 
-const title = 'Ski Squats: Train for the Turn, Not the Gym';
+const title = 'Ski Squats for Denver Skiers: Train for the Turn';
 const description =
   'Why the standard squat is the wrong shape for skiing, four ski squat variations that match the turn, and what to do if your knee already hurts.';
 const published = '2026-08-02';
@@ -221,9 +221,20 @@ const variations = [
     </div>
   </section>
 
+  <!-- Cross-link to the ski conditioning page (doc 69 item 4): the two pages
+       split the "ski conditioning denver" cluster in Search Console. -->
+  <section class="px-6 py-10">
+    <div class="max-w-3xl mx-auto border-l-4 border-[var(--color-accent)] pl-5">
+      <p class="text-lg leading-relaxed">
+        Squats are one piece. The whole picture for the season, including what a ski turn asks of a knee that has a
+        history, lives on the <a href="/for/skiers">ski conditioning in Denver</a> page.
+      </p>
+    </div>
+  </section>
+
   <section class="px-6 py-16">
     <div class="max-w-3xl mx-auto">
-      <h2 class="mb-10">Common questions</h2>
+      <h2 class="mb-10">Three things skiers ask me every October</h2>
       <div class="space-y-8">
         {faq.map(item => (
           <div>
@@ -239,13 +250,13 @@ const variations = [
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="mb-6 text-white">Want to ski this season without negotiating with your knee?</h2>
       <p class="text-xl mb-10 opacity-95">
-        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can. I have
+        A 30-minute assessment, $57. Your history, my plain read on whether I can help, and a clear plan if I can. I have
         been running ski conditioning in Denver since 2008.
       </p>
-      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
       <p class="mt-8 text-sm opacity-80">
         Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
-        · <a href="/what-we-treat" class="text-white underline">See what we treat</a>
+        · <a href="/for/skiers" class="text-white underline">Ski conditioning in Denver</a>
       </p>
     </div>
   </section>

@@ -1,0 +1,45 @@
+---
+// Sticky "$57 assessment · Book" bar, phones only (doc 70 §2.13).
+// Appears after ~400px of scroll, never on /book. Pure CSS + 12 lines of JS.
+---
+
+<div class="sticky-book" id="sticky-book" hidden>
+  <span>$57 assessment · 30 min</span>
+  <a href="/book" class="cta-button cta-button-accent">Book</a>
+</div>
+
+<style>
+  .sticky-book {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: #0079c2;
+    color: #fff;
+    font: 600 14px 'Inter', sans-serif;
+    box-shadow: 0 10px 30px rgba(11, 22, 32, 0.35);
+    transform: translateY(120%);
+    transition: transform 0.25s ease;
+  }
+  .sticky-book.on { transform: translateY(0); }
+  .sticky-book .cta-button { padding: 9px 16px; font-size: 14px; }
+  @media (min-width: 640px) { .sticky-book { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .sticky-book { transition: none; } }
+</style>
+
+<script>
+  const bar = document.getElementById('sticky-book');
+  if (bar && location.pathname !== '/book') {
+    bar.hidden = false;
+    const update = () => bar.classList.toggle('on', window.scrollY > 400);
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+</script>

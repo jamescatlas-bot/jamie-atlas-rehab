@@ -27,15 +27,22 @@ interface Props {
 const { slides, intervalMs = 7000 } = Astro.props;
 ---
 
+<!-- Only the first slide is in the initial HTML (doc 69 item 8): the others
+     sit in a <template> and are appended by the script below, so a page with a
+     banner no longer downloads every thumbnail at load and the first slide is
+     the LCP element. -->
 <div class="vb-root" data-interval={intervalMs}>
-  <div class="grid">
-    {slides.map((s, i) => (
-      <div
-        class={`vb-slide [grid-area:1/1] transition-opacity duration-700 ${i === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-      >
-        <VideoTestimonial video={s.video} quote={s.quote} quoteName={s.quoteName} badgeText={s.badgeText} />
-      </div>
-    ))}
+  <div class="grid vb-grid">
+    <div class="vb-slide [grid-area:1/1] transition-opacity duration-700 opacity-100">
+      <VideoTestimonial video={slides[0].video} quote={slides[0].quote} quoteName={slides[0].quoteName} badgeText={slides[0].badgeText} eager={true} />
+    </div>
+    <template class="vb-rest">
+      {slides.slice(1).map(s => (
+        <div class="vb-slide [grid-area:1/1] transition-opacity duration-700 opacity-0 pointer-events-none">
+          <VideoTestimonial video={s.video} quote={s.quote} quoteName={s.quoteName} badgeText={s.badgeText} />
+        </div>
+      ))}
+    </template>
   </div>
   <!-- Left/right arrows replace the dots (Jamie, 2026-08-09) -->
   {slides.length > 1 && (
@@ -55,6 +62,12 @@ const { slides, intervalMs = 7000 } = Astro.props;
 
 <script>
   document.querySelectorAll<HTMLElement>('.vb-root').forEach(root => {
+    // Hydrate the deferred slides first, then wire the controls.
+    const rest = root.querySelector<HTMLTemplateElement>('.vb-rest');
+    if (rest) {
+      root.querySelector('.vb-grid')?.appendChild(rest.content.cloneNode(true));
+      rest.remove();
+    }
     const slides = root.querySelectorAll<HTMLElement>('.vb-slide');
     const count = root.querySelector<HTMLElement>('.vb-count');
     if (slides.length < 2) return;

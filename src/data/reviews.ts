@@ -1,8 +1,8 @@
-// Verbatim Google reviews (5.0★, 11 reviews as of 2026-07-09).
+// Verbatim Google reviews (5.0★, 20 reviews as of 2026-09-09 — doc 67/70).
 // Source: doc 21. Mary Jo's and Kelli's quotes are truncated on the listing
 // view — swap in full text once pulled from each review's "More" link.
 
-export const GOOGLE_RATING = { stars: 5.0, count: 11 };
+export const GOOGLE_RATING = { stars: 5.0, count: 20 };
 
 export const REVIEWS_URL = 'https://g.page/r/CaD6oA48IT1hEBM';
 export const WRITE_REVIEW_URL = 'https://g.page/r/CaD6oA48IT1hEBM/review';

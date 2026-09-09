@@ -1,432 +1,465 @@
 ---
+// HOMEPAGE — Version E, approved by Jamie 2026-09-09. Spec: doc 70
+// (70_HOMEPAGE_E_BUILD_HANDOFF.md). Mockup: Claude artifact "Three Homepages,
+// Jamie Atlas", tab E.
+//
+// Shape: a three-door chooser in the fold (goal-worded, two quiet exits under
+// it), then the fact band, a seasonal strip, three static client videos, the
+// proof band, the studio with walk times, credibility, reviews, FAQ, final CTA.
+//
+// Rules baked in (do not undo):
+//  - "best personal trainer" appears ONLY as 5280's award name, attributed
+//    every time. Never a bare self-claim.
+//  - No sliders or rotation anywhere (proof-placement decision, 23 Aug).
+//  - No before/after photos in the hero; door 3 uses a training photo.
+//  - Every client photo is from the consented "website ready" folder.
+//  - NEVER public/studio-space.jpg (barefoot man, red shirt) — deleted.
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site';
 import { REVIEWS, GOOGLE_RATING, REVIEWS_URL } from '../data/reviews';
-import { FEATURED_TESTIMONIALS, TESTIMONIAL_VIDEOS, bannerSlideProps } from '../data/videos';
-import VideoBanner from '../components/VideoBanner.astro';
-import PressStrip from '../components/PressStrip.astro';
+import { FEATURED_TESTIMONIALS } from '../data/videos';
+import VideoCards from '../components/VideoCards.astro';
+import StickyBook from '../components/StickyBook.astro';
 
-// Homepage structure decided with Jamie 2026-08-06:
-//  1. Hero names all THREE client segments (hurt-and-lost / cleared-but-not-
-//     ready / train-without-reinjury) — see memory: niche_post_surgical_rts.
-//  2. Video proof moves to position 2. His in-person close is "show one video,
-//     they say wow, show two more" — the page now does that before asking the
-//     visitor to read anything long. See memory: video_proof_loop.
-//  3. Credibility = 6× 5280 Top of the Town + 3 years as 9NEWS fitness expert.
-//     The Lancet section is DEMOTED to one linking line — regular humans don't
-//     know or care about the Lancet. See memory: credibility_hierarchy.
+import heroStudio from '../assets/home/hero-studio.jpg';
+import doorSport from '../assets/home/door-sport.jpg';
+import doorHurt from '../assets/home/door-hurt.jpg';
+import doorMuscle from '../assets/home/door-muscle.jpg';
+import portrait from '../assets/home/portrait.jpg';
+import studioInside from '../assets/home/studio-inside.jpg';
+import press9news from '../assets/home/press-9news.jpg';
+import pressMayor from '../assets/home/press-mayor.jpg';
 
-// Count of pain-change clips. Deliberately excludes the Tom H. lead
-// testimonial — it's a lifestyle interview, not a before/after pain demo, and
-// Jamie's own count of "every video shows a result" is these 23.
-const clipCount = TESTIMONIAL_VIDEOS.length;
+// Title tag: the award IS the search phrase, so it can sit here as a fact.
+const title = 'Best Personal Trainer in Denver, 3× by 5280 Magazine | Jamie Atlas';
 
-// The three doors — headings and sublines are Jamie's own words (2026-08-06),
-// in his order: cleared-but-not-ready LEFT, still-in-pain MIDDLE, reinjury RIGHT.
-// 2026-08-08: reframed as explicit "click here if this is you" (solid orange
-// badge); each door now opens its own /this-is-you/ landing page.
+// The three doors (Jamie, 2026-09-09). Goals, not identities: a referral with
+// a bad knee is one person, not two. Door 1 leads (decided 5 Sep).
+// Door 3 and exit 2 re-point to /personal-trainer-denver/glp-1 and the
+// /personal-trainer-denver hub when doc 67 ships those pages.
 const doors = [
   {
-    title: 'Cleared by your PT but still not ready for sport/life',
-    body: "<strong>No plan ever worked without first understanding where you've been and what you're going through.</strong>",
-    cta: 'For when you need the next level of training — but safely',
-    href: '/this-is-you/cleared-but-not-ready',
-  },
-  {
-    title: "You've tried everything and you're still in pain",
-    body: '<strong>The system sometimes lets us down. Where it drops off is where we begin.</strong>',
-    cta: "It's not your fault — your body might just need a different approach than you've tried already",
-    href: '/this-is-you/still-in-pain',
-  },
-  {
-    title: "You want to work out but you're worried about reinjuring your body",
-    body: "<strong>It's our job to personalize your exercises to set you up for success.</strong>",
-    cta: "It's not your job to know which workouts are best for your body — it's mine",
+    tag: 'Most of what I do',
+    h: 'I want to get better at my sport without getting hurt again.',
+    p: "Ski, golf, run, lift, pickleball. Training built around the joint you're worried about.",
     href: '/this-is-you/worried-about-reinjury',
+    img: doorSport,
+    alt: 'A client doing a step-up in the downtown Denver studio, back to the camera, coached by Jamie Atlas, personal trainer',
+    lead: true,
+  },
+  {
+    tag: 'Second door',
+    h: "I'm hurt and I want to get better.",
+    p: 'The PT, the chiro, the injections. Where the system drops off is where we begin.',
+    href: '/this-is-you/still-in-pain',
+    img: doorHurt,
+    alt: "Jamie Atlas, personal trainer and rehab specialist, assessing a client's ankle on a balance board at his downtown Denver studio",
+    lead: false,
+  },
+  {
+    tag: 'Third door',
+    h: 'I want to lose the weight and keep the muscle.',
+    p: 'On GLP-1 or not. Strength first, so what comes off is fat and what stays is you.',
+    href: '/how-it-works',
+    img: doorMuscle,
+    alt: 'A client in his sixties hinging with a kettlebell in front of the mural at the Denver studio',
+    lead: false,
   },
 ];
 
-// Quote panels + badges are data-driven from videos.ts as of 2026-08-09 —
-// every clip now carries Jamie's giant left-side quote (see `quote` fields).
+const walk = [
+  ['16th Street Mall', '1 block'],
+  ['17th Street towers, Republic Plaza, Wells Fargo Center', 'about 5 min'],
+  ['State Capitol, Capitol Hill', 'about 12 min'],
+  ['Union Station, LoDo', '15 to 20 min'],
+  ['Five Points, RiNo, Uptown, Golden Triangle, Ballpark', 'inside 2 miles'],
+];
 
-// Box copy + joint illustrations are Jamie's, 2026-08-08 (images from his
-// reference file, cropped per joint; knee square-cropped to keep pain burst).
-const byArea = [
+const faq = [
   {
-    title: 'Back Pain & Sciatica',
-    clickLabel: 'back pain & sciatica',
-    slug: '/what-we-treat/chronic-back-pain',
-    body: "You never realize how much you use your low back for everything until it's hurt. This method starts with finding the exercises you can do free of pain.",
-    img: '/joints/back.webp',
-    alt: 'Illustration of the lumbar spine and pelvis with pain signals at the low back',
-    also: { label: 'Pain running down your leg? Sciatica →', slug: '/what-we-treat/sciatica' },
+    q: 'Are you really the best personal trainer in Denver?',
+    a: '5280 magazine said so three times, in 2011, 2012 and 2014, and I\'m grateful. The truer answer is that "best" depends on what you need. If you want someone to count reps at you, there are cheaper trainers within four blocks and I\'ll happily name two. If you want to train hard around a knee, a back or a shoulder that has a history, with the rehab and the nutrition coaching handled by the same person, that is the thing I\'m best at, and the reviews above are the evidence.',
   },
   {
-    title: 'Neck Pain',
-    clickLabel: 'neck pain',
-    slug: '/what-we-treat/neck-pain',
-    body: "Stiffness, pain turning and trouble focusing. Headaches. There are 3 different factors that affect your neck pain that most treatment misses. Knowing how to solve them all? That's our business.",
-    img: '/joints/neck.webp',
-    alt: 'Illustration of the skull and cervical spine with pain signals at the neck',
+    q: 'Is this a gym?',
+    a: "No. It's a private studio, one client at a time, on the basement level of an office building downtown. Nobody is waiting for the squat rack.",
   },
   {
-    title: 'Shoulder Pain',
-    clickLabel: 'shoulder pain',
-    slug: '/what-we-treat/shoulder-pain',
-    body: "It can come on suddenly — trouble picking up a cup, getting the shopping out or sleeping in a strange position. When a shoulder is hurt the best thing to do is the right movements. The worst thing to do is the wrong movements. Our job is knowing the difference.",
-    img: '/joints/shoulder.webp',
-    alt: 'Illustration of the shoulder joint with pain highlighted at the ball and socket',
+    q: "I've got a bad knee (back, shoulder). Can I still train?",
+    a: 'That is most of who I train. The first visit is an assessment so we know what your body will accept today, and the program is built around that joint rather than around avoiding it.',
   },
   {
-    title: 'Knee Pain',
-    clickLabel: 'knee pain',
-    slug: '/what-we-treat/knee-pain',
-    body: "It starts innocently enough. Discomfort getting up from a chair. The descent from a hike leaving you hobbled. The phrase 'bone-on-bone' from your doctor. It would be understandable that you're confused. We're here to help you make sense of what you've been missing.",
-    img: '/joints/knee.webp',
-    alt: 'Illustration of the knee joint with pain signals at the kneecap',
+    q: 'Do I need a referral or insurance?',
+    a: "No. Cash pay, no forms. I'm a personal trainer with rehab training, so nothing here goes through insurance.",
+  },
+  {
+    q: 'What does the $57 assessment involve?',
+    a: "Thirty minutes. Your story, a look at how you move, one change you can measure before you leave, and my plain read on whether I can help. If I can't, I'll tell you who can.",
+  },
+  {
+    q: 'What if I work downtown and only have a lunch hour?',
+    a: "Thirty-minute sessions exist for exactly that. Walk over, train, walk back. The 6:30am and 5:15pm slots are the other option, and they're open most weeks.",
   },
 ];
 
-// Numbers corrected by Jamie 2026-08-06: FIVE 5280 wins (not six), and he is
-// STILL the 9NEWS fitness expert — present tense, no year count on it.
-const credentials = [
-  {
-    stat: '5×',
-    label: '5280 Top of the Town winner',
-    detail: "Voted one of Denver's best five times in 5280 Magazine's annual Top of the Town awards.",
-  },
-  {
-    stat: '9NEWS',
-    label: 'Fitness Expert',
-    detail: "The on-air fitness expert for Denver's biggest news station. You may already know this face.",
-  },
-  {
-    stat: '20+ yrs',
-    label: 'Helping Coloradans move and perform at their best',
-    detail: "Jamie arrived in 2001 after working at the Sydney Olympics. He's been helping every Coloradan looking for recovery, rehabilitation, or an edge over their competition — from recreational youth athletes to UFC, NFL, NBA and NHL athletes.",
-  },
-];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 
-// Updated to Jamie's wording 2026-08-08 (45–60 min; twenty years).
-const differentiators = [
-  'One-on-one, every session. Never a class, never shared with three other people',
-  '45–60 minutes, because that is genuinely what the work takes',
-  "Built around your body's history, present and future goals — not a generic printed piece of paper with faceless figures",
-  'Your rehabilitation program, nutrition, performance, at-home plans and workouts are all kept in house. No handoffs, no confusion, only results',
-  'Twenty years of serving Coloradans and those around the world via pain and performance online video sessions',
-  "We're not here to hold you back from getting results. If we can't help you, we'll recommend the right person who can",
-];
+const videoSchema = FEATURED_TESTIMONIALS.map(v => ({
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: v.title,
+  description: v.bio ?? v.title,
+  thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
+  uploadDate: v.uploadDate ?? '2026-08-05',
+  contentUrl: `https://www.youtube.com/watch?v=${v.id}`,
+  embedUrl: `https://www.youtube-nocookie.com/embed/${v.id}`,
+  publisher: { '@id': SITE.url },
+}));
 ---
 
-<BaseLayout
-  title="Denver Pain Relief & Return-to-Sport Rehab | Jamie Atlas"
-  description={SITE.description}
->
+<BaseLayout title={title} description={SITE.description} image="/jamie-portrait.jpg">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
 
-  <!-- HERO -->
-  <section class="px-6 pt-16 pb-16 md:pt-24 md:pb-20">
-    <div class="max-w-4xl mx-auto text-center">
-      <h1 class="mb-6">
-        Get out of pain.<br />
-        Get your body back.
-      </h1>
-      <!-- Subline + three bullets are Jamie's wording, 2026-08-07 -->
-      <p class="text-xl md:text-2xl text-[var(--color-text-muted)] max-w-3xl mx-auto mb-5 leading-snug">
-        A specialty rehabilitation &amp; sports performance studio in downtown Denver
-        — for when you're:
-      </p>
-      <ul class="inline-block text-left list-disc pl-6 marker:text-[var(--color-primary)] text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed mb-7 space-y-1">
-        <li>Hurt and out of answers</li>
-        <li>Cleared by your therapist but don't feel ready to return</li>
-        <li>Looking for a training program that won't aggravate your injuries</li>
-      </ul>
-      <p class="text-base font-semibold text-[var(--color-primary)] mb-9">
-        <span class="block">5× 5280 Top of the Town winner</span>
-        <span class="block mt-1">9NEWS Fitness Expert</span>
-      </p>
-      <a href="/book" class="cta-button text-lg">
-        Book a 30-minute consultation
-      </a>
-    </div>
+  <div class="home-e">
 
-    <div class="mt-12">
-      <PressStrip compact={true} />
-    </div>
-  </section>
-
-  <!-- PROOF FIRST: the in-person close ("watch this") is now the page's second beat -->
-  <section class="px-6 py-20 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
-    <div class="max-w-5xl mx-auto">
-      <div class="max-w-3xl mx-auto text-center mb-14">
-        <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Don't take our word for anything</p>
-        <h2 class="mb-6">Watch pain change in real time</h2>
-        <!-- Intro copy is Jamie's own words, 2026-08-06 -->
-        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-5">
-          Real clients, on camera, sharing the pain they are in before and after.
-          Your results may vary, but their results (and reactions) are 100% genuine.
-          When pain persists, sometimes the answer is more than just telling you to
-          "breathe through it." When utilizing other neuroscience-based systems as part
-          of a tolerable-movement integrated program, sometimes pain turns out to be changeable.
+    <!-- FOLD: who-line, greeting, keyword H1, three doors, two exits -->
+    <section class="hero relative overflow-hidden text-white">
+      <Image
+        src={heroStudio}
+        alt=""
+        widths={[640, 1100, 1600]}
+        sizes="100vw"
+        format="webp"
+        quality={70}
+        loading="eager"
+        fetchpriority="high"
+        class="absolute inset-0 h-full w-full object-cover object-[center_30%]"
+      />
+      <div class="hero-shade absolute inset-0" aria-hidden="true"></div>
+      <div class="relative max-w-6xl mx-auto px-5 sm:px-6 pt-12 sm:pt-16 pb-10 sm:pb-12">
+        <p class="who">
+          <b>Jamie Atlas</b> · 5280's Best Personal Trainer in Denver, 2011 · 2012 · 2014 · 9NEWS fitness expert
         </p>
-        <!-- Rewritten to Jamie's copy, 2026-08-09 -->
-        <p class="text-lg leading-relaxed mb-4">
-          You might ask yourself: what is different about this new method of getting people out of pain?
+        <p class="greet">Hi, glad you're here.<br />Which one of these is you?</p>
+        <h1 class="kw">Voted Denver's best personal trainer three times by 5280 magazine. Rehab specialist. Downtown.</h1>
+        <p class="sub">
+          Pick a door and I'll talk to you about your thing, not everybody's thing. Rehab and nutrition coaching come
+          with every session, one client at a time, one block off the 16th Street Mall.
         </p>
-        <p class="text-lg font-semibold text-[var(--color-text)] mb-4">
-          As they say, seeing is believing.
-        </p>
-        <p class="text-lg leading-relaxed mb-4">
-          There are {clipCount} videos on our <a href="/testimonials">testimonials page</a> showing near
-          unbelievable transformations getting people out of pain — most of them within one session.
-        </p>
-        <p class="text-lg leading-relaxed mb-4">
-          One video of a person being freed of pain within one session could be called a fluke.
-          <strong class="text-[var(--color-primary)]">{clipCount} shows a pattern.</strong>
-        </p>
-        <p class="text-lg font-semibold text-[var(--color-text)]">
-          See for yourself:
-        </p>
-      </div>
 
-      <!-- Rotating banner (Jamie, 2026-08-08): one video at a time, the three
-           featured clips cycling every 5 seconds. -->
-      <VideoBanner slides={FEATURED_TESTIMONIALS.map(bannerSlideProps)} />
-
-
-      <p class="text-center mt-12">
-        <a href="/testimonials" class="font-semibold">Watch more — all {clipCount}, sorted by body part →</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- THE THREE DOORS -->
-  <section class="px-6 py-24">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-center mb-6">Three kinds of people walk in here</h2>
-      <p class="text-center text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto mb-14 leading-relaxed">
-        Most of them have already been somewhere else. Often several somewheres.
-        <strong class="text-[var(--color-text)]">We get it.</strong> Find yourself below.
-      </p>
-      <div class="grid md:grid-cols-3 gap-6">
-        {doors.map(d => (
-          <a
-            href={d.href}
-            class="flex flex-col p-7 border-2 border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] hover:border-[var(--color-primary)] hover:shadow-md transition-all no-underline"
-          >
-            <h3 class="mb-4 text-[var(--color-primary)]">{d.title}</h3>
-            <p class="text-[var(--color-text-muted)] leading-relaxed mb-5" set:html={d.body} />
-            <span class="font-semibold text-[var(--color-primary)] mb-6">{d.cta}</span>
-            <!-- Badge moved to the bottom of the box (Jamie, 2026-08-09): read first, then click -->
-            <span class="mt-auto self-start inline-block bg-[var(--color-accent)] text-white text-sm font-extrabold uppercase tracking-wider rounded-lg px-4 py-2">Click here if this is you</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- PICK THE PART (door 1 lands here) -->
-  <section id="pick-the-part" class="px-6 py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)] scroll-mt-20">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-center mb-4">Pick the part that's stopping you</h2>
-      <p class="text-center text-[var(--color-text-muted)] max-w-2xl mx-auto mb-14">
-        Same method behind all four — what changes is what we find driving it.
-        Each page has client videos for that body part.
-      </p>
-      <div class="grid md:grid-cols-2 gap-6">
-        {byArea.map(c => (
-          <div class="p-7 border border-[var(--color-border)] rounded-xl bg-[var(--color-background)] hover:border-[var(--color-primary)] transition-all">
-            <div class="flex items-start justify-between gap-4 mb-3">
-              <h3 class="mb-0">
-                <a href={c.slug} class="text-[var(--color-primary)] no-underline">{c.title}</a>
-              </h3>
-              <a href={c.slug} aria-hidden="true" tabindex="-1" class="flex-shrink-0">
-                <img src={c.img} alt={c.alt} width="320" height="320" loading="lazy"
-                  class="w-24 h-24 md:w-28 md:h-28 rounded-lg" />
-              </a>
-            </div>
-            <p class="text-[var(--color-text-muted)] text-base leading-relaxed">{c.body}</p>
-            <!-- Orange click-through box per joint (Jamie, 2026-08-09) -->
-            <p class="mt-5">
-              <a href={c.slug} class="inline-block bg-[var(--color-accent)] text-white text-sm font-extrabold uppercase tracking-wider rounded-lg px-4 py-2 no-underline hover:bg-[var(--color-accent-dark)] transition-colors">
-                Click here to see how we handle {c.clickLabel}
-              </a>
-            </p>
-            {c.also && (
-              <p class="mt-4 text-sm"><a href={c.also.slug}>{c.also.label}</a></p>
-            )}
-          </div>
-        ))}
-      </div>
-
-      <!-- CFT closing line removed at Jamie's request 2026-08-08; the CFT
-           mention (with descriptor) in the credibility section remains. -->
-    </div>
-  </section>
-
-  <!-- CREDIBILITY: local standing first; the science gets one linking line -->
-  <section class="px-6 py-24">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-center mb-14">You may already know this studio</h2>
-      <div class="grid md:grid-cols-3 gap-10 md:gap-12 text-center">
-        {credentials.map(c => (
-          <div>
-            <p class="font-serif font-bold text-5xl text-[var(--color-primary)] mb-2">{c.stat}</p>
-            <h3 class="mb-3">{c.label}</h3>
-            <p class="text-[var(--color-text-muted)] leading-relaxed">{c.detail}</p>
-          </div>
-        ))}
-      </div>
-      <p class="text-center mt-14 text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
-        All of it under one roof:
-        <strong class="text-[var(--color-text)]">Jamie Atlas, Pain &amp; Performance Specialist</strong>
-        — and the results you see on this site come from Cognitive Functional Therapy
-        combined with a method known as Applied Functional Science: a system that
-        identifies when the symptom and the cause of the pain are in different places,
-        and how to use the whole body to create a different outcome than traditional methods.
-        <a href="/what-we-treat/cognitive-functional-therapy">How it works →</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- HOW IT'S DIFFERENT -->
-  <section class="px-6 py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-center mb-14">How this is different from what you've tried</h2>
-      <ul class="space-y-5">
-        {differentiators.map(d => (
-          <li class="flex items-start gap-4">
-            <span class="text-[var(--color-primary)] text-2xl leading-none mt-1 flex-shrink-0">✓</span>
-            <span class="text-lg leading-snug">{d}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- REVIEWS -->
-  <section class="px-6 py-24">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-center mb-4">Rated {GOOGLE_RATING.stars.toFixed(1)} on Google</h2>
-      <p class="text-center text-[var(--color-text-muted)] mb-14">Verbatim, verifiable, unpaid.</p>
-<!-- Rotating review wheel (Jamie, 2026-08-06): one review at a time, advances
-     every 7 seconds. Plain inline JS, no library — zero page-speed cost.
-     Pauses on hover, stops entirely for reduced-motion users, and shows the
-     first review statically if JavaScript is off. -->
-      <div id="review-wheel" class="relative max-w-2xl mx-auto min-h-[13rem] sm:min-h-[11rem]">
-        {REVIEWS.map((r, i) => (
-          <blockquote
-            class={`review-slide border-l-4 border-[var(--color-primary)] pl-5 absolute inset-x-0 top-0 transition-opacity duration-700 ${i === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-            data-slide={i}
-          >
-            <p class="leading-relaxed mb-3 text-lg">"{r.text}"</p>
-            <footer class="text-sm text-[var(--color-text-muted)]">— {r.name}</footer>
-          </blockquote>
-        ))}
-      </div>
-      <!-- Up/down arrows added at Jamie's request 2026-08-08 so readers can
-           flip back to a review or skip ahead, alongside the 7s auto-rotate. -->
-      <div class="flex justify-center items-center gap-4 mt-6">
-        <button
-          id="review-prev"
-          class="w-10 h-10 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-background)] text-[var(--color-primary)] text-xl leading-none cursor-pointer transition-colors hover:bg-[var(--color-primary)] hover:text-white"
-          aria-label="Previous review"
-        >&#8593;</button>
-        <div class="flex justify-center gap-2.5" id="review-dots" aria-hidden="true">
-          {REVIEWS.map((_, i) => (
-            <button
-              class={`review-dot w-2.5 h-2.5 rounded-full border-0 p-0 cursor-pointer transition-colors ${i === 0 ? 'bg-[var(--color-primary)]' : 'bg-[var(--color-border)]'}`}
-              data-dot={i}
-              aria-label={`Show review ${i + 1}`}
-            ></button>
+        <div class="grid md:grid-cols-3 gap-3.5 mt-7">
+          {doors.map(d => (
+            <a href={d.href} class={`door group ${d.lead ? 'door-lead' : ''}`}>
+              <Image
+                src={d.img}
+                alt={d.alt}
+                widths={[480, 800]}
+                sizes="(min-width: 768px) 33vw, 100vw"
+                format="webp"
+                quality={72}
+                loading="eager"
+                class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              />
+              <span class="door-shade absolute inset-0" aria-hidden="true"></span>
+              <span class="relative block p-5">
+                <span class="tag">{d.tag}</span>
+                <span class="door-h">{d.h}</span>
+                <span class="door-p">{d.p}</span>
+              </span>
+            </a>
           ))}
         </div>
-        <button
-          id="review-next"
-          class="w-10 h-10 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-background)] text-[var(--color-primary)] text-xl leading-none cursor-pointer transition-colors hover:bg-[var(--color-primary)] hover:text-white"
-          aria-label="Next review"
-        >&#8595;</button>
+
+        <div class="exits">
+          <a href="/about">
+            <Image src={portrait} alt="" width={68} height={68} format="webp" class="h-[34px] w-[34px] rounded-full object-cover border border-white/50" />
+            Heard of Jamie? Tell me more before I decide. <span class="arrow">→</span>
+          </a>
+          <a href="/resources">I'll have a look around myself. <span class="arrow">→</span></a>
+        </div>
       </div>
+    </section>
 
-      <script is:inline>
-        (function () {
-          var slides = document.querySelectorAll('.review-slide');
-          var dots = document.querySelectorAll('.review-dot');
-          if (slides.length < 2) return;
-          var current = 0;
-          var paused = false;
-          var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-          function show(i) {
-            slides[current].classList.remove('opacity-100');
-            slides[current].classList.add('opacity-0', 'pointer-events-none');
-            dots[current].style.background = 'var(--color-border)';
-            current = i;
-            slides[current].classList.remove('opacity-0', 'pointer-events-none');
-            slides[current].classList.add('opacity-100');
-            dots[current].style.background = 'var(--color-primary)';
-          }
-
-          dots.forEach(function (d) {
-            d.addEventListener('click', function () { show(+d.dataset.dot); });
-          });
-
-          var prev = document.getElementById('review-prev');
-          var next = document.getElementById('review-next');
-          if (prev) prev.addEventListener('click', function () {
-            show((current - 1 + slides.length) % slides.length);
-          });
-          if (next) next.addEventListener('click', function () {
-            show((current + 1) % slides.length);
-          });
-
-          var wheel = document.getElementById('review-wheel');
-          wheel.addEventListener('mouseenter', function () { paused = true; });
-          wheel.addEventListener('mouseleave', function () { paused = false; });
-
-          if (!reduced) {
-            setInterval(function () {
-              if (!paused) show((current + 1) % slides.length);
-            }, 7000);
-          }
-        })();
-      </script>
-
-      <p class="text-center mt-12">
-        <a href="/reviews" class="font-semibold">More client reviews →</a>
-        <span class="text-[var(--color-text-muted)] px-2">·</span>
-        <a href={REVIEWS_URL}>See all {GOOGLE_RATING.count} on Google</a>
-      </p>
+    <!-- FACT BAND: first thing on the first scroll -->
+    <div class="facts">
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
+        <div class="f">
+          <span>{GOOGLE_RATING.stars.toFixed(1)} on Google, {GOOGLE_RATING.count} reviews</span>
+          <span>$200 per 60-minute session</span>
+          <span>6:30am and 5:15pm slots open most weeks</span>
+          <span>{SITE.contact.address.street}, {SITE.contact.address.level}, {SITE.contact.address.city} {SITE.contact.address.state} {SITE.contact.address.zip}</span>
+          <span><a href={`tel:${SITE.contact.phoneTel}`}>{SITE.contact.phone}</a>, call or text</span>
+        </div>
+        <a href="/book" class="btn-white">Book a 30-minute assessment · $57</a>
+      </div>
     </div>
-  </section>
 
-  <!-- STUDIO PHOTO — proof of place, just before the ask -->
-  <section class="px-6 pb-4">
-    <div class="max-w-5xl mx-auto">
-      <img
-        src="/studio-coaching.jpg"
-        alt="Jamie Atlas coaching two clients through a movement assessment at his downtown Denver studio"
-        width="1400"
-        height="718"
-        loading="lazy"
-        class="rounded-2xl border border-[var(--color-border)] w-full"
-      />
+    <!-- SEASONAL STRIP: swap copy by season (ski now; golf in March; hiking in June) -->
+    <div class="season">
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 py-3.5 flex flex-wrap items-center gap-2 sm:gap-5">
+        <b>In season now</b>
+        <span>Ski conditioning in Denver. Your first day on snow is the biggest leg day of your year.</span>
+        <span class="flex-1"></span>
+        <a href="/for/skiers">Get ready for the season →</a>
+        <a href="/resources/ski-squats">The ski squat guide →</a>
+      </div>
     </div>
-  </section>
 
-  <!-- FINAL CTA -->
-  <section class="px-6 py-24 bg-[var(--color-primary)] text-on-dark">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="mb-6 text-white">Stop waiting for the pain to go away on its own</h2>
-      <p class="text-xl mb-10 opacity-95">
-        A 30-minute consultation tells you whether this is the right fit. No pressure, no insurance forms.
-      </p>
-      <a href="/book" class="cta-button cta-button-accent text-lg">
-        Book a consultation
+    <!-- VIDEO PROOF: three static cards, no rotation -->
+    <section class="vid">
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 py-14 sm:py-16">
+        <h2>Watch pain change in real time</h2>
+        <p class="intro">
+          Real clients, on camera, before and after. One could be a fluke. Twenty-three is a pattern. Results vary from
+          person to person.
+        </p>
+        <VideoCards videos={FEATURED_TESTIMONIALS} />
+        <p class="more">Twenty more on the <a href="/testimonials">testimonials page</a>, sorted by body part.</p>
+      </div>
+    </section>
+
+    <!-- PROOF BAND -->
+    <div class="proof">
+      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4">
+        <div><b>3×</b><span>5280 Best Personal Trainer in Denver, 2011 · 2012 · 2014</span></div>
+        <div><b>6×</b><span>5280 Top of the Town honours, trainer and studio</span></div>
+        <div><b>9NEWS</b><span>The station's fitness expert · 25 years training Denver</span></div>
+        <div><b>5.0</b><span>Google rating, {GOOGLE_RATING.count} reviews, all verbatim</span></div>
+      </div>
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 logos">
+        {SITE.PRESS_OUTLETS.map(o => (
+          <img src={`/${o.file.replace('.png', '-white.png')}`} alt={o.name} loading="lazy" style={`height:${Math.round(o.h * 0.72)}px`} />
+        ))}
+      </div>
+    </div>
+
+    <!-- STUDIO + WALK TIMES -->
+    <section class="studio grid md:grid-cols-2">
+      <a href="/studio" class="block relative min-h-[320px] md:min-h-0" aria-label="See the studio at 1800 Glenarm Place">
+        <Image
+          src={studioInside}
+          alt="The mural wall and training floor at Jamie Atlas Personal Training & Rehabilitation, 1800 Glenarm Place, downtown Denver"
+          widths={[640, 1000]}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          format="webp"
+          quality={72}
+          loading="lazy"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
       </a>
-      <p class="mt-8 text-sm opacity-80">
-        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
-      </p>
-    </div>
-  </section>
+      <div class="tx px-6 sm:px-12 py-12 sm:py-16">
+        <h2>Not a gym. A room with one client in it.</h2>
+        <p>
+          Basement level, {SITE.contact.address.street}, one block off the 16th Street Mall. A rig, a reformer, a mural,
+          and nobody waiting for your rack. Walk over, train, walk back before your 8am.
+        </p>
+        <ul class="walk">
+          {walk.map(([place, time]) => (
+            <li><span>{place}</span><b>{time}</b></li>
+          ))}
+        </ul>
+        <a href="/studio" class="see">See the studio, parking and how to find the door →</a>
+      </div>
+    </section>
 
+    <!-- CREDIBILITY -->
+    <section class="cred">
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 py-14 sm:py-16 grid md:grid-cols-[1.1fr_.9fr] gap-9 items-center">
+        <div>
+          <h2>You may already know this face</h2>
+          <p>
+            Jamie arrived from Sydney in 2001 and has trained Denver ever since: recreational youth athletes, a few UFC,
+            NFL, NBA and NHL athletes he isn't allowed to name, and a great many Coloradans who just wanted their knee
+            back.
+          </p>
+          <p>
+            5280 magazine's Top of the Town has named him Best Personal Trainer in Denver three times (2011 and 2014
+            Editors' Choice, 2012 Readers' Choice), and the studio Best Boot Camp (2011) and Best Gym (2014). Six honours
+            in four years, one basement.
+          </p>
+          <p>
+            BSc Neuroscience (Australian National University). Cognitive Functional Therapy. Applied Functional Science,
+            Gray Institute. NSCA-CSCS. NASM-CPT. Certificate IV in Nutrition Coaching.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <figure class="m-0">
+            <Image src={press9news} alt="9NEWS on-air graphic: Jamie Atlas, fitness expert, Denver" widths={[460, 920]} sizes="25vw" format="webp" loading="lazy" class="rounded-lg border border-white/10" />
+            <figcaption>9NEWS, the fitness expert segment.</figcaption>
+          </figure>
+          <figure class="m-0">
+            <Image src={pressMayor} alt="Jamie Atlas on stage at a LiveWell Colorado event in Denver with the Mayor" widths={[460, 920]} sizes="25vw" format="webp" loading="lazy" class="rounded-lg border border-white/10" />
+            <figcaption>LiveWell Colorado, on stage with the Mayor.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS: three, static -->
+    <section class="reviews">
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 py-14 sm:py-16">
+        <h2>Rated {GOOGLE_RATING.stars.toFixed(1)} on Google, {GOOGLE_RATING.count} reviews</h2>
+        <p class="intro">Verbatim, verifiable, unpaid.</p>
+        <div class="grid md:grid-cols-3 gap-4 mt-7">
+          {REVIEWS.map(r => (
+            <blockquote>
+              <span class="stars" aria-label="Five stars">★★★★★</span>
+              "{r.text}"
+              <footer>{r.name}</footer>
+            </blockquote>
+          ))}
+        </div>
+        <p class="more"><a href="/reviews">More client reviews</a> · <a href={REVIEWS_URL} rel="noopener">See all {GOOGLE_RATING.count} on Google</a></p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 py-14 sm:py-16">
+        <h2>Things people ask before they book</h2>
+        <div class="mt-6">
+          {faq.map((f, i) => (
+            <details open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final">
+      <div class="max-w-3xl mx-auto px-5 sm:px-6 py-16 sm:py-20 text-center">
+        <h2>Thirty minutes. One measurable change. Then you decide.</h2>
+        <p>
+          A 30-minute assessment, $57, in the studio or on Zoom. If it's not a fit I'll say so in the first half hour,
+          and I'll know who is.
+        </p>
+        <a href="/book" class="cta-button text-lg">Book a 30-minute assessment</a>
+        <p class="nap">
+          {SITE.contact.address.street}, {SITE.contact.address.level} · <a href={`tel:${SITE.contact.phoneTel}`}>{SITE.contact.phone}</a> · Mon to Fri {SITE.hours.weekdays} · Sat {SITE.hours.saturday}
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <StickyBook />
 </BaseLayout>
+
+<style>
+  /* Version E lives in its own dark world; the shared header and footer stay
+     as they are on every other page. Palette from the brand guide: Navy Ink
+     #0B2E45, near-black #0B1620, Atlas Blue #0079C2, Signal Orange #F5921E,
+     Award Red #B91D2B (5280 only). */
+  .home-e {
+    --navy: #0b1620;
+    --deep: #0b2e45;
+    --blue: #0079c2;
+    --sky: #7cc4f0;
+    --orange: #f5921e;
+    --ink: #eef3f7;
+    --muted: #d5e2ec;
+    --soft: #a9bccb;
+    background: var(--navy);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+  }
+  .home-e h1, .home-e h2, .home-e h3 {
+    font-family: 'Barlow Semi Condensed', 'Inter', sans-serif;
+    letter-spacing: 0.005em;
+    color: #fff;
+  }
+  .home-e h2 { font-size: clamp(30px, 4.4vw, 52px); line-height: 1; margin-bottom: 12px; }
+  .home-e .intro { color: var(--soft); font-size: 18px; max-width: 58ch; }
+  .home-e .more { margin-top: 20px; font-size: 15px; color: var(--soft); }
+  .home-e .more a { color: #fff; }
+
+  /* fold */
+  .hero { background: var(--deep); }
+  .hero-shade { background: linear-gradient(180deg, rgba(11,22,32,.45) 0%, rgba(11,22,32,.6) 45%, rgba(11,22,32,.96) 100%); }
+  .who { font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--sky); margin-bottom: 14px; }
+  .who b { color: #fff; }
+  .greet { font-family: 'Barlow Semi Condensed', 'Inter', sans-serif; font-weight: 700; font-size: clamp(34px, 5vw, 60px); line-height: .98; color: #fff; margin-bottom: 10px; text-wrap: balance; }
+  .kw { font-size: clamp(20px, 2.4vw, 28px); font-weight: 600; color: var(--sky); line-height: 1.2; margin-bottom: 6px; text-wrap: balance; }
+  .sub { color: var(--muted); font-size: 17px; max-width: 58ch; }
+
+  .door { position: relative; display: flex; align-items: flex-end; min-height: 300px; border-radius: 12px; overflow: hidden; background: #172230; color: #fff; text-decoration: none; }
+  .door-lead { outline: 2px solid var(--blue); outline-offset: -2px; }
+  .door-shade { background: linear-gradient(180deg, rgba(11,22,32,0) 30%, rgba(11,22,32,.92) 100%); }
+  .door .tag { display: block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--orange); font-weight: 700; margin-bottom: 6px; }
+  .door-h { display: block; font-family: 'Barlow Semi Condensed', 'Inter', sans-serif; font-weight: 700; font-size: 23px; line-height: 1.08; margin-bottom: 6px; }
+  .door-p { display: block; font-size: 15px; color: var(--muted); }
+
+  .exits { display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: center; margin-top: 22px; font-size: 15px; }
+  .exits a { color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,.35); padding-bottom: 2px; }
+  .exits a:hover { color: #fff; border-bottom-color: #fff; }
+  .exits .arrow { color: var(--orange); }
+
+  /* fact band */
+  .facts { background: var(--blue); color: #fff; }
+  .facts .f { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 14.5px; font-weight: 600; }
+  .facts .f span::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); margin-right: 8px; vertical-align: 1px; }
+  .facts a { color: #fff; text-decoration-color: rgba(255,255,255,.5); }
+  .btn-white { display: inline-block; background: #fff; color: var(--navy) !important; font-weight: 700; padding: 12px 20px; border-radius: 8px; text-decoration: none; white-space: nowrap; font-size: 15px; }
+  .btn-white:hover { background: #ecf6fd; }
+
+  /* seasonal strip */
+  .season { background: var(--orange); color: #14202b; font-size: 15.5px; }
+  .season b { font-family: 'Barlow Semi Condensed', 'Inter', sans-serif; font-size: 18px; letter-spacing: .04em; text-transform: uppercase; font-weight: 800; }
+  .season a { color: #14202b; font-weight: 700; text-underline-offset: 3px; }
+
+  .vid { background: #0e1c28; }
+
+  /* proof band */
+  .proof { background: var(--blue); color: #fff; }
+  .proof > div:first-child > div { padding: 22px 18px; border-right: 1px solid rgba(255,255,255,.22); }
+  .proof > div:first-child > div:last-child { border-right: 0; }
+  .proof b { display: block; font-family: 'Barlow Semi Condensed', 'Inter', sans-serif; font-size: 34px; line-height: 1; font-weight: 800; }
+  .proof span { display: block; font-size: 13.5px; color: #d5ebfa; margin-top: 6px; }
+  .logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 18px 40px; padding: 22px 24px 14px; border-top: 1px solid rgba(255,255,255,.2); }
+  .logos img { width: auto; opacity: .9; }
+
+  /* studio */
+  .studio .tx { background: var(--deep); display: flex; flex-direction: column; justify-content: center; }
+  .studio .tx p { color: var(--muted); font-size: 18px; max-width: 44ch; margin-bottom: 14px; }
+  .walk { list-style: none; padding: 0; margin: 18px 0 0; border-top: 1px solid rgba(255,255,255,.15); }
+  .walk li { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.15); font-size: 15px; color: var(--muted); }
+  .walk li b { color: #fff; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .see { display: inline-block; margin-top: 18px; color: var(--sky); font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--sky); }
+
+  /* credibility */
+  .cred p { color: var(--muted); font-size: 18px; margin-bottom: 14px; max-width: 52ch; }
+  .cred figcaption { font-size: 12.5px; color: var(--soft); margin-top: 6px; }
+
+  /* reviews */
+  .reviews { background: #0e1c28; }
+  .reviews blockquote { margin: 0; background: #172230; border-radius: 10px; padding: 22px 20px; font-size: 16px; color: var(--muted); border-top: 3px solid var(--orange); }
+  .reviews blockquote footer { margin-top: 12px; font-size: 13.5px; color: #fff; font-weight: 700; }
+  .stars { color: var(--orange); letter-spacing: 2px; font-size: 14px; display: block; margin-bottom: 8px; }
+
+  /* faq */
+  .faq { background: var(--deep); }
+  .faq details { border-top: 1px solid rgba(255,255,255,.18); padding: 14px 0; }
+  .faq details:last-of-type { border-bottom: 1px solid rgba(255,255,255,.18); }
+  .faq summary { font-family: 'Barlow Semi Condensed', 'Inter', sans-serif; font-weight: 700; font-size: 20px; color: #fff; cursor: pointer; }
+  .faq details p { margin-top: 8px; color: var(--muted); max-width: 66ch; font-size: 16px; }
+
+  /* final */
+  .final { background: #fff; color: var(--navy); }
+  .final h2 { color: var(--navy); }
+  .final p { color: #3d4b58; font-size: 18px; max-width: 54ch; margin: 0 auto 24px; }
+  .final .nap { font-size: 14.5px; font-weight: 600; color: var(--deep); margin-top: 22px; }
+  .final .nap a { color: var(--deep); }
+</style>

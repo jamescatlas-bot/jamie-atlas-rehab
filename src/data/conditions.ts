@@ -271,7 +271,7 @@ export const CONDITIONS: Condition[] = [
   },
   {
     slug: 'cognitive-functional-therapy',
-    navTitle: 'Cognitive Functional Therapy and AFS — our special sauce',
+    navTitle: 'Cognitive Functional Therapy and AFS',
     title: 'The evidence-based approach most providers don’t know',
     metaTitle: 'Cognitive Functional Therapy (CFT) in Denver',
     schemaType: 'MedicalTherapy',

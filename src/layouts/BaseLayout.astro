@@ -8,12 +8,14 @@ import '../styles/global.css';
 // Google Fonts <link> — no render-blocking third-party request, and the brand
 // font (Quicksand, matched to the logo lettering) always loads.
 import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
-import '@fontsource/quicksand/500.css';
 import '@fontsource/quicksand/600.css';
 import '@fontsource/quicksand/700.css';
+// Homepage display face (Version E, doc 70). Self-hosted like the others.
+import '@fontsource/barlow-semi-condensed/600.css';
+import '@fontsource/barlow-semi-condensed/700.css';
+import '@fontsource/barlow-semi-condensed/800.css';
 
 interface Props {
   title: string;
@@ -23,8 +25,10 @@ interface Props {
 }
 
 const { title, description = SITE.description, image = '/og-default.png', noindex = false } = Astro.props;
-// Home passes a full keyworded title; interior pages get a short brand suffix.
-const fullTitle = title.includes(SITE.shortName) ? title : `${title} | ${SITE.shortName}`;
+// Brand suffix only when it still fits in Google's ~60-char title slot
+// (doc 69 item 9). Long interior titles stand alone.
+const fullTitle =
+  title.includes(SITE.shortName) || title.length > 48 ? title : `${title} | ${SITE.shortName}`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 const ogImageUrl = new URL(image, Astro.site).href;
 
@@ -36,7 +40,9 @@ const founderSchema = {
   name: 'Jamie Atlas',
   // Title decided 2026-08-07: plain-English title sells, certification
   // credentials. CFT stays in hasCredential/knowsAbout, never as the title.
-  jobTitle: 'Pain & Performance Specialist',
+  // Title decided 2026-09-05 (brand pivot).
+  jobTitle: 'Personal Trainer & Rehab Specialist',
+  award: [...SITE.awards],
   url: `${SITE.url}/about`,
   hasCredential: SITE.credentials.map(c => ({
     '@type': 'EducationalOccupationalCredential',
@@ -46,27 +52,35 @@ const founderSchema = {
 
 const localBusinessSchema = {
   '@context': 'https://schema.org',
-  '@type': ['MedicalBusiness', 'LocalBusiness', 'PhysicalTherapy'],
+  // Personal-training business, matching the GBP primary category (doc 69 item 2).
+  // NOT a medical/PT entity: Jamie is not a Colorado-licensed physical therapist.
+  '@type': ['LocalBusiness', 'SportsActivityLocation'],
   '@id': SITE.url,
   name: SITE.name,
   // Legacy trading names — lets Google reconcile the old Bonza Bodies
   // citations and this business as a single entity.
   alternateName: [...SITE.alternateNames],
   url: SITE.url,
-  image: ogImageUrl,
-  telephone: SITE.contact.phone,
+  logo: new URL('/logo-blue.png', Astro.site).href,
+  image: [
+    new URL('/jamie-portrait.jpg', Astro.site).href,
+    new URL('/studio-coaching.jpg', Astro.site).href,
+    new URL('/studio-inside-1.jpg', Astro.site).href,
+  ],
+  telephone: SITE.contact.phoneTel,
   email: SITE.contact.email,
   description: SITE.description,
   priceRange: '$$',
-  medicalSpecialty: 'PhysicalTherapy',
+  award: [...SITE.awards],
   founder: founderSchema,
   employee: { '@id': `${SITE.url}/#jamie` },
-  availableService: SITE.services.map(s => ({
-    '@type': 'MedicalTherapy',
-    name: s,
+  makesOffer: SITE.services.map(s => ({
+    '@type': 'Offer',
+    itemOffered: { '@type': 'Service', name: s },
   })),
   hasMap: `https://www.google.com/maps/place/?q=place_id:${SITE.placeId}`,
-  sameAs: [SITE.social.instagramUrl, REVIEWS_URL, ...SITE.profiles],
+  // profiles[0] is the Maps URL, already carried by hasMap — don't repeat it.
+  sameAs: [SITE.social.instagramUrl, REVIEWS_URL, ...SITE.profiles.filter(p => !p.includes('google.com/maps'))],
   address: {
     '@type': 'PostalAddress',
     streetAddress: `${SITE.contact.address.street}, ${SITE.contact.address.level}`,
