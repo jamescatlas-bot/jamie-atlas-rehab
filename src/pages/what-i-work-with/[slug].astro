@@ -34,13 +34,14 @@ const related = condition.related
   .map(slug => CONDITIONS.find(c => c.slug === slug))
   .filter(Boolean);
 
-const medicalPageSchema = {
+const pageSchema = {
   '@context': 'https://schema.org',
-  '@type': 'MedicalWebPage',
+  '@type': 'WebPage',
   name: condition.metaTitle,
-  url: `${SITE.url}/what-we-treat/${condition.slug}`,
-  about: { '@type': condition.schemaType ?? 'MedicalCondition', name: condition.navTitle },
-  reviewedBy: { '@type': 'Person', name: 'Jamie Atlas' },
+  url: `${SITE.url}/what-i-work-with/${condition.slug}`,
+  about: { '@type': 'Thing', name: condition.navTitle },
+  author: { '@id': `${SITE.url}/#jamie` },
+  publisher: { '@id': SITE.url },
 };
 
 const faqSchema = {
@@ -55,13 +56,13 @@ const faqSchema = {
 ---
 
 <BaseLayout title={condition.metaTitle} description={condition.metaDescription}>
-  <script type="application/ld+json" set:html={JSON.stringify(medicalPageSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <section class="px-6 pt-16 pb-12 md:pt-24">
     <div class="max-w-3xl mx-auto">
       <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
-        <a href="/what-we-treat" class="no-underline">What we treat</a> · {condition.navTitle}
+        <a href="/what-i-work-with" class="no-underline">What I work with</a> · {condition.navTitle}
       </p>
       <h1 class="mb-8">{condition.title}</h1>
       <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed" set:html={condition.intro} />
@@ -69,12 +70,12 @@ const faqSchema = {
            (business-card QR jamieatlas.com/ready lands on post-surgical; future
            Google Ads land here too). One line of who-is-this. -->
       <p class="mt-6 text-base font-semibold text-[var(--color-primary)]">
-        Jamie Atlas — Pain &amp; Performance Specialist · 5× 5280 Top of the Town winner · 9NEWS Fitness Expert
+        Jamie Atlas, Personal Trainer &amp; Rehab Specialist · {SITE.awardBadge} · 9NEWS fitness expert
       </p>
       <!-- Early CTA: without this, a phone visitor's first Book button is
            several screens down. QR and ad traffic needs one near the top. -->
       <p class="mt-7">
-        <a href="/book" class="cta-button">Book a 30-minute consultation</a>
+        <a href="/book" class="cta-button">Book a 30-minute assessment · $57</a>
       </p>
     </div>
   </section>
@@ -179,13 +180,13 @@ const faqSchema = {
         <ul class="space-y-6">
           {related.map(r => (
             <li>
-              <a href={`/what-we-treat/${r.slug}`} class="font-serif text-xl">{r.title}</a>
+              <a href={`/what-i-work-with/${r.slug}`} class="font-serif text-xl">{r.title}</a>
               <p class="mt-2 text-[var(--color-text-muted)] leading-relaxed">{r.metaDescription}</p>
             </li>
           ))}
         </ul>
         <p class="mt-8">
-          <a href="/what-we-treat">See everything we treat</a>
+          <a href="/what-i-work-with">See everything I work with</a>
         </p>
       </div>
     </section>
@@ -195,9 +196,12 @@ const faqSchema = {
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="mb-6 text-white">Find out if this is your way out</h2>
       <p class="text-xl mb-10 opacity-95">
-        A 30-minute consultation — your story, my honest read on whether I can help, and a clear plan if I can.
+        A 30-minute assessment, $57: your story, my plain read on whether I can help, and one change you can measure before you leave.
       </p>
-      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="text-base mb-8 opacity-90">
+        Not in pain, just want to train hard without getting hurt? <a href="/personal-trainer-denver" class="text-white underline">That's most of what I do →</a>
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
       <p class="mt-8 text-sm opacity-80">
         Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
         · <a href="/how-it-works" class="text-white underline">See how it works</a>

@@ -1,0 +1,213 @@
+---
+// GLP-1 PAGE (doc 71 §4). Homepage door 3 lands here. Weight loss is allowed
+// in the body; the title is the non-geo phrase with Denver in the body/H2s.
+// Not medical advice: medication decisions stay with the prescriber. Drug
+// names are fine on a page; they never go in ad copy.
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StickyBook from '../../components/StickyBook.astro';
+import { SITE } from '../../data/site';
+import { REVIEWS, REVIEWS_URL } from '../../data/reviews';
+
+import hinge from '../../assets/home/door-muscle.jpg';
+import kettlebell from '../../assets/hub/online-kettlebell.jpg';
+
+const title = 'Strength Training on Ozempic, Wegovy or Mounjaro | Denver';
+const description =
+  'Losing weight on a GLP-1 in Denver? The job is keeping your muscle while the fat comes off. One-on-one strength training with nutrition coaching included, from a trainer with rehab expertise. $57 assessment.';
+
+const susan = REVIEWS.find(r => r.name === 'Susan Keicher');
+
+const faq = [
+  { q: 'Do I need to stop the medication to train?', a: 'No. Whether you take it, and for how long, is between you and your prescriber. What happens to your muscle while you take it is a training and food problem, and that is the part I handle.' },
+  { q: 'How much protein should I be eating?', a: 'It is individual, and appetite on a GLP-1 makes it harder than the number suggests. We set your target in the assessment and adjust it as the weight comes off. Nutrition coaching is included in every session.' },
+  { q: 'Can I do this on Zoom?', a: 'Yes. Online sessions are full 30- or 60-minute training sessions, same price, same program, with the food side handled the same way.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Training on GLP-1 medication',
+  serviceType: 'Personal training',
+  provider: { '@id': SITE.url },
+  areaServed: { '@type': 'City', name: 'Denver' },
+  url: `${SITE.url}/personal-trainer-denver/glp-1`,
+  offers: { '@type': 'Offer', name: '30-minute assessment (first visit)', price: '57', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout title={title} description={description} image="/studio-coaching.jpg">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+  <!-- HERO -->
+  <section class="px-6 pt-14 pb-10 md:pt-20">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-[1.1fr_.9fr] gap-10 items-center">
+      <div>
+        <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Training on a GLP-1</p>
+        <h1 class="mb-6">Lose the weight. Keep the muscle.</h1>
+        <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+          If you're on Ozempic, Wegovy, Mounjaro or Zepbound, the weight is coming off. Good. This page is about the
+          part your prescriber may not have had time to cover.
+        </p>
+        <p class="mt-7 flex flex-wrap items-center gap-4">
+          <a href="/book" class="cta-button text-lg">Book a 30-minute assessment</a>
+          <span class="text-[var(--color-text-muted)]">{SITE.pricing.firstVisit}, in the studio or on Zoom</span>
+        </p>
+        <p class="mt-5 text-sm font-semibold text-[var(--color-primary)]">
+          Personal training with nutrition coaching included · {SITE.contact.address.street}, downtown Denver
+        </p>
+      </div>
+      <Image
+        src={hinge}
+        alt="A client in his sixties hinging with a kettlebell during a strength session at Jamie Atlas's downtown Denver studio"
+        widths={[640, 1000]}
+        sizes="(min-width: 768px) 45vw, 100vw"
+        format="webp"
+        loading="eager"
+        fetchpriority="high"
+        class="rounded-xl border border-[var(--color-border)] w-full h-auto"
+      />
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="px-6 py-12 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
+      <p class="text-[var(--color-text)] font-semibold text-xl">A lot of what you lose isn't fat.</p>
+      <p>
+        In the trial that got semaglutide approved for weight loss, the sub-group who had body scans lost roughly 40%
+        of their total weight as lean tissue, not fat.<sup><a href="#source-1">1</a></sup> Lean tissue is muscle,
+        mostly. It's the stuff that gets you up a flight of stairs, off the floor, and down a ski run in March without
+        your knees filing a complaint.
+      </p>
+      <p>Nobody is telling you to stop the medication. I'm telling you what to do while you're on it.</p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">What we do about it</h2>
+      <p>Two things, both in the same hour, both included in the fee.</p>
+      <p>
+        <strong class="text-[var(--color-text)]">Strength training</strong>, two sessions a week, built around whatever
+        your body's history is. A meniscus, a disc, a shoulder that hasn't been the same since 2019. That history is
+        most of who I train, and it's why the program is built around the joint rather than around avoiding it.
+      </p>
+      <p>
+        <strong class="text-[var(--color-text)]">Nutrition coaching.</strong> Appetite on a GLP-1 drops hard, and the
+        first thing most people stop eating enough of is protein. I hold a Certificate IV in Nutrition Coaching and it
+        comes with every session. We work out what enough looks like for you, in food you'll eat, with no separate
+        appointment and no separate bill.
+      </p>
+      <p class="text-[var(--color-text)] font-semibold">
+        The goal is simple: when you step off the scale at the end, the number is lower and the person standing on it
+        is stronger.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">Who this is for</h2>
+      <p>
+        You're on a GLP-1, or about to start one, and you'd like the weight that comes off to be fat. You may be over
+        40, 50 or 60. You may have a knee or a back you've been managing for years. You may never have lifted a weight
+        in your life. All three are normal here.
+      </p>
+      <p>
+        This is not a weight-loss program and I am not your prescriber. Medication decisions stay with your doctor.
+        What happens to your muscle while you take it is a training and food problem, and that's mine.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">How a session runs</h2>
+      <p>
+        Your first visit is a 30-minute assessment, {SITE.pricing.firstVisit}, in the studio or on Zoom. I watch you
+        move, find the one change that helps most, and you feel it before you leave. Then I tell you plainly whether I
+        can help.
+      </p>
+      <p>
+        After that: 60 minutes or 30, one-on-one, in the studio at {SITE.contact.address.street} in downtown Denver or on
+        Zoom from wherever you are. {SITE.pricing.session60} for 60 minutes, {SITE.pricing.session30} for 30. Same price
+        either way.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">What people on a GLP-1 notice first</h2>
+      <p>
+        Energy in sessions is lower in the first weeks; we program for that. Strength comes back faster than you expect
+        once protein is sorted. Clothes fit differently before the scale moves much, because muscle is denser than fat.
+        Results vary from person to person.
+      </p>
+
+      {susan && (
+        <blockquote class="border-l-4 border-[var(--color-primary)] pl-5 py-1 text-base italic">
+          "{susan.text}"
+          <footer class="not-italic text-sm mt-2 font-semibold text-[var(--color-text)]">{susan.name}, <a href={REVIEWS_URL} rel="noopener">on Google</a></footer>
+        </blockquote>
+      )}
+
+      <p class="text-[var(--color-text)] font-semibold pt-4">
+        Bottom line: the medication takes weight off. Only training decides what kind.
+      </p>
+
+      <p id="source-1" class="text-sm pt-4">
+        1. Wilding JPH et al., "Once-Weekly Semaglutide in Adults with Overweight or Obesity," <i>New England Journal of
+        Medicine</i>, 2021 (STEP 1), DEXA sub-study.
+      </p>
+    </div>
+  </section>
+
+  <!-- ONLINE PHOTO + CTA -->
+  <section class="px-6 py-14">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-[.9fr_1.1fr] gap-10 items-center">
+      <Image
+        src={kettlebell}
+        alt="A client training with a kettlebell in her home office during a Zoom session with Jamie Atlas"
+        widths={[640, 1000]}
+        sizes="(min-width: 768px) 45vw, 100vw"
+        format="webp"
+        loading="lazy"
+        class="rounded-xl border border-[var(--color-border)] w-full h-auto"
+      />
+      <div>
+        <h2 class="mb-4">Studio or Zoom</h2>
+        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-6">
+          Same program, same price, same person handling the food side. Plenty of clients do a mix.
+          More on how training works here: <a href="/personal-trainer-denver">personal training in downtown Denver</a>,
+          and the <a href="/personal-trainer-denver#nutrition">nutrition line</a> that comes with it.
+        </p>
+        <a href="/book" class="cta-button text-lg">Book a 30-minute assessment</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Questions people on a GLP-1 ask</h2>
+      <div>
+        {faq.map((f, i) => (
+          <details open={i === 0} class="border-t border-[var(--color-border)] py-4 last:border-b">
+            <summary class="font-serif font-bold text-xl cursor-pointer">{f.q}</summary>
+            <p class="mt-3 text-lg text-[var(--color-text-muted)] leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Thirty minutes. One measurable change. Then you decide.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute assessment, {SITE.pricing.firstVisit}, in the studio or on Zoom. If it's not a fit I'll say so in the
+        first half hour, and I'll know who is.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
+      <p class="mt-8 text-sm opacity-80">
+        {SITE.contact.address.street}, {SITE.contact.address.level} · <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+      </p>
+    </div>
+  </section>
+
+  <StickyBook />
+</BaseLayout>

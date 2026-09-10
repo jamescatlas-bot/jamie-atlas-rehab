@@ -1,4 +1,4 @@
-// The five core condition pages under /what-we-treat/.
+// The five core condition pages under /what-i-work-with/.
 // Each page follows the format: H1 as outcome, H2s as questions, FAQ, CTA.
 
 export interface ConditionSection {
@@ -97,7 +97,7 @@ export const CONDITIONS: Condition[] = [
     slug: 'chronic-back-pain',
     navTitle: 'Chronic Back Pain',
     title: 'Chronic back pain isn’t a life sentence',
-    metaTitle: 'Chronic Back Pain Treatment in Denver',
+    metaTitle: 'Personal Training for Chronic Back Pain in Denver',
     metaDescription:
       'Cognitive Functional Therapy combined with Applied Functional Science for chronic low back pain in Denver. For when PT and injections haven’t worked.',
     intro:
@@ -122,7 +122,7 @@ export const CONDITIONS: Condition[] = [
       {
         heading: 'What’s the method?',
         paragraphs: [
-          'It is the thing that treats the whole web: <strong>Cognitive Functional Therapy combined with a method known as Applied Functional Science</strong> — a system that identifies when the symptom and the cause of the pain are in different places, and how to use the whole body to create a different outcome than traditional methods.',
+          'It is the thing that works on the whole web: <strong>Cognitive Functional Therapy combined with a method known as Applied Functional Science</strong>, a system that identifies when the symptom and the cause of the pain are in different places, and how to use the whole body to create a different outcome than traditional methods.',
           'And it is not fringe. In the 2023 RESTORE trial published in The Lancet, nearly 500 people with chronic low back pain were randomized to CFT or usual care. CFT produced large improvements in pain and disability that were still holding at twelve months, and at the three-year follow-up. Durability like that is rare in this research.',
           'What it looks like in the room is less dramatic than it sounds. We make sense of your pain story together — properly, not as a formality. We look at the whole body, not just the sore spot, to find where the problem is actually being driven from. Then we go back into the movements you have been avoiding, bending, lifting, sitting, whatever yours are, in doses your system can actually accept. Then we make you strong there, because that is what makes the change stay.',
         ],
@@ -156,8 +156,8 @@ export const CONDITIONS: Condition[] = [
       body:
         "Getting out of pain is the first half. Most people then discover the thing they actually wanted was to get back to something — the bike, the trail, the barbell, a full day on their feet without bracing for it. That rebuild is a different piece of work, and it's the part I've spent twenty years on.",
       links: [
-        { label: 'Post-surgical return-to-sport', slug: '/what-we-treat/post-surgical-return-to-sport' },
-        { label: 'Masters athlete injuries (40+)', slug: '/what-we-treat/masters-athlete-injuries' },
+        { label: 'Post-surgical return-to-sport', slug: '/what-i-work-with/post-surgical-return-to-sport' },
+        { label: 'Masters athlete injuries (40+)', slug: '/what-i-work-with/masters-athlete-injuries' },
       ],
     },
   },
@@ -165,7 +165,7 @@ export const CONDITIONS: Condition[] = [
     slug: 'sciatica',
     navTitle: 'Back Pain and Sciatica',
     title: 'Sciatica that hasn’t responded to the usual treatments',
-    metaTitle: 'Persistent Sciatica Treatment in Denver',
+    metaTitle: 'Training Through Persistent Sciatica in Denver',
     metaDescription:
       'Radicular leg pain that didn’t respond to chiropractic, epidurals, or short-course PT. A nervous-system-informed approach to persistent sciatica in Denver.',
     intro:
@@ -325,7 +325,7 @@ export const CONDITIONS: Condition[] = [
       },
       {
         q: 'Do I need a referral?',
-        a: 'No referral needed. Book a consultation directly — the first conversation establishes whether you’re a fit before you commit to anything.',
+        a: 'No referral needed. Book a 30-minute assessment directly. The first conversation establishes whether you’re a fit before you commit to anything.',
       },
     ],
     related: ['chronic-back-pain', 'sciatica'],
@@ -334,7 +334,7 @@ export const CONDITIONS: Condition[] = [
     slug: 'neck-pain',
     navTitle: 'Persistent Neck Pain',
     title: 'Neck pain that keeps coming back',
-    metaTitle: 'Neck Pain Treatment in Denver',
+    metaTitle: 'Personal Training for Neck Pain in Denver',
     metaDescription:
       'Persistent neck pain, stiffness and headaches that returned after massage, adjustments or short-course PT. A nervous-system-informed approach in Denver.',
     intro:
@@ -399,8 +399,8 @@ export const CONDITIONS: Condition[] = [
       body:
         "A neck that no longer hurts at rest is not the same as a neck that tolerates a long ride, an overhead session, or a full week at a desk. Building that tolerance is the second half of the job.",
       links: [
-        { label: 'Masters athlete injuries (40+)', slug: '/what-we-treat/masters-athlete-injuries' },
-        { label: 'Post-surgical return-to-sport', slug: '/what-we-treat/post-surgical-return-to-sport' },
+        { label: 'Masters athlete injuries (40+)', slug: '/what-i-work-with/masters-athlete-injuries' },
+        { label: 'Post-surgical return-to-sport', slug: '/what-i-work-with/post-surgical-return-to-sport' },
       ],
     },
   },
@@ -408,7 +408,7 @@ export const CONDITIONS: Condition[] = [
     slug: 'shoulder-pain',
     navTitle: 'Shoulder Pain',
     title: 'A shoulder that rest hasn’t fixed',
-    metaTitle: 'Shoulder Pain Treatment in Denver',
+    metaTitle: 'Personal Training for Shoulder Pain in Denver',
     metaDescription:
       'Rotator cuff pain, impingement and stiff shoulders that did not settle with rest or a cortisone shot. Graded loading and strength work in Denver.',
     intro:
@@ -474,8 +474,8 @@ export const CONDITIONS: Condition[] = [
       body:
         "Shoulders are where the gap between 'not painful' and 'actually reliable' is widest. Pressing, swimming, throwing and carrying all ask for capacity you don't get back by simply becoming pain-free — you get it back by building it.",
       links: [
-        { label: 'Masters athlete injuries (40+)', slug: '/what-we-treat/masters-athlete-injuries' },
-        { label: 'Post-surgical return-to-sport', slug: '/what-we-treat/post-surgical-return-to-sport' },
+        { label: 'Masters athlete injuries (40+)', slug: '/what-i-work-with/masters-athlete-injuries' },
+        { label: 'Post-surgical return-to-sport', slug: '/what-i-work-with/post-surgical-return-to-sport' },
       ],
     },
   },
@@ -483,7 +483,7 @@ export const CONDITIONS: Condition[] = [
     slug: 'knee-pain',
     navTitle: 'Knee Pain',
     title: 'A knee that hasn’t settled with rest',
-    metaTitle: 'Knee Pain Treatment in Denver',
+    metaTitle: 'Personal Training for Knee Pain in Denver',
     metaDescription:
       'Knee pain, arthritis and meniscus problems that did not settle with rest or an injection. Progressive strength work for Denver adults who want to keep moving.',
     intro:
@@ -549,8 +549,8 @@ export const CONDITIONS: Condition[] = [
       body:
         "A quiet knee on the flat is not a knee you trust on a descent, in a squat rack, or on the last day of a ski week. Closing that gap is the work most people actually came for, whether or not they'd have said so at the start.",
       links: [
-        { label: 'Post-surgical return-to-sport', slug: '/what-we-treat/post-surgical-return-to-sport' },
-        { label: 'Masters athlete injuries (40+)', slug: '/what-we-treat/masters-athlete-injuries' },
+        { label: 'Post-surgical return-to-sport', slug: '/what-i-work-with/post-surgical-return-to-sport' },
+        { label: 'Masters athlete injuries (40+)', slug: '/what-i-work-with/masters-athlete-injuries' },
       ],
     },
   },

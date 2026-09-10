@@ -1,0 +1,268 @@
+---
+// TRAINING HUB (doc 67 §4 as amended by doc 71 §5). Nav "Training"; the
+// homepage exit "I'll have a look around myself" lands here. The one page
+// that says, in plain words, what a $200 personal trainer is for.
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StickyBook from '../../components/StickyBook.astro';
+import { SITE } from '../../data/site';
+import { CONDITIONS } from '../../data/conditions';
+import { REVIEWS, GOOGLE_RATING, REVIEWS_URL } from '../../data/reviews';
+import { TESTIMONIAL_VIDEOS } from '../../data/videos';
+
+import heroReformer from '../../assets/hub/hero-reformer.jpg';
+import onlineRow from '../../assets/hub/online-row.jpg';
+import studioInside from '../../assets/home/studio-inside.jpg';
+
+const title = 'Personal Trainer in Denver, 1800 Glenarm | Jamie Atlas';
+const description =
+  'One-on-one personal training in downtown Denver for adults over 40 with a history: back, knee, shoulder, neck. Assessment first, then real load. $57 first visit. Nutrition coaching included. Studio or Zoom.';
+
+const clipCount = TESTIMONIAL_VIDEOS.length;
+const marcus = REVIEWS.find(r => r.name === 'Marcus Kret');
+const workWith = CONDITIONS.filter(c => c.slug !== 'cognitive-functional-therapy');
+
+const faq = [
+  { q: 'How much does personal training cost?', a: SITE.pricing.line },
+  { q: 'What happens in the first session?', a: 'A 30-minute assessment. I watch you move, find the one change that helps most, and you feel it before you leave. Then I tell you plainly whether I can help, and if I can\'t, who can.' },
+  { q: 'Do I need a referral or insurance?', a: 'No. Cash pay, no forms. I\'m a personal trainer with rehab training, so nothing here goes through insurance.' },
+  { q: 'Can I train online?', a: 'Yes. Online sessions are full 30- or 60-minute training sessions on Zoom, same price, same program. Some clients train in the studio one day and from a hotel gym the next.' },
+  { q: 'Where do I park?', a: `${SITE.parking} RTD light rail stops at 18th and California, two minutes away.` },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Personal training',
+  serviceType: 'Personal training',
+  provider: { '@id': SITE.url },
+  areaServed: { '@type': 'City', name: 'Denver' },
+  url: `${SITE.url}/personal-trainer-denver`,
+  offers: [
+    { '@type': 'Offer', name: '30-minute assessment (first visit)', price: '57', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: '60-minute personal training session', price: '200', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: '30-minute personal training session', price: '110', priceCurrency: 'USD' },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} image="/studio-coaching.jpg">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+  <!-- HERO -->
+  <section class="px-6 pt-14 pb-10 md:pt-20">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-[1.1fr_.9fr] gap-10 items-center">
+      <div>
+        <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Training</p>
+        <h1 class="mb-6">Personal training in downtown Denver, for people whose bodies have a history</h1>
+        <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+          Most personal trainers in Denver charge $80 to $120 an hour and are good at making you tired. I charge
+          {SITE.pricing.session60} and I'm good at something else: knowing what your back, knee or shoulder will take
+          before I load it.
+        </p>
+        <p class="text-lg md:text-xl text-[var(--color-text)] font-semibold leading-relaxed mt-4">
+          That's the whole difference. Everything else on this page is detail.
+        </p>
+        <p class="mt-7 flex flex-wrap items-center gap-4">
+          <a href="/book" class="cta-button text-lg">Book a 30-minute assessment</a>
+          <span class="text-[var(--color-text-muted)]">{SITE.pricing.firstVisit}, in the studio or on Zoom</span>
+        </p>
+        <p class="mt-5 text-sm font-semibold text-[var(--color-primary)]">
+          {SITE.awardBadge} · 9NEWS fitness expert · 25 years training Denver
+        </p>
+      </div>
+      <Image
+        src={heroReformer}
+        alt="Jamie Atlas, personal trainer, on the reformer at his downtown Denver studio, 1800 Glenarm Place"
+        widths={[640, 1000, 1400]}
+        sizes="(min-width: 768px) 45vw, 100vw"
+        format="webp"
+        loading="eager"
+        fetchpriority="high"
+        class="rounded-xl border border-[var(--color-border)] w-full h-auto"
+      />
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="px-6 py-12 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2">Who this is for</h2>
+      <p>
+        You're somewhere past 40. You ski, or golf, or run, or lift, or you'd like to again. Somewhere in your history
+        there's a disc, a meniscus, a rotator cuff, a surgery, or just a back that goes when it feels like it.
+      </p>
+      <p>You've been careful. Careful has made you weaker.</p>
+      <p class="text-[var(--color-text)] font-semibold">
+        The middle path, loading a body enough to build it without waking the old injury, is a skill. Most gyms never
+        had to learn it.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">How a session runs</h2>
+      <p>
+        Your first visit is a 30-minute assessment. I watch you move. I find the one thing that changes your pain or
+        your range the most, and you feel that change before you leave. Then I tell you plainly whether I can help, and
+        if I can't, who can.
+      </p>
+      <p>
+        After that, sessions are 60 minutes, or 30 when that's what the work needs. We warm up around the thing you're
+        worried about, we train hard everywhere else, and every few weeks we go back and test whether the worried thing
+        is still worth worrying about.
+      </p>
+      <p>It usually isn't.</p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">What's different</h2>
+      <p>
+        I'm a personal trainer with two extra credentials most trainers don't carry. Cognitive Functional Therapy,
+        trained under Peter O'Sullivan, is how I read what your pain system will accept. Applied Functional Science, from
+        the Gray Institute, is how I work out where the load should go. Whoah, that got technical. In plain words: I
+        know when to push and when the push is the problem.
+      </p>
+      <p>
+        {clipCount} clients have let me film their sessions. Every one of them rates their pain before and after on
+        camera. Results vary from person to person. You can watch all {clipCount} on the
+        <a href="/testimonials">testimonials page</a>.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">The price, in one line</h2>
+      <p class="text-[var(--color-text)] font-semibold">{SITE.pricing.line} Cash-pay, no referral, no insurance.</p>
+
+      <h2 id="nutrition" class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">Nutrition is in the fee</h2>
+      <p>
+        I hold a Certificate IV in Nutrition Coaching, and it comes with every program. There's no separate nutrition
+        appointment and no separate bill. If you're on a GLP-1 medication (Ozempic, Wegovy, Mounjaro), the job is
+        keeping your muscle while the weight comes off, and that's a training and food problem at the same time.
+        <a href="/personal-trainer-denver/glp-1">More on training on a GLP-1 →</a>
+      </p>
+
+      <h2 id="after-injury" class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">After an injury or surgery</h2>
+      <p>
+        Rehab ended when your visits ran out, or when you could climb stairs. It didn't end when you were ready to ski.
+        That gap between "cleared" and "confident" is a training problem, and it's most of what I do.
+        <a href="/this-is-you/cleared-but-not-ready">Cleared but not ready? Start here →</a>
+      </p>
+      {marcus && (
+        <blockquote class="border-l-4 border-[var(--color-primary)] pl-5 py-1 text-base italic">
+          "{marcus.text}"
+          <footer class="not-italic text-sm mt-2 font-semibold text-[var(--color-text)]">{marcus.name}, <a href={REVIEWS_URL} rel="noopener">on Google</a></footer>
+        </blockquote>
+      )}
+    </div>
+  </section>
+
+  <!-- ONLINE -->
+  <section class="px-6 py-14">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-[1fr_.8fr] gap-10 items-center">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2">Studio or Zoom, or both</h2>
+        <p>
+          Online sessions are full 30- or 60-minute training sessions on Zoom, same price, same program. Some clients
+          train in the studio on Tuesdays and from a hotel gym on Thursdays.
+        </p>
+        <p>
+          <a href="/book" class="cta-button">Book a 30-minute assessment</a>
+        </p>
+      </div>
+      <Image
+        src={onlineRow}
+        alt="A client rowing in his home gym during a Zoom personal training session with Jamie Atlas"
+        widths={[480, 900]}
+        sizes="(min-width: 768px) 40vw, 100vw"
+        format="webp"
+        loading="lazy"
+        class="rounded-xl border border-[var(--color-border)] w-full max-w-sm mx-auto h-auto"
+      />
+    </div>
+  </section>
+
+  <!-- WHAT I WORK WITH -->
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="mb-3">What I work with</h2>
+      <p class="text-lg text-[var(--color-text-muted)] mb-8 max-w-3xl">
+        The body parts that bring most people in, one page each: what's usually going on, what we do about it, and the
+        client videos for that joint.
+      </p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {workWith.map(c => (
+          <a href={`/what-i-work-with/${c.slug}`} class="block p-5 border border-[var(--color-border)] rounded-xl bg-[var(--color-background)] hover:border-[var(--color-primary)] hover:shadow-sm transition-all no-underline">
+            <span class="block font-serif font-bold text-[var(--color-primary)] text-lg">{c.navTitle}</span>
+          </a>
+        ))}
+      </div>
+      <p class="mt-6"><a href="/what-i-work-with">Everything I work with →</a> · <a href="/for">By activity: skiers, golfers, runners and more →</a></p>
+    </div>
+  </section>
+
+  <!-- GETTING HERE -->
+  <section class="px-6 py-14">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-3">Getting here</h2>
+        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-4">
+          The studio is at {SITE.contact.address.street}, {SITE.contact.address.level.toLowerCase()}, Denver {SITE.contact.address.zip}. On foot from where downtown Denver works:
+        </p>
+        <ul class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+          {SITE.walkTimes.map(w => (
+            <li class="flex justify-between gap-4 py-2.5 text-base"><span class="text-[var(--color-text-muted)]">{w.from}</span><b class="whitespace-nowrap">{w.time}</b></li>
+          ))}
+        </ul>
+        <p class="text-base text-[var(--color-text-muted)] leading-relaxed mt-4">
+          RTD light rail stops at 18th and California, two minutes away. {SITE.parking}
+          <a href="/studio">See the studio and how to find the door →</a>
+        </p>
+      </div>
+      <a href="/studio" class="block" aria-label="See the studio">
+        <Image
+          src={studioInside}
+          alt="The mural wall and training floor at Jamie Atlas Personal Training & Rehabilitation, 1800 Glenarm Place, downtown Denver"
+          widths={[640, 1000]}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          format="webp"
+          loading="lazy"
+          class="rounded-xl border border-[var(--color-border)] w-full h-auto"
+        />
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Things people ask before they book</h2>
+      <div>
+        {faq.map((f, i) => (
+          <details open={i === 0} class="border-t border-[var(--color-border)] py-4 last:border-b">
+            <summary class="font-serif font-bold text-xl cursor-pointer">{f.q}</summary>
+            <p class="mt-3 text-lg text-[var(--color-text-muted)] leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM LINE + CTA -->
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Bottom line</h2>
+      <p class="text-xl mb-10 opacity-95">
+        If a trainer has ever told you to "just avoid that movement," come and find out what happens when someone
+        doesn't.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
+      <p class="mt-8 text-sm opacity-80">
+        {SITE.pricing.firstVisit}, in the studio or on Zoom · <a href="/for/skiers" class="text-white underline">Ski conditioning</a> · <a href="/for/desk-workers" class="text-white underline">Desk workers</a> · <a href="/personal-trainer-denver/glp-1" class="text-white underline">Training on a GLP-1</a>
+      </p>
+      <p class="mt-4 text-sm opacity-80">Rated {GOOGLE_RATING.stars.toFixed(1)} on Google, {GOOGLE_RATING.count} reviews. <a href={REVIEWS_URL} rel="noopener" class="text-white underline">See them all</a>.</p>
+    </div>
+  </section>
+
+  <StickyBook />
+</BaseLayout>

@@ -1,12 +1,33 @@
 ---
+// ABOUT: the letter (artifact "Three Homepages", Version C) inside Version E's
+// frame. Decided by Jamie 9 Sep 2026 (doc 71 §6). The homepage's "Heard of
+// Jamie? Tell me more before I decide" exit lands here, so the page is a
+// piece of writing, not a bio. Paper column for the letter; E's proof band and
+// final CTA close it out. Every line was read and owned by Jamie.
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BannerSection from '../components/BannerSection.astro';
+import StickyBook from '../components/StickyBook.astro';
 import { SITE } from '../data/site';
+import { REVIEWS, GOOGLE_RATING, REVIEWS_URL } from '../data/reviews';
+import '@fontsource/source-serif-4/400.css';
+import '@fontsource/source-serif-4/400-italic.css';
+import '@fontsource/source-serif-4/600.css';
+
+import assess from '../assets/home/door-hurt.jpg';
+import hinge from '../assets/home/door-muscle.jpg';
+import portraitMural from '../assets/about/portrait-mural.jpg';
+
+const title = 'About Jamie Atlas, Personal Trainer & Rehab Specialist, Denver';
+const description =
+  "Named 5280's Best Personal Trainer in Denver three times. BSc Neuroscience (ANU), CFT, FAFS, NSCA-CSCS, NASM-CPT, Cert IV Nutrition Coaching. 25 years training Denver, in one basement on Glenarm Place since 2010.";
+
+// Two pull-quotes: Marcus (return to sport) and Susan (strength over 60).
+const pulls = REVIEWS.filter(r => r.name === 'Marcus Kret' || r.name === 'Susan Keicher');
 
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  '@id': `${SITE.url}/#jamie`, // same node as BaseLayout's founder — one entity
+  '@id': `${SITE.url}/#jamie`, // same node as BaseLayout's founder, one entity
   name: 'Jamie Atlas',
   jobTitle: 'Personal Trainer & Rehab Specialist',
   award: [...SITE.awards],
@@ -14,6 +35,7 @@ const personSchema = {
   url: `${SITE.url}/about`,
   email: SITE.contact.email,
   telephone: SITE.contact.phone,
+  image: new URL('/jamie-portrait.jpg', Astro.site).href,
   sameAs: [SITE.social.instagramUrl],
   knowsAbout: ['Personal training', 'Strength and conditioning', 'Return-to-sport training', 'Cognitive Functional Therapy', 'Applied Functional Science', 'Nutrition coaching'],
   hasCredential: SITE.credentials.map(c => ({
@@ -23,109 +45,263 @@ const personSchema = {
 };
 ---
 
-<BaseLayout
-  title="About Jamie Atlas"
-  description="Jamie Atlas, Pain & Performance Specialist in Denver: BSc Neuroscience (Australian National University), twenty years of coaching, certified in Cognitive Functional Therapy and Applied Functional Science (FAFS, Gray Institute). The story behind the method."
->
+<BaseLayout title={title} description={description} image="/jamie-portrait.jpg">
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
-  <section class="px-6 pt-16 pb-12 md:pt-24">
-    <div class="max-w-3xl mx-auto">
-      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">About</p>
-      <h1 class="mb-5">Twenty years of learning why bodies hurt — and how they heal</h1>
-      <p class="text-xl font-semibold text-[var(--color-text)] mb-8">
-        Jamie Atlas, Pain &amp; Performance Specialist — certified in Cognitive Functional Therapy and
-        Applied Functional Science (FAFS, Gray Institute)
-      </p>
-    </div>
-  </section>
+  <div class="about-e">
 
-  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
-  <BannerSection />
+    <!-- E-frame strip: answers the exit link that brought most people here -->
+    <section class="strip">
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <p class="who"><b>Jamie Atlas</b> · Personal Trainer &amp; Rehab Specialist · {SITE.contact.address.street}, downtown Denver</p>
+        <p class="greet">You asked to hear more before deciding. Fair.</p>
+      </div>
+    </section>
 
-  <section class="px-6 pb-20">
-    <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
-      <img
-        src="/jamie-portrait.jpg"
-        alt="Jamie Atlas, Pain & Performance Specialist and strength coach in Denver"
-        width="900"
-        height="900"
-        loading="lazy"
-        class="rounded-xl border border-[var(--color-border)] w-44 md:w-56 float-right ml-6 mb-4"
-      />
-      <p>
-        I grew up in Australia and studied neuroscience at the Australian National University, because I wanted to
-        know how the brain drives the body. Then I spent twenty years finding out how much of that survives contact
-        with an actual person in actual pain.
-      </p>
-      <p>
-        <strong class="text-[var(--color-text)]">Not as much as the textbook implied.</strong> I started as an
-        athletic trainer and worked with everyone — elite athletes, and people walking in for the first time six
-        weeks after an operation — and progressed, credential by credential, into what I am now: a pain and
-        performance specialist. Because I kept hitting the same wall from a different angle every time: someone who
-        had been treated. Discharged from PT. Cleared by a surgeon. Adjusted, injected, imaged. Still in pain, still
-        wary of moving, still nowhere near the life they came in wanting.
-      </p>
-      <p>
-        Nobody had done anything wrong. They had each pulled on one thread of something that turned out to be a web.
-      </p>
-      <p>
-        That wall is what took me to
-        <strong class="text-[var(--color-text)]">Cognitive Functional Therapy</strong> — the approach validated in
-        the 2023 Lancet RESTORE trial and still holding at the three-year follow-up. CFT treats pain as what the
-        science says it is: a protective output of the nervous system, shaped by load, belief, fear, sleep and
-        stress. Not a readout of tissue damage. Change those inputs in the right order and most persistent pain
-        changes with them.
-      </p>
-      <p>
-        I combine it with <strong class="text-[var(--color-text)]">Applied Functional Science</strong> — a system
-        that identifies when the symptom and the cause of the pain are in different places, and how to use the
-        whole body to create a different outcome than traditional methods. The knee that hurts is often paying for
-        a hip or an ankle that stopped doing its job; AFS is how we find that, and CFT is how we change it.
-      </p>
-      <p>
-        The combination is the part that's rare. <strong class="text-[var(--color-text)]">Most CFT practitioners
-        aren't strength coaches, and most strength coaches have never heard of CFT.</strong> I do both, in the same
-        room, in the same hour — calm the system down, then build the body back up, progressively and specifically
-        for what <em>you</em> want back. Nothing gets handed between two providers who never speak to each other.
-      </p>
-      <p>
-        The studio is at {SITE.contact.address.street} in downtown Denver. One-on-one, 45–60 minutes, because that
-        is honestly what the work takes.
-      </p>
-    </div>
-  </section>
+    <!-- THE LETTER -->
+    <article class="paper">
+      <div class="col">
+        <h1>For about fifteen years I told people to work around the sore bit. I'd like that on the record before we go any further.</h1>
 
-  <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="mb-8">Credentials</h2>
-      <ul class="space-y-4">
-        {SITE.credentials.map(c => (
-          <li class="flex items-start gap-4">
-            <span class="text-[var(--color-primary)] text-2xl leading-none mt-1 flex-shrink-0">✓</span>
-            <span class="text-lg">{c.name}</span>
-          </li>
-        ))}
-      </ul>
-      <h2 class="mt-14 mb-8">Seen in &amp; contributed to</h2>
-      <ul class="space-y-4">
-        {SITE.media.map(m => (
-          <li class="flex items-start gap-4">
-            <span class="text-[var(--color-primary)] text-2xl leading-none mt-1 flex-shrink-0">✓</span>
-            <span class="text-lg">{m.label}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+        <p class="lead">
+          Every personal trainer in Denver will happily train around your bad knee. I did it too, and I had slides.
+          Then I spent the better part of a decade learning why the knee keeps coming back into the conversation, and
+          the short version is this: the knee is usually the messenger.
+        </p>
 
-  <section class="px-6 py-20">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="mb-6">Want to know if this is the right fit?</h2>
-      <p class="text-lg text-[var(--color-text-muted)] mb-8">
-        A 30-minute Discovery Session ($57, normally $97) gets you an honest answer.
-      </p>
-      <a href="/book" class="cta-button text-lg">Book a consultation</a>
+        <p class="line">Where it hurts and why it hurts are often two different places.</p>
+
+        <p>
+          So here is what I do now, in a basement on Glenarm Place, one person at a time. I train you for the thing you
+          want to do. Ski, golf, run, lift, carry a grandchild up the stairs. And I keep one eye on the joint you're
+          worried about the whole time. Nutrition coaching comes with it. So does the rehab work. Nobody sends you down
+          the hall to somebody else.
+        </p>
+
+        <p class="cred">
+          <span><b>{SITE.awardBadge}</b></span>
+          <span>9NEWS fitness expert</span>
+          <span>25 years training Denver</span>
+          <span>{GOOGLE_RATING.stars.toFixed(1)} on Google, {GOOGLE_RATING.count} reviews</span>
+        </p>
+
+        <figure>
+          <Image src={assess} alt="Jamie Atlas, personal trainer, kneeling to assess a client's ankle on a balance board at his downtown Denver studio" widths={[640, 1100]} sizes="(min-width: 700px) 640px, 100vw" format="webp" loading="lazy" />
+          <figcaption><i>This is me looking at an ankle as if it owes me money. It usually does.</i></figcaption>
+        </figure>
+
+        <h2>Three kinds of people walk in here</h2>
+        <p>Most of them have already been somewhere else. Often several somewheres. See if one of these is you.</p>
+
+        <div class="doors">
+          <div class="door lead-door">
+            <b>You want to get better at your sport without getting hurt again.</b>
+            <p>This is most of what I do. Training built around the joint, with someone watching it. <a href="/this-is-you/worried-about-reinjury">Read more →</a></p>
+          </div>
+          <div class="door">
+            <b>You're hurt and you want to get better.</b>
+            <p>The PT, the chiro, the injections. The system sometimes lets people down, and where it drops off is where we begin. <a href="/this-is-you/still-in-pain">Read more →</a></p>
+          </div>
+          <div class="door">
+            <b>You want to lose the weight and keep the muscle.</b>
+            <p>On a GLP-1 or not. Strength first, so what comes off is fat and what stays is you. <a href="/personal-trainer-denver/glp-1">Read more →</a></p>
+          </div>
+        </div>
+
+        <figure class="narrow">
+          <Image src={hinge} alt="A client in his sixties hinging with a kettlebell in front of the mural at Jamie Atlas's Denver studio" widths={[420, 840]} sizes="420px" format="webp" loading="lazy" />
+          <figcaption><i>Sixty is a perfectly good age to get strong. I have the clients to prove it.</i></figcaption>
+        </figure>
+
+        <h2>What I'm bad at</h2>
+        <p>
+          Here's a question nobody asks a trainer and everybody should: what are you bad at? For years I'd have
+          answered that with something slippery. "Well, it depends on the person!" True, and also the single most
+          useless sentence in my industry.
+        </p>
+        <p>
+          So. The unflattering half. This is not urgent care and it is not a diagnosis; a small number of things that
+          hurt need a doctor before they need me, and I'll say so in the first thirty minutes. If what you want is
+          hands on you for an hour, I'm the wrong room, and I can name three people who are the right one. And if you
+          want someone to count reps at you, the ab roller did that for $19.95 in 1994 and it didn't work then either.
+        </p>
+
+        <h2>The first thirty minutes</h2>
+        <p>
+          An assessment, {SITE.pricing.firstVisit}, in the studio or on Zoom. Your story, a look at how you move, one
+          change you can measure before you leave, and my plain read on whether I can help. Ongoing sessions are
+          {SITE.pricing.session60} for sixty minutes or {SITE.pricing.session30} for thirty, one-on-one, every time.
+          The 6:30am and 5:15pm slots are open most weeks.
+        </p>
+
+        <div class="pull">
+          {pulls.map(r => (
+            <blockquote>
+              <span class="stars" aria-label="Five stars">★★★★★</span>
+              "{r.text}"
+              <footer>{r.name}, <a href={REVIEWS_URL} rel="noopener">on Google</a></footer>
+            </blockquote>
+          ))}
+        </div>
+
+        <p>
+          5280 magazine has handed this basement six 5280 Top of the Town awards and the Denver A-List two more, which
+          is eight more awards than I've won for anything else.
+        </p>
+        <p>
+          The rest of the CV, briefly: BSc Neuroscience from the Australian National University, Cognitive Functional
+          Therapy, Applied Functional Science at the Gray Institute, NSCA-CSCS, NASM-CPT, a Certificate IV in Nutrition
+          Coaching, the 9NEWS fitness expert, and 25 years training Denver, including a few UFC, NFL, NBA and NHL
+          athletes I'm not allowed to name and a great many Coloradans who just wanted their knee back.
+        </p>
+
+        <figure>
+          <Image src={portraitMural} alt="Jamie Atlas, personal trainer and rehab specialist, arms crossed in front of the mural at his downtown Denver studio" widths={[640, 1100, 1600]} sizes="(min-width: 700px) 640px, 100vw" format="webp" loading="lazy" />
+          <figcaption><i>Pictured: the reason the pseudonyms in my case studies never hold up.</i></figcaption>
+        </figure>
+
+        <p>
+          Read that back and it's fairly obvious, isn't it. The sore bit is where the argument ends up, rarely where it
+          starts. Which makes it a bit odd that the whole industry trains around it, and odder still that I did too,
+          for fifteen years, with confidence.
+        </p>
+
+        <p class="line joke">So there you have it.</p>
+
+        <hr class="rule" />
+
+        <div class="cta">
+          <p>Thirty-minute assessment, {SITE.pricing.firstVisit}. Your story, my read on whether I can help, and if I can't, the name of who can.</p>
+          <a href="/book" class="cta-button">Book a 30-minute assessment</a>
+          <small>{SITE.contact.address.street}, {SITE.contact.address.level}, {SITE.contact.address.city} {SITE.contact.address.zip} · <a href={`tel:${SITE.contact.phoneTel}`}>{SITE.contact.phone}</a> · or on Zoom</small>
+        </div>
+
+        <p class="sig">Yours in health,<br />Jamie Atlas</p>
+
+        <p class="ps"><b>PS</b> The 6:30am crowd are a particular kind of person and I like them very much.</p>
+        <p class="ps"><b>PPS</b> If you're on Ozempic, Wegovy or Mounjaro and worried about losing muscle along with the weight, there's a page for exactly that. <a href="/personal-trainer-denver/glp-1">Here it is.</a></p>
+      </div>
+    </article>
+
+    <!-- CREDENTIALS + MEDIA -->
+    <section class="lists">
+      <div class="max-w-3xl mx-auto px-5 sm:px-6 py-12 sm:py-14 grid md:grid-cols-2 gap-10">
+        <div>
+          <h3>Credentials</h3>
+          <ul>
+            {SITE.credentials.map(c => <li>{c.name}</li>)}
+          </ul>
+        </div>
+        <div>
+          <h3>Seen in &amp; contributed to</h3>
+          <ul>
+            {SITE.media.map(m => <li>{m.label}</li>)}
+          </ul>
+          <p class="mt-4 text-sm"><a href="/press">Press and the award years, in full →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- E PROOF BAND -->
+    <div class="proof">
+      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4">
+        <div><b>6×</b><span>5280 Top of the Town winner</span></div>
+        <div><b>2×</b><span>Denver A-List winner</span></div>
+        <div><b>9NEWS</b><span>The station's fitness expert · 25 years training Denver</span></div>
+        <div><b>{GOOGLE_RATING.stars.toFixed(1)}</b><span>Google rating, {GOOGLE_RATING.count} reviews, all verbatim</span></div>
+      </div>
     </div>
-  </section>
+
+    <!-- E FINAL CTA -->
+    <section class="final">
+      <div class="max-w-3xl mx-auto px-5 sm:px-6 py-16 sm:py-20 text-center">
+        <h2>Thirty minutes. One measurable change. Then you decide.</h2>
+        <p>
+          A 30-minute assessment, {SITE.pricing.firstVisit}, in the studio or on Zoom. If it's not a fit I'll say so in the first half hour,
+          and I'll know who is.
+        </p>
+        <a href="/book" class="cta-button text-lg">Book a 30-minute assessment</a>
+        <p class="nap">
+          {SITE.contact.address.street}, {SITE.contact.address.level} · <a href={`tel:${SITE.contact.phoneTel}`}>{SITE.contact.phone}</a> · Mon to Fri {SITE.hours.weekdays} · Sat {SITE.hours.saturday}
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <StickyBook />
 </BaseLayout>
+
+<style>
+  .about-e {
+    --navy: #0b1620;
+    --deep: #0b2e45;
+    --blue: #0079c2;
+    --sky: #7cc4f0;
+    --orange: #f5921e;
+    --red: #b91d2b;
+    --paper: #fbfbf9;
+    --ink: #1f2933;
+  }
+
+  /* strip */
+  .strip { background: var(--navy); color: #fff; }
+  .who { font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--sky); margin-bottom: 10px; }
+  .who b { color: #fff; }
+  .greet { font-family: 'Barlow Semi Condensed', 'Inter', sans-serif; font-weight: 700; font-size: clamp(28px, 4vw, 44px); line-height: 1; color: #fff; text-wrap: balance; margin: 0; }
+
+  /* the letter */
+  .paper { background: var(--paper); color: var(--ink); font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif; font-size: 19px; line-height: 1.62; padding: 48px 20px 40px; }
+  .paper .col { max-width: 640px; margin: 0 auto; }
+  .paper h1 { font-family: 'Quicksand', 'Inter', sans-serif; font-weight: 700; font-size: clamp(28px, 4vw, 42px); line-height: 1.18; color: var(--deep); margin: 0 0 26px; text-wrap: balance; }
+  .paper h2 { font-family: 'Quicksand', 'Inter', sans-serif; font-weight: 700; font-size: clamp(20px, 2.6vw, 26px); letter-spacing: .06em; text-transform: uppercase; color: var(--deep); margin: 44px 0 16px; }
+  .paper p { margin: 0 0 20px; }
+  .paper p.lead { font-size: 21px; }
+  .paper .line { font-family: 'Quicksand', 'Inter', sans-serif; font-weight: 700; font-size: clamp(22px, 3vw, 30px); line-height: 1.25; color: var(--blue); margin: 36px 0; text-wrap: balance; }
+  .paper .line.joke { color: var(--deep); font-weight: 600; font-style: italic; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(20px, 2.6vw, 25px); }
+  .paper figure { margin: 36px 0; }
+  .paper figure.narrow { max-width: 420px; }
+  .paper figure img { border-radius: 6px; width: 100%; height: auto; }
+  .paper figcaption { font-family: 'Inter', sans-serif; font-size: 14px; color: #5b6b7a; margin-top: 10px; line-height: 1.5; }
+  .paper figcaption i { color: var(--deep); font-style: italic; font-family: 'Source Serif 4', Georgia, serif; font-size: 16px; }
+  .paper .cred { font-family: 'Inter', sans-serif; font-size: 14.5px; color: #3d4b58; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 8px 0 8px; }
+  .paper .cred b { color: var(--red); }
+  .paper .doors { display: grid; gap: 14px; margin: 8px 0 12px; }
+  .paper .door { border-left: 3px solid var(--blue); padding: 6px 0 6px 18px; }
+  .paper .door.lead-door { border-left-color: var(--orange); }
+  .paper .door b { font-family: 'Quicksand', 'Inter', sans-serif; font-weight: 700; color: var(--deep); display: block; font-size: 20px; margin-bottom: 4px; }
+  .paper .door p { margin: 0; font-size: 18px; }
+  .paper .door a { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: var(--blue); text-decoration: none; }
+  .paper .pull { border-top: 1px solid #d9e1e8; border-bottom: 1px solid #d9e1e8; padding: 22px 0 8px; margin: 36px 0; }
+  .paper .pull blockquote { margin: 0 0 14px; font-size: 18px; font-style: italic; }
+  .paper .pull blockquote footer { font-family: 'Inter', sans-serif; font-style: normal; font-size: 13.5px; color: #5b6b7a; margin-top: 4px; }
+  .paper .stars { color: var(--orange); letter-spacing: 2px; font-size: 14px; font-style: normal; font-family: 'Inter', sans-serif; display: block; margin-bottom: 4px; }
+  .paper .rule { border: 0; border-top: 2px solid var(--deep); width: 88px; margin: 40px 0 24px; }
+  .paper .cta { font-family: 'Inter', sans-serif; background: #ecf6fd; border-radius: 10px; padding: 22px 24px; margin-top: 8px; }
+  .paper .cta p { font-size: 16.5px; margin-bottom: 14px; color: var(--ink); }
+  .paper .cta small { display: block; color: #5b6b7a; font-size: 13.5px; margin-top: 12px; }
+  .paper .sig { font-family: 'Quicksand', 'Inter', sans-serif; font-weight: 700; color: var(--deep); font-size: 20px; margin-top: 30px; }
+  .paper .ps { font-size: 17px; color: #3d4b58; }
+  .paper .ps b { font-family: 'Inter', sans-serif; font-size: 13px; letter-spacing: .08em; color: var(--blue); margin-right: 8px; }
+  @media (max-width: 640px) { .paper { font-size: 17.5px; } .paper p.lead { font-size: 19px; } }
+
+  /* credentials */
+  .lists { background: #fff; border-top: 1px solid #e1e8ee; }
+  .lists h3 { font-family: 'Quicksand', 'Inter', sans-serif; font-weight: 700; font-size: 20px; color: var(--deep); margin-bottom: 12px; }
+  .lists ul { list-style: none; padding: 0; margin: 0; }
+  .lists li { padding: 6px 0; border-top: 1px solid #e1e8ee; font-size: 15.5px; color: #3d4b58; }
+
+  /* proof band (same as the homepage) */
+  .proof { background: var(--blue); color: #fff; }
+  .proof > div > div { padding: 22px 18px; border-right: 1px solid rgba(255,255,255,.22); }
+  .proof > div > div:last-child { border-right: 0; }
+  .proof b { display: block; font-family: 'Barlow Semi Condensed', 'Inter', sans-serif; font-size: 34px; line-height: 1; font-weight: 800; }
+  .proof span { display: block; font-size: 13.5px; color: #d5ebfa; margin-top: 6px; }
+
+  /* final (same as the homepage) */
+  .final { background: #fff; color: var(--navy); }
+  .final h2 { font-family: 'Barlow Semi Condensed', 'Inter', sans-serif; font-size: clamp(30px, 4.4vw, 52px); line-height: 1; color: var(--navy); margin-bottom: 12px; }
+  .final p { color: #3d4b58; font-size: 18px; max-width: 54ch; margin: 0 auto 24px; }
+  .final .nap { font-size: 14.5px; font-weight: 600; color: var(--deep); margin-top: 22px; }
+  .final .nap a { color: var(--deep); }
+</style>

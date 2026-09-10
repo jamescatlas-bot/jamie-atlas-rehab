@@ -48,10 +48,10 @@ const videoSchema = [LEAD_TESTIMONIAL, ...TESTIMONIAL_VIDEOS].map(v => ({
            (jamieatlas.com/videos), so first-time visitors land here knowing
            nothing about Jamie. One line of who-is-this before the ask. -->
       <p class="mt-6 text-base font-semibold text-[var(--color-primary)]">
-        Jamie Atlas — Pain &amp; Performance Specialist · 5× 5280 Top of the Town winner · 9NEWS Fitness Expert
+        Jamie Atlas, Personal Trainer &amp; Rehab Specialist · {SITE.awardBadge} · 9NEWS fitness expert
       </p>
       <p class="mt-8">
-        <a href="/book" class="cta-button">Book a 30-minute consultation</a>
+        <a href="/book" class="cta-button">Book a 30-minute assessment</a>
       </p>
     </div>
   </section>
@@ -96,7 +96,7 @@ const videoSchema = [LEAD_TESTIMONIAL, ...TESTIMONIAL_VIDEOS].map(v => ({
       <div class="max-w-5xl mx-auto">
         <div class="flex flex-wrap items-baseline justify-between gap-4 mb-10">
           <h2>{g.label}</h2>
-          <a href={`/what-we-treat/${g.slug}`} class="text-base">How I treat this →</a>
+          <a href={`/what-i-work-with/${g.slug}`} class="text-base">How I work with this →</a>
         </div>
         <div class="grid gap-14">
           {g.videos.map(v => <VideoTestimonial video={v} />)}
@@ -123,9 +123,9 @@ const videoSchema = [LEAD_TESTIMONIAL, ...TESTIMONIAL_VIDEOS].map(v => ({
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="mb-6 text-white">Find out whether your pain is the changeable kind</h2>
       <p class="text-xl mb-10 opacity-95">
-        A 30-minute consultation — your story, an honest read on whether I can help, and a clear plan if I can.
+        A 30-minute assessment, $57: your story, my plain read on whether I can help, and one change you can measure before you leave.
       </p>
-      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
       <p class="mt-8 text-sm opacity-80">
         Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
       </p>

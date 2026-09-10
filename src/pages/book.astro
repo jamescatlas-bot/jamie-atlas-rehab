@@ -1,22 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 import { SITE } from '../data/site';
-import { OFFER } from '../data/reviews';
+import livingRoom from '../assets/hub/online-living-room.jpg';
 
 const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
 ---
 
 <BaseLayout
-  title="Book a Discovery Session"
-  description="Book a 30-minute Discovery Session with Jamie Atlas — normally $97, currently $57. Rehabilitation and return-to-sport coaching in downtown Denver."
+  title="Book a 30-Minute Assessment, $57 | Jamie Atlas, Denver"
+  description="Book your first visit with Jamie Atlas: a 30-minute assessment, $57, in the downtown Denver studio or on Zoom. One measurable change before you leave, and a straight answer on fit."
 >
   <section class="px-6 pt-16 pb-10 md:pt-24">
     <div class="max-w-3xl mx-auto text-center">
-      <h1 class="mb-6">Book your Discovery Session</h1>
+      <h1 class="mb-6">Book your 30-minute assessment</h1>
       <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed max-w-2xl mx-auto">
-        30 minutes at the downtown studio. <strong class="text-[var(--color-text)]">Normally {OFFER.regularPrice} —
-        {OFFER.specialLabel} {OFFER.specialPrice}</strong>, payable at the studio. You bring the story; I bring an
-        honest read on whether I can help.
+        <strong class="text-[var(--color-text)]">{SITE.pricing.firstVisit}, in the studio or on Zoom.</strong> You bring the story; I bring a
+        straight read on whether I can help, and one change you can feel before you leave. Sessions after that are
+        {SITE.pricing.session60} for 60 minutes or {SITE.pricing.session30} for 30.
       </p>
     </div>
   </section>
@@ -28,9 +29,8 @@ const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
     <div class="max-w-2xl mx-auto">
       <h2 class="text-center mb-3">Tell me what's going on</h2>
       <p class="text-center text-[var(--color-text-muted)] mb-10">
-        Your details, then three quick questions. Jamie reads every submission personally, chooses the right
-        assessment for you, and will text you within one business day to set up your time — or grab a time in the
-        calendar below and he'll take it from there.
+        Your details, then three quick questions. Jamie reads every submission personally and will text you within
+        one business day to set up your time. Or grab a time in the calendar below and he'll take it from there.
       </p>
       <form action={FORMSPREE_URL} method="POST" class="space-y-6">
         <input type="hidden" name="_subject" value="New assessment request from jamieatlas.com" />
@@ -59,15 +59,18 @@ const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
 
         <fieldset class="border border-[var(--color-border)] rounded-xl p-5">
           <legend class="font-semibold px-2">How would you rather meet?</legend>
-          <div class="space-y-3 mt-2">
-            <label class="flex items-start gap-3 cursor-pointer">
-              <input type="radio" name="meeting_preference" value="In person at the studio" class="mt-1.5 accent-[var(--color-primary)]" />
-              <span>In person at the downtown Denver studio</span>
-            </label>
-            <label class="flex items-start gap-3 cursor-pointer">
-              <input type="radio" name="meeting_preference" value="Video call" class="mt-1.5 accent-[var(--color-primary)]" />
-              <span>Via video call</span>
-            </label>
+          <div class="grid sm:grid-cols-[1fr_auto] gap-5 items-center mt-2">
+            <div class="space-y-3">
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="meeting_preference" value="In person at the studio" class="mt-1.5 accent-[var(--color-primary)]" />
+                <span>In person at the downtown Denver studio</span>
+              </label>
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="meeting_preference" value="On Zoom" class="mt-1.5 accent-[var(--color-primary)]" />
+                <span>On Zoom</span>
+              </label>
+            </div>
+            <Image src={livingRoom} alt="A client training on Zoom from her living room with Jamie Atlas coaching on the laptop" width={160} height={200} format="webp" loading="lazy" class="rounded-lg border border-[var(--color-border)] w-28 sm:w-36 h-auto justify-self-center" />
           </div>
         </fieldset>
 
@@ -99,7 +102,7 @@ const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
   <section class="px-6 py-14">
     <div class="max-w-3xl mx-auto">
       <h2 class="text-center mb-3">Or grab a time directly</h2>
-      <p class="text-center text-[var(--color-text-muted)] mb-8">Book straight into the calendar — the Discovery Session is the first visit.</p>
+      <p class="text-center text-[var(--color-text-muted)] mb-8">The 30-minute assessment is the first visit. Pick studio or Zoom when you book.</p>
       <div
         class="calendly-inline-widget rounded-xl border border-[var(--color-border)] overflow-hidden bg-[var(--color-surface)]"
         data-url={SITE.contact.bookingUrl}
@@ -116,7 +119,7 @@ const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
         <ul class="space-y-3 text-lg">
           <li>
             <a href={`sms:${SITE.contact.phoneTel}`}>Text {SITE.contact.phone}</a>
-            <span class="text-[var(--color-text-muted)]"> — one sentence about what's bothering you is enough</span>
+            <span class="text-[var(--color-text-muted)]">, one sentence about what's bothering you is enough</span>
           </li>
           <li><a href={`tel:${SITE.contact.phoneTel}`}>Call {SITE.contact.phone}</a></li>
           <li><a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a></li>
@@ -126,11 +129,11 @@ const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
         </p>
       </div>
       <div>
-        <h2 class="text-2xl mb-6">What to expect from the first session</h2>
+        <h2 class="text-2xl mb-6">What to expect from the first visit</h2>
         <ul class="space-y-4 text-lg text-[var(--color-text-muted)] leading-relaxed list-disc pl-5">
-          <li>You talk more than I do — the history matters.</li>
-          <li>I'll tell you plainly whether your case fits this approach.</li>
-          <li>If it does: a plan and a session estimate. If it doesn't: a referral to someone better suited.</li>
+          <li>You talk more than I do. The history matters.</li>
+          <li>I watch you move and change one thing.</li>
+          <li>I'll tell you plainly whether your case fits. If it does: a plan. If it doesn't: a name.</li>
           <li>No pressure either way. This only works with people who want to do it.</li>
         </ul>
       </div>

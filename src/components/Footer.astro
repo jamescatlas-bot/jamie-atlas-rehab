@@ -1,26 +1,35 @@
 ---
 import { SITE } from '../data/site';
+import { CONDITIONS } from '../data/conditions';
 
 const year = new Date().getFullYear();
 
 const pages = [
-  { label: 'What We Treat', href: '/what-we-treat' },
+  { label: 'Personal training', href: '/personal-trainer-denver' },
+  { label: 'Training on a GLP-1', href: '/personal-trainer-denver/glp-1' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'About Jamie', href: '/about' },
   { label: 'The Studio', href: '/studio' },
   { label: 'Reviews', href: '/reviews' },
   { label: 'Client Results', href: '/testimonials' },
-  { label: 'Press', href: '/press' },
+  { label: 'Press & Awards', href: '/press' },
   { label: 'Resources', href: '/resources' },
-  { label: 'Book a Consultation', href: '/book' },
+  { label: 'Book a 30-minute assessment', href: '/book' },
 ];
+
+// The condition pages: no longer in the header (doc 71 §3), so they live here
+// and on the hub. The CFT page is a method, not a condition; it stays out.
+const workWith = CONDITIONS.filter(c => c.slug !== 'cognitive-functional-therapy').map(c => ({
+  label: c.navTitle,
+  href: `/what-i-work-with/${c.slug}`,
+}));
 ---
 
 <!-- Brand-blue footer band: the reversed (white) logo lives here, on the same
      blue it was designed for. Link colors are handled by .footer-brand in
      global.css because the base `a` color would vanish on this background. -->
 <footer class="footer-brand bg-[var(--color-primary)] text-white mt-24">
-  <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-12 text-sm">
+  <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-5 gap-10 text-sm">
 
     <div>
       <img
@@ -51,11 +60,21 @@ const pages = [
     </div>
 
     <div>
+      <p class="font-semibold mb-4 text-white">What I work with</p>
+      <ul class="space-y-2">
+        {workWith.map(p => (
+          <li><a href={p.href}>{p.label}</a></li>
+        ))}
+        <li><a href="/what-i-work-with">Everything I work with →</a></li>
+      </ul>
+    </div>
+
+    <div>
       <p class="font-semibold mb-4 text-white">Contact</p>
       <ul class="space-y-2">
         <li><a href={`tel:${SITE.contact.phoneTel}`}>{SITE.contact.phone}</a></li>
         <li><a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a></li>
-        <li><a href="/book">Book a consultation</a></li>
+        <li><a href="/book">Book a 30-minute assessment</a></li>
         <li><a href={SITE.social.instagramUrl}>{SITE.social.instagram}</a></li>
       </ul>
     </div>

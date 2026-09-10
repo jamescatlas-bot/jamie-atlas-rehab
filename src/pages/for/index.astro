@@ -4,7 +4,7 @@ import BannerSection from '../../components/BannerSection.astro';
 import { SITE } from '../../data/site';
 
 // Identity-led landing pages. These sit ABOVE /this-is-you/ (problem-state) and
-// /what-we-treat/ (clinical detail) and route down into them — they must not
+// /what-i-work-with/ (clinical detail) and route down into them; they must not
 // restate what those pages already say.
 //
 // 2026-08-23, Jamie's call: runners and golfers unblocked and built. The runner
@@ -105,7 +105,7 @@ const activities: { title: string; slug: string; description: string }[] = [
         <p>
           It doesn't matter much. The sport changes which demands we test for; it doesn't change the method. If
           what you do isn't here, the quickest route in is by the thing that hurts —
-          <a href="/what-we-treat">everything we treat</a> — or by where you are with it:
+          <a href="/what-i-work-with">everything I work with</a>, or by where you are with it:
           <a href="/this-is-you/still-in-pain">still in pain</a>,
           <a href="/this-is-you/cleared-but-not-ready">cleared but not ready</a>, or
           <a href="/this-is-you/worried-about-reinjury">worried about doing it again</a>.
@@ -122,9 +122,12 @@ const activities: { title: string; slug: string; description: string }[] = [
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="mb-6 text-white">Whatever it is you've stopped doing.</h2>
       <p class="text-xl mb-10 opacity-95">
-        A 30-minute consultation — your history, my honest read on whether I can help, and a clear plan if I can.
+        A 30-minute assessment, $57: your history, my plain read on whether I can help, and one change you can measure before you leave.
       </p>
-      <a href="/book" class="cta-button cta-button-accent text-lg">Book a consultation</a>
+      <p class="text-base mb-8 opacity-90">
+        Not in pain, just want to train hard without getting hurt? <a href="/personal-trainer-denver" class="text-white underline">That's most of what I do →</a>
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
       <p class="mt-8 text-sm opacity-80">
         Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
       </p>
