@@ -1,0 +1,123 @@
+---
+// Article (doc 74 §5C). Rewrite of "Results not typical" (2008). The ONLY
+// place the Bonza-era before/after photos appear on the site, and always with
+// "results vary from person to person" beside them. Numbers: 2009, eighteen
+// months, month three, five years (four).
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site';
+
+import results1 from '../../assets/articles/results-1.jpg';
+import results2 from '../../assets/articles/results-2.jpg';
+
+const title = 'Results Not Typical: the Honest Way to Read a Before-and-After';
+const description =
+  'What the before-and-after photo shows, what it leaves out, and what a slower result is worth. Jamie Atlas, Denver.';
+const published = '2026-09-10';
+const url = `${SITE.url}/resources/results-not-typical`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  dateModified: published,
+  author: { '@id': `${SITE.url}/#jamie` },
+  publisher: { '@id': SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Expectations
+      </p>
+      <h1 class="mb-8">Results not typical: the honest way to read a before-and-after</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        "Results not typical." For years that line sat under every transformation photo in the fitness industry, in
+        type small enough to deny. In 2009 the Federal Trade Commission changed its endorsement guides so that a
+        fine-print disclaimer no longer got you off the hook: if you show an unusual result, you have to say what a
+        typical one looks like.<sup><a href="#s1">1</a></sup> Most of the industry responded by making the photos
+        bigger.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
+      <h2 class="mb-2">What the photo shows</h2>
+      <p>
+        One person, on their best day, in their best light, at the end. Usually the person who responded fastest, out
+        of everyone who started. Sometimes the person who was paid.
+      </p>
+
+      <h2 class="mb-2 pt-4">What it leaves out</h2>
+      <p>
+        Everyone else. The people who got a slower, quieter result and kept it. The people who got the fast result and
+        lost it by the next photo. And the part nobody photographs: what happened in the eighteen months after.
+      </p>
+      <p class="text-[var(--color-text)] font-semibold text-xl">A slow result you keep beats a fast one you rent.</p>
+
+      <h2 class="mb-2 pt-4">How to read one</h2>
+      <p>
+        Ask what the typical result was, not the featured one. Ask how long ago the "after" was taken and whether it
+        held. Ask whether the program built anything you could keep, like strength, or only removed something, like
+        weight. And ask whether the person in the photo had a life like yours: a job, a knee, a family, a Tuesday.
+      </p>
+
+      <h2 class="mb-2 pt-4">My own photos</h2>
+      <p>
+        I have before-and-afters from the studio's Bonza Bodies years. They're real, the people consented, and they
+        are the good outcomes, not the average ones. So they come with the line I'd want under anyone else's: results
+        vary from person to person. What the average client here gets is slower, less photogenic, and still theirs
+        five years later. That's the product.
+      </p>
+      <div class="grid sm:grid-cols-2 gap-4 items-start">
+        <figure class="m-0">
+          <Image src={results1} alt="Two Bonza Bodies clients, Caitlin and Jessie, before and after their programs" widths={[435]} sizes="(min-width: 640px) 50vw, 100vw" format="webp" loading="lazy" class="rounded-lg border border-[var(--color-border)] w-full h-auto" />
+          <figcaption class="mt-2 text-sm">Results vary from person to person.</figcaption>
+        </figure>
+        <figure class="m-0">
+          <Image src={results2} alt="A Bonza Bodies client before and after her program, hiking and at home" widths={[735]} sizes="(min-width: 640px) 50vw, 100vw" format="webp" loading="lazy" class="rounded-lg border border-[var(--color-border)] w-full h-auto" />
+          <figcaption class="mt-2 text-sm">Results vary from person to person.</figcaption>
+        </figure>
+      </div>
+
+      <h2 class="mb-2 pt-4">The honest frame</h2>
+      <p>
+        Expect the first month to feel like nothing. Expect month three to feel like something. Expect the photo to
+        happen, if it happens, around the time you've stopped caring about it. That's not a sales pitch. It's the
+        timeline I watch play out, one client at a time, in a basement on Glenarm Place.
+      </p>
+      <p class="text-[var(--color-text)] font-semibold">
+        Bottom line: the box never worked. The person who did the work every Tuesday did.
+      </p>
+      <p class="text-base">
+        <a href="/resources/why-the-scale-lies">Why the scale lies →</a> ·
+        <a href="/resources/why-weight-loss-stalls">Why weight loss stalls →</a> ·
+        <a href="/personal-trainer-denver/glp-1">Training on a GLP-1 →</a>
+      </p>
+
+      <p class="text-sm pt-4" id="s1">
+        1. Federal Trade Commission, Guides Concerning the Use of Endorsements and Testimonials in Advertising, 16 CFR
+        Part 255, revised 2009.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">The typical result starts with thirty minutes.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute assessment, {SITE.pricing.firstVisit}: your history, my plain read on whether I can help, and one change you can measure before you leave.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
+    </div>
+  </section>
+</BaseLayout>

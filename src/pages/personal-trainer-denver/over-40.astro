@@ -1,0 +1,179 @@
+---
+// OVER-40 TRAINING PAGE (doc 74 §2). Long-tail phrase "personal trainer over
+// 40 / 50 / 60"; non-geo title, Denver in the body.
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StickyBook from '../../components/StickyBook.astro';
+import { SITE } from '../../data/site';
+import { REVIEWS, REVIEWS_URL } from '../../data/reviews';
+
+import hero from '../../assets/training/rings.jpg';
+
+const title = 'Personal Trainer for Over 40, 50 and 60 | Jamie Atlas';
+const description =
+  'One-on-one strength training in downtown Denver for adults over 40, 50 and 60 with a knee, back or shoulder that has a history. Build muscle at any age. $57 assessment, studio or Zoom.';
+
+const susan = REVIEWS.find(r => r.name === 'Susan Keicher');
+
+const faq = [
+  { q: 'Is it too late to build muscle at 60?', a: 'No. Muscle responds to load at every age; what changes is how much recovery the program has to respect. Susan started here in her sixties having never trained. Results vary from person to person, but the direction doesn\'t.' },
+  { q: 'Do I need to be fit before I start?', a: 'No. The first visit is an assessment of where you are, not a test you can fail. The program starts from what your body accepts today.' },
+  { q: 'What if I\'ve got a bad knee?', a: 'That is most of who I train. The program is built around the joint you\'re worried about, with someone in the room who can tell a muscle that\'s working from a joint that\'s complaining.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Strength training over 40, 50 and 60',
+  serviceType: 'Personal training',
+  provider: { '@id': SITE.url },
+  areaServed: { '@type': 'City', name: 'Denver' },
+  url: `${SITE.url}/personal-trainer-denver/over-40`,
+  offers: { '@type': 'Offer', name: '30-minute assessment (first visit)', price: '57', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout title={title} description={description} image="/studio-coaching.jpg">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+  <!-- HERO -->
+  <section class="px-6 pt-14 pb-10 md:pt-20">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-[1.1fr_.9fr] gap-10 items-center">
+      <div>
+        <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Strength over 40</p>
+        <h1 class="mb-6">Build muscle at any age. Keep the joints you came in with.</h1>
+        <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+          Somewhere after 40 the advice changes from "train hard" to "be sensible", and nobody says out loud what
+          "sensible" costs you. Muscle you don't use goes. Bone follows it. Balance goes last, without announcing
+          itself, and by then the stairs have an opinion.
+        </p>
+        <p class="mt-7 flex flex-wrap items-center gap-4">
+          <a href="/book" class="cta-button text-lg">Book a 30-minute assessment</a>
+          <span class="text-[var(--color-text-muted)]">{SITE.pricing.firstVisit}, in the studio or on Zoom</span>
+        </p>
+        <p class="mt-5 text-sm font-semibold text-[var(--color-primary)]">
+          {SITE.awardBadge} · 9NEWS fitness expert · {SITE.contact.address.street}, downtown Denver
+        </p>
+      </div>
+      <Image
+        src={hero}
+        alt="A client over 40 training on gymnastic rings at Jamie Atlas's downtown Denver studio"
+        widths={[640, 1000]}
+        sizes="(min-width: 768px) 45vw, 100vw"
+        format="webp"
+        loading="eager"
+        fetchpriority="high"
+        class="rounded-xl border border-[var(--color-border)] w-full h-auto max-h-[560px] object-cover object-top"
+      />
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="px-6 py-12 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
+      <p class="text-[var(--color-text)] font-semibold text-xl">The body over 40 still builds muscle. It just stops forgiving bad programming.</p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-4">What changes after 40</h2>
+      <p>
+        Recovery takes longer, so the program has to respect the day after, not just the session. Old injuries are now
+        part of the anatomy: the meniscus from 2009, the shoulder from the crash, the back that goes when it feels like
+        it. And the price of a bad week is higher, because a strain at 55 costs six weeks, not six days.
+      </p>
+      <p>
+        None of that is a reason to train less. It's a reason to have someone in the room who can tell the difference
+        between a muscle that's working and a joint that's complaining.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">What I do differently</h2>
+      <p>
+        I'm a personal trainer with a rehab specialist's eye. Every program here is built around the joint you're
+        worried about, not despite it. Cognitive Functional Therapy tells me what your pain system will accept this
+        week. Applied Functional Science tells me where the load should go. Then we lift, in the studio or on Zoom, at
+        weights that go up.
+      </p>
+      <p>
+        Nutrition coaching is in the fee, because protein is the part of the over-40 equation most people get wrong,
+        and it's the cheapest thing to fix. If you're on a GLP-1 medication,
+        <a href="/personal-trainer-denver/glp-1">there's a page for that</a>.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">Who this is for</h2>
+      <p>
+        You're 40, 50, 60 or past it. You ski, golf, hike, run, or you used to. You've never lifted, or you lifted in
+        your twenties and the body you're in now doesn't remember. You have at least one joint with a story. You don't
+        want a gym; you want a program and a person.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">How a session runs</h2>
+      <p>
+        First visit, a 30-minute assessment, {SITE.pricing.firstVisit}. I watch you move, find the one change that
+        helps most, and you feel it before you leave. Then 60 minutes or 30, one-on-one, {SITE.pricing.session60} or
+        {SITE.pricing.session30}, same price in the studio at {SITE.contact.address.street} or online. The 6:30am and
+        5:15pm slots are open most weeks.
+      </p>
+
+      {susan && (
+        <blockquote class="border-l-4 border-[var(--color-primary)] pl-5 py-1 text-base italic">
+          "{susan.text}"
+          <footer class="not-italic text-sm mt-2 font-semibold text-[var(--color-text)]">{susan.name}, <a href={REVIEWS_URL} rel="noopener">on Google</a></footer>
+        </blockquote>
+      )}
+
+      <p>
+        Tom, 68, came in on pain medication and left it behind after four months. That's one person; results vary from
+        person to person. But it's the kind of thing that happens here often enough that I stopped being surprised.
+      </p>
+
+      <p class="text-[var(--color-text)] font-semibold pt-4">
+        Bottom line: the best time to start lifting was twenty years ago. The second best time is before the next
+        thing goes.
+      </p>
+
+      <p class="text-base pt-2">
+        <a href="/what-i-work-with/masters-athlete-injuries">Recurring injuries after 40, in detail →</a> ·
+        <a href="/for">By activity: skiers, golfers, runners and more →</a> ·
+        <a href="/personal-trainer-denver/glp-1">Training on a GLP-1 →</a> ·
+        <a href="/personal-trainer-denver">Personal training in downtown Denver →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Questions people over 40 ask</h2>
+      <div>
+        {faq.map((f, i) => (
+          <details open={i === 0} class="border-t border-[var(--color-border)] py-4 last:border-b">
+            <summary class="font-serif font-bold text-xl cursor-pointer">{f.q}</summary>
+            <p class="mt-3 text-lg text-[var(--color-text-muted)] leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Thirty minutes. One measurable change. Then you decide.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute assessment, {SITE.pricing.firstVisit}, in the studio or on Zoom. If it's not a fit I'll say so in the
+        first half hour, and I'll know who is.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
+      <p class="mt-8 text-sm opacity-80">
+        {SITE.contact.address.street}, {SITE.contact.address.level} · <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+      </p>
+    </div>
+  </section>
+
+  <StickyBook />
+</BaseLayout>

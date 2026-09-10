@@ -1,0 +1,123 @@
+---
+// Article (doc 74 §5A). Rewrite of "Your bathroom scale must be destroyed"
+// (2008). Authority piece for the GLP-1 door; weight loss in the body, never
+// the title of a service page. Numbers used: 2008, 40%, 6am, two months (four).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Why the Scale Lies (and What to Measure Instead)';
+const description =
+  'The scale measures mass. You care about what the mass is made of. Why that matters more than ever on a GLP-1, and the goal-pants test to use instead. From Jamie Atlas, Denver.';
+const published = '2026-09-10';
+const url = `${SITE.url}/resources/why-the-scale-lies`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  dateModified: published,
+  author: { '@id': `${SITE.url}/#jamie` },
+  publisher: { '@id': SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Body composition
+      </p>
+      <h1 class="mb-8">Why the scale lies, and what to measure instead</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        In 2008 I wrote a blog post called "Your bathroom scale must be destroyed." I stand by the sentiment and I've
+        retired the sledgehammer. Here's the grown-up version.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
+      <h2 class="mb-2">The scale answers a question you didn't ask</h2>
+      <p>
+        A scale measures mass. Water, food in transit, muscle, bone, fat, the jeans you forgot to take off. It has no
+        idea which of those changed since yesterday, and neither do you when you're standing on it at 6am deciding
+        whether to be pleased.
+      </p>
+      <p>
+        What you care about is composition: how much of you is muscle and how much is fat. Two people at the same
+        weight can be a decade apart in how they move, and the scale scores them a tie.
+      </p>
+      <p class="text-[var(--color-text)] font-semibold text-xl">Weight is a total. Composition is the point.</p>
+
+      <h2 class="mb-2 pt-4">Why this matters more on a GLP-1</h2>
+      <p>
+        Ozempic, Wegovy, Mounjaro and Zepbound take weight off quickly. What they don't do is choose what kind. In the
+        trial that got semaglutide approved for weight loss, the sub-group who had body scans lost roughly 40% of
+        their total weight as lean tissue rather than fat.<sup><a href="#s1">1</a></sup> Lean tissue is mostly
+        muscle. So the scale says "great" while the part of you that climbs stairs is shrinking.
+      </p>
+      <p>
+        The fix is not complicated. A review of trials on people losing weight through calorie restriction found that
+        adding resistance training preserved lean mass that dieting alone gave up.<sup><a href="#s2">2</a></sup> Lift,
+        eat enough protein, and the scale's number is made of the right stuff.
+      </p>
+
+      <h2 class="mb-2 pt-4">Muscle doesn't weigh more than fat</h2>
+      <p>
+        A kilo is a kilo. Muscle is denser than fat, so a kilo of it takes up less room. That is why people who start
+        lifting often find their clothes fit before the scale moves, and why the scale is the wrong instrument for the
+        first two months of a program. I used to say "muscle weighs more" in my old post. I was wrong on the physics
+        and right on the point.
+      </p>
+
+      <h2 class="mb-2 pt-4">What to measure instead</h2>
+      <p>
+        <strong class="text-[var(--color-text)]">Goal pants.</strong> Find a pair of pants you can't quite button and
+        hang them where you'll see them. Every couple of weeks, same time of day, try them on. First the button
+        reaches. Then it closes. Then you can sit down in them. Then you need a belt. No number, no 6am verdict, and a
+        far better read on your waistline than a scale can give, because pants don't care what you ate last night.
+      </p>
+      <p>
+        Alongside the pants: two or three lifts, and whether the numbers are going up. A photo in the same doorway in
+        the same light, monthly. And the honest one: whether the stairs, the ski run or the grandchild are getting
+        easier. If those are moving and the scale isn't, the scale is the one that's wrong. A DEXA scan once a year if
+        you like data.
+      </p>
+
+      <h2 class="mb-2 pt-4">Where I fit in</h2>
+      <p>
+        I'm a personal trainer with a rehab specialist's training and a Certificate IV in Nutrition Coaching, and both
+        come with every session. If you're on a GLP-1 and worried about what's coming off,
+        <a href="/personal-trainer-denver/glp-1">here's the page for that</a>. If you're over 40 and want the muscle
+        back, <a href="/personal-trainer-denver/over-40">here's that one</a>. If the plateau is the problem,
+        <a href="/resources/why-weight-loss-stalls">read this next</a>.
+      </p>
+      <p class="text-[var(--color-text)] font-semibold">So there you have it. Keep the scale if you like it. Just stop letting it grade you.</p>
+
+      <p class="text-sm pt-4" id="s1">
+        1. Wilding JPH et al., "Once-Weekly Semaglutide in Adults with Overweight or Obesity," <i>New England Journal
+        of Medicine</i>, 2021 (STEP 1), DEXA sub-study.
+      </p>
+      <p class="text-sm" id="s2">
+        2. Sardeli AV et al., "Resistance Training Prevents Muscle Loss Induced by Caloric Restriction in Obese Elderly
+        Individuals: A Systematic Review and Meta-Analysis," <i>Nutrients</i>, 2018.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Want the number to be made of the right stuff?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute assessment, {SITE.pricing.firstVisit}: your history, my plain read on whether I can help, and one change you can measure before you leave.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
+    </div>
+  </section>
+</BaseLayout>

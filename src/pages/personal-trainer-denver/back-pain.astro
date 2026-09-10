@@ -1,0 +1,189 @@
+---
+// BACK-PAIN TRAINING PAGE (doc 74 §1). Long-tail phrase "personal trainer for
+// back pain"; non-geo title, Denver in the body. Trainer first: the rehab
+// detail lives on /what-i-work-with/chronic-back-pain and is linked, not
+// restated.
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StickyBook from '../../components/StickyBook.astro';
+import { SITE } from '../../data/site';
+import { REVIEWS, REVIEWS_URL } from '../../data/reviews';
+import { testimonialCount } from '../../data/videos';
+
+import hero from '../../assets/training/crutch-overhead.jpg';
+
+const title = 'Personal Trainer for Back Pain | Train Hard, Back Included';
+const description =
+  'Personal training in downtown Denver for people with a back that has a history. Cognitive Functional Therapy tells me what your back will accept; then we train hard. $57 assessment, studio or Zoom.';
+
+const adrienne = REVIEWS.find(r => r.name === 'Adrienne Rule');
+const backVideos = testimonialCount('chronic-back-pain');
+
+const faq = [
+  { q: 'Should I lift with a disc bulge?', a: 'Usually yes, with someone reading the load. Disc bulges show up on the scans of a great many people with no pain at all; the assessment, not the picture, decides what your back will accept this week.' },
+  { q: 'Do I need a scan first?', a: 'No, unless your doctor has asked for one. Scans describe, they don\'t decide. A small number of presentations do need a physician first, and I screen for those in the first thirty minutes.' },
+  { q: 'Will you make me do deadlifts?', a: 'Eventually, in whatever shape your back accepts. Nobody starts there. We start with the hinge your back already tolerates and raise the load from there.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Personal training for back pain',
+  serviceType: 'Personal training',
+  provider: { '@id': SITE.url },
+  areaServed: { '@type': 'City', name: 'Denver' },
+  url: `${SITE.url}/personal-trainer-denver/back-pain`,
+  offers: { '@type': 'Offer', name: '30-minute assessment (first visit)', price: '57', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout title={title} description={description} image="/studio-coaching.jpg">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+  <!-- HERO -->
+  <section class="px-6 pt-14 pb-10 md:pt-20">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-[1.1fr_.9fr] gap-10 items-center">
+      <div>
+        <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Training with a bad back</p>
+        <h1 class="mb-6">Personal training for people whose back has an opinion</h1>
+        <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+          Most trainers have two settings for a bad back. Avoid it, or ignore it. Both make the back worse over a
+          year, for opposite reasons.
+        </p>
+        <p class="mt-7 flex flex-wrap items-center gap-4">
+          <a href="/book" class="cta-button text-lg">Book a 30-minute assessment</a>
+          <span class="text-[var(--color-text-muted)]">{SITE.pricing.firstVisit}, in the studio or on Zoom</span>
+        </p>
+        <p class="mt-5 text-sm font-semibold text-[var(--color-primary)]">
+          {SITE.awardBadge} · 9NEWS fitness expert · {SITE.contact.address.street}, downtown Denver
+        </p>
+      </div>
+      <Image
+        src={hero}
+        alt="A client holding his crutch overhead at Jamie Atlas's downtown Denver studio, training after a back injury"
+        widths={[640, 1000]}
+        sizes="(min-width: 768px) 45vw, 100vw"
+        format="webp"
+        loading="eager"
+        fetchpriority="high"
+        class="rounded-xl border border-[var(--color-border)] w-full h-auto max-h-[560px] object-cover object-top"
+      />
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="px-6 py-12 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2">The problem with "just be careful"</h2>
+      <p>
+        You've been told to protect it. Brace, avoid bending, skip the deadlifts, sit up straight. So you did, and the
+        back got weaker along with the rest of you, and now a bag of groceries is a decision. That's not a moral
+        failing. A back that is never loaded loses the capacity to be loaded, and a nervous system that is told the
+        back is fragile starts treating ordinary movement as a threat.
+      </p>
+      <p class="text-[var(--color-text)] font-semibold text-xl">Backs don't get better by being spared. They get better by being convinced.</p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">What I do differently</h2>
+      <p>
+        I'm a personal trainer with a rehab specialist's training in what a back will accept. Cognitive Functional
+        Therapy, trained under Peter O'Sullivan, is how I read your pain system: which movements it's guarding, which
+        of those it will let go of today, and which need to wait. Applied Functional Science, from the Gray Institute,
+        is how I decide where the load goes so the hips and the mid-back do their share instead of leaving it all to
+        the sore bit.
+      </p>
+      <p>
+        Then we train. Properly. Hinges, carries, squats, presses, at loads that go up. The back is in the program,
+        not around it.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">Who this is for</h2>
+      <p>
+        The disc bulge that "showed something" on the MRI and nothing since. The back that goes once a year when you
+        sneeze. The one that's fine until the third hour on the mountain. The one that's been through the PT, the
+        chiro and the injection and is still the reason you don't lift. If you've been cleared, or nobody has ever
+        found anything to clear you of, this page is you.
+      </p>
+      <p>
+        It is not for you today if the pain came with numbness in both legs, bladder or bowel changes, fever, or a
+        fall. Those need a doctor first, and I'll say so in the assessment.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">How a session runs</h2>
+      <p>
+        First visit: a 30-minute assessment, {SITE.pricing.firstVisit}. I watch you bend, hinge and load, find the one
+        change that helps most, and you feel it before you leave. You get a plain read on whether I can help.
+      </p>
+      <p>
+        Then 60 minutes, or 30, one-on-one in the studio at {SITE.contact.address.street} in downtown Denver or on Zoom.
+        We warm up the back with the movements it already tolerates, train hard everywhere else, and every few weeks go
+        back and load the thing you were worried about to see whether it's still worth worrying about. Nutrition
+        coaching is included; it matters more for backs than people expect, because a body that isn't recovering
+        doesn't tolerate load.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">What clients on camera say</h2>
+      <p>
+        {backVideos} of the 23 clients who let me film their sessions came in for a back. Each rates their pain before
+        and after, on camera. Results vary from person to person.
+        <a href="/testimonials#chronic-back-pain">Watch the back videos →</a>
+      </p>
+
+      {adrienne && (
+        <blockquote class="border-l-4 border-[var(--color-primary)] pl-5 py-1 text-base italic">
+          "{adrienne.text}"
+          <footer class="not-italic text-sm mt-2 font-semibold text-[var(--color-text)]">{adrienne.name}, <a href={REVIEWS_URL} rel="noopener">on Google</a></footer>
+        </blockquote>
+      )}
+
+      <p class="text-[var(--color-text)] font-semibold pt-4">
+        Point is this: the goal isn't a back that never hurts. It's a back you stop planning your life around.
+      </p>
+
+      <p class="text-base pt-2">
+        <a href="/what-i-work-with/chronic-back-pain">The rehab side of back pain, in detail →</a> ·
+        <a href="/what-i-work-with/sciatica">Sciatica →</a> ·
+        <a href="/resources/why-pain-flares-some-weeks">Why pain flares some weeks →</a> ·
+        <a href="/personal-trainer-denver">Personal training in downtown Denver →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Questions people with a bad back ask</h2>
+      <div>
+        {faq.map((f, i) => (
+          <details open={i === 0} class="border-t border-[var(--color-border)] py-4 last:border-b">
+            <summary class="font-serif font-bold text-xl cursor-pointer">{f.q}</summary>
+            <p class="mt-3 text-lg text-[var(--color-text-muted)] leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Thirty minutes. One measurable change. Then you decide.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute assessment, {SITE.pricing.firstVisit}, in the studio or on Zoom. If it's not a fit I'll say so in the
+        first half hour, and I'll know who is.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
+      <p class="mt-8 text-sm opacity-80">
+        {SITE.contact.address.street}, {SITE.contact.address.level} · <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+      </p>
+    </div>
+  </section>
+
+  <StickyBook />
+</BaseLayout>
