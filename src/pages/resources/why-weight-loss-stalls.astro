@@ -1,0 +1,121 @@
+---
+// Article (doc 74 §5B). Merge of "Weight-loss plateaus" (2009) and "Your
+// workout may be making you fat" (2008). Numbers: two months, six years,
+// 500 calories, forty minutes (four).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Why Weight Loss Stalls, and Why Cardio Alone Makes It Worse';
+const description =
+  'Two adaptations happen at once when you diet and do the same workout: your body gets cheaper to run and better at the workout. What to change. Jamie Atlas, Denver.';
+const published = '2026-09-10';
+const url = `${SITE.url}/resources/why-weight-loss-stalls`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  dateModified: published,
+  author: { '@id': `${SITE.url}/#jamie` },
+  publisher: { '@id': SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Plateaus
+      </p>
+      <h1 class="mb-8">Why weight loss stalls, and why cardio alone makes it worse</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        Two of my old posts, "Weight-loss plateaus" and "Your workout may be making you fat", were half right each.
+        This is the version with the evidence in.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
+      <h2 class="mb-2">The plateau is not you failing</h2>
+      <p>
+        You cut calories, you do the same forty minutes on the same machine, it works for two months, then it stops.
+        You do more of the same. It stops harder. Everyone you know has a theory and most of the theories involve you
+        being lazy.
+      </p>
+      <p>
+        Here is what is going on. Two adaptations are running at the same time, and both of them are your body doing
+        its job.
+      </p>
+
+      <h2 class="mb-2 pt-4">Your body gets cheaper to run</h2>
+      <p>
+        Lose weight and your body lowers the cost of keeping you alive. Six years after the Biggest Loser competition,
+        contestants' resting metabolism was still around 500 calories a day below what their size predicted.<sup><a href="#s1">1</a></sup>
+        That's an extreme case from an extreme diet, but the direction is the same for everyone: the deficit you
+        started with shrinks as you shrink.
+      </p>
+
+      <h2 class="mb-2 pt-4">Your body gets better at the workout</h2>
+      <p>
+        Repeat a movement and you get more efficient at it. That's what practice is. Trained runners burn less energy
+        per kilometre than novices at the same speed.<sup><a href="#s2">2</a></sup> Efficiency is wonderful for a
+        marathon and terrible for a plateau, because the forty minutes that cost you a lot in January cost you less in
+        April, and you didn't change anything.
+      </p>
+      <p class="text-[var(--color-text)] font-semibold text-xl">
+        The same workout plus the same diet equals a smaller and smaller result. That's not a plateau. That's arithmetic.
+      </p>
+
+      <h2 class="mb-2 pt-4">Why strength training is the answer</h2>
+      <p>
+        Lifting changes the stimulus, so the efficiency trap resets. It also defends the tissue that burns the
+        calories: muscle is what you lose when you diet without lifting, and losing it makes the first adaptation
+        worse. And the numbers on the bar go up, which is the one form of progress the scale can't take away from you.
+      </p>
+      <p>This doesn't mean no cardio. It means cardio isn't the tool for the job you've been asking it to do.</p>
+
+      <h2 class="mb-2 pt-4">The person this is for</h2>
+      <p>
+        The one who did everything the gym told them and got heavier. That person is not undisciplined. They were
+        handed a plan that had an expiry date nobody mentioned.
+      </p>
+
+      <h2 class="mb-2 pt-4">What to do this week</h2>
+      <p>
+        Two strength sessions. Protein at every meal. Keep one cardio session if you love it, and change it every few
+        weeks so your body can't settle in. And stop weighing yourself daily; see
+        <a href="/resources/why-the-scale-lies">why the scale lies</a>.
+      </p>
+      <p class="text-[var(--color-text)] font-semibold">
+        End of story. If you'd like someone to write the program around the knee or the back you've been protecting,
+        <a href="/personal-trainer-denver">that's most of what I do</a>.
+      </p>
+
+      <p class="text-sm pt-4" id="s1">
+        1. Fothergill E et al., "Persistent metabolic adaptation 6 years after 'The Biggest Loser' competition,"
+        <i>Obesity</i>, 2016.
+      </p>
+      <p class="text-sm" id="s2">
+        2. Barnes KR, Kilding AE, "Running economy: measurement, norms, and determining factors," <i>Sports Medicine
+        – Open</i>, 2015.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Stuck at the same number? Change the stimulus.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute assessment, {SITE.pricing.firstVisit}: your history, my plain read on whether I can help, and one change you can measure before you leave.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
+    </div>
+  </section>
+</BaseLayout>
