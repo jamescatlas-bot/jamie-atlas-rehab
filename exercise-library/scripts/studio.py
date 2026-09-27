@@ -115,6 +115,20 @@ def taubin(p, edges, weight, passes, lam=0.6, mu=-0.63):
     return p
 
 
+def find_chin(co):
+    """Height of the chin: a little above the narrowest part of the neck."""
+    top = co[:, 2].max(); s = top / 1.8
+    near = co[np.abs(co[:, 0]) < 0.12 * s]
+    best, neck = 1e9, top - 0.26 * s
+    for z in np.arange(top - 0.34 * s, top - 0.18 * s, 0.004):
+        sl = near[np.abs(near[:, 2] - z) < 0.004]
+        if len(sl) > 20:
+            area = np.ptp(sl[:, 0]) * np.ptp(sl[:, 1])
+            if area < best:
+                best, neck = area, z
+    return neck + 0.03 * s
+
+
 def faceless_head(obj):
     """Swap the MakeHuman face for a smooth, featureless head of the same shape.
 
@@ -125,8 +139,8 @@ def faceless_head(obj):
     from mathutils.bvhtree import BVHTree
     co, _, _ = mesh_arrays(obj)
     top = co[:, 2].max(); s = top / 1.8
-    chin = top - 0.232 * s
-    head = co[co[:, 2] > chin - 0.01 * s]
+    chin = find_chin(co)
+    head = co[(co[:, 2] > chin - 0.07 * s) & (np.abs(co[:, 0]) < 0.13 * s)]
     core = head[np.abs(head[:, 0]) < np.percentile(np.abs(head[:, 0]), 90)]
     lo, hi = core.min(0), core.max(0)
     centre = (lo + hi) / 2; centre[0] = 0
@@ -141,20 +155,20 @@ def faceless_head(obj):
 
     tree = BVHTree.FromObject(obj, bpy.context.evaluated_depsgraph_get())
     snap = np.array([tree.find_nearest(p.tolist())[0][:] for p in sph])
-    sph = sph * 0.3 + snap * 0.7
+    sph = sph * 0.45 + snap * 0.55
     sph = taubin(sph, edges, 1.0, HEAD_ITER)
     # Pull the upper head toward a clean egg (no brow, nose or cheek shapes);
     # the jaw and neck keep their real shape so the head still sits naturally.
     d = (sph - centre) / radius
     egg = centre + d / np.linalg.norm(d, axis=1, keepdims=True) * radius * np.array([0.97, 0.97, 1.0])
-    k = smoothstep(-0.55, -0.1, d[:, 2])[:, None] * 0.8
+    k = (0.5 + 0.35 * smoothstep(-0.75, -0.2, d[:, 2]))[:, None]
     sph = sph * (1 - k) + egg * k
     sph = taubin(sph, edges, 1.0, 30)
     sph += (sph - centre) * 0.015        # tiny inflate so no old feature pokes through
 
     # Cut the old head off just above the jaw line, cap it, and add the new head.
     bm = bmesh.new(); bm.from_mesh(obj.data)
-    bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.z > chin + 0.012 * s], context='VERTS')
+    bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.z > chin - 0.022 * s], context='VERTS')
     bmesh.ops.holes_fill(bm, edges=bm.edges, sides=0)
     base = len(bm.verts)
     new = [bm.verts.new(p.tolist()) for p in sph]
@@ -180,7 +194,58 @@ def faceless_head(obj):
     bpy.ops.object.shade_smooth()
 
 
-def build_body():
+HBM = ROOT / 'assets' / 'human_base_meshes_bundle.blend'
+
+
+def load_hbm_body(name):
+    """Bring one body from Blender Studio's Human Base Meshes pack (CC0) into the scene,
+    with its sculpted detail baked in, standing on the floor and facing -Y."""
+    with bpy.data.libraries.load(str(HBM)) as (src, dst):
+        dst.objects = [name]
+    obj = dst.objects[0]
+    bpy.context.scene.collection.objects.link(obj)
+    obj.parent = None
+    bpy.context.view_layer.objects.active = obj
+    for m in list(obj.modifiers):
+        if m.type == 'MULTIRES':
+            m.levels = m.render_levels = m.total_levels
+        bpy.ops.object.modifier_apply(modifier=m.name)
+    obj.data.transform(obj.matrix_world); obj.matrix_world.identity()
+    co, _, _ = mesh_arrays(obj)
+    lo, hi = co.min(0), co.max(0)
+    shift = -np.array([(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, lo[2]])
+    obj.data.vertices.foreach_set('co', (co + shift).ravel()); obj.data.update()
+    return obj
+
+
+def shorts_from_body(body, top=0.585, bottom=0.435, gap=0.004):
+    """Black shorts: a copy of the body between waist and upper thigh, pushed out a few millimetres."""
+    co, no, _ = mesh_arrays(body)
+    H = co[:, 2].max()
+    bm = bmesh.new(); bm.from_mesh(body.data)
+    for f in [f for f in bm.faces if not all(bottom * H - 0.05 < v.co.z < top * H + 0.05 and abs(v.co.x) < 0.2 * H / 1.8
+                                           for v in f.verts)]:
+        bm.faces.remove(f)
+    bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+    for v in bm.verts:
+        v.co += v.normal * gap
+    for z, keep_above in ((top * H, False), (bottom * H, True)):
+        bmesh.ops.bisect_plane(bm, geom=bm.verts[:] + bm.edges[:] + bm.faces[:], plane_co=(0, 0, z),
+                               plane_no=(0, 0, 1), clear_inner=keep_above, clear_outer=not keep_above)
+    me = bpy.data.meshes.new('Shorts'); bm.to_mesh(me); bm.free()
+    shorts = bpy.data.objects.new('Shorts', me); bpy.context.scene.collection.objects.link(shorts)
+    shorts.data.polygons.foreach_set('use_smooth', [True] * len(me.polygons))
+    so = shorts.modifiers.new('Thickness', 'SOLIDIFY'); so.thickness = 0.006; so.offset = 1
+    return shorts
+
+
+def build_body(source='makehuman'):
+    """source: 'makehuman', or the object name of a body in the Human Base Meshes pack."""
+    if source != 'makehuman':
+        body = load_hbm_body(source)
+        faceless_head(body)
+        return body, shorts_from_body(body)
+
     verts, groups = shaped_vertices()
     verts[:, 2] -= verts[:, 2][np.unique(np.concatenate([np.array(f) for f in groups['body']]))].min()
     body = make_object('Body', verts, groups['body'])
@@ -257,7 +322,7 @@ def _segment_coords(co, no, H):
         out[('upperarm', sx)] = (ang, proj / (0.29 * s), member)
         out[('forearm', sx)] = (ang, (proj - 0.29 * s) / (0.26 * s), member)
         # Legs: follow the centre of each leg slice
-        legv = (sx * x > 0.005) & (z < 0.5 * H)
+        legv = (sx * x > 0.005) & (sx * x < 0.2 * s) & (z < 0.5 * H)
         bins = np.linspace(0, 0.5 * H, 41)
         idx = np.clip(np.digitize(z, bins) - 1, 0, 39)
         cx = np.zeros(40); cy = np.zeros(40)
