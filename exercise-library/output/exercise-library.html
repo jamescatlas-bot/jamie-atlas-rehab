@@ -1,0 +1,2159 @@
+<title>Jamie Atlas Exercise Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0d1016;
+    --panel: #151a22;
+    --panel-2: #1b212b;
+    --line: #28303c;
+    --text: #e8ecf2;
+    --muted: #8f99a9;
+    --glow: #ff6a2c;
+    --rim: #9278ff;
+    --good: #37d27c;
+    --bad: #ff5048;
+    --display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+    --body: "Figtree", "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--text); }
+  body { font: 15px/1.5 var(--body); margin: 0; padding-inline: 16px; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--rim); outline-offset: 2px; }
+
+  .top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-block: 18px 12px; max-width: 1240px; margin: 0 auto; flex-wrap: wrap; }
+  .brand { font: 700 30px/1 var(--display); letter-spacing: 0.02em; text-transform: uppercase; margin: 0; text-wrap: balance; }
+  .brand span { color: var(--glow); }
+  .top p { margin: 0; color: var(--muted); font-size: 13px; }
+
+  .layout { display: grid; gap: 20px; max-width: 1240px; margin: 0 auto; padding-block-end: 40px; }
+  @media (min-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr) 400px; align-items: start; } #preview { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); } }
+
+  .search { display: grid; gap: 10px; }
+  .search input[type=search] { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); font-size: 16px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 5px 12px; cursor: pointer; font-size: 13px; }
+  .chip[aria-pressed=true] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .filters select { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 5px 8px; font-size: 13px; }
+  .check { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); cursor: pointer; }
+  .check input { accent-color: var(--glow); }
+  .count { font: 600 14px var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 6px 0 0; font-variant-numeric: tabular-nums; }
+
+  #results { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+  @media (min-width: 640px) { #results { grid-template-columns: 1fr 1fr; } }
+  .row { width: 100%; text-align: left; background: var(--panel); border: 1px solid transparent; border-radius: 12px; padding: 11px 13px; cursor: pointer; display: grid; gap: 3px; }
+  .row:hover { border-color: var(--line); }
+  .row.on { border-color: var(--glow); background: var(--panel-2); }
+  .rn { font: 600 21px/1.1 var(--display); letter-spacing: 0.01em; }
+  .rm { color: #ffb08c; font-size: 13px; }
+  .rt { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+  .tag { font-size: 11px; padding: 1px 7px; border-radius: 5px; background: #222935; color: var(--muted); letter-spacing: 0.02em; }
+  .tag.home { color: #9fd8ff; } .tag.gym { color: #d6c3ff; } .tag.both { color: #bfe8cf; }
+  .tag.demo { color: #fff; background: linear-gradient(90deg, #7a2420, #1c6b3e); }
+  .tag.rehab { color: #ffd98f; }
+  .empty { color: var(--muted); padding: 20px 4px; }
+
+  #preview { background: var(--panel); border-radius: 16px; padding: 14px; display: grid; gap: 12px; }
+  .ph { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  #ex-name { font: 700 28px/1.05 var(--display); text-transform: uppercase; margin: 0; letter-spacing: 0.02em; }
+  #ex-meta { color: var(--muted); font-size: 13px; margin: 2px 0 0; }
+  #back { background: none; border: 0; color: var(--muted); font-size: 13px; cursor: pointer; padding: 0; white-space: nowrap; }
+  @media (min-width: 900px) { #back { display: none; } }
+  .screen { position: relative; margin: 0 auto; width: 100%; max-width: 372px; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; background: #0b0e13; }
+  #comp { width: 100%; height: 100%; display: block; }
+  .bar { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--glow); transition: width .1s linear; }
+  .toggles { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .toggles .check { color: var(--text); }
+  #split-note { font-size: 12px; color: var(--muted); margin: -6px 0 0; }
+  fieldset { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px 12px; margin: 0; display: grid; gap: 8px; }
+  legend { font: 600 13px var(--display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 0 4px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  label.f { display: grid; gap: 3px; font-size: 12px; color: var(--muted); }
+  label.f input, label.f select { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 15px; color: var(--text); width: 100%; min-width: 0; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn { border: 0; border-radius: 10px; padding: 11px 16px; font-weight: 600; cursor: pointer; background: var(--panel-2); border: 1px solid var(--line); }
+  .btn.primary { background: var(--glow); color: #1b0d05; border-color: var(--glow); }
+  .btn:disabled { opacity: .5; cursor: progress; }
+  #status { min-height: 1.4em; font-size: 13px; color: var(--muted); margin: 0; }
+  #video-out { display: grid; gap: 8px; }
+  #video { width: 140px; aspect-ratio: 9/16; border-radius: 8px; background: #000; }
+  .vo { display: flex; gap: 12px; align-items: flex-start; }
+  .vo p { margin: 0; font-size: 12px; color: var(--muted); word-break: break-all; }
+  #msg { width: 100%; min-height: 70px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px; font-size: 13px; resize: vertical; }
+  details { border-top: 1px solid var(--line); padding-top: 8px; }
+  summary { cursor: pointer; font: 600 14px var(--display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .info { display: grid; gap: 10px; margin-top: 8px; font-size: 14px; }
+  .info h3 { margin: 0 0 2px; font: 600 13px var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .info ul { margin: 0; padding-left: 18px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 5px; }
+  .pill { font-size: 12px; padding: 2px 9px; border-radius: 999px; }
+  .pill.prime { background: rgba(255,106,44,.18); color: #ffb08c; box-shadow: inset 0 0 0 1px rgba(146,120,255,.55); }
+  .pill.second { background: #222935; color: var(--muted); }
+  @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+</style>
+
+<header class="top">
+  <h1 class="brand">Exercise <span>Library</span></h1>
+  <p>Jamie Atlas Personal Training · preview, personalise and send</p>
+</header>
+
+<main class="layout">
+  <section id="browse" aria-label="Find an exercise">
+    <div class="search">
+      <input id="q" type="search" placeholder="Search: glutes, dumbbell, knee rehab, plank…" autocomplete="off" aria-label="Search exercises">
+      <div class="filters">
+        <div class="chips" id="area" aria-label="Body area"></div>
+        <div class="chips" id="where" aria-label="Where"></div>
+      </div>
+      <div class="filters">
+        <select id="muscle" aria-label="Muscle"></select>
+        <label class="check"><input id="rehab" type="checkbox"> Rehab-friendly</label>
+        <label class="check"><input id="demo" type="checkbox"> Has right-vs-wrong demo</label>
+      </div>
+      <p class="count" id="count"></p>
+    </div>
+    <ul id="results"></ul>
+  </section>
+
+  <section id="preview" aria-label="Preview and send">
+    <div class="ph">
+      <div><h2 id="ex-name">Exercise</h2><p id="ex-meta"></p></div>
+      <button id="back" type="button">↑ Back to list</button>
+    </div>
+    <div class="screen"><canvas id="comp" width="720" height="1280" aria-label="Animated exercise preview"></canvas><div class="bar" id="bar"></div></div>
+    <div class="toggles">
+      <label class="check"><input id="map" type="checkbox" checked> Muscle map</label>
+      <label class="check"><input id="split" type="checkbox"> Right vs wrong</label>
+      <label class="check"><input id="labelon" type="checkbox" checked> Client label</label>
+    </div>
+    <p id="split-note"></p>
+    <fieldset>
+      <legend>For your client</legend>
+      <div class="two">
+        <label class="f">First name<input id="client" autocomplete="off"></label>
+        <label class="f">Sets and reps<input id="sets" autocomplete="off"></label>
+      </div>
+      <label class="f">Cue<select id="cue"></select></label>
+      <label class="f">Or write your own cue<input id="cue-custom" placeholder="e.g. slow down on the way down" autocomplete="off"></label>
+    </fieldset>
+    <div class="actions">
+      <button class="btn primary" id="make" type="button">Make video</button>
+      <button class="btn" id="copy" type="button">Copy text message</button>
+    </div>
+    <p id="status" role="status"></p>
+    <div id="video-out" hidden>
+      <div class="vo">
+        <video id="video" controls playsinline loop muted></video>
+        <div style="display:grid;gap:8px">
+          <p id="video-size"></p>
+          <button class="btn primary" id="save" type="button">Save video</button>
+          <p>Then attach it in WhatsApp or iMessage along with the text.</p>
+        </div>
+      </div>
+    </div>
+    <textarea id="msg" aria-label="Message to send" placeholder="Tap “Copy text message” and the note for your client appears here."></textarea>
+    <details open>
+      <summary>Coaching notes</summary>
+      <div class="info">
+        <div><h3>Muscles</h3><div class="pills" id="muscles"></div></div>
+        <div><h3>Equipment</h3><span id="equip"></span></div>
+        <div><h3>Cues</h3><ul id="cues"></ul></div>
+        <div><h3>Common mistakes</h3><ul id="mistakes"></ul></div>
+      </div>
+    </details>
+  </section>
+</main>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script>
+/* Motion library.
+ *
+ * Every exercise is a short loop between two or more key poses. A pose is a
+ * set of joint angles in degrees:
+ *   p, r, y   whole-body pitch (+ leans forward / face down), roll, yaw
+ *   s, c, n   spine, chest and neck flexion (+ curls forward)
+ *   st        spine twist
+ *   L / R     per side: hf hip flexion, ha hip abduction, hr hip internal rotation,
+ *             k knee flexion, an ankle (+ toes down), fl keep foot flat (0-1),
+ *             sf shoulder flexion, sa shoulder abduction, h horizontal (+ toward front),
+ *             sr arm rotation, e elbow flexion
+ * `g` says how the body meets the world: which points touch the floor, which
+ * stay anchored, which stay locked where they were in the first pose.
+ */
+(function () {
+  const both = (limb) => ({ L: { ...limb }, R: { ...limb } });
+  const merge = (...parts) => {
+    const out = { L: {}, R: {} };
+    for (const p of parts) {
+      if (!p) continue;
+      for (const k in p) {
+        if (k === 'L' || k === 'R') Object.assign(out[k], p[k]);
+        else out[k] = p[k];
+      }
+    }
+    return out;
+  };
+  const mirror = (pose) => {
+    const m = { ...pose, L: { ...(pose.R || {}) }, R: { ...(pose.L || {}) } };
+    for (const k of ['r', 'y', 'st', 'sl']) if (m[k]) m[k] = -m[k];
+    if (m.x) m.x = -m.x;
+    return m;
+  };
+
+  const FEET = ['heelL', 'heelR', 'toeL', 'toeR'];
+  const STAND_G = { ground: FEET, anchor: FEET };
+
+  // Arm presets
+  const ARMS = {
+    hang: both({ sf: 0, sa: 8, e: 8 }),
+    hips: both({ sf: -15, sa: 32, e: 95, sr: -40 }),
+    cross: both({ sf: 62, sa: 22, e: 140, h: 25 }),
+    forward: both({ sf: 88, sa: 8, e: 4 }),
+    goblet: both({ sf: 28, sa: 14, e: 138, h: 20 }),
+    backbar: both({ sf: -25, sa: 62, e: 118, sr: 70 }),
+  };
+
+  const STAND = merge(both({ ha: 5 }), ARMS.hang);
+
+  const M = {};
+
+  // ---------- LEGS ----------
+  M.squat = (o = {}) => {
+    const arms = ARMS[o.arms || 'forward'];
+    const sumo = o.sumo ? both({ ha: 30, hr: -28 }) : null;
+    const A = merge(STAND, arms, sumo, o.arms === 'forward' ? both({ sf: 88 }) : null);
+    let B = merge(
+      { p: 18, s: 24 },
+      both({ hf: 108, k: 118, ha: 12 }),
+      arms,
+      sumo ? both({ ha: 38, hr: -30, hf: 98 }) : null,
+      o.arms === 'forward' ? both({ sf: 128 }) : null,
+      o.arms === 'hang' ? both({ sf: 42 }) : null,
+    );
+    if (o.sumo) B = merge(B, { p: 10, s: 10 }, both({ sf: o.arms === 'hang' ? 20 : undefined }));
+    if (o.depth) B = merge(B, both({ hf: o.depth, k: o.depth + 8 }));
+    return { poses: { A, B }, g: STAND_G, T: 2.6, faults: { knees_cave: 'B', heels_lift: 'B' } };
+  };
+
+  M.wallSit = () => {
+    const base = merge({ s: -2 }, both({ hf: 88, k: 90, ha: 8 }), both({ sf: 45, sa: 12, e: 30 }));
+    return {
+      poses: { A: base, B: merge(base, { s: 1, n: 3 }) }, g: STAND_G, T: 3, hold: true,
+      props: [{ type: 'wall', at: 'upperBack', gap: 0.0 }],
+    };
+  };
+
+  M.sitToStand = () => ({
+    poses: {
+      A: merge({ p: 8, s: 8 }, both({ hf: 92, k: 92, ha: 8 }), ARMS.cross),
+      B: merge(STAND, ARMS.cross),
+    },
+    g: STAND_G, T: 3,
+    props: [{ type: 'chair', at: 'pelvisBottom', from: 'A' }],
+    faults: { knees_cave: 'A' },
+  });
+
+  const split = (front, back, depth) => ({
+    [front]: { hf: depth ? 88 : 28, k: depth ? 92 : 12, ha: 4 },
+    [back]: { hf: depth ? -12 : -26, k: depth ? 100 : 18, an: depth ? 62 : 38, ha: 4 },
+  });
+  M.splitSquat = (o = {}) => {
+    const arms = o.dumbbells ? ARMS.hang : ARMS.hips;
+    return {
+      poses: {
+        A: merge({ s: 2 }, split('L', 'R', false), arms),
+        B: merge({ s: 6 }, split('L', 'R', true), arms),
+      },
+      g: { ground: FEET, anchor: ['heelL', 'toeL'] }, T: 2.8,
+      faults: { knees_cave: 'B' },
+    };
+  };
+
+  M.reverseLunge = () => {
+    const S = merge(STAND, ARMS.hips);
+    const L = merge({ s: 6 }, split('L', 'R', true), ARMS.hips);
+    return {
+      poses: { S, L, R: mirror(L) }, seq: ['S', 'L', 'S', 'R'],
+      g: { ground: FEET, anchor: FEET }, T: 2.6, cycles: 2,
+    };
+  };
+
+  M.bulgarian = () => {
+    const A = merge({ s: 8 }, { L: { hf: 22, k: 10 }, R: { hf: -34, k: 82, an: -60, fl: 0 } }, ARMS.hang);
+    const B = merge({ s: 18, p: 4 }, { L: { hf: 92, k: 95 }, R: { hf: -8, k: 118, an: -60, fl: 0 } }, both({ sf: 18, sa: 8 }));
+    return {
+      poses: { A, B }, g: { ground: ['heelL', 'toeL'], anchor: ['heelL', 'toeL'] }, T: 2.8,
+      props: [{ type: 'bench', under: ['toeR'], from: 'A', h: 'auto', len: 0.5, alongZ: true }],
+      faults: { knees_cave: 'B' },
+    };
+  };
+
+  M.stepUp = () => ({
+    poses: {
+      A: merge({ s: 10 }, { L: { hf: 68, k: 76 }, R: { hf: 0, k: 4 } }, ARMS.hang, { g: { ground: ['heelR', 'toeR'], anchor: ['heelL', 'toeL'], anchorAt: [0.09, 0.2] } }),
+      B: merge({ s: 2 }, { L: { hf: 2, k: 4 }, R: { hf: 18, k: 34, an: 20, fl: 0 } }, ARMS.hang, { g: { ground: ['heelL', 'toeL'], groundY: 0.40, anchor: ['heelL', 'toeL'], anchorAt: [0.09, 0.2] } }),
+    },
+    g: {}, T: 3,
+    props: [{ type: 'box', x: 0.09, z: 0.23, w: 0.5, d: 0.45, h: 0.40 }],
+    faults: { knees_cave: 'A' },
+  });
+
+  M.lateralLunge = () => {
+    const S = merge(both({ ha: 24 }), ARMS.cross);
+    const L = merge({ p: 30, s: 14 }, { L: { hf: 92, k: 100, ha: 22 }, R: { hf: 24, k: 0, ha: 34 } }, ARMS.cross);
+    return {
+      poses: { S, L, R: mirror(L) }, seq: ['S', 'L', 'S', 'R'],
+      g: { ground: FEET, anchor: FEET }, T: 2.6, cycles: 2,
+    };
+  };
+
+  M.standingAbduction = () => ({
+    poses: {
+      A: merge(STAND, { R: { sa: 35, e: 40 }, L: { sa: 20 } }),
+      B: merge(STAND, { sl: 0, L: { ha: 34, sa: 20 }, R: { sa: 35, e: 40 } }),
+    },
+    g: { ground: ['heelR', 'toeR'], anchor: ['heelR', 'toeR'], anchorAt: [-0.09, 0] }, T: 2.4,
+  });
+
+  M.bridge = (o = {}) => {
+    const legsA = both({ hf: 48, k: 100 });
+    if (o.single) legsA.R = { hf: 80, k: 8 };
+    return {
+      poses: {
+        A: merge({ p: -90 }, legsA, both({ sf: 0, sa: 14, e: 2 })),
+        B: merge({ p: -118 }, both({ hf: -4, k: 84 }), o.single ? { R: { hf: 8, k: 4 } } : null, both({ sf: -28, sa: 14, e: 2 })),
+      },
+      g: {
+        level: { a: ['upperBack'], b: o.single ? ['heelL', 'toeL'] : FEET, axis: 'p', range: 30 },
+        ground: ['upperBack', ...FEET], anchor: ['heelL', 'heelR'],
+      },
+      T: 2.6, faults: { arch_back: 'B' }, frame: 'wide',
+      props: [{ type: 'mat', along: 'z' }],
+    };
+  };
+
+  M.hinge = (o = {}) => {
+    const kind = o.kind || 'rdl';
+    const A = merge(STAND, both({ sf: 0, sa: 6, e: 4 }));
+    let B;
+    if (kind === 'rdl') B = merge({ p: 72, s: 2 }, both({ hf: 88, k: 20 }), both({ sf: 74, sa: 6, e: 4 }));
+    if (kind === 'deadlift') B = merge({ p: 52, s: 6 }, both({ hf: 104, k: 78, ha: 10 }), both({ sf: 58, sa: 10, e: 2 }));
+    if (kind === 'swing') {
+      B = merge({ p: 70, s: 4 }, both({ hf: 92, k: 30, ha: 12 }), both({ sf: 20, sa: 4, e: 4 }));
+      A.L.sf = A.R.sf = 90;
+      A.L.sa = A.R.sa = 4;
+    }
+    return {
+      poses: kind === 'swing' ? { A: B, B: A } : { A, B },
+      g: STAND_G, T: kind === 'swing' ? 1.5 : 3,
+      faults: { back_round: kind === 'swing' ? 'A' : 'B' },
+    };
+  };
+
+  M.singleLegRdl = () => ({
+    poses: {
+      A: merge(STAND, { R: { hf: -4, k: 10, an: 20, fl: 0 } }),
+      B: merge({ p: 76, s: 2 }, { L: { hf: 84, k: 16 }, R: { hf: -6, k: 4, an: -10, fl: 0 } }, both({ sf: 76, sa: 8, e: 4 })),
+    },
+    g: { ground: ['heelL', 'toeL'], anchor: ['heelL', 'toeL'] }, T: 3.2,
+    faults: { back_round: 'B' },
+  });
+
+  M.calfRaise = (o = {}) => ({
+    poses: {
+      A: merge(STAND, o.seated ? null : ARMS.hips),
+      B: merge(STAND, o.seated ? null : ARMS.hips, both({ an: 34 })),
+    },
+    g: { ground: FEET, anchor: ['toeL', 'toeR'] }, T: 2, frame: o.seated ? null : 'legs',
+  });
+
+  M.seatedCalf = () => ({
+    poses: {
+      A: merge(both({ hf: 90, k: 88, ha: 6 }), both({ sf: 22, sa: 10, e: 58 })),
+      B: merge(both({ hf: 96, k: 88, ha: 6, an: 32 }), both({ sf: 24, sa: 10, e: 62 })),
+    },
+    g: { ground: FEET, anchor: FEET },
+    props: [{ type: 'bench', under: ['pelvisBottom'], from: 'A', h: 'auto', len: 1.1 }, { type: 'dumbbellOn', at: ['kneeL', 'kneeR'] }],
+    T: 2,
+  });
+
+  M.legPress = () => ({
+    poses: {
+      A: merge({ p: -52, yh: 0.62 }, both({ hf: 104, k: 18, ha: 10, an: -118, fl: 1 }), both({ sf: 20, sa: 30, e: 30 })),
+      B: merge({ p: -52, yh: 0.62 }, both({ hf: 140, k: 108, ha: 14, an: -118, fl: 1 }), both({ sf: 20, sa: 30, e: 30 })),
+    },
+    g: {}, T: 2.8,
+    props: [{ type: 'legPress' }],
+    faults: { knees_cave: 'B' },
+  });
+
+  M.legCurl = () => ({
+    poses: {
+      A: merge({ p: 90 }, both({ hf: 0, k: 2, an: -70, fl: 0 }), both({ sf: 150, sa: 30, e: 60 })),
+      B: merge({ p: 90 }, both({ hf: 4, k: 115, an: -70, fl: 0 }), both({ sf: 150, sa: 30, e: 60 })),
+    },
+    g: { ground: ['chestFront', 'hipFront'], groundY: 0.62, anchor: ['hipFront'] },
+    props: [{ type: 'legCurl' }], T: 2.6,
+  });
+
+  M.legExtension = (o = {}) => ({
+    poses: {
+      A: merge({ p: -8, yh: 0.58 }, both({ hf: 90, k: 90, ha: 6, an: -10, fl: 0 }), both({ sf: 20, sa: 20, e: 30 })),
+      B: merge({ p: -8, yh: 0.58 }, both({ hf: 90, k: 4, ha: 6, an: -10, fl: 0 }), both({ sf: 20, sa: 20, e: 30 })),
+    },
+    g: {}, T: 2.6,
+    props: [o.chair ? { type: 'chair', at: 'pelvisBottom', from: 'A' } : { type: 'legExt' }],
+  });
+
+  const SIDE_LYING = (legs) => merge({ r: 90 }, legs,
+    { R: { sf: 0, sa: 168, e: 60, sr: 0 }, L: { sf: 10, sa: 16, e: 50 } });
+  M.clamshell = () => ({
+    poses: {
+      A: SIDE_LYING(both({ hf: 48, k: 88 })),
+      B: SIDE_LYING(merge(both({ hf: 48, k: 88 }), { L: { ha: 42, hr: -18 } })),
+    },
+    g: { ground: 'all', anchor: ['pelvisSideR'] }, T: 2.4, frame: 'wide',
+    props: [{ type: 'mat', along: 'x' }],
+  });
+  M.sideLegRaise = () => ({
+    poses: {
+      A: SIDE_LYING(merge(both({ hf: 4, k: 4 }), { R: { hf: 22, k: 50 } })),
+      B: SIDE_LYING(merge(both({ hf: 4, k: 4 }), { R: { hf: 22, k: 50 }, L: { ha: 40 } })),
+    },
+    g: { ground: 'all', anchor: ['pelvisSideR'] }, T: 2.4, frame: 'wide',
+    props: [{ type: 'mat', along: 'x' }],
+  });
+
+  M.lateralWalk = () => {
+    const base = merge({ p: 12, s: 10 }, both({ hf: 38, k: 44, ha: 8 }), ARMS.hips);
+    return {
+      poses: { S: base, L: merge(base, { L: { ha: 24 } }), R: merge(base, { R: { ha: 24 } }) },
+      seq: ['S', 'L', 'S', 'R'], g: STAND_G, T: 2, cycles: 2,
+      props: [{ type: 'band', from: 'kneeL', to: 'kneeR' }],
+      faults: { knees_cave: 'L' },
+    };
+  };
+
+  const QUAD = merge({ p: 90 }, both({ hf: 90, k: 90, an: -10, fl: 0 }), both({ sf: 90, sa: 6, e: 2 }));
+  const QUAD_G = { level: { a: ['handL', 'handR'], b: ['kneeL', 'kneeR'], axis: 'p', range: 25 }, ground: 'all', anchor: ['kneeL', 'kneeR'] };
+  M.donkeyKick = () => ({
+    poses: { A: QUAD, B: merge(QUAD, { L: { hf: -20, k: 92, an: -10, fl: 0 } }) },
+    g: { ...QUAD_G, level: { ...QUAD_G.level, b: ['kneeR'] } }, T: 2.4, frame: 'wide',
+    props: [{ type: 'mat', along: 'z' }],
+  });
+  M.fireHydrant = () => ({
+    poses: { A: QUAD, B: merge(QUAD, { L: { ha: 52, hf: 88 } }) },
+    g: { ...QUAD_G, level: { ...QUAD_G.level, b: ['kneeR'] } }, T: 2.4, frame: 'wide',
+    props: [{ type: 'mat', along: 'z' }],
+  });
+  M.birdDog = () => {
+    const L = merge(QUAD, { L: { sf: 178, e: 0 }, R: { hf: 0, k: 2, an: 20 } });
+    return {
+      poses: { S: QUAD, L, R: mirror(L) }, seq: ['S', 'L', 'S', 'R'],
+      g: QUAD_G, poseG: { L: { ...QUAD_G, level: { a: ['handR'], b: ['kneeL'], axis: 'p', range: 25 } }, R: { ...QUAD_G, level: { a: ['handL'], b: ['kneeR'], axis: 'p', range: 25 } } },
+      T: 3, cycles: 2, frame: 'wide', faults: { arch_back: 'L' },
+      props: [{ type: 'mat', along: 'z' }],
+    };
+  };
+  M.catCow = () => ({
+    poses: { A: merge(QUAD, { s: -18, c: -16, n: -22 }, both({ sf: 56 })), B: merge(QUAD, { s: 22, c: 20, n: 26 }, both({ sf: 132 })) },
+    g: QUAD_G, T: 4, frame: 'wide',
+    props: [{ type: 'mat', along: 'z' }],
+  });
+
+  // ---------- PUSH ----------
+  const PLANK_G = (a, b, off) => ({ level: { a, b, axis: 'p', range: 40, off: off || 0 }, ground: b, anchor: a });
+  M.pushup = (o = {}) => {
+    const legs = o.knees ? both({ hf: 0, k: 80, an: 0, fl: 0 }) : both({ hf: 0, k: 0, an: -75, fl: 0 });
+    const A = merge({ p: 72 }, legs, both({ sf: 72, sa: 12, e: 0 }));
+    const B = merge({ p: 86 }, legs, both({ sf: 8, sa: 22, e: 84 }));
+    const b = o.knees ? ['kneeL', 'kneeR'] : ['toeL', 'toeR'];
+    const off = o.incline ? 0.45 : 0;
+    return {
+      poses: { A, B }, g: PLANK_G(['handL', 'handR'], b, off), T: 2.4, frame: 'wide',
+      props: o.incline ? [{ type: 'bench', under: ['handL', 'handR'], from: 'A', h: 0.45, len: 0.45, wide: true }] : [{ type: 'mat', along: 'z' }],
+      faults: { hips_sag: 'B' },
+    };
+  };
+  M.pikePushup = () => ({
+    poses: {
+      A: merge({ p: 132 }, both({ hf: 100, k: 0, an: -30, fl: 0 }), both({ sf: 170, sa: 10, e: 0 })),
+      B: merge({ p: 140 }, both({ hf: 104, k: 0, an: -30, fl: 0 }), both({ sf: 120, sa: 22, e: 88 })),
+    },
+    g: PLANK_G(['handL', 'handR'], ['toeL', 'toeR']), T: 2.6, frame: 'wide',
+    props: [{ type: 'mat', along: 'z' }],
+  });
+
+  const BENCH_LEGS = both({ hf: -8, k: 84, ha: 16 });
+  M.benchPress = (o = {}) => ({
+    poses: {
+      A: merge({ p: -90 }, BENCH_LEGS, both({ sf: 90, sa: 12, e: 2 })),
+      B: merge({ p: -90 }, BENCH_LEGS, both({ sf: 30, sa: 74, h: -16, e: 88, sr: 0 })),
+    },
+    g: { ground: FEET, anchor: FEET, lock: ['upperBack'] }, T: 2.6,
+    props: [{ type: 'bench', under: ['upperBack', 'pelvisBack'], from: 'A', h: 'auto', len: 1.2, extend: -0.15 }, o.barbell ? { type: 'barbell', plates: true } : { type: 'dumbbells', axis: 'x' }],
+    faults: { arch_back: 'B' },
+  });
+
+  M.shoulderPress = () => ({
+    poses: {
+      A: merge(STAND, both({ sf: 10, sa: 78, e: 100, sr: 88 })),
+      B: merge(STAND, both({ sf: 6, sa: 166, e: 8, sr: 88 })),
+    },
+    g: STAND_G, T: 2.4, faults: { arch_back: 'B' },
+  });
+  M.lateralRaise = () => ({
+    poses: { A: merge(STAND, both({ sa: 12, e: 12 })), B: merge(STAND, both({ sa: 84, e: 16, sf: 8 })) },
+    g: STAND_G, T: 2.4,
+  });
+  M.frontRaise = () => ({
+    poses: { A: merge(STAND, both({ sf: 4, sa: 6, e: 6 })), B: merge(STAND, both({ sf: 88, sa: 6, e: 6 })) },
+    g: STAND_G, T: 2.4,
+  });
+  M.benchDip = () => ({
+    poses: {
+      A: merge({ yh: 0.62 }, both({ hf: 76, k: 4, ha: 6, an: 30, fl: 0 }), both({ sf: -38, sa: 14, e: 0 })),
+      B: merge({ yh: 0.62, s: 6 }, both({ hf: 60, k: 0, ha: 6, an: 40, fl: 0 }), both({ sf: -70, sa: 14, e: 92 })),
+    },
+    g: { ground: ['heelL', 'heelR'], anchor: ['heelL', 'heelR'], anchorAt: [0, 0.9], lock: ['handL', 'handR'] }, T: 2.4,
+    props: [{ type: 'bench', under: ['handL', 'handR'], from: 'A', h: 'auto', len: 0.45, wide: true, extend: -0.1 }],
+  });
+  M.overheadTriceps = () => ({
+    poses: {
+      A: merge(STAND, both({ sf: 168, sa: 14, e: 142, h: 20 })),
+      B: merge(STAND, both({ sf: 168, sa: 14, e: 8, h: 20 })),
+    },
+    g: STAND_G, T: 2.4,
+  });
+  M.pushdown = () => ({
+    poses: {
+      A: merge({ p: 10 }, STAND, { p: 10 }, both({ sf: 4, sa: 8, e: 104 })),
+      B: merge({ p: 10 }, STAND, { p: 10 }, both({ sf: 4, sa: 8, e: 6 })),
+    },
+    g: STAND_G, T: 2.2,
+    props: [{ type: 'cable', pulley: [0, 2.05, 0.5], to: ['handL', 'handR'] }],
+  });
+  M.wallSlide = () => ({
+    poses: {
+      A: merge(STAND, both({ sf: 0, sa: 82, e: 92, sr: 88 })),
+      B: merge(STAND, both({ sf: 0, sa: 160, e: 16, sr: 88 })),
+    },
+    g: STAND_G, T: 3,
+    props: [{ type: 'wall', at: 'upperBack', gap: 0.0 }],
+  });
+
+  // ---------- PULL ----------
+  M.pulldown = () => ({
+    poses: {
+      A: merge({ yh: 0.66, s: -6 }, both({ hf: 88, k: 92, ha: 10 }), both({ sa: 158, e: 8, sr: 88 })),
+      B: merge({ yh: 0.66, s: -12 }, both({ hf: 88, k: 92, ha: 10 }), both({ sf: 10, sa: 44, e: 112, sr: 88 })),
+    },
+    g: { ground: FEET, anchor: FEET, lock: ['pelvisBottom'] }, T: 2.6,
+    props: [{ type: 'pulldown' }],
+    faults: { lean_back: 'B' },
+  });
+  M.pullup = () => ({
+    poses: {
+      A: merge(both({ hf: 20, k: 50 }), both({ sa: 160, e: 6, sr: 88 })),
+      B: merge({ s: -6 }, both({ hf: 24, k: 56 }), both({ sf: 10, sa: 46, e: 116, sr: 88 })),
+    },
+    g: { pin: ['handL', 'handR'], pinAt: [0, 2.3, 0], lock: ['handL', 'handR'] }, T: 2.8,
+    props: [{ type: 'pullupBar' }],
+  });
+  M.bentRow = () => ({
+    poses: {
+      A: merge({ p: 52, s: 2 }, both({ hf: 72, k: 26 }), both({ sf: 54, sa: 10, e: 4 })),
+      B: merge({ p: 52, s: 2 }, both({ hf: 72, k: 26 }), both({ sf: -18, sa: 16, e: 92 })),
+    },
+    g: STAND_G, T: 2.4, faults: { back_round: 'A' },
+  });
+  M.singleArmRow = () => ({
+    poses: {
+      A: merge({ p: 84, s: 0 }, { L: { hf: 92, k: 90, an: 0, fl: 0 }, R: { hf: 78, k: 6 } }, { L: { sf: 84, sa: 8, e: 0 }, R: { sf: 84, sa: 8, e: 4 } }),
+      B: merge({ p: 84, s: 0 }, { L: { hf: 92, k: 90, an: 0, fl: 0 }, R: { hf: 78, k: 6 } }, { L: { sf: 84, sa: 8, e: 0 }, R: { sf: 6, sa: 14, e: 96 } }),
+    },
+    g: { ground: ['heelR', 'toeR'], anchor: ['heelR', 'toeR'], anchorAt: [-0.2, 0] }, T: 2.4,
+    props: [{ type: 'bench', under: ['kneeL', 'handL'], from: 'A', h: 'auto', len: 1.1, x: 0.1 }, { type: 'dumbbell', hand: 'R' }],
+  });
+  M.cableRow = () => ({
+    poses: {
+      A: merge({ p: 6, yh: 0.55 }, both({ hf: 84, k: 22, ha: 6, an: -40 }), both({ sf: 86, sa: 8, e: 0 })),
+      B: merge({ p: -4, yh: 0.55 }, both({ hf: 84, k: 22, ha: 6, an: -40 }), both({ sf: -14, sa: 12, e: 96 })),
+    },
+    g: { pin: ['pelvisBottom'], pinAt: [0, 0.46, 0] }, T: 2.4,
+    props: [{ type: 'bench', under: ['pelvisBottom'], from: 'A', h: 'auto', len: 0.9 }, { type: 'cable', pulley: [0, 0.5, 1.2], to: ['handL', 'handR'], column: true }],
+    faults: { back_round: 'A' },
+  });
+  M.pullApart = () => ({
+    poses: {
+      A: merge(STAND, both({ sa: 90, h: 86, e: 0 })),
+      B: merge(STAND, both({ sa: 90, h: -4, e: 0 })),
+    },
+    g: STAND_G, T: 2.2, props: [{ type: 'band', from: 'handL', to: 'handR' }],
+  });
+  M.facePull = () => ({
+    poses: {
+      A: merge(STAND, both({ sa: 88, h: 84, e: 2, sr: 88 })),
+      B: merge(STAND, both({ sa: 88, h: -18, e: 104, sr: 88 })),
+    },
+    g: STAND_G, T: 2.4,
+    props: [{ type: 'cable', pulley: [0, 1.55, 1.25], to: ['handL', 'handR'], column: true }],
+  });
+  M.curl = () => ({
+    poses: { A: merge(STAND, both({ sf: 2, sa: 8, e: 6 })), B: merge(STAND, both({ sf: 12, sa: 8, e: 138 })) },
+    g: STAND_G, T: 2.2,
+  });
+  M.reverseFly = () => ({
+    poses: {
+      A: merge({ p: 62, s: 2 }, both({ hf: 78, k: 22 }), both({ sf: 62, sa: 6, e: 18 })),
+      B: merge({ p: 62, s: 2 }, both({ hf: 78, k: 22 }), both({ sf: 62, sa: 84, e: 18 })),
+    },
+    g: STAND_G, T: 2.4,
+  });
+  M.superman = () => ({
+    poses: {
+      A: merge({ p: 90 }, both({ hf: 0, k: 0, an: 50, fl: 0 }), both({ sf: 172, sa: 14, e: 4 })),
+      B: merge({ p: 90, s: -14, c: -12, n: -10 }, both({ hf: -16, k: 0, an: 50, fl: 0 }), both({ sf: 162, sa: 14, e: 4 })),
+    },
+    g: { ground: 'all', anchor: ['hipFront'] }, T: 2.6, frame: 'wide',
+    props: [{ type: 'mat', along: 'z' }],
+  });
+
+  // ---------- CORE ----------
+  M.plank = () => {
+    const A = merge({ p: 80 }, both({ hf: 0, k: 0, an: -75, fl: 0 }), both({ sf: 80, sa: 10, e: 92 }));
+    return {
+      poses: { A, B: merge(A, { s: 1, n: 2 }) }, hold: true,
+      g: PLANK_G(['elbowL', 'elbowR'], ['toeL', 'toeR']), T: 3, frame: 'wide',
+      props: [{ type: 'mat', along: 'z' }], faults: { hips_sag: 'A' },
+    };
+  };
+  M.sidePlank = () => {
+    const A = merge({ r: 72 }, both({ hf: 0, k: 0, ha: 0 }), { R: { sa: 78, e: 92, sf: 0 }, L: { sa: 12, e: 6 } });
+    return {
+      poses: { A, B: merge(A, { r: 76 }) }, hold: true,
+      g: { level: { a: ['elbowR'], b: ['heelR', 'toeR'], axis: 'r', range: 25 }, ground: ['elbowR', 'heelR', 'toeR'], anchor: ['elbowR'] },
+      T: 3, frame: 'wide', props: [{ type: 'mat', along: 'x' }],
+    };
+  };
+  const SUPINE = { p: -90 };
+  M.deadBug = () => {
+    const S = merge(SUPINE, both({ hf: 90, k: 90, an: 10, fl: 0 }), both({ sf: 90, sa: 6, e: 0 }));
+    const L = merge(S, { L: { sf: 168 }, R: { hf: 14, k: 2 } });
+    return {
+      poses: { S, L, R: mirror(L) }, seq: ['S', 'L', 'S', 'R'],
+      g: { ground: ['upperBack', 'pelvisBack'], anchor: ['pelvisBack'] }, T: 3, cycles: 2, frame: 'wide',
+      props: [{ type: 'mat', along: 'z' }], faults: { arch_back: 'L' },
+    };
+  };
+  M.crunch = () => ({
+    poses: {
+      A: merge(SUPINE, both({ hf: 48, k: 100 }), ARMS.cross),
+      B: merge(SUPINE, { s: 28, c: 16, n: 8 }, both({ hf: 48, k: 100 }), ARMS.cross),
+    },
+    g: { ground: ['pelvisBack', 'heelL', 'heelR', 'upperBack'], anchor: ['pelvisBack'] }, T: 2.2, frame: 'wide',
+    props: [{ type: 'mat', along: 'z' }],
+  });
+  M.legRaise = () => ({
+    poses: {
+      A: merge(SUPINE, both({ hf: 12, k: 2, an: 20, fl: 0 }), both({ sf: 0, sa: 14 })),
+      B: merge(SUPINE, both({ hf: 88, k: 4, an: 20, fl: 0 }), both({ sf: 0, sa: 14 })),
+    },
+    g: { ground: ['pelvisBack', 'upperBack'], anchor: ['pelvisBack'] }, T: 3, frame: 'wide',
+    props: [{ type: 'mat', along: 'z' }], faults: { arch_back: 'A' },
+  });
+  M.russianTwist = () => {
+    const base = merge({ p: -38, s: 6 }, both({ hf: 60, k: 86, an: 10, fl: 0, ha: 8 }), both({ sf: 30, sa: 8, e: 78, h: 40 }));
+    return {
+      poses: { S: base, L: merge(base, { st: 40 }), R: merge(base, { st: -40 }) },
+      seq: ['S', 'L', 'S', 'R'], g: { ground: ['pelvisBottom'], anchor: ['pelvisBottom'] },
+      T: 2.2, cycles: 2, props: [{ type: 'mat', along: 'z' }],
+    };
+  };
+  M.mountainClimber = () => {
+    const S = merge({ p: 74 }, both({ hf: 0, k: 0, an: -75, fl: 0 }), both({ sf: 74, sa: 12, e: 0 }));
+    const L = merge(S, { L: { hf: 96, k: 110, an: -20 } });
+    const g = (b) => PLANK_G(['handL', 'handR'], b);
+    return {
+      poses: { L, R: mirror(L) }, seq: ['L', 'R'],
+      g: g(['toeR']), poseG: { L: g(['toeR']), R: g(['toeL']) },
+      T: 0.9, cycles: 4, frame: 'wide', props: [{ type: 'mat', along: 'z' }],
+    };
+  };
+  M.pallof = () => ({
+    poses: {
+      A: merge({ p: 4 }, both({ hf: 14, k: 16, ha: 10 }), both({ sf: 34, sa: 10, e: 118, h: 30 })),
+      B: merge({ p: 4 }, both({ hf: 14, k: 16, ha: 10 }), both({ sf: 88, sa: 4, e: 2, h: 14 })),
+    },
+    g: STAND_G, T: 2.6,
+    props: [{ type: 'band', from: 'handMid', toWorld: [1.3, 1.15, 0.1], anchor: true }],
+  });
+  M.farmerMarch = () => {
+    const S = merge(STAND, both({ sf: 0, sa: 10, e: 2 }));
+    const L = merge(S, { L: { hf: 70, k: 80, an: 10 } });
+    return {
+      poses: { L, S, R: mirror(L) }, seq: ['S', 'L', 'S', 'R'],
+      g: STAND_G, poseG: { L: { ground: ['heelR', 'toeR'], anchor: ['heelR', 'toeR'], anchorAt: [-0.09, 0] }, R: { ground: ['heelL', 'toeL'], anchor: ['heelL', 'toeL'], anchorAt: [0.09, 0] } },
+      T: 1.8, cycles: 2,
+    };
+  };
+  M.hipFlexorStretch = () => {
+    const A = merge({ p: 0 }, { L: { hf: 80, k: 86 }, R: { hf: -12, k: 92, an: 60, fl: 0 } }, ARMS.hips);
+    const B = merge({ p: -4 }, { L: { hf: 70, k: 104 }, R: { hf: -30, k: 88, an: 60, fl: 0 } }, both({ sf: 172, sa: 10, e: 6 }));
+    return { poses: { A, B }, g: { ground: ['heelL', 'toeL', 'kneeR'], anchor: ['kneeR'] }, T: 4, frame: 'wide', props: [{ type: 'mat', along: 'z' }] };
+  };
+
+  // Fault demos: what gets added to the pose, which joint glows, and the captions.
+  const FAULTS = {
+    knees_cave: { mod: both({ ha: -20, hr: 30 }), glow: ['kneeL', 'kneeR'], bad: 'Knees caving in', good: 'Knees track over toes' },
+    heels_lift: { mod: merge({ p: -6 }, both({ an: 26, fl: 1, k: 14 })), glow: ['heelL', 'heelR'], bad: 'Heels lifting', good: 'Whole foot down' },
+    back_round: { mod: { s: 26, c: 22, n: -8 }, glow: ['lowBack'], bad: 'Lower back rounding', good: 'Long, neutral spine' },
+    hips_sag: { mod: merge({ s: -16 }, both({ hf: -16 })), glow: ['lowBack'], bad: 'Hips sagging', good: 'Straight line, head to heels' },
+    arch_back: { mod: { s: -18, c: -10 }, glow: ['lowBack'], bad: 'Lower back arching', good: 'Ribs down, back steady' },
+    lean_back: { mod: { s: -26, p: -8 }, glow: ['lowBack'], bad: 'Leaning back to cheat the weight', good: 'Chest tall, small lean' },
+  };
+
+  window.MOTIONS = M;
+  window.FAULTS = FAULTS;
+  window.POSE_UTIL = { both, merge, mirror };
+})();
+
+</script>
+<script>
+/* The exercise database.
+ *
+ * One entry per exercise. To add one, copy a similar entry and change it.
+ *   motion     which movement from motions.js drives the 3D body (opts tweak it)
+ *   load       what the body holds: bodyweight, dumbbells, goblet, kettlebell, barbell, barbellBack, band
+ *   muscles    prime movers (glow orange), secondary (glow softer)
+ *   camera     side, back, front, three (3/4 front), threeBack, low
+ *   fault      optional right-vs-wrong demo: knees_cave, heels_lift, back_round, hips_sag, arch_back, lean_back
+ *   where      home, gym or both
+ */
+window.EXERCISES = [
+  // ---------------- LEGS ----------------
+  { id: 'bodyweight-squat', name: 'Bodyweight squat', motion: 'squat', opts: { arms: 'forward' }, load: 'bodyweight', area: 'Legs', where: 'home', level: 1,
+    muscles: ['quads', 'glutes'], secondary: ['adductors', 'abs'], camera: 'side', fault: 'knees_cave', equipment: [], sets: '3 x 12',
+    cues: ['sit back and down like there is a chair behind you', 'keep your whole foot on the floor', 'push the floor away to stand'],
+    mistakes: ['Knees falling in', 'Heels lifting', 'Chest collapsing forward'] },
+  { id: 'goblet-squat', name: 'Goblet squat', motion: 'squat', opts: { arms: 'goblet' }, load: 'goblet', area: 'Legs', where: 'both', level: 1,
+    muscles: ['quads', 'glutes'], secondary: ['adductors', 'abs', 'upper_back'], camera: 'side', fault: 'heels_lift', equipment: ['Dumbbell'], sets: '3 x 10',
+    cues: ['hold the weight tight to your chest', 'elbows inside your knees at the bottom', 'drive up through your heels'],
+    mistakes: ['Heels lifting', 'Weight drifting away from the chest', 'Cutting depth short'] },
+  { id: 'barbell-back-squat', name: 'Barbell back squat', motion: 'squat', opts: { arms: 'backbar' }, load: 'barbellBack', area: 'Legs', where: 'gym', level: 3,
+    muscles: ['quads', 'glutes'], secondary: ['adductors', 'lower_back', 'abs'], camera: 'threeBack', fault: 'knees_cave', equipment: ['Barbell', 'Squat rack'], sets: '4 x 6',
+    cues: ['brace like someone is about to poke your stomach', 'knees follow your toes', 'stand up with the bar and your hips together'],
+    mistakes: ['Knees caving', 'Hips shooting up first', 'Losing the brace at the bottom'] },
+  { id: 'sumo-squat', name: 'Dumbbell sumo squat', motion: 'squat', opts: { arms: 'hang', sumo: true }, load: 'dumbbellCenter', area: 'Legs', where: 'both', level: 1,
+    muscles: ['adductors', 'glutes', 'quads'], secondary: ['abs'], camera: 'front', fault: 'knees_cave', equipment: ['Dumbbell'], sets: '3 x 12',
+    cues: ['wide stance, toes turned out', 'push your knees out over your toes', 'stay tall as you sink'],
+    mistakes: ['Knees falling in', 'Leaning forward'] },
+  { id: 'wall-sit', name: 'Wall sit', motion: 'wallSit', load: 'bodyweight', area: 'Legs', where: 'home', level: 1,
+    muscles: ['quads'], secondary: ['glutes'], camera: 'side', equipment: ['Wall'], sets: '3 x 30 sec',
+    cues: ['back flat on the wall', 'knees over ankles', 'breathe slowly and hold'],
+    mistakes: ['Knees drifting past the toes', 'Holding your breath'] },
+  { id: 'sit-to-stand', name: 'Sit to stand', motion: 'sitToStand', load: 'bodyweight', area: 'Legs', where: 'home', level: 1, rehab: true,
+    muscles: ['quads', 'glutes'], secondary: ['abs'], camera: 'side', fault: 'knees_cave', equipment: ['Chair'], sets: '3 x 10',
+    cues: ['nose over toes to stand up', 'no hands if you can', 'sit down slowly, do not flop'],
+    mistakes: ['Using the hands to push up', 'Dropping into the chair', 'Knees falling in'] },
+  { id: 'split-squat', name: 'Split squat', motion: 'splitSquat', load: 'bodyweight', area: 'Legs', where: 'home', level: 1,
+    muscles: ['quads', 'glutes'], secondary: ['adductors', 'hip_flexors'], camera: 'side', fault: 'knees_cave', equipment: [], sets: '3 x 8 each side',
+    cues: ['drop the back knee straight down', 'front foot stays flat', 'stay tall through the chest'],
+    mistakes: ['Front knee caving in', 'Front heel lifting', 'Stance too narrow'] },
+  { id: 'db-split-squat', name: 'Dumbbell split squat', motion: 'splitSquat', opts: { dumbbells: true }, load: 'dumbbells', area: 'Legs', where: 'both', level: 2,
+    muscles: ['quads', 'glutes'], secondary: ['adductors', 'forearms'], camera: 'side', fault: 'knees_cave', equipment: ['Dumbbells'], sets: '3 x 8 each side',
+    cues: ['weights hang by your sides', 'back knee kisses the floor', 'push through the front foot'],
+    mistakes: ['Front knee caving in', 'Leaning to one side'] },
+  { id: 'reverse-lunge', name: 'Reverse lunge', motion: 'reverseLunge', load: 'bodyweight', area: 'Legs', where: 'home', level: 1,
+    muscles: ['quads', 'glutes'], secondary: ['hamstrings', 'adductors'], camera: 'side', equipment: [], sets: '3 x 8 each side',
+    cues: ['step back long', 'most of your weight in the front foot', 'push through the front heel to come back'],
+    mistakes: ['Short step', 'Front knee caving', 'Wobbling side to side'] },
+  { id: 'bulgarian-split-squat', name: 'Bulgarian split squat', motion: 'bulgarian', load: 'dumbbells', area: 'Legs', where: 'both', level: 2,
+    muscles: ['quads', 'glutes'], secondary: ['adductors', 'hip_flexors'], camera: 'side', fault: 'knees_cave', equipment: ['Bench or couch', 'Dumbbells'], sets: '3 x 8 each side',
+    cues: ['back foot laces down on the bench', 'drop straight down', 'front knee tracks over your toes'],
+    mistakes: ['Front foot too close to the bench', 'Pushing off the back leg'] },
+  { id: 'step-up', name: 'Step-up', motion: 'stepUp', load: 'dumbbells', area: 'Legs', where: 'home', level: 1,
+    muscles: ['quads', 'glutes'], secondary: ['calves', 'hamstrings'], camera: 'side', fault: 'knees_cave', equipment: ['Step or box', 'Dumbbells (optional)'], sets: '3 x 8 each side',
+    cues: ['whole foot on the box', 'drive through the top leg, not the bottom one', 'step down slowly'],
+    mistakes: ['Pushing off the floor leg', 'Knee caving in on the box'] },
+  { id: 'lateral-lunge', name: 'Lateral lunge', motion: 'lateralLunge', load: 'bodyweight', area: 'Legs', where: 'home', level: 2,
+    muscles: ['adductors', 'glutes', 'quads'], secondary: ['hamstrings'], camera: 'front', equipment: [], sets: '3 x 6 each side',
+    cues: ['sit back into one hip', 'keep the other leg long', 'both feet stay flat'],
+    mistakes: ['Knee shooting past the toes', 'Rounding the back'] },
+  { id: 'standing-hip-abduction', name: 'Standing hip abduction', motion: 'standingAbduction', load: 'bodyweight', area: 'Legs', where: 'home', level: 1, rehab: true,
+    muscles: ['glute_med'], secondary: ['obliques'], camera: 'front', equipment: ['Wall or chair for balance'], sets: '3 x 12 each side',
+    cues: ['stand tall, hold something for balance', 'lift the leg out to the side, toes forward', 'do not lean the other way'],
+    mistakes: ['Leaning the torso', 'Turning the toes up'] },
+  { id: 'glute-bridge', name: 'Glute bridge', motion: 'bridge', load: 'bodyweight', area: 'Legs', where: 'home', level: 1, rehab: true,
+    muscles: ['glutes'], secondary: ['hamstrings', 'abs'], camera: 'side', fault: 'arch_back', equipment: ['Mat'], sets: '3 x 12',
+    cues: ['squeeze your glutes to lift', 'ribs stay down', 'pause one second at the top'],
+    mistakes: ['Arching the lower back', 'Pushing through the toes'] },
+  { id: 'single-leg-bridge', name: 'Single-leg glute bridge', motion: 'bridge', opts: { single: true }, load: 'bodyweight', area: 'Legs', where: 'home', level: 2,
+    muscles: ['glutes'], secondary: ['hamstrings', 'abs'], camera: 'side', equipment: ['Mat'], sets: '3 x 8 each side',
+    cues: ['press through the heel of the bent leg', 'keep your hips level', 'lower slowly'],
+    mistakes: ['Hips twisting', 'Arching the lower back'] },
+  { id: 'db-rdl', name: 'Dumbbell Romanian deadlift', motion: 'hinge', opts: { kind: 'rdl' }, load: 'dumbbells', area: 'Legs', where: 'both', level: 2,
+    muscles: ['hamstrings', 'glutes'], secondary: ['lower_back', 'forearms'], camera: 'side', fault: 'back_round', equipment: ['Dumbbells'], sets: '3 x 10',
+    cues: ['push your hips back to a wall behind you', 'weights slide down your thighs', 'soft knees, long spine'],
+    mistakes: ['Rounding the lower back', 'Squatting instead of hinging'] },
+  { id: 'barbell-deadlift', name: 'Barbell deadlift', motion: 'hinge', opts: { kind: 'deadlift' }, load: 'barbell', area: 'Legs', where: 'gym', level: 3,
+    muscles: ['glutes', 'hamstrings', 'lower_back'], secondary: ['quads', 'upper_back', 'forearms'], camera: 'three', fault: 'back_round', equipment: ['Barbell', 'Plates'], sets: '4 x 5',
+    cues: ['bar over the middle of your foot', 'pull the slack out of the bar first', 'push the floor away'],
+    mistakes: ['Lower back rounding', 'Bar drifting away from the legs', 'Jerking the bar off the floor'] },
+  { id: 'kettlebell-swing', name: 'Kettlebell swing', motion: 'hinge', opts: { kind: 'swing' }, load: 'kettlebell', area: 'Legs', where: 'both', level: 2,
+    muscles: ['glutes', 'hamstrings'], secondary: ['lower_back', 'abs', 'forearms'], camera: 'side', fault: 'back_round', equipment: ['Kettlebell'], sets: '4 x 15',
+    cues: ['hike the bell back between your legs', 'snap your hips forward', 'arms just guide the bell'],
+    mistakes: ['Squatting the swing', 'Lifting with the arms', 'Rounding the back'] },
+  { id: 'single-leg-rdl', name: 'Single-leg Romanian deadlift', motion: 'singleLegRdl', load: 'dumbbells', area: 'Legs', where: 'both', level: 2,
+    muscles: ['hamstrings', 'glutes'], secondary: ['glute_med', 'lower_back'], camera: 'side', fault: 'back_round', equipment: ['Dumbbells'], sets: '3 x 8 each side',
+    cues: ['reach the back leg long', 'hips stay square to the floor', 'soft standing knee'],
+    mistakes: ['Hip opening up', 'Rounding the back'] },
+  { id: 'standing-calf-raise', name: 'Standing calf raise', motion: 'calfRaise', load: 'bodyweight', area: 'Legs', where: 'home', level: 1, rehab: true,
+    muscles: ['calves'], secondary: [], camera: 'low', equipment: [], sets: '3 x 15',
+    cues: ['rise high onto the big toe', 'pause at the top', 'lower slowly, three seconds down'],
+    mistakes: ['Bouncing', 'Rolling onto the outside of the foot'] },
+  { id: 'seated-calf-raise', name: 'Seated calf raise', motion: 'seatedCalf', load: 'bodyweight', area: 'Legs', where: 'home', level: 1,
+    muscles: ['calves'], secondary: [], camera: 'side', equipment: ['Bench or chair', 'Dumbbell'], sets: '3 x 15',
+    cues: ['weight on top of your knees', 'lift the heels as high as you can', 'lower slowly'],
+    mistakes: ['Rushing the reps', 'Half range'] },
+  { id: 'leg-press', name: 'Leg press', motion: 'legPress', load: 'machine', area: 'Legs', where: 'gym', level: 2,
+    muscles: ['quads', 'glutes'], secondary: ['adductors', 'hamstrings'], camera: 'side', fault: 'knees_cave', equipment: ['Leg press machine'], sets: '3 x 10',
+    cues: ['feet flat, hip width', 'knees track over your toes', 'lower until your hips start to lift, then stop'],
+    mistakes: ['Knees caving in', 'Lower back peeling off the pad', 'Locking the knees hard'] },
+  { id: 'lying-leg-curl', name: 'Lying leg curl', motion: 'legCurl', load: 'machine', area: 'Legs', where: 'gym', level: 1,
+    muscles: ['hamstrings'], secondary: ['calves'], camera: 'side', equipment: ['Leg curl machine'], sets: '3 x 12',
+    cues: ['hips pressed into the pad', 'curl your heels to your glutes', 'three seconds down'],
+    mistakes: ['Hips lifting off the pad', 'Swinging the weight'] },
+  { id: 'leg-extension', name: 'Leg extension', motion: 'legExtension', load: 'machine', area: 'Legs', where: 'gym', level: 1,
+    muscles: ['quads'], secondary: [], camera: 'side', equipment: ['Leg extension machine'], sets: '3 x 12',
+    cues: ['sit all the way back', 'straighten fully and squeeze', 'lower with control'],
+    mistakes: ['Kicking the weight up', 'Hips sliding forward'] },
+  { id: 'seated-knee-extension', name: 'Seated knee extension', motion: 'legExtension', opts: { chair: true }, load: 'bodyweight', area: 'Legs', where: 'home', level: 1, rehab: true,
+    muscles: ['quads'], secondary: [], camera: 'side', equipment: ['Chair', 'Ankle weight (optional)'], sets: '3 x 12',
+    cues: ['sit tall', 'straighten the knee all the way', 'hold two seconds, lower slowly'],
+    mistakes: ['Leaning back', 'Not reaching full straight'] },
+  { id: 'clamshell', name: 'Clamshell', motion: 'clamshell', load: 'band', area: 'Legs', where: 'home', level: 1, rehab: true,
+    muscles: ['glute_med'], secondary: ['glutes'], camera: 'front', equipment: ['Mat', 'Mini band (optional)'], sets: '3 x 15 each side',
+    cues: ['heels stay together', 'open the top knee like a book', 'do not let the top hip roll back'],
+    mistakes: ['Rolling the pelvis back', 'Rushing'] },
+  { id: 'side-lying-leg-raise', name: 'Side-lying leg raise', motion: 'sideLegRaise', load: 'bodyweight', area: 'Legs', where: 'home', level: 1, rehab: true,
+    muscles: ['glute_med'], secondary: ['obliques'], camera: 'front', equipment: ['Mat'], sets: '3 x 12 each side',
+    cues: ['lead with the heel', 'toes point forward, not up', 'lift only as high as you can without rolling'],
+    mistakes: ['Toes turning up', 'Rolling backward'] },
+  { id: 'band-lateral-walk', name: 'Banded lateral walk', motion: 'lateralWalk', load: 'band', area: 'Legs', where: 'home', level: 1,
+    muscles: ['glute_med'], secondary: ['glutes', 'quads'], camera: 'front', fault: 'knees_cave', equipment: ['Mini band'], sets: '3 x 10 steps each way',
+    cues: ['stay in a quarter squat', 'push the knees out against the band', 'small, controlled steps'],
+    mistakes: ['Knees caving in', 'Standing up tall', 'Feet snapping together'] },
+  { id: 'donkey-kick', name: 'Donkey kick', motion: 'donkeyKick', load: 'bodyweight', area: 'Legs', where: 'home', level: 1,
+    muscles: ['glutes'], secondary: ['hamstrings', 'abs'], camera: 'side', equipment: ['Mat'], sets: '3 x 12 each side',
+    cues: ['press the foot to the ceiling', 'keep the knee bent at 90', 'back stays flat like a table'],
+    mistakes: ['Arching the lower back', 'Swinging the leg'] },
+  { id: 'fire-hydrant', name: 'Fire hydrant', motion: 'fireHydrant', load: 'bodyweight', area: 'Legs', where: 'home', level: 1,
+    muscles: ['glute_med'], secondary: ['glutes'], camera: 'threeBack', equipment: ['Mat'], sets: '3 x 12 each side',
+    cues: ['lift the knee out to the side', 'keep your weight centred', 'slow on the way down'],
+    mistakes: ['Shifting weight away from the working leg', 'Twisting the spine'] },
+
+  // ---------------- PUSH ----------------
+  { id: 'push-up', name: 'Push-up', motion: 'pushup', load: 'bodyweight', area: 'Push', where: 'home', level: 2,
+    muscles: ['pecs', 'triceps'], secondary: ['delts', 'abs'], camera: 'side', fault: 'hips_sag', equipment: [], sets: '3 x 10',
+    cues: ['hands under your shoulders', 'body moves as one plank', 'push the floor away'],
+    mistakes: ['Hips sagging', 'Elbows flaring straight out', 'Half reps'] },
+  { id: 'incline-push-up', name: 'Incline push-up', motion: 'pushup', opts: { incline: true }, load: 'bodyweight', area: 'Push', where: 'home', level: 1,
+    muscles: ['pecs', 'triceps'], secondary: ['delts', 'abs'], camera: 'side', fault: 'hips_sag', equipment: ['Bench, counter or sturdy chair'], sets: '3 x 12',
+    cues: ['hands on the edge, shoulder width', 'chest to the bench', 'squeeze your glutes the whole time'],
+    mistakes: ['Hips sagging', 'Head poking forward'] },
+  { id: 'knee-push-up', name: 'Knee push-up', motion: 'pushup', opts: { knees: true }, load: 'bodyweight', area: 'Push', where: 'home', level: 1,
+    muscles: ['pecs', 'triceps'], secondary: ['delts', 'abs'], camera: 'side', fault: 'hips_sag', equipment: ['Mat'], sets: '3 x 10',
+    cues: ['straight line from knees to head', 'lower your chest between your hands', 'press back up'],
+    mistakes: ['Hips piking up', 'Hips sagging'] },
+  { id: 'pike-push-up', name: 'Pike push-up', motion: 'pikePushup', load: 'bodyweight', area: 'Push', where: 'home', level: 3,
+    muscles: ['delts', 'triceps'], secondary: ['upper_back', 'pecs'], camera: 'side', equipment: ['Mat'], sets: '3 x 8',
+    cues: ['hips high like an upside-down V', 'lower the top of your head toward the floor', 'press back up'],
+    mistakes: ['Hips dropping', 'Elbows flaring wide'] },
+  { id: 'db-bench-press', name: 'Dumbbell bench press', motion: 'benchPress', load: 'dumbbells', area: 'Push', where: 'both', level: 2,
+    muscles: ['pecs', 'triceps'], secondary: ['delts'], camera: 'side', fault: 'arch_back', equipment: ['Bench', 'Dumbbells'], sets: '3 x 10',
+    cues: ['feet planted, shoulder blades squeezed', 'lower to the sides of your chest', 'press up and slightly in'],
+    mistakes: ['Big lower back arch', 'Dropping the weights too fast'] },
+  { id: 'barbell-bench-press', name: 'Barbell bench press', motion: 'benchPress', opts: { barbell: true }, load: 'machine', area: 'Push', where: 'gym', level: 3,
+    muscles: ['pecs', 'triceps'], secondary: ['delts'], camera: 'three', fault: 'arch_back', equipment: ['Bench', 'Barbell'], sets: '4 x 6',
+    cues: ['eyes under the bar', 'touch the lower chest', 'drive your feet into the floor'],
+    mistakes: ['Bouncing the bar', 'Butt lifting off the bench'] },
+  { id: 'db-shoulder-press', name: 'Dumbbell shoulder press', motion: 'shoulderPress', load: 'dumbbells', area: 'Push', where: 'both', level: 2,
+    muscles: ['delts', 'triceps'], secondary: ['upper_back', 'abs'], camera: 'front', fault: 'arch_back', equipment: ['Dumbbells'], sets: '3 x 10',
+    cues: ['ribs down, glutes tight', 'press straight up', 'finish with biceps by your ears'],
+    mistakes: ['Leaning back', 'Shrugging to the ears'] },
+  { id: 'lateral-raise', name: 'Lateral raise', motion: 'lateralRaise', load: 'dumbbells', area: 'Push', where: 'both', level: 1,
+    muscles: ['delts'], secondary: ['traps'], camera: 'front', equipment: ['Dumbbells'], sets: '3 x 12',
+    cues: ['lead with the elbows', 'stop at shoulder height', 'slow on the way down'],
+    mistakes: ['Swinging', 'Shrugging'] },
+  { id: 'front-raise', name: 'Front raise', motion: 'frontRaise', load: 'dumbbells', area: 'Push', where: 'both', level: 1,
+    muscles: ['delts'], secondary: ['pecs'], camera: 'side', equipment: ['Dumbbells'], sets: '3 x 12',
+    cues: ['arms long, soft elbows', 'lift to eye level', 'no leaning back'],
+    mistakes: ['Using momentum', 'Arching the back'] },
+  { id: 'bench-dip', name: 'Bench dip', motion: 'benchDip', load: 'bodyweight', area: 'Push', where: 'home', level: 2,
+    muscles: ['triceps'], secondary: ['pecs', 'delts'], camera: 'side', equipment: ['Bench or sturdy chair'], sets: '3 x 10',
+    cues: ['hips close to the bench', 'bend the elbows straight back', 'stop when upper arms are level'],
+    mistakes: ['Going too deep', 'Shoulders rolling forward'] },
+  { id: 'overhead-triceps-extension', name: 'Overhead triceps extension', motion: 'overheadTriceps', load: 'goblet', area: 'Push', where: 'both', level: 1,
+    muscles: ['triceps'], secondary: ['abs'], camera: 'side', equipment: ['Dumbbell'], sets: '3 x 12',
+    cues: ['elbows point to the ceiling', 'lower behind your head', 'straighten fully'],
+    mistakes: ['Elbows flaring', 'Arching the back'] },
+  { id: 'cable-triceps-pushdown', name: 'Cable triceps pushdown', motion: 'pushdown', load: 'machine', area: 'Push', where: 'gym', level: 1,
+    muscles: ['triceps'], secondary: [], camera: 'side', equipment: ['Cable machine'], sets: '3 x 12',
+    cues: ['elbows pinned to your sides', 'push down until straight', 'control it back up'],
+    mistakes: ['Elbows drifting forward', 'Leaning over the bar'] },
+  { id: 'wall-slide', name: 'Wall slide', motion: 'wallSlide', load: 'bodyweight', area: 'Push', where: 'home', level: 1, rehab: true,
+    muscles: ['upper_back', 'delts'], secondary: ['traps'], camera: 'front', equipment: ['Wall'], sets: '2 x 10',
+    cues: ['back and arms against the wall', 'slide up only as far as the arms stay in contact', 'ribs stay down'],
+    mistakes: ['Arching off the wall', 'Shrugging'] },
+
+  // ---------------- PULL ----------------
+  { id: 'lat-pulldown', name: 'Lat pulldown', motion: 'pulldown', load: 'machine', area: 'Pull', where: 'gym', level: 1,
+    muscles: ['lats'], secondary: ['biceps', 'upper_back', 'rear_delts'], camera: 'back', fault: 'lean_back', equipment: ['Lat pulldown machine'], sets: '3 x 10',
+    cues: ['pull your elbows down into your back pockets', 'bar to the top of your chest', 'control it back up'],
+    mistakes: ['Leaning way back', 'Pulling with the arms only', 'Shrugging'] },
+  { id: 'pull-up', name: 'Pull-up', motion: 'pullup', load: 'bodyweight', area: 'Pull', where: 'both', level: 3,
+    muscles: ['lats'], secondary: ['biceps', 'upper_back', 'forearms'], camera: 'back', equipment: ['Pull-up bar'], sets: '3 x 5',
+    cues: ['start from a dead hang', 'drive the elbows down', 'chin over the bar, then lower slowly'],
+    mistakes: ['Kipping', 'Half reps'] },
+  { id: 'bent-over-row', name: 'Bent-over dumbbell row', motion: 'bentRow', load: 'dumbbells', area: 'Pull', where: 'both', level: 2,
+    muscles: ['lats', 'upper_back'], secondary: ['biceps', 'rear_delts', 'lower_back'], camera: 'side', fault: 'back_round', equipment: ['Dumbbells'], sets: '3 x 10',
+    cues: ['hinge forward with a flat back', 'row the weights to your hips', 'squeeze your shoulder blades'],
+    mistakes: ['Back rounding', 'Standing up as you row'] },
+  { id: 'single-arm-row', name: 'Single-arm dumbbell row', motion: 'singleArmRow', load: 'none', area: 'Pull', where: 'both', level: 1,
+    muscles: ['lats', 'upper_back'], secondary: ['biceps', 'rear_delts'], camera: 'sideR', equipment: ['Bench', 'Dumbbell'], sets: '3 x 10 each side',
+    cues: ['hand and knee on the bench', 'pull the elbow toward your hip', 'do not twist open'],
+    mistakes: ['Twisting the torso', 'Shrugging the weight up'] },
+  { id: 'seated-cable-row', name: 'Seated cable row', motion: 'cableRow', load: 'machine', area: 'Pull', where: 'gym', level: 1,
+    muscles: ['upper_back', 'lats'], secondary: ['biceps', 'rear_delts'], camera: 'side', fault: 'back_round', equipment: ['Cable row machine'], sets: '3 x 12',
+    cues: ['sit tall', 'pull the handle to your belly button', 'shoulders back and down'],
+    mistakes: ['Rocking back and forth', 'Rounding forward on the return'] },
+  { id: 'band-pull-apart', name: 'Band pull-apart', motion: 'pullApart', load: 'band', area: 'Pull', where: 'home', level: 1, rehab: true,
+    muscles: ['rear_delts', 'upper_back'], secondary: ['traps'], camera: 'back', equipment: ['Resistance band'], sets: '3 x 15',
+    cues: ['arms straight at chest height', 'pull the band to your chest', 'squeeze between the shoulder blades'],
+    mistakes: ['Shrugging', 'Bending the elbows'] },
+  { id: 'face-pull', name: 'Face pull', motion: 'facePull', load: 'machine', area: 'Pull', where: 'gym', level: 2,
+    muscles: ['rear_delts', 'upper_back'], secondary: ['traps'], camera: 'three', equipment: ['Cable machine', 'Rope'], sets: '3 x 15',
+    cues: ['pull the rope to your forehead', 'elbows high and wide', 'finish like a double biceps pose'],
+    mistakes: ['Elbows dropping', 'Leaning back'] },
+  { id: 'db-biceps-curl', name: 'Dumbbell biceps curl', motion: 'curl', load: 'dumbbells', area: 'Pull', where: 'both', level: 1,
+    muscles: ['biceps'], secondary: ['forearms'], camera: 'three', equipment: ['Dumbbells'], sets: '3 x 12',
+    cues: ['elbows stay by your sides', 'curl all the way up', 'three seconds down'],
+    mistakes: ['Swinging the body', 'Elbows drifting forward'] },
+  { id: 'hammer-curl', name: 'Hammer curl', motion: 'curl', load: 'dumbbellsNeutral', area: 'Pull', where: 'both', level: 1,
+    muscles: ['biceps', 'forearms'], secondary: [], camera: 'three', equipment: ['Dumbbells'], sets: '3 x 12',
+    cues: ['thumbs up the whole time', 'elbows still', 'slow down'],
+    mistakes: ['Swinging', 'Short range'] },
+  { id: 'reverse-fly', name: 'Bent-over reverse fly', motion: 'reverseFly', load: 'dumbbells', area: 'Pull', where: 'both', level: 1,
+    muscles: ['rear_delts', 'upper_back'], secondary: ['traps'], camera: 'back', equipment: ['Light dumbbells'], sets: '3 x 12',
+    cues: ['hinge forward, flat back', 'open the arms like wings', 'lead with the pinkies'],
+    mistakes: ['Using heavy weights and swinging', 'Rounding the back'] },
+  { id: 'superman', name: 'Superman', motion: 'superman', load: 'bodyweight', area: 'Pull', where: 'home', level: 1,
+    muscles: ['lower_back', 'glutes'], secondary: ['upper_back', 'hamstrings'], camera: 'side', equipment: ['Mat'], sets: '3 x 10',
+    cues: ['lift arms and legs a few inches', 'look at the floor', 'hold two seconds'],
+    mistakes: ['Cranking the neck up', 'Lifting too high'] },
+
+  // ---------------- CORE ----------------
+  { id: 'plank', name: 'Forearm plank', motion: 'plank', load: 'bodyweight', area: 'Core', where: 'home', level: 1,
+    muscles: ['abs'], secondary: ['obliques', 'delts', 'glutes'], camera: 'side', fault: 'hips_sag', equipment: ['Mat'], sets: '3 x 30 sec',
+    cues: ['elbows under shoulders', 'squeeze glutes and pull ribs down', 'breathe while you hold'],
+    mistakes: ['Hips sagging', 'Hips piked up', 'Holding the breath'] },
+  { id: 'side-plank', name: 'Side plank', motion: 'sidePlank', load: 'bodyweight', area: 'Core', where: 'home', level: 2,
+    muscles: ['obliques'], secondary: ['glute_med', 'abs', 'delts'], camera: 'front', equipment: ['Mat'], sets: '3 x 20 sec each side',
+    cues: ['elbow under the shoulder', 'lift the hips high', 'straight line from head to feet'],
+    mistakes: ['Hips dropping', 'Rolling forward'] },
+  { id: 'dead-bug', name: 'Dead bug', motion: 'deadBug', load: 'bodyweight', area: 'Core', where: 'home', level: 1, rehab: true,
+    muscles: ['abs'], secondary: ['obliques', 'hip_flexors'], camera: 'side', fault: 'arch_back', equipment: ['Mat'], sets: '3 x 6 each side',
+    cues: ['press your lower back into the floor', 'reach opposite arm and leg long', 'breathe out as you reach'],
+    mistakes: ['Lower back arching', 'Moving too fast'] },
+  { id: 'bird-dog', name: 'Bird dog', motion: 'birdDog', load: 'bodyweight', area: 'Core', where: 'home', level: 1, rehab: true,
+    muscles: ['lower_back', 'glutes'], secondary: ['abs', 'delts'], camera: 'side', fault: 'arch_back', equipment: ['Mat'], sets: '3 x 6 each side',
+    cues: ['reach long, not high', 'keep a cup of water balanced on your back', 'pause at full reach'],
+    mistakes: ['Arching the back', 'Hips rotating'] },
+  { id: 'crunch', name: 'Crunch', motion: 'crunch', load: 'bodyweight', area: 'Core', where: 'home', level: 1,
+    muscles: ['abs'], secondary: ['obliques'], camera: 'side', equipment: ['Mat'], sets: '3 x 15',
+    cues: ['curl your ribs toward your hips', 'lift only your shoulder blades', 'slow on the way down'],
+    mistakes: ['Pulling on the neck', 'Sitting all the way up'] },
+  { id: 'lying-leg-raise', name: 'Lying leg raise', motion: 'legRaise', load: 'bodyweight', area: 'Core', where: 'home', level: 2,
+    muscles: ['abs', 'hip_flexors'], secondary: ['obliques'], camera: 'side', fault: 'arch_back', equipment: ['Mat'], sets: '3 x 10',
+    cues: ['lower back stays glued down', 'lower the legs only as far as you can control', 'lift with the belly'],
+    mistakes: ['Back arching off the floor', 'Dropping the legs'] },
+  { id: 'russian-twist', name: 'Russian twist', motion: 'russianTwist', load: 'bodyweight', area: 'Core', where: 'home', level: 2,
+    muscles: ['obliques'], secondary: ['abs', 'hip_flexors'], camera: 'front', equipment: ['Mat', 'Weight (optional)'], sets: '3 x 10 each side',
+    cues: ['lean back with a long spine', 'turn from your ribs, not your arms', 'move slow'],
+    mistakes: ['Rounding the back', 'Only moving the arms'] },
+  { id: 'mountain-climber', name: 'Mountain climber', motion: 'mountainClimber', load: 'bodyweight', area: 'Core', where: 'home', level: 2,
+    muscles: ['abs', 'hip_flexors'], secondary: ['delts', 'quads'], camera: 'side', equipment: ['Mat'], sets: '3 x 30 sec',
+    cues: ['shoulders over hands', 'drive the knees to the chest', 'hips stay low'],
+    mistakes: ['Hips bouncing high', 'Shoulders drifting back'] },
+  { id: 'pallof-press', name: 'Pallof press', motion: 'pallof', load: 'band', area: 'Core', where: 'both', level: 1, rehab: true,
+    muscles: ['obliques', 'abs'], secondary: ['glutes'], camera: 'front', equipment: ['Resistance band or cable'], sets: '3 x 10 each side',
+    cues: ['stand side-on to the anchor', 'press straight out from your chest', 'do not let the band turn you'],
+    mistakes: ['Twisting toward the anchor', 'Leaning away'] },
+
+  // ---------------- MOBILITY & CARRIES ----------------
+  { id: 'cat-cow', name: 'Cat-cow', motion: 'catCow', load: 'bodyweight', area: 'Mobility', where: 'home', level: 1, rehab: true,
+    muscles: ['lower_back', 'abs'], secondary: ['upper_back'], camera: 'side', equipment: ['Mat'], sets: '2 x 8 slow',
+    cues: ['round up through the whole spine', 'then let the belly sink and look up', 'move with your breath'],
+    mistakes: ['Only moving the neck', 'Rushing'] },
+  { id: 'half-kneeling-hip-flexor-stretch', name: 'Half-kneeling hip flexor stretch', motion: 'hipFlexorStretch', load: 'bodyweight', area: 'Mobility', where: 'home', level: 1, rehab: true,
+    muscles: ['hip_flexors'], secondary: ['glutes', 'abs'], camera: 'side', equipment: ['Mat or cushion'], sets: '2 x 30 sec each side',
+    cues: ['tuck your tailbone under', 'squeeze the glute of the back leg', 'shift forward gently and reach up'],
+    mistakes: ['Arching the lower back', 'Lunging too far forward'] },
+  { id: 'farmers-march', name: "Farmer's march", motion: 'farmerMarch', load: 'dumbbells', area: 'Mobility', where: 'both', level: 1,
+    muscles: ['forearms', 'traps', 'abs'], secondary: ['glute_med', 'hip_flexors'], camera: 'front', equipment: ['Dumbbells or kettlebells'], sets: '3 x 30 sec',
+    cues: ['stand tall with heavy weights', 'lift each knee to hip height', 'do not lean side to side'],
+    mistakes: ['Leaning', 'Shrugging'] },
+];
+
+</script>
+<script type="module">
+// Exercise preview engine: faceless 3D body, studio, equipment, muscle glow, camera.
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
+
+const D2R = Math.PI / 180;
+const V = () => new THREE.Vector3();
+const SPHERE = new THREE.SphereGeometry(1, 32, 22);
+
+export const MUSCLES = ['quads', 'hamstrings', 'glutes', 'glute_med', 'adductors', 'hip_flexors', 'calves', 'pecs', 'lats',
+  'upper_back', 'traps', 'delts', 'rear_delts', 'biceps', 'triceps', 'forearms', 'abs', 'obliques', 'lower_back'];
+const POSTERIOR = new Set(['hamstrings', 'glutes', 'calves', 'lats', 'upper_back', 'traps', 'rear_delts', 'triceps', 'lower_back', 'glute_med']);
+
+function makeMaterials() {
+  return {
+    skin: new THREE.MeshStandardMaterial({ color: 0xb3b7be, roughness: 0.58, metalness: 0.04 }),
+    shorts: new THREE.MeshStandardMaterial({ color: 0x141619, roughness: 0.82 }),
+    glow: new THREE.MeshStandardMaterial({ color: 0xff6a2c, emissive: 0xff3c10, emissiveIntensity: 1.6, roughness: 0.45 }),
+    glow2: new THREE.MeshStandardMaterial({ color: 0xd9784e, emissive: 0xa8401c, emissiveIntensity: 0.55, roughness: 0.5 }),
+    rim: new THREE.MeshBasicMaterial({ color: new THREE.Color(0.55, 0.32, 2.2), side: THREE.BackSide, transparent: true, opacity: 0.9, depthWrite: false }),
+    metal: new THREE.MeshStandardMaterial({ color: 0x2c3139, roughness: 0.32, metalness: 0.85 }),
+    chrome: new THREE.MeshStandardMaterial({ color: 0x9aa3ad, roughness: 0.22, metalness: 0.95 }),
+    rubber: new THREE.MeshStandardMaterial({ color: 0x0f1012, roughness: 0.6, metalness: 0.1 }),
+    pad: new THREE.MeshStandardMaterial({ color: 0x121317, roughness: 0.78 }),
+    mat: new THREE.MeshStandardMaterial({ color: 0x1c2029, roughness: 0.92 }),
+    wall: new THREE.MeshStandardMaterial({ color: 0x1a1f27, roughness: 0.9 }),
+    band: new THREE.MeshStandardMaterial({ color: 0x2f7d63, roughness: 0.55, emissive: 0x0a2a20, emissiveIntensity: 0.5 }),
+    cable: new THREE.MeshStandardMaterial({ color: 0x0b0c0e, roughness: 0.5 }),
+    bad: new THREE.MeshBasicMaterial({ color: new THREE.Color(3.2, 0.25, 0.2), transparent: true, opacity: 0.92 }),
+    good: new THREE.MeshBasicMaterial({ color: new THREE.Color(0.3, 2.8, 0.7), transparent: true, opacity: 0.92 }),
+  };
+}
+
+function lathe(len, radii, mat) {
+  // Tapered limb pointing down -Y from its joint, rounded at both ends.
+  const pts = [];
+  const r0 = radii[0], r1 = radii[radii.length - 1];
+  pts.push(new THREE.Vector2(0.0001, -len - r1 * 0.75));
+  pts.push(new THREE.Vector2(r1 * 0.72, -len - r1 * 0.5));
+  for (let i = radii.length - 1; i >= 0; i--) pts.push(new THREE.Vector2(radii[i], -len * (i / (radii.length - 1))));
+  pts.push(new THREE.Vector2(r0 * 0.72, r0 * 0.5));
+  pts.push(new THREE.Vector2(0.0001, r0 * 0.75));
+  const m = new THREE.Mesh(new THREE.LatheGeometry(pts, 28), mat);
+  m.castShadow = true;
+  return m;
+}
+
+// ---------------------------------------------------------------- Figure
+export class Figure {
+  constructor(mats) {
+    this.mats = mats;
+    this.root = new THREE.Group();
+    this.points = {};
+    this.muscles = [];
+    this.j = {};
+    this.build();
+  }
+
+  ell(parent, pos, rad, mat, rot) {
+    const m = new THREE.Mesh(SPHERE, mat);
+    m.position.set(...pos);
+    m.scale.set(...rad);
+    if (rot) m.rotation.set(...rot);
+    m.castShadow = true;
+    parent.add(m);
+    return m;
+  }
+  muscle(name, parent, pos, rad, rot, base) {
+    const m = this.ell(parent, pos, rad, base || this.mats.skin, rot);
+    const rim = new THREE.Mesh(SPHERE, this.mats.rim);
+    const k = 0.014;
+    rim.scale.set(1 + k / rad[0], 1 + k / rad[1], 1 + k / rad[2]);
+    rim.visible = false;
+    m.add(rim);
+    this.muscles.push({ name, mesh: m, rim, base: base || this.mats.skin });
+    return m;
+  }
+  point(name, parent, pos) {
+    const o = new THREE.Object3D();
+    o.position.set(...pos);
+    parent.add(o);
+    this.points[name] = o;
+  }
+
+  build() {
+    const { skin, shorts } = this.mats;
+    const R = this.root;
+    // Pelvis (in shorts)
+    this.ell(R, [0, -0.02, 0], [0.158, 0.12, 0.112], shorts);
+    this.ell(R, [0, 0.04, 0], [0.142, 0.06, 0.1], shorts);
+    for (const s of [1, -1]) {
+      this.muscle('glutes', R, [s * 0.074, -0.065, -0.07], [0.086, 0.1, 0.072], null, shorts);
+      this.muscle('glute_med', R, [s * 0.128, 0.0, -0.025], [0.05, 0.07, 0.06], null, shorts);
+      this.muscle('hip_flexors', R, [s * 0.075, -0.045, 0.078], [0.042, 0.06, 0.032], [0, 0, s * 0.3], shorts);
+    }
+    this.point('pelvisBottom', R, [0, -0.15, -0.05]);
+    this.point('pelvisBack', R, [0, -0.03, -0.135]);
+    this.point('hipFront', R, [0, -0.05, 0.12]);
+    this.point('pelvisSideL', R, [0.17, -0.05, 0]);
+    this.point('pelvisSideR', R, [-0.17, -0.05, 0]);
+
+    // Spine (lower torso)
+    const spine = new THREE.Group(); spine.position.set(0, 0.06, 0); R.add(spine); this.j.spine = spine;
+    this.ell(spine, [0, 0.09, 0], [0.132, 0.14, 0.098], skin);
+    for (const row of [0.045, 0.1, 0.155]) for (const s of [1, -1])
+      this.muscle('abs', spine, [s * 0.033, row, 0.078], [0.031, 0.03, 0.022]);
+    for (const s of [1, -1]) {
+      this.muscle('obliques', spine, [s * 0.1, 0.07, 0.035], [0.04, 0.1, 0.06]);
+      this.muscle('lower_back', spine, [s * 0.042, 0.09, -0.068], [0.04, 0.11, 0.036]);
+    }
+    this.point('lowBack', spine, [0, 0.07, -0.11]);
+
+    // Chest (upper torso)
+    const chest = new THREE.Group(); chest.position.set(0, 0.18, 0); spine.add(chest); this.j.chest = chest;
+    this.ell(chest, [0, 0.13, 0], [0.158, 0.19, 0.112], skin);
+    for (const s of [1, -1]) {
+      this.muscle('pecs', chest, [s * 0.074, 0.2, 0.078], [0.08, 0.062, 0.042], [0, 0, s * 0.18]);
+      this.muscle('lats', chest, [s * 0.118, 0.1, -0.035], [0.056, 0.15, 0.075], [0, 0, s * 0.22]);
+      this.muscle('upper_back', chest, [s * 0.06, 0.2, -0.086], [0.066, 0.09, 0.04]);
+      this.muscle('traps', chest, [s * 0.07, 0.3, -0.032], [0.08, 0.04, 0.052], [0, 0, -s * 0.35]);
+    }
+    this.point('upperBack', chest, [0, 0.18, -0.125]);
+    this.point('chestFront', chest, [0, 0.14, 0.125]);
+
+    const neck = new THREE.Group(); neck.position.set(0, 0.31, 0); chest.add(neck); this.j.neck = neck;
+    const nm = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.056, 0.13, 20), skin); nm.position.y = 0.05; nm.castShadow = true; neck.add(nm);
+    const head = new THREE.Group(); head.position.set(0, 0.1, 0); neck.add(head);
+    this.ell(head, [0, 0.1, 0.004], [0.084, 0.108, 0.098], skin);
+    this.ell(head, [0, 0.038, 0.028], [0.066, 0.05, 0.07], skin);
+    this.point('headTop', head, [0, 0.21, 0]);
+    this.point('headBack', head, [0, 0.1, -0.1]);
+
+    for (const [side, s] of [['L', 1], ['R', -1]]) {
+      // Arm
+      const sh = new THREE.Group(); sh.position.set(s * 0.198, 0.27, -0.01); chest.add(sh);
+      const ua = new THREE.Group(); ua.rotation.order = 'XZY'; sh.add(ua);
+      ua.add(lathe(0.29, [0.052, 0.05, 0.046, 0.042, 0.037], skin));
+      this.muscle('delts', ua, [s * 0.01, -0.03, 0.016], [0.062, 0.08, 0.058]);
+      this.muscle('rear_delts', ua, [s * 0.012, -0.035, -0.03], [0.05, 0.068, 0.044]);
+      this.muscle('biceps', ua, [0, -0.15, 0.027], [0.04, 0.086, 0.04]);
+      this.muscle('triceps', ua, [0, -0.14, -0.03], [0.043, 0.1, 0.04]);
+      const fa = new THREE.Group(); fa.position.set(0, -0.29, 0); ua.add(fa);
+      fa.add(lathe(0.25, [0.041, 0.043, 0.037, 0.03, 0.025], skin));
+      this.muscle('forearms', fa, [0, -0.07, 0.004], [0.045, 0.085, 0.04]);
+      this.point('elbow' + side, fa, [0, 0, -0.04]);
+      const hand = new THREE.Group(); hand.position.set(0, -0.25, 0); fa.add(hand);
+      this.ell(hand, [0, -0.055, 0.004], [0.028, 0.06, 0.045], skin);
+      this.point('hand' + side, hand, [0, -0.07, 0]);
+      this.j['sh' + side] = sh; this.j['ua' + side] = ua; this.j['fa' + side] = fa; this.j['hand' + side] = hand;
+
+      // Leg
+      const hip = new THREE.Group(); hip.rotation.order = 'XZY'; hip.position.set(s * 0.09, -0.07, 0); R.add(hip);
+      hip.add(lathe(0.43, [0.085, 0.082, 0.074, 0.064, 0.054, 0.047], skin));
+      const shortLeg = lathe(0.17, [0.094, 0.092, 0.089], shorts); hip.add(shortLeg);
+      this.muscle('quads', hip, [0, -0.215, 0.03], [0.07, 0.18, 0.058]);
+      this.muscle('hamstrings', hip, [0, -0.215, -0.03], [0.062, 0.17, 0.055]);
+      this.muscle('adductors', hip, [-s * 0.045, -0.13, 0], [0.04, 0.12, 0.05]);
+      const knee = new THREE.Group(); knee.position.set(0, -0.43, 0); hip.add(knee);
+      this.ell(knee, [0, 0, 0.035], [0.04, 0.042, 0.03], skin);
+      knee.add(lathe(0.42, [0.05, 0.055, 0.049, 0.04, 0.032, 0.027], skin));
+      this.muscle('calves', knee, [0, -0.12, -0.034], [0.05, 0.11, 0.048]);
+      this.point('knee' + side, knee, [0, 0, 0.06]);
+      this.point('ankleBack' + side, knee, [0, -0.35, -0.06]);
+      this.point('ankleFront' + side, knee, [0, -0.35, 0.06]);
+      const ankle = new THREE.Group(); ankle.position.set(0, -0.42, 0); knee.add(ankle);
+      this.ell(ankle, [0, -0.045, 0.05], [0.045, 0.036, 0.12], skin);
+      this.point('heel' + side, ankle, [0, -0.08, -0.04]);
+      this.point('toe' + side, ankle, [0, -0.08, 0.16]);
+      this.j['hip' + side] = hip; this.j['knee' + side] = knee; this.j['ankle' + side] = ankle;
+    }
+    this.groundAll = Object.keys(this.points).filter((k) => !['lowBack'].includes(k));
+  }
+
+  setHighlight(primary = [], secondary = []) {
+    const P = new Set(primary), S = new Set(secondary);
+    for (const m of this.muscles) {
+      if (P.has(m.name)) { m.mesh.material = this.mats.glow; m.rim.visible = true; }
+      else if (S.has(m.name)) { m.mesh.material = this.mats.glow2; m.rim.visible = false; }
+      else { m.mesh.material = m.base; m.rim.visible = false; }
+    }
+  }
+
+  apply(P) {
+    const d = (v) => (v || 0) * D2R;
+    const j = this.j;
+    this.root.rotation.order = 'YXZ';
+    this.root.rotation.set(d(P.p), d(P.y), d(P.r));
+    this.root.position.set(P.x || 0, P.yh ?? 1.0, P.z || 0);
+    j.spine.rotation.set(d(P.s), d((P.st || 0) * 0.5), d(P.sl));
+    j.chest.rotation.set(d(P.c), d((P.st || 0) * 0.5), 0);
+    j.neck.rotation.set(d(P.n), 0, 0);
+    for (const [side, s] of [['L', 1], ['R', -1]]) {
+      const l = P[side] || {};
+      const hf = l.hf ?? 0, k = l.k ?? 2, fl = l.fl ?? 1;
+      j['hip' + side].rotation.set(-d(hf), -s * d(l.hr), s * d(l.ha ?? 4));
+      j['knee' + side].rotation.set(d(k), 0, 0);
+      j['ankle' + side].rotation.set(-fl * d((P.p || 0) - hf + k) + d(l.an), 0, 0);
+      j['sh' + side].rotation.set(0, -s * d(l.h), 0);
+      j['ua' + side].rotation.set(-d(l.sf), s * d(l.sr), s * d(l.sa ?? 7));
+      j['fa' + side].rotation.set(-d(l.e ?? 8), 0, 0);
+    }
+  }
+
+  wp(name, out = V()) {
+    if (name === 'handMid') {
+      const a = this.points.handL.getWorldPosition(V()), b = this.points.handR.getWorldPosition(V());
+      return out.copy(a).add(b).multiplyScalar(0.5);
+    }
+    return this.points[name].getWorldPosition(out);
+  }
+  centroid(names) {
+    const c = V();
+    for (const n of names) c.add(this.wp(n));
+    return c.multiplyScalar(1 / names.length);
+  }
+  minY(names) {
+    let m = Infinity;
+    for (const n of names) m = Math.min(m, this.wp(n).y);
+    return m;
+  }
+}
+
+// ---------------------------------------------------------------- pose math
+const LIMB_KEYS = ['hf', 'ha', 'hr', 'k', 'an', 'fl', 'sf', 'sa', 'h', 'sr', 'e'];
+const LIMB_DEF = { hf: 0, ha: 4, hr: 0, k: 2, an: 0, fl: 1, sf: 0, sa: 7, h: 0, sr: 0, e: 8 };
+const BODY_KEYS = ['p', 'r', 'y', 'x', 'z', 'yh', 's', 'c', 'n', 'st', 'sl'];
+function full(P) {
+  const o = { L: {}, R: {} };
+  for (const k of BODY_KEYS) o[k] = P[k] ?? (k === 'yh' ? 1.0 : 0);
+  for (const s of ['L', 'R']) for (const k of LIMB_KEYS) o[s][k] = P[s]?.[k] ?? LIMB_DEF[k];
+  return o;
+}
+function lerpPose(a, b, w) {
+  const o = { L: {}, R: {} };
+  for (const k of BODY_KEYS) o[k] = a[k] + (b[k] - a[k]) * w;
+  for (const s of ['L', 'R']) for (const k of LIMB_KEYS) o[s][k] = a[s][k] + (b[s][k] - a[s][k]) * w;
+  return o;
+}
+function addPose(a, mod, w) {
+  if (!mod || !w) return a;
+  const o = { ...a, L: { ...a.L }, R: { ...a.R } };
+  for (const k in mod) {
+    if (k === 'L' || k === 'R') for (const q in mod[k]) o[k][q] += mod[k][q] * w;
+    else o[k] += mod[k] * w;
+  }
+  return o;
+}
+const ease = (x) => x * x * (3 - 2 * x);
+
+// ---------------------------------------------------------------- props
+function box(w, h, d, mat) { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); m.castShadow = true; m.receiveShadow = true; return m; }
+function cyl(r, len, mat, seg = 20) { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, len, seg), mat); m.castShadow = true; return m; }
+function rodBetween(mesh, a, b) {
+  const d = V().subVectors(b, a);
+  const len = d.length() || 0.0001;
+  mesh.position.copy(a).addScaledVector(d, 0.5);
+  mesh.scale.set(1, len, 1);
+  mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize());
+}
+function dumbbell(M, big = 1) {
+  const g = new THREE.Group();
+  const h = cyl(0.016, 0.15, M.chrome); h.rotation.z = Math.PI / 2; g.add(h);
+  for (const s of [1, -1]) {
+    const w = cyl(0.052 * big, 0.065, M.rubber, 6); w.rotation.z = Math.PI / 2; w.position.x = s * 0.105; g.add(w);
+  }
+  return g;
+}
+function kettlebell(M) {
+  const g = new THREE.Group();
+  const b = new THREE.Mesh(SPHERE, M.rubber); b.scale.set(0.1, 0.095, 0.1); b.position.y = -0.14; b.castShadow = true; g.add(b);
+  const hdl = new THREE.Mesh(new THREE.TorusGeometry(0.06, 0.013, 10, 24, Math.PI), M.rubber); hdl.position.y = -0.06; hdl.rotation.z = 0; g.add(hdl);
+  for (const s of [1, -1]) { const p = cyl(0.013, 0.06, M.rubber); p.position.set(s * 0.06, -0.07, 0); g.add(p); }
+  return g;
+}
+function barbell(M, len = 2.0, plateR = 0.225) {
+  const g = new THREE.Group();
+  const bar = cyl(0.014, len, M.chrome); bar.rotation.z = Math.PI / 2; g.add(bar);
+  if (plateR) for (const s of [1, -1]) {
+    const p = cyl(plateR, 0.05, M.rubber, 36); p.rotation.z = Math.PI / 2; p.position.x = s * (len / 2 - 0.2); g.add(p);
+    const c = cyl(0.03, 0.08, M.metal); c.rotation.z = Math.PI / 2; c.position.x = s * (len / 2 - 0.13); g.add(c);
+  }
+  return g;
+}
+
+// ---------------------------------------------------------------- Stage
+const VIEWS = {
+  side: [1, 0.16, 0.1], sideR: [-1, 0.16, 0.1], back: [0.12, 0.2, -1], front: [0.14, 0.16, 1], three: [0.8, 0.18, 0.85],
+  threeBack: [0.85, 0.3, -0.7], low: [0.28, 0.02, -1], top: [0.05, 0.85, 1],
+};
+
+export class Stage {
+  constructor(width = 720, height = 1280) {
+    this.M = makeMaterials();
+    const r = this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    r.setPixelRatio(1);
+    r.setSize(width, height, false);
+    r.toneMapping = THREE.ACESFilmicToneMapping;
+    r.toneMappingExposure = 1.05;
+    r.shadowMap.enabled = true;
+    r.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.canvas = r.domElement;
+
+    const scene = this.scene = new THREE.Scene();
+    scene.background = this.backdrop();
+    scene.fog = new THREE.Fog(0x10141b, 6, 14);
+    this.camera = new THREE.PerspectiveCamera(30, width / height, 0.05, 40);
+
+    // Floor: a dim mirror under a dark matte layer gives a subtle reflection.
+    const mirror = new Reflector(new THREE.PlaneGeometry(30, 30), { textureWidth: 512, textureHeight: 512, color: 0x6c717a, clipBias: 0.003 });
+    mirror.rotation.x = -Math.PI / 2; mirror.position.y = -0.002; scene.add(mirror);
+    this.mirror = mirror;
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), new THREE.MeshStandardMaterial({ color: 0x10141a, roughness: 0.95, transparent: true, opacity: 0.9 }));
+    floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+
+    // Lights
+    scene.add(new THREE.HemisphereLight(0x9fb0d0, 0x07090c, 0.55));
+    const key = this.key = new THREE.DirectionalLight(0xfff1e6, 2.6);
+    key.castShadow = true; key.shadow.mapSize.set(1024, 1024); key.shadow.radius = 6; key.shadow.bias = -0.0005;
+    Object.assign(key.shadow.camera, { left: -2, right: 2, top: 2.5, bottom: -1.5, near: 0.5, far: 12 });
+    scene.add(key, key.target);
+    this.rimA = new THREE.DirectionalLight(0x7d9cff, 4.2);
+    this.rimB = new THREE.DirectionalLight(0xb58cff, 3.0);
+    this.fill = new THREE.DirectionalLight(0x8fa3c8, 0.5);
+    scene.add(this.rimA, this.rimB, this.fill);
+
+    this.figure = new Figure(this.M);
+    scene.add(this.figure.root);
+    this.props = new THREE.Group(); scene.add(this.props);
+    this.glowBalls = [0, 1].map(() => { const m = new THREE.Mesh(SPHERE, this.M.bad); m.scale.setScalar(0.05); m.visible = false; scene.add(m); return m; });
+
+    this.composer = new EffectComposer(r);
+    this.composer.setPixelRatio(1);
+    this.composer.addPass(new RenderPass(scene, this.camera));
+    this.bloom = new UnrealBloomPass(new THREE.Vector2(width, height), 0.85, 0.55, 0.92);
+    this.composer.addPass(this.bloom);
+    this.composer.addPass(new OutputPass());
+    this.size = [width, height];
+  }
+
+  backdrop() {
+    const c = document.createElement('canvas'); c.width = 256; c.height = 512;
+    const g = c.getContext('2d');
+    const lin = g.createLinearGradient(0, 0, 0, 512);
+    lin.addColorStop(0, '#0b0e13'); lin.addColorStop(0.55, '#171c25'); lin.addColorStop(1, '#0c0f14');
+    g.fillStyle = lin; g.fillRect(0, 0, 256, 512);
+    const rad = g.createRadialGradient(128, 220, 10, 128, 220, 230);
+    rad.addColorStop(0, 'rgba(70,85,115,0.35)'); rad.addColorStop(1, 'rgba(70,85,115,0)');
+    g.fillStyle = rad; g.fillRect(0, 0, 256, 512);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  }
+
+  setSize(w, h) {
+    if (this.size[0] === w && this.size[1] === h) return;
+    this.size = [w, h];
+    this.renderer.setSize(w, h, false);
+    this.composer.setSize(w, h);
+    this.camera.aspect = w / h;
+    this.camera.updateProjectionMatrix();
+    if (this.ex) this.frameCamera();
+  }
+
+  // ---- placing the body in the world
+  place(P, g) {
+    const f = this.figure;
+    f.apply(P);
+    const root = f.root;
+    root.updateMatrixWorld(true);
+    if (g.level) {
+      const { a, b, axis = 'p', range = 30, off = 0 } = g.level;
+      const base = P[axis] || 0;
+      const fn = (v) => {
+        f.apply({ ...P, [axis]: v });
+        root.updateMatrixWorld(true);
+        return (f.minY(a) - off) - f.minY(b);
+      };
+      let lo = base - range, hi = base + range, flo = fn(lo), best = lo, bestF = Math.abs(flo), found = false;
+      const N = 12;
+      for (let i = 1; i <= N; i++) {
+        const v = base - range + (2 * range * i) / N, fv = fn(v);
+        if (Math.abs(fv) < bestF) { bestF = Math.abs(fv); best = v; }
+        if (!found && Math.sign(fv) !== Math.sign(flo)) { hi = v; found = true; break; }
+        lo = v; flo = fv;
+      }
+      if (found) {
+        for (let i = 0; i < 16; i++) {
+          const m = (lo + hi) / 2, fm = fn(m);
+          if (Math.sign(fm) === Math.sign(flo)) { lo = m; flo = fm; } else hi = m;
+        }
+        best = (lo + hi) / 2;
+      }
+      P = { ...P, [axis]: best };
+      f.apply(P);
+      root.updateMatrixWorld(true);
+    }
+    const shift = (dx, dy, dz) => { root.position.x += dx; root.position.y += dy; root.position.z += dz; root.updateMatrixWorld(true); };
+    const all = (pts) => (pts === 'all' ? f.groundAll : pts);
+    if (g.lock && this.lockTarget) {
+      const c = f.centroid(g.lock); const t = this.lockTarget;
+      shift(t.x - c.x, t.y - c.y, t.z - c.z);
+    } else {
+      if (g.pin) { const c = f.centroid(g.pin); const t = g.pinAt; shift(t[0] - c.x, t[1] - c.y, t[2] - c.z); }
+      if (g.ground) shift(0, (g.groundY || 0) - f.minY(all(g.ground)), 0);
+      if (g.anchor) {
+        const c = f.centroid(all(g.anchor)); const [ax, az] = g.anchorAt || [0, 0];
+        shift(ax - c.x, 0, az - c.z);
+      }
+    }
+    return { pos: root.position.clone(), P };
+  }
+
+  gFor(key) { const s = this.spec; return s.poseG?.[key] || s.poses[key]?.g || s.g || {}; }
+
+  poseAt(t, variant) {
+    const s = this.spec, seq = s.seq;
+    const C = this.cycle;
+    const n = seq.length;
+    let u = ((t % C) + C) % C / (C / n);
+    const i = Math.floor(u) % n; u -= Math.floor(u);
+    const hold = s.hold ? 0 : 0.14;
+    const w = u < hold ? 0 : ease((u - hold) / (1 - hold));
+    const ka = seq[i], kb = seq[(i + 1) % n];
+    let P = lerpPose(this.full[ka], this.full[kb], w);
+    let fw = 0;
+    if (variant === 'fault' && this.fault) {
+      const fk = this.fault.key;
+      fw = (ka === fk ? 1 - w : 0) + (kb === fk ? w : 0);
+      fw = 0.2 + 0.8 * fw;
+      P = addPose(P, this.fault.mod, fw);
+    }
+    return { P, ka, kb, w, fw };
+  }
+
+  pose(t, variant = 'normal') {
+    const { P, ka, kb, w } = this.poseAt(t, variant);
+    const ga = this.gFor(ka), gb = this.gFor(kb);
+    if (ga === gb || w === 0 || w === 1) {
+      this.place(P, w === 1 ? gb : ga);
+    } else {
+      const A = this.place(P, ga), B = this.place(P, gb);
+      const Pm = { ...P, p: A.P.p + (B.P.p - A.P.p) * w, r: A.P.r + (B.P.r - A.P.r) * w };
+      this.figure.apply(Pm);
+      this.figure.root.position.lerpVectors(A.pos, B.pos, w);
+      this.figure.root.updateMatrixWorld(true);
+    }
+    for (const u of this.updaters) u();
+  }
+
+  // ---- load an exercise
+  load(ex) {
+    this.ex = ex;
+    const build = window.MOTIONS[ex.motion];
+    if (!build) throw new Error('Unknown motion ' + ex.motion);
+    const spec = this.spec = build(ex.opts || {});
+    spec.seq = spec.seq || ['A', 'B'];
+    this.full = {};
+    for (const k in spec.poses) this.full[k] = full(spec.poses[k]);
+    this.cycle = spec.T * spec.seq.length / 2;
+    const fk = ex.fault && spec.faults?.[ex.fault];
+    this.fault = fk ? { key: fk, ...window.FAULTS[ex.fault] } : null;
+    this.figure.setHighlight(ex.muscles, ex.secondary);
+
+    // Where locked points sit, taken from the first pose.
+    this.lockTarget = null;
+    const g0 = this.gFor(spec.seq[0]);
+    this.place(this.full[spec.seq[0]], { ...g0, lock: null });
+    if (g0.lock || spec.g?.lock) this.lockTarget = this.figure.centroid(g0.lock || spec.g.lock);
+
+    // First-pose world points for placing equipment.
+    const ptA = {};
+    for (const n of [...Object.keys(this.figure.points), 'handMid']) ptA[n] = this.figure.wp(n);
+    this.ptA = ptA;
+
+    // Props
+    this.clearAttached();
+    this.props.clear();
+    this.updaters = [];
+    const all = [...(spec.props || []), ...this.loadProps(ex.load)];
+    for (const p of all) this.addProp(p);
+    this.pose(0);
+    this.frameCamera();
+  }
+
+  loadProps(load) {
+    switch (load) {
+      case 'dumbbells': return [{ type: 'dumbbells' }];
+      case 'dumbbellsNeutral': return [{ type: 'dumbbells', neutral: true }];
+      case 'goblet': case 'dumbbellCenter': return [{ type: 'dumbbellMid' }];
+      case 'kettlebell': return [{ type: 'kettlebellMid' }];
+      case 'barbell': return [{ type: 'barbell', plates: true }];
+      case 'barbellBack': return [{ type: 'barbellBack' }];
+      default: return [];
+    }
+  }
+
+  addProp(p) {
+    const M = this.M, f = this.figure, A = this.ptA, G = this.props;
+    const add = (o) => { G.add(o); return o; };
+    const every = (fn) => this.updaters.push(fn);
+    const under = (names) => { const c = V(); let y = Infinity; for (const n of names) { c.add(A[n]); y = Math.min(y, A[n].y); } c.multiplyScalar(1 / names.length); return { c, y }; };
+    switch (p.type) {
+      case 'mat': {
+        const box3 = new THREE.Box3();
+        for (const n of f.groundAll) box3.expandByPoint(A[n]);
+        const c = box3.getCenter(V());
+        const long = p.along === 'x' ? 1.9 : 0.62, wide = p.along === 'x' ? 0.62 : 1.9;
+        const m = add(box(long, 0.012, wide, M.mat)); m.position.set(c.x, 0.006, c.z); m.castShadow = false; m.userData.noFrame = true;
+        break;
+      }
+      case 'bench': {
+        const { c, y } = under(p.under);
+        const h = p.h === 'auto' ? Math.max(0.2, y - 0.005) : p.h;
+        const len = p.len || 1.2, w = p.wide ? 0.9 : 0.34;
+        const g = add(new THREE.Group());
+        const pad = box(p.alongZ === false ? len : w, 0.07, p.alongZ === false ? w : len, M.pad); pad.position.y = h - 0.035; g.add(pad);
+        const frame = box(0.08, h - 0.07, len * 0.8, M.metal); frame.position.y = (h - 0.07) / 2; g.add(frame);
+        for (const s of [1, -1]) { const ft = box(p.wide ? 0.8 : 0.36, 0.04, 0.06, M.metal); ft.position.set(0, 0.02, s * len * 0.42); g.add(ft); }
+        g.position.set(p.x ?? c.x, 0, c.z + (p.extend || 0));
+        break;
+      }
+      case 'box': {
+        const b = add(box(p.w, p.h, p.d, M.pad)); b.position.set(p.x, p.h / 2, p.z);
+        break;
+      }
+      case 'chair': {
+        const s = A[p.at];
+        const g = add(new THREE.Group()); g.position.set(0, 0, s.z + 0.04);
+        const h = s.y - 0.005;
+        const seat = box(0.46, 0.05, 0.44, M.pad); seat.position.y = h - 0.025; g.add(seat);
+        const back = box(0.46, 0.5, 0.04, M.pad); back.position.set(0, h + 0.27, -0.24); g.add(back);
+        for (const x of [-0.2, 0.2]) for (const z of [-0.2, 0.2]) { const l = box(0.03, h - 0.05, 0.03, M.metal); l.position.set(x, (h - 0.05) / 2, z); g.add(l); }
+        for (const x of [-0.2, 0.2]) { const l = box(0.03, 0.5, 0.03, M.metal); l.position.set(x, h + 0.25, -0.23); g.add(l); }
+        break;
+      }
+      case 'wall': {
+        const z = A[p.at].z - (p.gap || 0);
+        const w = add(box(4, 3, 0.05, M.wall)); w.position.set(0, 1.5, z - 0.025);
+        break;
+      }
+      case 'dumbbells': {
+        for (const s of ['L', 'R']) {
+          const d = dumbbell(M); d.position.set(0, -0.06, 0.005);
+          if (p.neutral) d.rotation.y = Math.PI / 2;
+          f.j['hand' + s].add(d);
+          G.userData.attached = (G.userData.attached || []).concat(d);
+        }
+        break;
+      }
+      case 'dumbbell': {
+        const d = dumbbell(M); d.position.set(0, -0.06, 0.005); f.j['hand' + (p.hand || 'R')].add(d);
+        G.userData.attached = (G.userData.attached || []).concat(d);
+        break;
+      }
+      case 'dumbbellMid': {
+        const d = add(dumbbell(M, 1.25)); d.rotation.z = Math.PI / 2;
+        every(() => { d.position.copy(f.wp('handMid')); d.position.y -= 0.02; });
+        break;
+      }
+      case 'dumbbellOn': {
+        const d = add(dumbbell(M, 1.3)); d.scale.set(2.2, 1, 1);
+        every(() => { d.position.copy(f.centroid(p.at)); d.position.y += 0.07; });
+        break;
+      }
+      case 'kettlebellMid': {
+        const k = add(kettlebell(M));
+        every(() => {
+          k.position.copy(f.wp('handMid'));
+          const dir = V().subVectors(f.wp('handMid'), f.centroid(['elbowL', 'elbowR'])).normalize();
+          k.quaternion.setFromUnitVectors(new THREE.Vector3(0, -1, 0), dir);
+        });
+        break;
+      }
+      case 'barbell': {
+        const b = add(barbell(M, p.plates ? 2.0 : 1.6, p.plates ? 0.225 : 0));
+        every(() => { b.position.copy(f.wp('handMid')); b.position.y -= 0.005; });
+        break;
+      }
+      case 'barbellBack': {
+        const b = barbell(M, 2.0, 0.225); b.position.set(0, 0.29, -0.075); f.j.chest.add(b);
+        G.userData.attached = (G.userData.attached || []).concat(b);
+        break;
+      }
+      case 'band': {
+        const rod = add(cyl(0.012, 1, M.band, 10));
+        every(() => {
+          const a = f.wp(p.from);
+          const b = p.toWorld ? V().set(...p.toWorld) : f.wp(p.to);
+          rodBetween(rod, a, b);
+        });
+        if (p.anchor) { const post = add(box(0.1, 1.3, 0.1, M.metal)); post.position.set(p.toWorld[0] + 0.05, 0.65, p.toWorld[2]); }
+        break;
+      }
+      case 'cable': {
+        const [px, py, pz] = p.pulley;
+        if (p.column !== false) {
+          const ch = Math.max(py + 0.3, 1.2);
+          const col = add(box(0.16, ch, 0.16, M.metal)); col.position.set(px, ch / 2, pz + 0.12);
+          const base = add(box(0.6, 0.05, 0.6, M.metal)); base.position.set(px, 0.025, pz + 0.12);
+        }
+        const wheel = add(cyl(0.045, 0.03, M.chrome)); wheel.rotation.z = Math.PI / 2; wheel.position.set(px, py, pz);
+        const line = add(cyl(0.006, 1, M.cable, 8));
+        const handle = add(cyl(0.015, 0.34, M.chrome)); handle.rotation.z = Math.PI / 2;
+        every(() => {
+          const h = f.wp('handMid');
+          rodBetween(line, V().set(px, py, pz), h);
+          handle.position.copy(h);
+        });
+        break;
+      }
+      case 'pulldown': {
+        const seatY = A.pelvisBottom.y, seatZ = A.pelvisBottom.z;
+        const colZ = seatZ + 0.55;
+        const col = add(box(0.16, 2.5, 0.16, M.metal)); col.position.set(0, 1.25, colZ);
+        const beam = add(box(0.1, 0.1, 0.62, M.metal)); beam.position.set(0, 2.45, colZ - 0.3);
+        const seat = add(box(0.46, 0.07, 0.42, M.pad)); seat.position.set(0, seatY - 0.035, seatZ + 0.05);
+        const post = add(box(0.08, seatY - 0.07, 0.08, M.metal)); post.position.set(0, (seatY - 0.07) / 2, seatZ + 0.05);
+        const kneeY = Math.max(A.kneeL.y, A.kneeR.y) + 0.07;
+        const kp = add(cyl(0.05, 0.5, M.pad)); kp.rotation.z = Math.PI / 2; kp.position.set(0, kneeY, A.kneeL.z - 0.1);
+        const kpost = add(box(0.05, 0.05, colZ - A.kneeL.z + 0.1, M.metal)); kpost.position.set(0, kneeY, (colZ + A.kneeL.z - 0.1) / 2);
+        const top = V().set(0, 2.42, colZ - 0.58);
+        const wheel = add(cyl(0.05, 0.03, M.chrome)); wheel.rotation.z = Math.PI / 2; wheel.position.copy(top);
+        const line = add(cyl(0.006, 1, M.cable, 8));
+        const bar = add(cyl(0.016, 1.2, M.chrome)); bar.rotation.z = Math.PI / 2;
+        every(() => { const h = f.wp('handMid'); bar.position.copy(h); rodBetween(line, top, h); });
+        break;
+      }
+      case 'pullupBar': {
+        const bar = add(cyl(0.017, 1.5, M.chrome)); bar.rotation.z = Math.PI / 2; bar.position.set(0, 2.3, 0);
+        for (const s of [1, -1]) { const post = add(box(0.07, 2.36, 0.07, M.metal)); post.position.set(s * 0.78, 1.18, 0); }
+        break;
+      }
+      case 'legPress': {
+        // Back pad along the trunk and a seat under the pelvis, taken from the first pose.
+        const pb = A.pelvisBack, ub = A.upperBack;
+        const v = V().subVectors(ub, pb); const len = v.length() + 0.35; v.normalize();
+        const back = add(box(0.5, len, 0.07, M.pad));
+        back.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v);
+        const nrm = new THREE.Vector3(0, 0, 1).applyQuaternion(back.quaternion);
+        back.position.copy(pb).addScaledVector(v, len / 2 - 0.25).addScaledVector(nrm, -0.04);
+        const seat = add(box(0.5, 0.07, 0.4, M.pad)); seat.position.set(0, A.pelvisBottom.y - 0.04, A.pelvisBottom.z + 0.08);
+        seat.rotation.x = -0.25;
+        const frame = add(box(0.1, A.pelvisBottom.y - 0.05, 0.1, M.metal)); frame.position.set(0, (A.pelvisBottom.y - 0.05) / 2, A.pelvisBottom.z);
+        const plate = add(box(0.75, 0.035, 0.5, M.metal));
+        const rails = [];
+        for (const s of [1, -1]) rails.push(add(cyl(0.025, 1, M.chrome)));
+        const soles = ['heelL', 'toeL', 'heelR', 'toeR'];
+        // Rails follow the line the foot plate travels between the two key poses.
+        const P0 = this.full[this.spec.seq[0]], P1 = this.full[this.spec.seq[1]];
+        this.place(P1, this.gFor(this.spec.seq[1]));
+        const far = this.figure.centroid(soles);
+        this.place(P0, this.gFor(this.spec.seq[0]));
+        const near = this.figure.centroid(soles);
+        const dir = V().subVectors(near, far).normalize();
+        rails.forEach((r, i) => {
+          const s = i ? -1 : 1;
+          const a = far.clone().addScaledVector(dir, -0.3); a.x = s * 0.3; a.y -= 0.12;
+          const b = near.clone().addScaledVector(dir, 0.6); b.x = s * 0.3; b.y -= 0.12;
+          rodBetween(r, a, b);
+        });
+        const q = new THREE.Quaternion();
+        every(() => {
+          f.j.ankleL.getWorldQuaternion(q);
+          plate.quaternion.copy(q);
+          const c = f.centroid(soles);
+          const down = new THREE.Vector3(0, -1, 0).applyQuaternion(q);
+          plate.position.copy(c).addScaledVector(down, 0.02);
+        });
+        break;
+      }
+      case 'legCurl': {
+        const top = 0.62 - 0.005;
+        const zc = (A.chestFront.z + A.kneeL.z) / 2 + 0.05;
+        const len = Math.abs(A.chestFront.z - A.kneeL.z) + 0.1;
+        const pad = add(box(0.36, 0.08, len, M.pad)); pad.position.set(0, top - 0.04, zc);
+        const frame = add(box(0.08, top - 0.08, len * 0.8, M.metal)); frame.position.set(0, (top - 0.08) / 2, zc);
+        const pivot = V().set(0, A.kneeL.y, A.kneeL.z);
+        const arm = add(cyl(0.02, 1, M.metal)); const roll = add(cyl(0.045, 0.34, M.pad)); roll.rotation.z = Math.PI / 2;
+        every(() => { const c = f.centroid(['ankleBackL', 'ankleBackR']); roll.position.copy(c); roll.position.addScaledVector(V().subVectors(c, pivot).normalize(), 0.0); rodBetween(arm, pivot.clone().setX(0.24), c.clone().setX(0.24)); });
+        break;
+      }
+      case 'legExt': {
+        const s = A.pelvisBottom;
+        const seat = add(box(0.46, 0.07, 0.46, M.pad)); seat.position.set(0, s.y - 0.035, s.z + 0.08);
+        const back = add(box(0.46, 0.62, 0.07, M.pad)); back.position.set(0, s.y + 0.33, s.z - 0.17); back.rotation.x = -0.12;
+        const frame = add(box(0.1, s.y - 0.07, 0.1, M.metal)); frame.position.set(0, (s.y - 0.07) / 2, s.z + 0.05);
+        const pivot = V().set(0.26, A.kneeL.y, A.kneeL.z);
+        const arm = add(cyl(0.02, 1, M.metal)); const roll = add(cyl(0.045, 0.34, M.pad)); roll.rotation.z = Math.PI / 2;
+        every(() => { const c = f.centroid(['ankleFrontL', 'ankleFrontR']); roll.position.copy(c); rodBetween(arm, pivot, c.clone().setX(0.26)); });
+        break;
+      }
+    }
+  }
+
+  clearAttached() {
+    for (const o of this.props.userData.attached || []) o.parent?.remove(o);
+    this.props.userData.attached = [];
+  }
+
+  frameCamera() {
+    const f = this.figure, spec = this.spec;
+    const pts = [];
+    const keys = Object.keys(spec.poses);
+    const names = spec.frame === 'legs'
+      ? ['kneeL', 'kneeR', 'heelL', 'heelR', 'toeL', 'toeR', 'hipFront', 'pelvisBack']
+      : [...f.groundAll, 'headTop'];
+    for (const k of keys) {
+      this.place(this.full[k], this.gFor(k));
+      for (const u of this.updaters) u();
+      for (const n of names) pts.push(f.wp(n));
+    }
+    if (spec.frame !== 'legs') {
+      this.props.updateMatrixWorld(true);
+      this.props.traverse((o) => {
+        if (!o.isMesh || o.geometry.parameters?.width > 3 || o.userData.noFrame) return;
+        const b = new THREE.Box3().setFromObject(o);
+        if (b.max.y - b.min.y > 2.2) { b.min.y = Math.max(b.min.y, 0); b.max.y = Math.min(b.max.y, 2.45); }
+        pts.push(b.min, b.max);
+      });
+    }
+    if (spec.frame === 'legs') pts.push(V().set(0, 0, 0));
+    const box3 = new THREE.Box3().setFromPoints(pts);
+    const c = box3.getCenter(V());
+    const dir = V().set(...(VIEWS[this.ex.camera] || VIEWS.side)).normalize();
+    const up = new THREE.Vector3(0, 1, 0);
+    const fwd = dir.clone().negate();
+    const right = V().crossVectors(fwd, up).normalize();
+    const upv = V().crossVectors(right, fwd).normalize();
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity, z1 = -Infinity;
+    for (const p of pts) {
+      const q = V().subVectors(p, c);
+      const x = q.dot(right), y = q.dot(upv), z = q.dot(dir);
+      x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); z1 = Math.max(z1, z);
+    }
+    const cam = this.camera;
+    const tanV = Math.tan((cam.fov * D2R) / 2);
+    const split = this.size[0] / this.size[1] > 0.8;
+    const fillH = split ? 0.78 : (spec.frame === 'legs' ? 0.7 : 0.6), fillW = 0.86;
+    const hh = (y1 - y0) / 2, hw = (x1 - x0) / 2;
+    const dist = Math.max(hh / (tanV * fillH), hw / (tanV * cam.aspect * fillW)) + z1;
+    const target = c.clone().addScaledVector(right, (x0 + x1) / 2).addScaledVector(upv, (y0 + y1) / 2);
+    if (!split) target.addScaledVector(upv, dist * tanV * 0.04);
+    cam.position.copy(target).addScaledVector(dir, dist);
+    cam.lookAt(target);
+    cam.updateMatrixWorld();
+
+    // Light rig relative to the camera: key from front-left, two cool rims behind.
+    this.key.position.copy(target).addScaledVector(dir, 3).addScaledVector(right, -2.2).addScaledVector(up, 3.2);
+    this.key.target.position.copy(target);
+    this.rimA.position.copy(target).addScaledVector(dir, -3).addScaledVector(right, 2.6).addScaledVector(up, 1.6);
+    this.rimB.position.copy(target).addScaledVector(dir, -3).addScaledVector(right, -2.6).addScaledVector(up, 1.2);
+    this.fill.position.copy(target).addScaledVector(dir, 2).addScaledVector(right, 2.5).addScaledVector(up, 0.5);
+    this.pose(0);
+  }
+
+  render(t, variant = 'normal') {
+    this.pose(t, variant);
+    const glow = variant !== 'normal' && this.fault ? this.fault.glow : [];
+    this.glowBalls.forEach((b, i) => {
+      b.visible = !!glow[i];
+      if (!glow[i]) return;
+      b.material = variant === 'fault' ? this.M.bad : this.M.good;
+      this.figure.wp(glow[i], b.position);
+    });
+    this.composer.render();
+    return this.canvas;
+  }
+}
+
+// ---------------------------------------------------------------- Muscle map thumbnails
+export class MiniMap {
+  constructor() {
+    this.M = makeMaterials();
+    this.M.skin.color.set(0x8e939b);
+    this.M.shorts.color.set(0x1a1c20);
+    const r = this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    r.setPixelRatio(1); r.setSize(150, 250, false);
+    r.toneMapping = THREE.ACESFilmicToneMapping;
+    this.scene = new THREE.Scene();
+    this.scene.add(new THREE.HemisphereLight(0xc8d2e6, 0x101218, 1.4));
+    const k = new THREE.DirectionalLight(0xffffff, 1.6); k.position.set(1, 2, 3); this.scene.add(k);
+    const k2 = new THREE.DirectionalLight(0xffffff, 1.2); k2.position.set(-1, 2, -3); this.scene.add(k2);
+    this.fig = new Figure(this.M);
+    this.fig.apply(full({ L: { sa: 16, e: 10 }, R: { sa: 16, e: 10 } }));
+    this.scene.add(this.fig.root);
+    this.cam = new THREE.PerspectiveCamera(22, 150 / 250, 0.1, 20);
+  }
+  render(primary, secondary) {
+    this.fig.setHighlight(primary, secondary);
+    const views = { front: [0, 0, 1], back: [0, 0, -1], side: [1, 0, 0] };
+    const out = {};
+    for (const [name, d] of Object.entries(views)) {
+      this.cam.position.set(d[0] * 5.4, 1.0, d[2] * 5.4);
+      this.cam.lookAt(0, 0.92, 0);
+      this.renderer.render(this.scene, this.cam);
+      const c = document.createElement('canvas'); c.width = 150; c.height = 250;
+      c.getContext('2d').drawImage(this.renderer.domElement, 0, 0);
+      out[name] = c;
+    }
+    const post = primary.filter((m) => POSTERIOR.has(m)).length;
+    out.best = post > primary.length / 2 ? 'back' : 'front';
+    return out;
+  }
+}
+
+export { full as fullPose };
+
+// Library browser: search, preview, personalise, make the video, save or copy the message.
+
+const EX = window.EXERCISES;
+const LABEL = {
+  quads: 'Quads', hamstrings: 'Hamstrings', glutes: 'Glutes', glute_med: 'Side glutes', adductors: 'Inner thighs',
+  hip_flexors: 'Hip flexors', calves: 'Calves', pecs: 'Chest', lats: 'Lats', upper_back: 'Upper back', traps: 'Traps',
+  delts: 'Shoulders', rear_delts: 'Rear shoulders', biceps: 'Biceps', triceps: 'Triceps', forearms: 'Forearms',
+  abs: 'Abs', obliques: 'Obliques', lower_back: 'Lower back',
+};
+const $ = (s) => document.querySelector(s);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('exlib.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem('exlib.' + k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+};
+
+const state = {
+  q: '', area: 'All', where: 'Any', rehab: false, demo: false, muscle: '',
+  current: null, showMap: true, split: false, label: true,
+  client: store.get('client', 'Sam'), sets: '', cue: '', recording: false, video: null,
+};
+
+// ---------------------------------------------------------------- list
+function haystack(e) {
+  return [e.name, e.area, e.where, ...e.muscles.map((m) => LABEL[m]), ...e.secondary.map((m) => LABEL[m]),
+    ...e.equipment, ...e.cues, e.rehab ? 'rehab' : '', e.fault ? 'right wrong form demo' : ''].join(' ').toLowerCase();
+}
+EX.forEach((e) => { e._hay = haystack(e); });
+
+function filtered() {
+  const words = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+  return EX.filter((e) =>
+    (state.area === 'All' || e.area === state.area) &&
+    (state.where === 'Any' || e.where === state.where.toLowerCase() || e.where === 'both') &&
+    (!state.rehab || e.rehab) && (!state.demo || e.fault) &&
+    (!state.muscle || e.muscles.includes(state.muscle) || e.secondary.includes(state.muscle)) &&
+    words.every((w) => e._hay.includes(w)));
+}
+
+function renderList() {
+  const list = filtered();
+  $('#count').textContent = `${list.length} of ${EX.length}`;
+  const ul = $('#results');
+  ul.replaceChildren();
+  if (!list.length) {
+    const li = document.createElement('li'); li.className = 'empty';
+    li.textContent = 'No exercises match. Clear a filter or try a muscle name like "glutes".';
+    ul.append(li); return;
+  }
+  for (const e of list) {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.className = 'row' + (state.current?.id === e.id ? ' on' : '');
+    b.type = 'button';
+    b.innerHTML = `<span class="rn"></span><span class="rm"></span><span class="rt"></span>`;
+    b.querySelector('.rn').textContent = e.name;
+    b.querySelector('.rm').textContent = e.muscles.map((m) => LABEL[m]).join(' · ');
+    const tags = b.querySelector('.rt');
+    const tag = (t, cls) => { const s = document.createElement('span'); s.className = 'tag ' + (cls || ''); s.textContent = t; tags.append(s); };
+    tag(e.where === 'both' ? 'Home or gym' : e.where === 'home' ? 'Home' : 'Gym', e.where);
+    if (e.equipment.length) tag(e.equipment[0]);
+    if (e.fault) tag('Right vs wrong', 'demo');
+    if (e.rehab) tag('Rehab', 'rehab');
+    b.addEventListener('click', () => { select(e); if (matchMedia('(max-width: 899px)').matches) $('#preview').scrollIntoView({ behavior: 'smooth' }); });
+    li.append(b); ul.append(li);
+  }
+}
+
+function chips(el, values, key) {
+  el.replaceChildren();
+  for (const v of values) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.textContent = v;
+    b.setAttribute('aria-pressed', state[key] === v);
+    b.addEventListener('click', () => { state[key] = v; chips(el, values, key); renderList(); });
+    el.append(b);
+  }
+}
+
+// ---------------------------------------------------------------- preview
+const W = 720, H = 1280;
+let stage, mini, maps = null, clock = performance.now(), downloads = null;
+const comp = $('#comp');
+const ctx = comp.getContext('2d');
+
+function select(e) {
+  state.current = e;
+  state.video = null;
+  state.split = state.split && !!e.fault;
+  state.sets = e.sets;
+  state.cue = e.cues[0];
+  try { history.replaceState(null, '', '#' + e.id); } catch { /* sandboxed */ }
+  $('#ex-name').textContent = e.name;
+  $('#ex-meta').textContent = `${e.area} · ${e.where === 'both' ? 'Home or gym' : e.where === 'home' ? 'Home' : 'Gym'} · Level ${e.level}`;
+  $('#sets').value = e.sets;
+  const sel = $('#cue');
+  sel.replaceChildren(...e.cues.map((c) => new Option(c, c)));
+  $('#cue-custom').value = '';
+  $('#split').disabled = !e.fault;
+  $('#split').checked = state.split;
+  $('#split-note').textContent = e.fault ? `${window.FAULTS[e.fault].bad} vs ${window.FAULTS[e.fault].good.toLowerCase()}` : 'No right-vs-wrong demo for this one yet';
+  const list = (id, items) => { const ul = $(id); ul.replaceChildren(...items.map((t) => { const li = document.createElement('li'); li.textContent = t; return li; })); };
+  list('#cues', e.cues.map(cap));
+  list('#mistakes', e.mistakes);
+  $('#muscles').replaceChildren(
+    ...e.muscles.map((m) => pill(LABEL[m], 'prime')),
+    ...e.secondary.map((m) => pill(LABEL[m], 'second')));
+  $('#equip').textContent = e.equipment.length ? e.equipment.join(', ') : 'None, just bodyweight';
+  $('#video-out').hidden = true;
+  $('#status').textContent = '';
+  renderList();
+  if (!stage) return;
+  stage.load(e);
+  applySize();
+  maps = mini.render(e.muscles, e.secondary);
+  clock = performance.now();
+}
+function pill(t, cls) { const s = document.createElement('span'); s.className = 'pill ' + cls; s.textContent = t; return s; }
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+function applySize() {
+  if (state.split) stage.setSize(W, H / 2); else stage.setSize(W, H);
+  stage.frameCamera();
+}
+
+// ---------------------------------------------------------------- 2D overlays
+function roundRect(x, y, w, h, r) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); }
+
+function drawMap() {
+  if (!maps) return;
+  const x0 = 170, y0 = 30, tw = 120, th = 200, gap = 10;
+  roundRect(x0 - 12, y0 - 8, tw * 3 + gap * 2 + 24, th + 16, 22);
+  ctx.fillStyle = 'rgba(20,24,32,0.62)'; ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 2; ctx.stroke();
+  ['front', 'back', 'side'].forEach((v, i) => {
+    const x = x0 + i * (tw + gap);
+    ctx.drawImage(maps[v], 15, 10, 120, 230, x, y0, tw, th);
+    if (v === maps.best) {
+      ctx.save();
+      ctx.shadowColor = '#ff3df2'; ctx.shadowBlur = 18;
+      ctx.strokeStyle = '#ff5cf4'; ctx.lineWidth = 5;
+      roundRect(x - 4, y0 - 2, tw + 8, th + 4, 14); ctx.stroke();
+      ctx.restore();
+    }
+  });
+}
+
+function drawBadge(x, y, good) {
+  ctx.save();
+  ctx.shadowColor = good ? '#35e07a' : '#ff3b3b'; ctx.shadowBlur = 24;
+  ctx.fillStyle = good ? '#1fa85a' : '#d8332f';
+  ctx.beginPath(); ctx.arc(x, y, 34, 0, Math.PI * 2); ctx.fill();
+  ctx.restore();
+  ctx.strokeStyle = '#fff'; ctx.lineWidth = 8; ctx.lineCap = 'round'; ctx.beginPath();
+  if (good) { ctx.moveTo(x - 15, y + 1); ctx.lineTo(x - 4, y + 12); ctx.lineTo(x + 16, y - 11); }
+  else { ctx.moveTo(x - 12, y - 12); ctx.lineTo(x + 12, y + 12); ctx.moveTo(x + 12, y - 12); ctx.lineTo(x - 12, y + 12); }
+  ctx.stroke();
+}
+
+function drawCaption(text, y, good) {
+  ctx.font = '600 30px "Barlow Condensed", "Arial Narrow", sans-serif';
+  const w = ctx.measureText(text).width + 36;
+  roundRect(40, y, w, 50, 25);
+  ctx.fillStyle = good ? 'rgba(20,90,50,0.8)' : 'rgba(120,24,22,0.82)'; ctx.fill();
+  ctx.fillStyle = '#fff'; ctx.textBaseline = 'middle'; ctx.fillText(text, 58, y + 26);
+}
+
+function wrap(text, maxW) {
+  const words = text.split(' '); const lines = []; let line = '';
+  for (const w of words) {
+    const t = line ? line + ' ' + w : w;
+    if (ctx.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t;
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+function cueText() {
+  const custom = $('#cue-custom').value.trim();
+  const cue = custom || $('#cue').value;
+  const name = $('#client').value.trim();
+  return name ? `${name}, ${cue}` : cap(cue);
+}
+
+function drawLabel() {
+  const e = state.current;
+  const x = 28, w = W - 56, y = H - 250, h = 222;
+  const g = ctx.createLinearGradient(0, y - 80, 0, H);
+  g.addColorStop(0, 'rgba(8,10,14,0)'); g.addColorStop(0.4, 'rgba(8,10,14,0.7)'); g.addColorStop(1, 'rgba(8,10,14,0.92)');
+  ctx.fillStyle = g; ctx.fillRect(0, y - 80, W, H - y + 80);
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = '#fff';
+  ctx.font = '700 56px "Barlow Condensed", "Arial Narrow", sans-serif';
+  ctx.fillText(e.name.toUpperCase(), x, y + 52);
+  const sets = $('#sets').value.trim();
+  if (sets) {
+    ctx.font = '600 32px "Barlow Condensed", "Arial Narrow", sans-serif';
+    const sw = ctx.measureText(sets).width + 32;
+    roundRect(x, y + 70, sw, 46, 10); ctx.fillStyle = '#ff6a2c'; ctx.fill();
+    ctx.fillStyle = '#16100c'; ctx.fillText(sets, x + 16, y + 103);
+  }
+  ctx.font = '500 30px "Figtree", "Helvetica Neue", Arial, sans-serif';
+  ctx.fillStyle = '#e8ecf2';
+  wrap(cueText(), w).slice(0, 2).forEach((l, i) => ctx.fillText(l, x, y + 158 + i * 36));
+  ctx.font = '600 20px "Figtree", "Helvetica Neue", Arial, sans-serif';
+  ctx.fillStyle = 'rgba(232,236,242,0.55)';
+  ctx.fillText('JAMIE ATLAS PERSONAL TRAINING', x, H - 26);
+}
+
+function frame(now) {
+  requestAnimationFrame(frame);
+  if (!stage || !state.current) return;
+  if (document.hidden) return;
+  const t = (now - clock) / 1000;
+  if (state.split) {
+    ctx.drawImage(stage.render(t, 'fault'), 0, 0);
+    ctx.drawImage(stage.render(t, 'good'), 0, H / 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.14)'; ctx.fillRect(0, H / 2 - 2, W, 4);
+    const f = window.FAULTS[state.current.fault];
+    drawBadge(W - 70, 70, false); drawBadge(W - 70, H / 2 + 70, true);
+    drawCaption(f.bad, 44, false); drawCaption(f.good, H / 2 + 44, true);
+  } else {
+    ctx.drawImage(stage.render(t, 'normal'), 0, 0);
+    if (state.showMap) drawMap();
+  }
+  if (state.label) drawLabel();
+}
+
+// ---------------------------------------------------------------- video
+function pickType() {
+  const types = ['video/mp4;codecs=avc1.42E01E', 'video/mp4;codecs=avc1', 'video/mp4', 'video/webm;codecs=vp9', 'video/webm'];
+  return types.find((t) => window.MediaRecorder && MediaRecorder.isTypeSupported(t));
+}
+
+async function makeVideo() {
+  if (state.recording || !stage) return;
+  const type = pickType();
+  if (!type) { $('#status').textContent = 'This browser cannot record video. Try Chrome or Safari.'; return; }
+  const loops = Math.max(state.current && stage.spec.cycles || 3, Math.ceil(5 / stage.cycle));
+  const dur = loops * stage.cycle;
+  const stream = comp.captureStream(30);
+  const rec = new MediaRecorder(stream, { mimeType: type, videoBitsPerSecond: 5_000_000 });
+  const chunks = [];
+  rec.ondataavailable = (ev) => ev.data.size && chunks.push(ev.data);
+  state.recording = true;
+  $('#make').disabled = true;
+  $('#video-out').hidden = true;
+  clock = performance.now();
+  rec.start(250);
+  const t0 = performance.now();
+  const tick = setInterval(() => {
+    const s = (performance.now() - t0) / 1000;
+    $('#status').textContent = `Recording ${Math.min(s, dur).toFixed(1)} of ${dur.toFixed(1)} s`;
+    $('#bar').style.width = Math.min(100, (s / dur) * 100) + '%';
+  }, 100);
+  await new Promise((r) => setTimeout(r, dur * 1000 + 120));
+  rec.stop();
+  await new Promise((r) => { rec.onstop = r; });
+  clearInterval(tick);
+  stream.getTracks().forEach((t) => t.stop());
+  const ext = type.includes('mp4') ? 'mp4' : 'webm';
+  const blob = new Blob(chunks, { type: type.split(';')[0] });
+  const client = $('#client').value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  state.video = { blob, ext, name: `${client ? client + '-' : ''}${state.current.id}${state.split ? '-right-vs-wrong' : ''}.${ext}` };
+  const v = $('#video');
+  if (v.src) URL.revokeObjectURL(v.src);
+  v.src = URL.createObjectURL(blob);
+  $('#video-out').hidden = false;
+  $('#video-size').textContent = `${state.video.name} · ${(blob.size / 1e6).toFixed(1)} MB · ${dur.toFixed(1)} s`;
+  $('#status').textContent = ext === 'mp4' ? 'Video ready.' : 'Video ready. This browser made a WebM file; Safari or recent Chrome make MP4, which WhatsApp prefers.';
+  $('#bar').style.width = '0%';
+  state.recording = false;
+  $('#make').disabled = false;
+}
+
+async function saveVideo() {
+  if (!state.video) return;
+  const { blob, name } = state.video;
+  if (downloads) {
+    try { await downloads.save({ filename: name, data: blob }); $('#status').textContent = 'Saved. Attach it in WhatsApp or iMessage.'; }
+    catch (err) { $('#status').textContent = err?.code === 'declined' ? 'Save cancelled.' : 'Could not save the video here.'; }
+    return;
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name; document.body.append(a); a.click(); a.remove();
+  $('#status').textContent = 'Saved to your downloads.';
+}
+
+function message() {
+  const e = state.current, name = $('#client').value.trim();
+  const sets = $('#sets').value.trim();
+  const custom = $('#cue-custom').value.trim() || $('#cue').value;
+  return `${name ? 'Hi ' + name + '! ' : ''}Here's your ${e.name.toLowerCase()}${sets ? ': ' + sets : ''}. Key cue: ${custom}. Watch the video before you start. - Jamie`;
+}
+async function copyMessage() {
+  const text = message();
+  $('#msg').value = text;
+  try { await navigator.clipboard.writeText(text); $('#status').textContent = 'Message copied.'; }
+  catch { $('#msg').select(); $('#status').textContent = 'Select the message below and copy it.'; }
+}
+
+// ---------------------------------------------------------------- boot
+function boot() {
+  chips($('#area'), ['All', 'Legs', 'Push', 'Pull', 'Core', 'Mobility'], 'area');
+  chips($('#where'), ['Any', 'Home', 'Gym'], 'where');
+  const ms = $('#muscle');
+  ms.append(new Option('Any muscle', ''), ...Object.entries(LABEL).map(([k, v]) => new Option(v, k)));
+  ms.addEventListener('change', () => { state.muscle = ms.value; renderList(); });
+  $('#q').addEventListener('input', (ev) => { state.q = ev.target.value; renderList(); });
+  $('#rehab').addEventListener('change', (ev) => { state.rehab = ev.target.checked; renderList(); });
+  $('#demo').addEventListener('change', (ev) => { state.demo = ev.target.checked; renderList(); });
+  $('#map').addEventListener('change', (ev) => { state.showMap = ev.target.checked; });
+  $('#labelon').addEventListener('change', (ev) => { state.label = ev.target.checked; });
+  $('#split').addEventListener('change', (ev) => { state.split = ev.target.checked; if (stage) applySize(); });
+  $('#client').value = state.client;
+  $('#client').addEventListener('input', (ev) => store.set('client', ev.target.value));
+  $('#make').addEventListener('click', makeVideo);
+  $('#save').addEventListener('click', saveVideo);
+  $('#copy').addEventListener('click', copyMessage);
+  $('#back').addEventListener('click', () => $('#browse').scrollIntoView({ behavior: 'smooth' }));
+
+  try {
+    stage = new Stage(W, H);
+    mini = new MiniMap();
+  } catch (err) {
+    $('#status').textContent = 'This device could not start 3D graphics, so previews are unavailable.';
+  }
+  const start = EX.find((e) => e.id === location.hash.slice(1)) || EX.find((e) => e.id === 'goblet-squat');
+  select(start);
+  requestAnimationFrame(frame);
+  window.claude?.use?.('downloads').then((d) => { downloads = d; }).catch(() => {});
+  window.__ready = true;
+}
+
+(document.fonts?.ready || Promise.resolve()).then(boot);
+
+</script>

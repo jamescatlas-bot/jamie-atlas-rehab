@@ -1,0 +1,172 @@
+<title>Jamie Atlas Exercise Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0d1016;
+    --panel: #151a22;
+    --panel-2: #1b212b;
+    --line: #28303c;
+    --text: #e8ecf2;
+    --muted: #8f99a9;
+    --glow: #ff6a2c;
+    --rim: #9278ff;
+    --good: #37d27c;
+    --bad: #ff5048;
+    --display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+    --body: "Figtree", "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--text); }
+  body { font: 15px/1.5 var(--body); margin: 0; padding-inline: 16px; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--rim); outline-offset: 2px; }
+
+  .top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-block: 18px 12px; max-width: 1240px; margin: 0 auto; flex-wrap: wrap; }
+  .brand { font: 700 30px/1 var(--display); letter-spacing: 0.02em; text-transform: uppercase; margin: 0; text-wrap: balance; }
+  .brand span { color: var(--glow); }
+  .top p { margin: 0; color: var(--muted); font-size: 13px; }
+
+  .layout { display: grid; gap: 20px; max-width: 1240px; margin: 0 auto; padding-block-end: 40px; }
+  @media (min-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr) 400px; align-items: start; } #preview { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); } }
+
+  .search { display: grid; gap: 10px; }
+  .search input[type=search] { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); font-size: 16px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 5px 12px; cursor: pointer; font-size: 13px; }
+  .chip[aria-pressed=true] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .filters select { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 5px 8px; font-size: 13px; }
+  .check { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); cursor: pointer; }
+  .check input { accent-color: var(--glow); }
+  .count { font: 600 14px var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 6px 0 0; font-variant-numeric: tabular-nums; }
+
+  #results { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+  @media (min-width: 640px) { #results { grid-template-columns: 1fr 1fr; } }
+  .row { width: 100%; text-align: left; background: var(--panel); border: 1px solid transparent; border-radius: 12px; padding: 11px 13px; cursor: pointer; display: grid; gap: 3px; }
+  .row:hover { border-color: var(--line); }
+  .row.on { border-color: var(--glow); background: var(--panel-2); }
+  .rn { font: 600 21px/1.1 var(--display); letter-spacing: 0.01em; }
+  .rm { color: #ffb08c; font-size: 13px; }
+  .rt { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+  .tag { font-size: 11px; padding: 1px 7px; border-radius: 5px; background: #222935; color: var(--muted); letter-spacing: 0.02em; }
+  .tag.home { color: #9fd8ff; } .tag.gym { color: #d6c3ff; } .tag.both { color: #bfe8cf; }
+  .tag.demo { color: #fff; background: linear-gradient(90deg, #7a2420, #1c6b3e); }
+  .tag.rehab { color: #ffd98f; }
+  .empty { color: var(--muted); padding: 20px 4px; }
+
+  #preview { background: var(--panel); border-radius: 16px; padding: 14px; display: grid; gap: 12px; }
+  .ph { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  #ex-name { font: 700 28px/1.05 var(--display); text-transform: uppercase; margin: 0; letter-spacing: 0.02em; }
+  #ex-meta { color: var(--muted); font-size: 13px; margin: 2px 0 0; }
+  #back { background: none; border: 0; color: var(--muted); font-size: 13px; cursor: pointer; padding: 0; white-space: nowrap; }
+  @media (min-width: 900px) { #back { display: none; } }
+  .screen { position: relative; margin: 0 auto; width: 100%; max-width: 372px; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; background: #0b0e13; }
+  #comp { width: 100%; height: 100%; display: block; }
+  .bar { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--glow); transition: width .1s linear; }
+  .toggles { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .toggles .check { color: var(--text); }
+  #split-note { font-size: 12px; color: var(--muted); margin: -6px 0 0; }
+  fieldset { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px 12px; margin: 0; display: grid; gap: 8px; }
+  legend { font: 600 13px var(--display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 0 4px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  label.f { display: grid; gap: 3px; font-size: 12px; color: var(--muted); }
+  label.f input, label.f select { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 15px; color: var(--text); width: 100%; min-width: 0; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn { border: 0; border-radius: 10px; padding: 11px 16px; font-weight: 600; cursor: pointer; background: var(--panel-2); border: 1px solid var(--line); }
+  .btn.primary { background: var(--glow); color: #1b0d05; border-color: var(--glow); }
+  .btn:disabled { opacity: .5; cursor: progress; }
+  #status { min-height: 1.4em; font-size: 13px; color: var(--muted); margin: 0; }
+  #video-out { display: grid; gap: 8px; }
+  #video { width: 140px; aspect-ratio: 9/16; border-radius: 8px; background: #000; }
+  .vo { display: flex; gap: 12px; align-items: flex-start; }
+  .vo p { margin: 0; font-size: 12px; color: var(--muted); word-break: break-all; }
+  #msg { width: 100%; min-height: 70px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px; font-size: 13px; resize: vertical; }
+  details { border-top: 1px solid var(--line); padding-top: 8px; }
+  summary { cursor: pointer; font: 600 14px var(--display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .info { display: grid; gap: 10px; margin-top: 8px; font-size: 14px; }
+  .info h3 { margin: 0 0 2px; font: 600 13px var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .info ul { margin: 0; padding-left: 18px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 5px; }
+  .pill { font-size: 12px; padding: 2px 9px; border-radius: 999px; }
+  .pill.prime { background: rgba(255,106,44,.18); color: #ffb08c; box-shadow: inset 0 0 0 1px rgba(146,120,255,.55); }
+  .pill.second { background: #222935; color: var(--muted); }
+  @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+</style>
+
+<header class="top">
+  <h1 class="brand">Exercise <span>Library</span></h1>
+  <p>Jamie Atlas Personal Training · preview, personalise and send</p>
+</header>
+
+<main class="layout">
+  <section id="browse" aria-label="Find an exercise">
+    <div class="search">
+      <input id="q" type="search" placeholder="Search: glutes, dumbbell, knee rehab, plank…" autocomplete="off" aria-label="Search exercises">
+      <div class="filters">
+        <div class="chips" id="area" aria-label="Body area"></div>
+        <div class="chips" id="where" aria-label="Where"></div>
+      </div>
+      <div class="filters">
+        <select id="muscle" aria-label="Muscle"></select>
+        <label class="check"><input id="rehab" type="checkbox"> Rehab-friendly</label>
+        <label class="check"><input id="demo" type="checkbox"> Has right-vs-wrong demo</label>
+      </div>
+      <p class="count" id="count"></p>
+    </div>
+    <ul id="results"></ul>
+  </section>
+
+  <section id="preview" aria-label="Preview and send">
+    <div class="ph">
+      <div><h2 id="ex-name">Exercise</h2><p id="ex-meta"></p></div>
+      <button id="back" type="button">↑ Back to list</button>
+    </div>
+    <div class="screen"><canvas id="comp" width="720" height="1280" aria-label="Animated exercise preview"></canvas><div class="bar" id="bar"></div></div>
+    <div class="toggles">
+      <label class="check"><input id="map" type="checkbox" checked> Muscle map</label>
+      <label class="check"><input id="split" type="checkbox"> Right vs wrong</label>
+      <label class="check"><input id="labelon" type="checkbox" checked> Client label</label>
+    </div>
+    <p id="split-note"></p>
+    <fieldset>
+      <legend>For your client</legend>
+      <div class="two">
+        <label class="f">First name<input id="client" autocomplete="off"></label>
+        <label class="f">Sets and reps<input id="sets" autocomplete="off"></label>
+      </div>
+      <label class="f">Cue<select id="cue"></select></label>
+      <label class="f">Or write your own cue<input id="cue-custom" placeholder="e.g. slow down on the way down" autocomplete="off"></label>
+    </fieldset>
+    <div class="actions">
+      <button class="btn primary" id="make" type="button">Make video</button>
+      <button class="btn" id="copy" type="button">Copy text message</button>
+    </div>
+    <p id="status" role="status"></p>
+    <div id="video-out" hidden>
+      <div class="vo">
+        <video id="video" controls playsinline loop muted></video>
+        <div style="display:grid;gap:8px">
+          <p id="video-size"></p>
+          <button class="btn primary" id="save" type="button">Save video</button>
+          <p>Then attach it in WhatsApp or iMessage along with the text.</p>
+        </div>
+      </div>
+    </div>
+    <textarea id="msg" aria-label="Message to send" placeholder="Tap “Copy text message” and the note for your client appears here."></textarea>
+    <details open>
+      <summary>Coaching notes</summary>
+      <div class="info">
+        <div><h3>Muscles</h3><div class="pills" id="muscles"></div></div>
+        <div><h3>Equipment</h3><span id="equip"></span></div>
+        <div><h3>Cues</h3><ul id="cues"></ul></div>
+        <div><h3>Common mistakes</h3><ul id="mistakes"></ul></div>
+      </div>
+    </details>
+  </section>
+</main>
+
+<!--IMPORTMAP-->
+<!--SCRIPTS-->
