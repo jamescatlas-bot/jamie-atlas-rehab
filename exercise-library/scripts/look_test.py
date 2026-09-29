@@ -48,7 +48,8 @@ else:
 for name, d in shots.items():
     for o in [o for o in bpy.data.objects if o.type in ('LIGHT', 'CAMERA') or o.name.startswith('Plane')]:
         bpy.data.objects.remove(o)
-    studio.build_studio(cam_dir=d, target=(0, 0, 0.95), frame_height=2.3)
+    H = max(v.co.z for v in body.data.vertices)
+    studio.build_studio(cam_dir=d, target=(0, 0, H * 0.51), frame_height=H * 1.24)
     studio.setup_render(samples=samples if name == 'look_test' else 24)
     bpy.context.scene.render.filepath = str(OUT / f'{name}.png')
     bpy.ops.render.render(write_still=True)

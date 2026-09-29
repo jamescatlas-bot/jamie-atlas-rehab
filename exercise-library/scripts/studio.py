@@ -35,7 +35,7 @@ BODY_TARGETS = {
 }
 
 HEAD_ITER = 150     # smoothing passes on the new head
-VOXEL = 0.0035      # remesh detail in metres (smaller = finer, slower)
+VOXEL = 0.0022      # remesh detail in metres (smaller = finer, slower)
 
 
 
@@ -140,15 +140,20 @@ def faceless_head(obj):
     co, _, _ = mesh_arrays(obj)
     top = co[:, 2].max(); s = top / 1.8
     chin = find_chin(co)
-    head = co[(co[:, 2] > chin - 0.07 * s) & (np.abs(co[:, 0]) < 0.13 * s)]
+    # Size the new head from the head alone (chin up), so it keeps normal proportions.
+    head = co[(co[:, 2] > chin - 0.005 * s) & (np.abs(co[:, 0]) < 0.13 * s)]
     core = head[np.abs(head[:, 0]) < np.percentile(np.abs(head[:, 0]), 90)]
     lo, hi = core.min(0), core.max(0)
     centre = (lo + hi) / 2; centre[0] = 0
-    radius = (hi - lo) / 2 * np.array([1.0, 1.0, 1.03])
+    radius = (hi - lo) / 2 * np.array([0.97, 0.98, 1.0])
+    neck_depth = chin - 0.07 * s          # the lower cap reaches this far down, into the neck
 
     bm = bmesh.new()
     bmesh.ops.create_uvsphere(bm, u_segments=72, v_segments=48, radius=1.0)
-    sph = np.array([v.co[:] for v in bm.verts]) * radius + centre
+    unit = np.array([v.co[:] for v in bm.verts])
+    sph = unit * radius + centre
+    below = unit[:, 2] < 0
+    sph[below, 2] = centre[2] + unit[below, 2] * (centre[2] - neck_depth)
     edges = np.array([[e.verts[0].index, e.verts[1].index] for e in bm.edges])
     faces = [[v.index for v in f.verts] for f in bm.faces]
     bm.free()
@@ -160,8 +165,10 @@ def faceless_head(obj):
     # Pull the upper head toward a clean egg (no brow, nose or cheek shapes);
     # the jaw and neck keep their real shape so the head still sits naturally.
     d = (sph - centre) / radius
-    egg = centre + d / np.linalg.norm(d, axis=1, keepdims=True) * radius * np.array([0.97, 0.97, 1.0])
-    k = (0.5 + 0.35 * smoothstep(-0.75, -0.2, d[:, 2]))[:, None]
+    egg = centre + d / np.linalg.norm(d, axis=1, keepdims=True) * radius
+    # Skull and face become a clean egg; the jaw fades into the real neck shape.
+    zc = (sph[:, 2] - chin) / (centre[2] - chin)
+    k = (0.85 * smoothstep(0.05, 0.6, zc))[:, None]
     sph = sph * (1 - k) + egg * k
     sph = taubin(sph, edges, 1.0, 30)
     sph += (sph - centre) * 0.015        # tiny inflate so no old feature pokes through
@@ -223,7 +230,7 @@ def shorts_from_body(body, top=0.585, bottom=0.435, gap=0.004):
     co, no, _ = mesh_arrays(body)
     H = co[:, 2].max()
     bm = bmesh.new(); bm.from_mesh(body.data)
-    for f in [f for f in bm.faces if not all(bottom * H - 0.05 < v.co.z < top * H + 0.05 and abs(v.co.x) < 0.2 * H / 1.8
+    for f in [f for f in bm.faces if not all(bottom * H - 0.05 < v.co.z < top * H + 0.05 and abs(v.co.x) < 0.235 * H / 1.8
                                            for v in f.verts)]:
         bm.faces.remove(f)
     bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
@@ -239,8 +246,8 @@ def shorts_from_body(body, top=0.585, bottom=0.435, gap=0.004):
     return shorts
 
 
-def build_body(source='makehuman'):
-    """source: 'makehuman', or the object name of a body in the Human Base Meshes pack."""
+def build_body(source='GEO-body_male_realistic'):
+    """source: a body in the Human Base Meshes pack (default: the realistic male), or 'makehuman'."""
     if source != 'makehuman':
         body = load_hbm_body(source)
         faceless_head(body)
