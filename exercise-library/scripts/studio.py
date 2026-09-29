@@ -204,7 +204,7 @@ def faceless_head(obj):
 HBM = ROOT / 'assets' / 'human_base_meshes_bundle.blend'
 
 
-def load_hbm_body(name):
+def load_hbm_body(name, levels=None):
     """Bring one body from Blender Studio's Human Base Meshes pack (CC0) into the scene,
     with its sculpted detail baked in, standing on the floor and facing -Y."""
     with bpy.data.libraries.load(str(HBM)) as (src, dst):
@@ -215,7 +215,7 @@ def load_hbm_body(name):
     bpy.context.view_layer.objects.active = obj
     for m in list(obj.modifiers):
         if m.type == 'MULTIRES':
-            m.levels = m.render_levels = m.total_levels
+            m.levels = m.render_levels = m.total_levels if levels is None else levels
         bpy.ops.object.modifier_apply(modifier=m.name)
     obj.data.transform(obj.matrix_world); obj.matrix_world.identity()
     co, _, _ = mesh_arrays(obj)
@@ -375,7 +375,7 @@ def muscle_masks(obj, sculpt=True):
                 dd = (np.abs(u) ** 2.2 + np.abs(v) ** 2.2) ** (1 / 2.2)
                 dd[~member] = np.inf
                 d = np.minimum(d, dd)
-            for _ in range(2):
+            for _ in range(5):
                 fin = np.where(np.isfinite(d), d, 3.0)
                 d = np.where(np.isfinite(d), 0.5 * fin + 0.5 * neighbour_average(fin, ed, len(fin)), d)
             fields[muscle].append(d)
@@ -411,6 +411,38 @@ def set_glow(obj, fields, primary, secondary=()):
     for attr, vals in (('glow', core), ('rim', rim), ('glow2', second)):
         a = obj.data.attributes.get(attr) or obj.data.attributes.new(attr, 'FLOAT', 'POINT')
         a.data.foreach_set('value', vals.astype(np.float32))
+
+
+def glow_on_shorts(body, shorts):
+    """Copy the glow onto the shorts so muscles under them (glutes, hip flexors) still show."""
+    from mathutils.kdtree import KDTree
+    bco, _, _ = mesh_arrays(body); sco, _, _ = mesh_arrays(shorts)
+    kd = KDTree(len(bco))
+    for i, p in enumerate(bco):
+        kd.insert(p, i)
+    kd.balance()
+    idx = np.array([kd.find(p)[1] for p in sco])
+    for name in ('glow', 'rim', 'glow2'):
+        src = body.data.attributes.get(name)
+        if src is None:
+            continue
+        vals = np.empty(len(bco), dtype=np.float32); src.data.foreach_get('value', vals)
+        a = shorts.data.attributes.get(name) or shorts.data.attributes.new(name, 'FLOAT', 'POINT')
+        a.data.foreach_set('value', vals[idx])
+
+
+def shorts_material():
+    """Black fabric that still carries the muscle glow."""
+    mat = body_material(); mat.name = 'Shorts'
+    nt = mat.node_tree
+    for n in nt.nodes:
+        if n.bl_idname == 'ShaderNodeMix' and n.data_type == 'RGBA' and np.allclose(tuple(n.inputs['A'].default_value)[:3], (0.36, 0.375, 0.4), atol=1e-3):
+            n.inputs['A'].default_value = (0.014, 0.014, 0.016, 1)
+    b = nt.nodes['Principled BSDF']
+    b.inputs['Roughness'].default_value = 0.8
+    b.inputs['Sheen Weight'].default_value = 0.3
+    b.inputs['Specular IOR Level'].default_value = 0.25
+    return mat
 
 
 # ---------------------------------------------------------------- materials
@@ -520,7 +552,7 @@ def look_at(obj, target):
     obj.rotation_euler = (math.atan2(math.hypot(d[0], d[1]), -d[2]), 0, math.atan2(d[1], d[0]) - math.pi / 2)
 
 
-def build_studio(cam_dir=(0.55, -1.0, 0.18), target=(0, 0, 0.93), frame_height=2.05):
+def build_studio(cam_dir=(0.55, -1.0, 0.18), target=(0, 0, 0.93), frame_height=2.05, lens=50):
     scene = bpy.context.scene
     world = bpy.data.worlds.new('Studio'); scene.world = world
     world.use_nodes = True
@@ -541,10 +573,10 @@ def build_studio(cam_dir=(0.55, -1.0, 0.18), target=(0, 0, 0.93), frame_height=2
     area_light('Fill', tuple(t + d * 3.5 + right * 2.5 + [0, 0, 0.5]), tuple(t), 35, (0.7, 0.78, 1.0), (2.5, 2.5))
     area_light('Pool', (0, 0.6, 3.0), (0, 0.6, 0), 90, (0.55, 0.62, 0.85), (1.2, 1.2))
 
-    cam_data = bpy.data.cameras.new('Camera'); cam_data.lens = 50
+    cam_data = bpy.data.cameras.new('Camera'); cam_data.lens = lens
     cam_data.sensor_fit = 'VERTICAL'; cam_data.sensor_height = 24
     cam = bpy.data.objects.new('Camera', cam_data); scene.collection.objects.link(cam)
-    dist = (frame_height / 2) / math.tan(math.atan(12 / 50))
+    dist = (frame_height / 2) / (12 / lens)
     cam.location = tuple(t + d * dist)
     look_at(cam, t)
     scene.camera = cam
