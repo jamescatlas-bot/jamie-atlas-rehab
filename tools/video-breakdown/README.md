@@ -78,6 +78,29 @@ unioned, smoothed over time, filled with one flat colour and composited
 over a procedurally drawn room with a contact shadow per body. About
 0.3 s per frame on four CPU cores.
 
+## Cartoon render (`toon.py`)
+
+A rotoscoped cel-shaded cartoon of one person, placed in a painted gym
+room and animated on twos:
+
+```bash
+python3 tools/video-breakdown/toon.py --work work --person right --export-crops
+```
+
+Per drawn frame it crops a stable box around the chosen person, masks them
+with three views of the segmenter (full frame, clip crop, tight per-frame
+crop), keeps only mask pieces attached to their joints, fills enclosed
+holes, then cel-shades: bilateral smoothing, a per-clip palette fitted
+once in Lab space so colours do not flicker, soft ink lines and a contour.
+The room is painted procedurally (plaster wall, tall window with sky,
+wooden boards, wall bars, light shafts). Output is 720x1280 at 24 fps
+with each drawing held for two frames.
+
+`--export-crops` also writes `crops/exercise_NN_<side>.mp4` (the person's
+original footage, cropped and upscaled) and a reference still, which are
+the inputs to hand to a generative video-to-video tool for a true redraw.
+This script is a filter over real footage, not a generated redraw.
+
 ## Stick-figure render options (`--style figure`)
 
 - `--view auto|front|three-quarter|side`. Auto uses side for hinge and
