@@ -6,10 +6,13 @@ recording) into:
 1. one clip per exercise, with repeats of the same movement flagged,
 2. a contact sheet and a timestamped report (with YouTube jump links when
    the source is a YouTube URL), and
-3. a faceless re-render of each clip: the mover's pose, tracked frame by
-   frame with MediaPipe, drawn as a plain charcoal figure on a blank gym
-   backdrop, seen from the angle that shows the movement best. No face, no
-   clothing, no original footage in the output.
+3. an anonymised re-render of each clip. The default `silhouette` style
+   keeps the real motion and framing but replaces every person with a
+   single flat-colour body (hair, skin, clothing and held items included)
+   and the background with a drawn empty gym room. The alternative
+   `figure` style draws a stick figure from 3D joints, turned to the angle
+   that shows the movement best. Neither shows a face, clothing or any
+   original pixels.
 
 ## Setup
 
@@ -39,7 +42,8 @@ Outputs land in `work/`:
 | `segments.json` | cuts, shots, interlude count and the segment list |
 | `clips/exercise_NN.mp4` | original footage, one file per exercise instance |
 | `contact_sheet.jpg` | one frame per instance with its time range and pattern |
-| `faceless/exercise_NN_faceless.mp4` | faceless re-render of each instance |
+| `silhouette/exercise_NN_silhouette.mp4` | flat-colour body over an empty gym, real motion |
+| `faceless/exercise_NN_faceless.mp4` | stick-figure render (with `--style figure` or `both`) |
 | `report.md` | distinct-exercise count, table of instances, jump links |
 
 ## How it decides where one exercise ends
@@ -62,9 +66,19 @@ Outputs land in `work/`:
    count of distinct exercises as well as instances.
 
 Steps can be run individually (`download`, `pose`, `scenes`, `split`,
-`faceless`) so you can re-tune segmentation without re-running the tracker.
+`silhouette`, `faceless`) so you can re-tune segmentation without
+re-running the tracker.
 
-## Faceless render options
+## Silhouette render
+
+MediaPipe's multiclass person segmenter runs on the whole frame and again
+on a tight crop around each tracked body (the model works at 256 px, so
+the crop sees each body at several times the detail). The masks are
+unioned, smoothed over time, filled with one flat colour and composited
+over a procedurally drawn room with a contact shadow per body. About
+0.3 s per frame on four CPU cores.
+
+## Stick-figure render options (`--style figure`)
 
 - `--view auto|front|three-quarter|side`. Auto uses side for hinge and
   floor patterns and three-quarter for squats. A hinge seen from the front

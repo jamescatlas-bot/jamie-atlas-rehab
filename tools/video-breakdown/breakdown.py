@@ -631,6 +631,197 @@ def step_faceless(work: Path, segments: list[Segment], pose: dict, src: Path,
 
 
 # ----------------------------------------------------------------------------
+# 5b. silhouette re-render: real motion, body filled with one flat colour,
+#     background replaced by an empty gym room
+# ----------------------------------------------------------------------------
+SILHOUETTE = (82, 74, 66)        # BGR flat slate; one colour, no shading
+ROOM_WALL = (226, 222, 216)
+ROOM_WALL_LOW = (206, 201, 194)
+ROOM_BASEBOARD = (150, 144, 137)
+ROOM_FLOOR = (96, 92, 88)
+ROOM_FLOOR_LINE = (112, 108, 104)
+ROOM_SHADOW = (60, 57, 54)
+
+
+def draw_gym_room(w: int, h: int, horizon_frac: float = 0.60):
+    """A plain, empty gym: matte wall, baseboard, dark rubber-tile floor drawn
+    in one-point perspective. No equipment, no branding, no windows."""
+    import cv2
+    import numpy as np
+
+    img = np.empty((h, w, 3), np.uint8)
+    hz = int(h * horizon_frac)
+    # wall with a slight vertical gradient so it reads as a lit room
+    for y in range(hz):
+        t = y / max(hz, 1)
+        img[y] = tuple(int(a * (1 - t) + b * t) for a, b in zip(ROOM_WALL, ROOM_WALL_LOW))
+    img[hz:] = ROOM_FLOOR
+    cv2.rectangle(img, (0, hz - max(4, h // 90)), (w, hz), ROOM_BASEBOARD, -1)
+    # perspective tile lines converging on a vanishing point at the horizon
+    vp = (w // 2, int(hz * 0.55))
+    n_lines = 14
+    for k in range(-n_lines, n_lines + 1):
+        x_bottom = int(w / 2 + k * (w * 1.6 / n_lines))
+        # intersect the ray from (x_bottom, h) to vp with the horizon
+        if h == vp[1]:
+            continue
+        t = (hz - h) / (vp[1] - h)
+        x_hz = int(x_bottom + (vp[0] - x_bottom) * t)
+        cv2.line(img, (x_bottom, h), (x_hz, hz), ROOM_FLOOR_LINE, 1, cv2.LINE_AA)
+    # horizontal tile seams, spaced closer towards the horizon
+    for i in range(1, 12):
+        y = int(hz + (h - hz) * (i / 12) ** 2.2)
+        cv2.line(img, (0, y), (w, y), ROOM_FLOOR_LINE, 1, cv2.LINE_AA)
+    # soft vignette
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    d = np.sqrt(((xx - w / 2) / (w / 2)) ** 2 + ((yy - h / 2) / (h / 2)) ** 2)
+    v = np.clip(1 - 0.22 * np.clip(d - 0.55, 0, 1) / 0.45, 0, 1)[..., None]
+    return (img * v).astype(np.uint8)
+
+
+SEG_MODEL_URL = (
+    "https://storage.googleapis.com/mediapipe-models/image_segmenter/"
+    "selfie_multiclass_256x256/float32/latest/selfie_multiclass_256x256.tflite"
+)
+
+
+def ensure_seg_model(cache: Path) -> Path:
+    cache.mkdir(parents=True, exist_ok=True)
+    model = cache / "selfie_multiclass_256x256.tflite"
+    if not model.exists():
+        print("downloading person segmenter ...", file=sys.stderr)
+        urllib.request.urlretrieve(SEG_MODEL_URL, model)
+    return model
+
+
+def step_silhouette(work: Path, segments: list[Segment], src: Path, pose: dict | None = None,
+                    upscale: int = 2, mask_alpha: float = 0.6, grow_px: int = 2,
+                    colour=SILHOUETTE, thresh: float = 0.4) -> list[Path]:
+    """For each segment: segment people with MediaPipe's multiclass person
+    segmenter (hair, skin, clothes and carried items all count as body), fill
+    the mask with one flat colour and composite it over an empty gym room.
+    Motion, framing and timing are the original video's; face, skin,
+    clothing and on-screen text are all gone."""
+    import cv2
+    import numpy as np
+    import mediapipe as mp
+    from mediapipe.tasks import python as mp_python
+    from mediapipe.tasks.python import vision
+
+    model = ensure_seg_model(Path.home() / ".cache" / "video-breakdown")
+    _, fps, src_w, src_h = video_info(src)
+    out_w, out_h = src_w * upscale, src_h * upscale
+    out_w -= out_w % 2
+    out_h -= out_h % 2
+    room = draw_gym_room(out_w, out_h)
+    flat = np.empty_like(room)
+    flat[:] = colour
+    out_dir = work / "silhouette"
+    out_dir.mkdir(exist_ok=True)
+    results: list[Path] = []
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * grow_px + 1, 2 * grow_px + 1))
+
+    def new_segmenter():
+        return vision.ImageSegmenter.create_from_options(vision.ImageSegmenterOptions(
+            base_options=mp_python.BaseOptions(model_asset_path=str(model)),
+            running_mode=vision.RunningMode.VIDEO,
+            output_category_mask=False,
+            output_confidence_masks=True,
+        ))
+
+    def person_mask(segmenter, bgr, ts_ms):
+        img = mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB))
+        res = segmenter.segment_for_video(img, ts_ms)
+        return 1.0 - np.squeeze(res.confidence_masks[0].numpy_view()).astype(np.float32)
+
+    pose_frames = pose["frames"] if pose else None
+    max_people = max((len(f) for f in pose_frames), default=0) if pose_frames else 0
+
+    for s in segments:
+        # One segmenter for the whole frame plus one per person slot for a
+        # tight crop: the model works at 256 px, so a crop sees each body at
+        # several times the detail of the full frame.
+        segmenter = new_segmenter()
+        crop_segs = [new_segmenter() for _ in range(max_people)]
+        cap = cv2.VideoCapture(str(src))
+        fa, fb = int(s.start * fps), int(s.end * fps)
+        cap.set(cv2.CAP_PROP_POS_FRAMES, fa)
+        raw = out_dir / f"exercise_{s.index:02d}_raw.mp4"
+        writer = cv2.VideoWriter(str(raw), cv2.VideoWriter_fourcc(*"mp4v"), fps, (out_w, out_h))
+        prev_mask = None
+        frames_done = 0
+        for i in range(fa, fb):
+            ok, frame = cap.read()
+            if not ok:
+                break
+            ts = int((i - fa) * 1000 / fps)
+            # class 0 is background; everything else is a person or what they hold
+            mask = person_mask(segmenter, frame, ts)
+            if pose_frames and i < len(pose_frames):
+                for k, person in enumerate(pose_frames[i][:max_people]):
+                    A = np.asarray(person["img"], np.float32)
+                    A = A[A[:, 2] > 0.3]
+                    if len(A) < 6:
+                        continue
+                    x0, x1 = np.percentile(A[:, 0], [5, 95]) * src_w
+                    y0, y1 = np.percentile(A[:, 1], [5, 95]) * src_h
+                    side = max(x1 - x0, y1 - y0, 60) * 1.5
+                    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+                    xa, ya = int(max(0, cx - side / 2)), int(max(0, cy - side / 2))
+                    xb, yb = int(min(src_w, cx + side / 2)), int(min(src_h, cy + side / 2))
+                    if xb - xa < 16 or yb - ya < 16:
+                        continue
+                    cm = person_mask(crop_segs[k], frame[ya:yb, xa:xb], ts)
+                    cm = cv2.resize(cm, (xb - xa, yb - ya), interpolation=cv2.INTER_LINEAR)
+                    mask[ya:yb, xa:xb] = np.maximum(mask[ya:yb, xa:xb], cm)
+            if prev_mask is not None:
+                mask = mask_alpha * mask + (1 - mask_alpha) * prev_mask
+            prev_mask = mask
+            hard = (mask > thresh).astype(np.uint8)
+            hard = cv2.morphologyEx(hard, cv2.MORPH_CLOSE, kernel)
+            # drop specks: keep components at least 0.2% of the frame
+            n, lab, stats, _ = cv2.connectedComponentsWithStats(hard, 8)
+            keep = np.zeros_like(hard)
+            blobs = []
+            for k in range(1, n):
+                if stats[k, cv2.CC_STAT_AREA] >= 0.002 * src_w * src_h:
+                    keep[lab == k] = 1
+                    blobs.append(stats[k])
+            hard = cv2.dilate(keep, kernel)
+            big = cv2.resize(hard.astype(np.float32), (out_w, out_h), interpolation=cv2.INTER_LINEAR)
+            big = cv2.GaussianBlur(big, (0, 0), 1.2 * upscale)
+            alpha = np.clip(big, 0, 1)[..., None]
+
+            canvas = room.copy()
+            shadow = np.zeros((out_h, out_w), np.float32)
+            for st in blobs:
+                x, y, w, h = st[cv2.CC_STAT_LEFT], st[cv2.CC_STAT_TOP], st[cv2.CC_STAT_WIDTH], st[cv2.CC_STAT_HEIGHT]
+                cx, cy = int((x + w / 2) * upscale), int((y + h) * upscale)
+                rx = int(max(20, w * upscale * 0.45))
+                cv2.ellipse(shadow, (cx, cy + 2 * upscale), (rx, max(6, rx // 6)), 0, 0, 360, 1.0, -1, cv2.LINE_AA)
+            if shadow.any():
+                shadow = cv2.GaussianBlur(shadow, (0, 0), 6 * upscale)[..., None] * 0.55
+                canvas = (canvas * (1 - shadow) + np.array(ROOM_SHADOW, np.float32) * shadow).astype(np.uint8)
+            canvas = (canvas * (1 - alpha) + flat * alpha).astype(np.uint8)
+            writer.write(canvas)
+            frames_done += 1
+        writer.release()
+        cap.release()
+        segmenter.close()
+        for cs in crop_segs:
+            cs.close()
+
+        final = out_dir / f"exercise_{s.index:02d}_silhouette.mp4"
+        run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", str(raw),
+             "-c:v", "libx264", "-preset", "veryfast", "-crf", "19", "-pix_fmt", "yuv420p",
+             "-movflags", "+faststart", str(final)])
+        raw.unlink()
+        print(f"  #{s.index:02d} {s.pattern:6s}: {frames_done} frames -> {final.name}", file=sys.stderr)
+        results.append(final)
+    return results
+
+
+# ----------------------------------------------------------------------------
 # 6. report
 # ----------------------------------------------------------------------------
 def step_report(source: str, work: Path, segments: list[Segment]) -> Path:
@@ -657,7 +848,7 @@ def step_report(source: str, work: Path, segments: list[Segment]) -> Path:
 # ----------------------------------------------------------------------------
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("step", choices=["download", "pose", "scenes", "split", "faceless", "all"])
+    ap.add_argument("step", choices=["download", "pose", "scenes", "split", "silhouette", "faceless", "all"])
     ap.add_argument("source", help="YouTube URL or local video file")
     ap.add_argument("--work", default="work", type=Path)
     ap.add_argument("--threshold", type=float, default=0.3,
@@ -674,6 +865,9 @@ def main() -> None:
     ap.add_argument("--out-size", default="720x1280", help="faceless render size WxH")
     ap.add_argument("--person", type=int, default=None,
                     help="which body to render, counted left to right (default: auto)")
+    ap.add_argument("--style", default="silhouette", choices=["silhouette", "figure", "both"],
+                    help="anonymised render for 'all': flat silhouette over the real motion (default), "
+                         "stick figure from 3D joints, or both")
     ap.add_argument("--view", default="auto", choices=["auto", "front", "three-quarter", "side"],
                     help="camera angle for the faceless render (auto picks per movement pattern)")
     args = ap.parse_args()
@@ -689,10 +883,11 @@ def main() -> None:
         src = Path(args.source) if Path(args.source).exists() else work / "source.mp4"
 
     pose = None
-    if args.step in ("pose", "all") or (args.step in ("scenes", "faceless") and not (work / "pose.json").exists()):
+    needs_pose = ("scenes", "faceless", "silhouette")
+    if args.step in ("pose", "all") or (args.step in needs_pose and not (work / "pose.json").exists()):
         pose = step_pose(src, work, args.max_people)
         print(f"pose: {len(pose['frames'])} frames tracked")
-    elif args.step in ("scenes", "faceless"):
+    elif args.step in needs_pose:
         pose = load_pose(work)
 
     if args.step in ("scenes", "all"):
@@ -710,7 +905,11 @@ def main() -> None:
         clips = step_split(src, work, segs)
         print(f"wrote {len(clips)} clips + contact_sheet.jpg")
 
-    if args.step in ("faceless", "all"):
+    if args.step == "silhouette" or (args.step == "all" and args.style in ("silhouette", "both")):
+        outs = step_silhouette(work, segs, src, pose)
+        print(f"wrote {len(outs)} silhouette clips")
+
+    if args.step == "faceless" or (args.step == "all" and args.style in ("figure", "both")):
         outs = step_faceless(work, segs, pose, src, out_w, out_h, person=args.person, view=args.view)
         print(f"wrote {len(outs)} faceless clips")
 
