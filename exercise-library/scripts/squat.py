@@ -144,6 +144,8 @@ def render_angle(name, H, samples, frames):
 
 
 def main():
+    if '--encode' in args:
+        return encode()
     studio.reset()
     rig, body, shorts, fields, J = rigmod.build_rigged_body()
     M = {'chrome': studio.simple_material('Chrome', (0.6, 0.62, 0.66), 0.22, metal=1.0),
@@ -182,14 +184,26 @@ def main():
         return
 
     # One rep per angle, rendered frame by frame; the video repeats it three times for a seamless loop.
+    # Frames already on disk are skipped, so an interrupted render picks up where it stopped.
+    # --max-frames=N stops after N new frames (keeps each run short).
+    budget = int(next((a.split('=')[1] for a in args if a.startswith('--max-frames=')), 10**6))
     for name in ANGLES:
+        todo = [f for f in range(REP) if not (FRAMES / name / f'{f:04d}.png').exists()]
+        if not todo or budget <= 0:
+            continue
         out = render_angle(name, H, samples, REP)
-        for f in range(REP):
+        for f in todo:
+            if budget <= 0:
+                break
+            budget -= 1
             set_pose(rig, J, depth_at(f))
             bpy.context.scene.render.filepath = str(out / f'{f:04d}.png')
             bpy.ops.render.render(write_still=True)
             print(f'{name} frame {f + 1}/{REP}', flush=True)
-    encode()
+    if all((FRAMES / n / f'{f:04d}.png').exists() for n in ANGLES for f in range(REP)):
+        encode()
+    else:
+        print('not finished yet: run again to continue')
 
 
 def depth_at(f):
