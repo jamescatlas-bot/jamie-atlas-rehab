@@ -89,7 +89,7 @@ def build_armature(J):
         # Controls (not part of the skin)
         bone('ik_foot.' + s, J['ankle.' + s], J['ball.' + s], None, deform=False)
         knee = J['knee.' + s]
-        bone('pole_knee.' + s, knee + [0, -0.5, 0], knee + [0, -0.55, 0], 'root', deform=False)
+        bone('pole_knee.' + s, knee + [0, -0.5, 0], knee + [0, -0.55, 0], None, deform=False)  # fixed in the room, like the feet
         bone('ik_hand.' + s, J['wrist.' + s], J['hand.' + s], 'chest', deform=False)
         el = J['elbow.' + s]
         bone('pole_elbow.' + s, el + [0, 0.45, -0.1], el + [0, 0.5, -0.1], 'chest', deform=False)
@@ -108,7 +108,7 @@ def build_armature(J):
         cr = pb['foot.' + s].constraints.new('COPY_ROTATION'); cr.target, cr.subtarget = rig, 'ik_foot.' + s
         ik = pb['forearm.' + s].constraints.new('IK')
         ik.target, ik.subtarget, ik.chain_count = rig, 'ik_hand.' + s, 2
-        ik.pole_target, ik.pole_subtarget, ik.pole_angle = rig, 'pole_elbow.' + s, -np.pi / 2
+        ik.pole_target, ik.pole_subtarget, ik.pole_angle = rig, 'pole_elbow.' + s, np.pi / 2
         ik.influence = 0.0            # arms hang free until an exercise turns hand IK on
         cr = pb['hand.' + s].constraints.new('COPY_ROTATION'); cr.target, cr.subtarget = rig, 'ik_hand.' + s
         cr.influence = 0.0
