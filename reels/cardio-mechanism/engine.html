@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cardio timeline</title>
+<style>
+@font-face{font-family:'Fraunces';src:url('./fonts/Fraunces-700-normal.woff2') format('woff2');font-weight:100 900}
+@font-face{font-family:'JetBrains Mono';src:url('./fonts/JetBrains_Mono-700-normal.woff2') format('woff2');font-weight:100 900}
+@font-face{font-family:'Inter';src:url('./fonts/Inter-400-normal.woff2') format('woff2');font-weight:100 900}
+:root{
+  --surface:#fcfcfb; --ink:#111110; --ink-2:#4a4a47; --ink-3:#7d7d78; --track:#ecebe7; --hair:#dcdbd6;
+  --accent:#a3232d;
+}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:var(--surface);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.mono{font-family:'JetBrains Mono',monospace;font-weight:700}
+#stage{position:relative;width:1080px;height:1920px}
+#kicker{position:absolute;left:48px;top:250px;font-size:26px;letter-spacing:.22em;color:var(--ink-2)}
+#title{position:absolute;left:44px;top:290px;width:960px;font-family:Fraunces,serif;font-weight:700;font-size:84px;line-height:1.02;letter-spacing:-.015em;color:var(--ink)}
+#sub{position:absolute;left:48px;top:480px;width:980px;font-weight:600;font-size:36px;line-height:1.2;color:var(--accent);letter-spacing:-.01em}
+#sub span{display:block}
+#illo{position:absolute;left:40px;top:602px;width:1000px;height:300px;border-radius:6px;overflow:hidden;background:#101418}
+#illo canvas{position:absolute;left:0;top:0}
+.chip{position:absolute;background:#fff;color:#111;padding:6px 14px;font-size:30px;line-height:1.1;border:2px solid #111}
+#chipDay{left:12px;top:12px}
+#chipCredit{right:12px;top:12px;font-family:Inter;font-weight:500;font-size:22px;padding:6px 10px;border:none;background:rgba(255,255,255,.92);color:#222}
+#chipCap{left:12px;bottom:12px;font-size:24px;padding:6px 12px;border:none;background:rgba(255,255,255,.92)}
+#rows{position:absolute;left:0;top:0}
+#footer{position:absolute;left:48px;top:1672px;width:980px;font-size:22px;line-height:1.35;color:var(--ink-2)}
+#footer .mono{font-size:22px;letter-spacing:.04em}
+#handle{position:absolute;left:48px;top:1752px;font-size:26px;color:var(--ink)}
+.fade{transition:none}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="kicker" class="mono">MECHANISM · CARDIO</div>
+  <div id="title">Why cardio fitness takes weeks to show</div>
+  <div id="sub"><span id="subA"></span></div>
+  <div id="illo"><canvas id="cA" width="1000" height="300"></canvas><canvas id="cB" width="1000" height="300"></canvas>
+    <div id="chipDay" class="chip mono">START</div>
+    <div id="chipCredit" class="chip">Schematic · not to scale</div>
+    <div id="chipCap" class="chip mono">HUMAN THIGH MUSCLE · EACH SHAPE IS ONE FIBRE</div>
+  </div>
+  <svg id="rows" width="1080" height="1920" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div id="footer"><span class="mono">DATA</span> <span id="sources"></span></div>
+  <div id="handle" class="mono">@jamieatlasfitness · jamieatlas.com</div>
+</div>
+<script>
+// ---------- helpers ----------
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const easeIO=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const easeOut=t=>1-Math.pow(1-t,3);
+const easeBack=t=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)};
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+function hexA(hex,a){const n=parseInt(hex.slice(1),16);return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`}
+function mix(h1,h2,t){const a=parseInt(h1.slice(1),16),b=parseInt(h2.slice(1),16);const r=Math.round(lerp(a>>16&255,b>>16&255,t)),g=Math.round(lerp(a>>8&255,b>>8&255,t)),bl=Math.round(lerp(a&255,b&255,t));return `rgb(${r},${g},${bl})`}
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);(parent||rowsSvg).appendChild(e);return e}
+
+// ---------- layout ----------
+const L={rowsTop:938,rowH:88,labelX:52,trackX:300,trackW:720,trackH:26,axisGap:26};
+let V=null, rowsSvg=document.getElementById('rows'), rowEls=[], axisDayToX=null, playhead=null, schedule=null, totalDur=0;
+
+function buildAxis(){
+  const ticks=V.axis; const n=ticks.length;
+  axisDayToX=d=>{
+    if(d<=ticks[0].day) return L.trackX;
+    for(let i=0;i<n-1;i++){const a=ticks[i],b=ticks[i+1];if(d<=b.day){const f=(d-a.day)/(b.day-a.day);return L.trackX+(i+f)*(L.trackW/(n-1))}}
+    return L.trackX+L.trackW;
+  };
+}
+
+function build(data){
+  V=data; buildAxis(); if(V.rowH)L.rowH=V.rowH; else L.rowH=88;
+  document.getElementById('kicker').textContent=V.kicker;
+  document.getElementById('title').innerHTML=V.title;
+  document.getElementById('sources').textContent=V.sources;
+  document.getElementById('handle').textContent=V.handle||'@jamieatlasfitness · jamieatlas.com';
+  if(V.accent)document.documentElement.style.setProperty('--accent',V.accent);
+  rowsSvg.innerHTML='';
+  const nRows=V.rows.length;
+  const axisY=L.rowsTop+nRows*L.rowH+L.axisGap;
+  // highlight backgrounds first (behind)
+  V.rows.forEach((r,i)=>{
+    const y=L.rowsTop+i*L.rowH;
+    r._hl=el('rect',{x:30,y:y-4,width:1020,height:L.rowH-6,fill:r.color,opacity:0,rx:4});
+    r._hlBar=el('rect',{x:30,y:y-4,width:8,height:L.rowH-6,fill:r.color,opacity:0});
+  });
+  V.rows.forEach((r,i)=>{
+    const y=L.rowsTop+i*L.rowH; const cy=y+L.rowH/2+6;
+    // label
+    const t1=el('text',{x:L.labelX,y:y+34,'font-family':'JetBrains Mono','font-weight':700,'font-size':r.big?34:29,fill:r.color});t1.textContent=r.label;
+    const t2=el('text',{x:L.labelX,y:y+64,'font-family':'Inter','font-weight':r.big?600:400,'font-size':r.big?24:22,fill:r.big?'#1a1a19':'#5a5a56'});t2.textContent=r.sub;
+    if(r.sub2){const t3=el('text',{x:L.labelX,y:y+64+22,'font-family':'Inter','font-size':21,fill:'#5a5a56'});t3.textContent=r.sub2;t2.setAttribute('y',y+56)}
+    // track
+    el('rect',{x:L.trackX,y:cy-L.trackH/2,width:L.trackW,height:L.trackH,rx:L.trackH/2,fill:r.big?hexA(r.color,.16):'#ecebe7'});
+    r._segs=r.segments.map(s=>{
+      const g=el('g',{});
+      const o={s,g};
+      if(s.kind==='dot'){
+        o.dot=el('circle',{cx:axisDayToX(s.at),cy:cy,r:13,fill:s.color||r.color,stroke:'#fcfcfb','stroke-width':3,opacity:0},g);
+      }else if(s.kind==='ring'){
+        o.dot=el('circle',{cx:axisDayToX(s.at),cy:cy,r:13,fill:'#fcfcfb',stroke:s.color||r.color,'stroke-width':5,opacity:0},g);
+      }else{
+        const x0=axisDayToX(s.from);
+        o.bar=el('rect',{x:x0,y:cy-L.trackH/2,width:0,height:L.trackH,rx:L.trackH/2,fill:s.color||r.color,opacity:s.light?.55:1},g);
+        if(s.text){o.inner=el('text',{x:x0+20,y:cy+8,'font-family':'JetBrains Mono','font-weight':700,'font-size':22,fill:'#fff',opacity:0},g);o.inner.textContent=s.text}
+      }
+      if(s.value){
+        const lx = s.labelPos==='start'?axisDayToX(s.from): s.labelPos==='mid'?(axisDayToX(s.from)+axisDayToX(s.to))/2 : axisDayToX(s.kind==='bar'?s.to:s.at);
+        const anchor = s.anchor || (s.labelPos==='mid'?'middle': (lx>L.trackX+L.trackW-120?'end':'middle'));
+        o.lab=el('text',{x:lx,y:s.below?cy+50:cy-26,'text-anchor':anchor,'font-family':'Inter','font-weight':700,'font-size':s.bigValue?40:s.small?26:32,fill: s.valueColor|| (r.big?r.color:'#1a1a19'),opacity:0},g);
+        o.lab.textContent=s.value; o.labY=cy-26;
+        if(s.note){o.note=el('text',{x:lx,y:cy-26,'text-anchor':anchor,'font-family':'Inter','font-weight':500,'font-size':28,fill:'#4a4a47',opacity:0},g);o.note.textContent=s.note;}
+      }
+      return o;
+    });
+  });
+  // axis
+  el('line',{x1:L.trackX,y1:axisY,x2:L.trackX+L.trackW,y2:axisY,stroke:'#1a1a19','stroke-width':2});
+  V.axis.forEach((tk,i)=>{const x=axisDayToX(tk.day);el('line',{x1:x,y1:axisY-8,x2:x,y2:axisY+8,stroke:'#1a1a19','stroke-width':2});
+    const last=i===V.axis.length-1, pen=i===V.axis.length-2;const t=el('text',{x:x+(pen?-14:0),y:axisY+44,'text-anchor':i===0?'start':last?'end':'middle','font-family':'Inter','font-weight':500,'font-size':23,fill:'#1a1a19'});t.textContent=tk.label;});
+  document.getElementById('footer').style.top=(axisY+78)+'px';document.getElementById('handle').style.top=(axisY+78+(V.sources.length>95?70:40))+'px';
+  // playhead
+  playhead=el('line',{x1:L.trackX,y1:L.rowsTop-6,x2:L.trackX,y2:axisY,stroke:'#111110','stroke-width':3});
+  playDot=el('circle',{cx:L.trackX,cy:axisY,r:9,fill:'#111110'});
+  // schedule
+  schedule=[];let t=0;
+  V.phases.forEach((p,i)=>{const travel=i===0?0:(p.travel??2.2);schedule.push({p,start:t,arrive:t+travel,end:t+travel+p.hold});t+=travel+p.hold;});
+  totalDur=t;
+  return totalDur;
+}
+let playDot=null;
+
+function stateAt(t){
+  // returns {day, phaseIndex, phaseAge, travelFrac}
+  let prevDay=V.phases[0].day;
+  for(let i=0;i<schedule.length;i++){
+    const s=schedule[i];
+    if(t<s.end||i===schedule.length-1){
+      const f=s.arrive>s.start?clamp((t-s.start)/(s.arrive-s.start),0,1):1;
+      const day=lerp(prevDay,s.p.day,easeIO(f));
+      return {day,i,age:t-s.start,f,p:s.p,prevDay};
+    }
+    prevDay=s.p.day;
+  }
+}
+
+// ---------- illustrations ----------
+const cA=document.getElementById('cA'),cB=document.getElementById('cB');
+const ILLO={};
+// fibre mosaic (cross-section). params: mito 0..1, cap 0..1, nuc 0..1, zoom
+(function(){
+  const R=rng(7); const W=1000,H=300; const pts=[];
+  for(let y=-40;y<H+60;y+=52){for(let x=-40;x<W+60;x+=58){pts.push({x:x+(R()-.5)*34+((y/52)%2?29:0),y:y+(R()-.5)*30,type:R()<.5?1:2,h:R()});}}
+  // voronoi via pixel-free approach: polygon approx using neighbours (cheap: draw circles clipped) -> use proper half-plane clipping
+  function cell(p){
+    let poly=[{x:-100,y:-100},{x:W+100,y:-100},{x:W+100,y:H+100},{x:-100,y:H+100}];
+    for(const q of pts){if(q===p)continue;const dx=q.x-p.x,dy=q.y-p.y;const d2=dx*dx+dy*dy;if(d2>170*170)continue;
+      const mx=(p.x+q.x)/2,my=(p.y+q.y)/2;const out=[];
+      for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length];const da=(a.x-mx)*dx+(a.y-my)*dy,db=(b.x-mx)*dx+(b.y-my)*dy;
+        if(da<=0)out.push(a); if((da<0&&db>0)||(da>0&&db<0)){const t=da/(da-db);out.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t});}}
+      poly=out; if(!poly.length)break;}
+    return poly;
+  }
+  const cells=pts.map(p=>({p,poly:cell(p)}));
+  // inner points for mitochondria (precomputed per cell)
+  cells.forEach(c=>{const r=rng(Math.floor(c.p.x*7+c.p.y*13));c.mitos=[];for(let i=0;i<60;i++){let x=c.p.x+(r()-.5)*70,y=c.p.y+(r()-.5)*64;c.mitos.push({x,y,r:r(),a:r()*6.28})}
+    // shrink polygon for inner border
+    c.inner=c.poly.map(v=>({x:lerp(v.x,c.p.x,0.12),y:lerp(v.y,c.p.y,0.12)}));
+    c.verts=c.poly; c.capSeed=rng(Math.floor(c.p.x*3+c.p.y*5));});
+  function inPoly(poly,x,y){let inside=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const xi=poly[i].x,yi=poly[i].y,xj=poly[j].x,yj=poly[j].y;if(((yi>y)!=(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))inside=!inside}return inside}
+  cells.forEach(c=>{c.mitos=c.mitos.filter(m=>inPoly(c.inner,m.x,m.y));c.area=Math.abs(c.poly.reduce((s,v,i,a)=>{const w=a[(i+1)%a.length];return s+v.x*w.y-w.x*v.y},0))/2;});
+  // capillary points at shared vertices
+  const capPts=[];const seen=new Set();
+  cells.forEach(c=>c.poly.forEach(v=>{const k=Math.round(v.x/6)+','+Math.round(v.y/6);if(seen.has(k))return;seen.add(k);capPts.push({x:v.x,y:v.y,o:R(),ph:R()*6.28});}));
+  ILLO.fibres=function(ctx,P,t){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#0f1216';ctx.fillRect(0,0,W,H);
+    const mito=P.mito??0, cap=P.cap??0, glow=P.glow??0, focus=P.focus||null;
+    for(const c of cells){
+      const base=c.p.type===1?'#8a3b3b':'#2f4e78'; // type I red-ish, type II blue-ish
+      const tone=c.p.type===1?mix('#7c2e35','#c25a62',c.p.h):mix('#2a4b7a','#5d8bc4',c.p.h);
+      ctx.beginPath();c.poly.forEach((v,i)=>i?ctx.lineTo(v.x,v.y):ctx.moveTo(v.x,v.y));ctx.closePath();
+      ctx.fillStyle=tone;ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,0.85)';ctx.lineWidth=2.2;ctx.stroke();
+      // mitochondria: fraction shown grows with mito; drawn as small dark-green/teal ovals near the membrane first
+      const nShow=Math.round(c.mitos.length*clamp(0.28+0.72*mito,0,1));
+      for(let i=0;i<nShow;i++){const m=c.mitos[i];const s=1.6+1.6*m.r;ctx.save();ctx.translate(m.x,m.y);ctx.rotate(m.a);ctx.scale(1.6,1);ctx.beginPath();ctx.arc(0,0,s,0,6.28);ctx.fillStyle=i<c.mitos.length*0.28?'rgba(255,224,120,0.95)':`rgba(120,255,190,${0.95})`;ctx.fill();ctx.restore();}
+      if(glow>0){ // nucleus flash near membrane
+        const v=c.poly[0];ctx.beginPath();ctx.arc(lerp(v.x,c.p.x,.25),lerp(v.y,c.p.y,.25),9,0,6.28);ctx.fillStyle=`rgba(120,170,255,${0.9*glow})`;ctx.fill();
+      }
+    }
+    // capillaries at vertices: baseline ~ 45% of vertices lit; cap raises to 100%
+    for(const q of capPts){const show=q.o<0.45+0.55*cap;if(!show)continue;const pulse=0.5+0.5*Math.sin(t*2+q.ph);const r=5+1.4*pulse;ctx.beginPath();ctx.arc(q.x,q.y,r,0,6.28);ctx.fillStyle='#ff5c5c';ctx.fill();ctx.lineWidth=2;ctx.strokeStyle='rgba(255,255,255,.9)';ctx.stroke();}
+    // vignette
+    const g=ctx.createRadialGradient(500,150,200,500,150,620);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,0.35)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  };
+})();
+// single fibre zoom: signal (nucleus pulses, mRNA particles)  params: level 0..1, label
+(function(){
+  const W=1000,H=300;const R=rng(42);const parts=[];for(let i=0;i<260;i++)parts.push({a:R()*6.28,s:0.3+R()*0.9,r:R(),ph:R()*6.28,n:Math.floor(R()*3)});
+  const nuclei=[{x:230,y:70},{x:520,y:240},{x:800,y:60}];
+  const mitoR=rng(9);const mitos=[];for(let i=0;i<420;i++)mitos.push({x:mitoR()*W,y:mitoR()*H,a:mitoR()*6.28,r:mitoR()});
+  ILLO.signal=function(ctx,P,t){
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#1b2430';ctx.fillRect(0,0,W,H);
+    // sarcomere striations
+    for(let x=0;x<W;x+=28){ctx.fillStyle=(x/28)%2?'rgba(255,255,255,0.045)':'rgba(0,0,0,0.12)';ctx.fillRect(x,0,28,H);}
+    const level=P.level??0;
+    // mitochondria rows (dimmer), highlighted count scales with P.mito
+    const m=P.mito??0.3;mitos.forEach((q,i)=>{if(i>mitos.length*m)return;ctx.save();ctx.translate(q.x,q.y);ctx.rotate(q.a);ctx.scale(1.7,1);ctx.beginPath();ctx.arc(0,0,4+2*q.r,0,6.28);ctx.fillStyle='rgba(110,230,170,0.75)';ctx.fill();ctx.restore();});
+    nuclei.forEach((n,k)=>{
+      const pulse=0.5+0.5*Math.sin(t*3+k);
+      const rad=34+6*level*pulse;
+      const g=ctx.createRadialGradient(n.x,n.y,4,n.x,n.y,rad*3);g.addColorStop(0,`rgba(120,170,255,${0.55*level})`);g.addColorStop(1,'rgba(120,170,255,0)');ctx.fillStyle=g;ctx.fillRect(n.x-rad*3,n.y-rad*3,rad*6,rad*6);
+      ctx.beginPath();ctx.ellipse(n.x,n.y,rad*1.5,rad,0.3,0,6.28);ctx.fillStyle='#5b7fd6';ctx.fill();ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=2;ctx.stroke();
+      // particles
+      parts.forEach(p=>{if(p.n!==k)return;const prog=((t*p.s*0.35+p.ph/6.28)%1);const dist=prog*140*level+rad;const x=n.x+Math.cos(p.a)*dist*1.3,y=n.y+Math.sin(p.a)*dist;const al=(1-prog)*level;ctx.beginPath();ctx.arc(x,y,3+2*p.r,0,6.28);ctx.fillStyle=`rgba(255,230,120,${al})`;ctx.fill();});
+    });
+  };
+})();
+// blood vessel: plasma fills, red cells. params: plasma 0..1 (extra), rbc 0..1
+(function(){
+  const W=1000,H=300;const R=rng(5);const cells=[];for(let i=0;i<70;i++)cells.push({x:R()*W,y:R(),s:R()*6.28,sp:0.6+R()});
+  ILLO.blood=function(ctx,P,t){
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#2a1518';ctx.fillRect(0,0,W,H);
+    const extra=P.plasma??0;const rbc=P.rbc??0;
+    const half=86+28*extra; // vessel half-height
+    // wall
+    ctx.fillStyle='#6d2b33';ctx.beginPath();ctx.roundRect(-20,150-half-16,W+40,2*half+32,40);ctx.fill();
+    ctx.fillStyle='#b9323f';ctx.beginPath();ctx.roundRect(-20,150-half,W+40,2*half,30);ctx.fill();
+    // plasma sheen
+    const g=ctx.createLinearGradient(0,150-half,0,150+half);g.addColorStop(0,'rgba(255,220,180,0.25)');g.addColorStop(.5,'rgba(255,200,160,0.05)');g.addColorStop(1,'rgba(0,0,0,0.25)');ctx.fillStyle=g;ctx.beginPath();ctx.roundRect(-20,150-half,W+40,2*half,30);ctx.fill();
+    // rbcs flowing
+    const n=Math.round(cells.length*(0.62+0.38*rbc));
+    for(let i=0;i<n;i++){const c=cells[i];const x=((c.x+t*90*c.sp)%(W+80))-40;const y=150+(c.y-0.5)*2*(half-18);ctx.save();ctx.translate(x,y);ctx.rotate(c.s+t*0.5);ctx.beginPath();ctx.ellipse(0,0,15,9,0,0,6.28);ctx.fillStyle='#ff6b6b';ctx.fill();ctx.beginPath();ctx.ellipse(0,0,7,4,0,0,6.28);ctx.fillStyle='#d94a4a';ctx.fill();ctx.restore();}
+  };
+})();
+// heart: left ventricle outline; params: sv 0..1 (bigger chamber), beat
+(function(){
+  const W=1000,H=300;
+  ILLO.heart=function(ctx,P,t){
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#171a22';ctx.fillRect(0,0,W,H);
+    const sv=P.sv??0; const hr=P.hr??1; // hr multiplier for beat speed
+    const beat=Math.pow(Math.max(0,Math.sin(t*2.6*hr*Math.PI))%1,3);
+    const cx=500,cy=165; const base=92+26*sv; const r=base*(1-0.10*beat);
+    // myocardium ring
+    const wall=22+10*sv;
+    ctx.beginPath();ctx.ellipse(cx,cy,r+wall,(r+wall)*1.15,0,0,6.28);ctx.fillStyle='#8e2f3d';ctx.fill();
+    ctx.beginPath();ctx.ellipse(cx,cy,r,r*1.15,0,0,6.28);ctx.fillStyle='#d8475a';ctx.fill();
+    // blood volume glow
+    const g=ctx.createRadialGradient(cx,cy,r*.2,cx,cy,r);g.addColorStop(0,'rgba(255,170,170,0.55)');g.addColorStop(1,'rgba(255,120,120,0)');ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(cx,cy,r,r*1.15,0,0,6.28);ctx.fill();
+    // ECG trace
+    ctx.strokeStyle='rgba(120,255,190,0.9)';ctx.lineWidth=3;ctx.beginPath();
+    for(let x=0;x<W;x+=4){const ph=((x/W*2.2)+t*0.9*hr)%1;let y=250; if(ph>0.42&&ph<0.5)y-=90*Math.sin((ph-0.42)/0.08*Math.PI); else if(ph>0.5&&ph<0.54)y+=30*Math.sin((ph-0.5)/0.04*Math.PI); else if(ph>0.62&&ph<0.75)y-=18*Math.sin((ph-0.62)/0.13*Math.PI); x?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.stroke();
+    // outline label
+    ctx.strokeStyle='rgba(255,255,255,0.8)';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(cx,cy,r,r*1.15,0,0,6.28);ctx.stroke();
+  };
+})();
+
+
+// protocol: heart-rate trace of one session. params: blocks (array of [minutes, %HRmax]), total minutes, zone band [lo,hi]
+(function(){
+  const W=1000,H=300;
+  ILLO.protocol=function(ctx,P,t){
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#14171c';ctx.fillRect(0,0,W,H);
+    const blocks=P.blocks||[[5,0.6],[4,0.92],[3,0.7],[4,0.92],[3,0.7],[4,0.92],[3,0.7],[4,0.92],[5,0.6]];
+    const total=blocks.reduce((a,b)=>a+b[0],0);
+    const x0=70,x1=W-30,y0=40,y1=H-50;
+    const hrY=f=>y1-(f-0.4)/(1-0.4)*(y1-y0);
+    // zone band
+    if(P.zone){ctx.fillStyle=hexA(P.zoneColor||'#e34948',0.16);ctx.fillRect(x0,hrY(P.zone[1]),x1-x0,hrY(P.zone[0])-hrY(P.zone[1]));
+      ctx.fillStyle='rgba(255,255,255,0.75)';ctx.font='600 20px Inter';ctx.textAlign='left';ctx.fillText(P.zoneLabel||'',x0+10,hrY(P.zone[1])+24);}
+    // gridlines
+    ctx.strokeStyle='rgba(255,255,255,0.12)';ctx.lineWidth=1;ctx.font='500 20px Inter';ctx.fillStyle='rgba(255,255,255,0.6)';ctx.textAlign='right';
+    [0.5,0.6,0.7,0.8,0.9,1].forEach(f=>{const y=hrY(f);ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.stroke();ctx.fillText(Math.round(f*100)+'%',x0-10,y+7);});
+    // target staircase + smoothed HR response
+    const pts=[];let m=0;blocks.forEach(b=>{for(let i=0;i<b[0]*4;i++){pts.push([m,b[1]]);m+=0.25;}});
+    let hr=pts[0][1];const curve=[];pts.forEach(([mm,target],i)=>{hr+= (target-hr)*0.18; curve.push([x0+(mm/total)*(x1-x0),hrY(hr+0.01*Math.sin(i*0.9))]);});
+    const sweep=P.sweep==null?1:P.sweep; const nShow=Math.max(2,Math.floor(curve.length*clamp(sweep,0,1)));
+    ctx.strokeStyle=P.color||'#ff6b6b';ctx.lineWidth=4;ctx.lineJoin='round';ctx.beginPath();for(let i=0;i<nShow;i++){const c=curve[i];i?ctx.lineTo(c[0],c[1]):ctx.moveTo(c[0],c[1]);}ctx.stroke();
+    // area under
+    ctx.fillStyle=hexA(P.color||'#ff6b6b',0.18);ctx.beginPath();ctx.moveTo(curve[0][0],y1);for(let i=0;i<nShow;i++)ctx.lineTo(curve[i][0],curve[i][1]);ctx.lineTo(curve[nShow-1][0],y1);ctx.closePath();ctx.fill();
+    // head dot
+    const hd=curve[nShow-1];ctx.beginPath();ctx.arc(hd[0],hd[1],7,0,6.28);ctx.fillStyle='#fff';ctx.fill();
+    // x labels
+    ctx.fillStyle='rgba(255,255,255,0.6)';ctx.textAlign='center';ctx.font='500 20px Inter';
+    for(let mm=0;mm<=total;mm+=P.tick||10){ctx.fillText(mm+' min',x0+(mm/total)*(x1-x0),H-18);}
+    ctx.textAlign='left';ctx.fillStyle='rgba(255,255,255,0.75)';ctx.font='600 20px Inter';ctx.fillText('% of max heart rate',x0,H-18-0);
+  };
+})();
+
+// ---------- frame update ----------
+let lastIllo=null, illoSwitchT=0;
+function illoParamsAt(day,phase,t){
+  const P=Object.assign({},phase.illo||{kind:'fibres'});
+  // allow functions in data for continuous params
+  for(const k in P){if(typeof P[k]==='function')P[k]=P[k](day,t)}
+  return P;
+}
+function setText(id,txt){document.getElementById(id).textContent=txt}
+
+window.__setTime=function(t){
+  const st=stateAt(t); const {day,p,i,age,f}=st;
+  const x=axisDayToX(day);
+  playhead.setAttribute('x1',x);playhead.setAttribute('x2',x);playDot.setAttribute('cx',x);
+  // subtitle / chips crossfade at phase start
+  const sub=document.getElementById('sub');
+  const fadeIn=clamp(age/0.5,0,1);
+  setText('subA',p.sub); sub.style.opacity=i===0?1:fadeIn; sub.style.transform=`translateY(${(1-fadeIn)*10}px)`;
+  setText('chipDay',p.chip||''); setText('chipCap',p.caption||''); setText('chipCredit',p.credit||'Schematic · not to scale');
+  // illustration with crossfade
+  const P=illoParamsAt(day,p,t);
+  const kind=P.kind||'fibres';
+  const ctxA=cA.getContext('2d');
+  if(lastIllo&&lastIllo.kind!==kind){ // crossfade: keep old on cB fading out
+    const ctxB=cB.getContext('2d'); ILLO[lastIllo.kind](ctxB,lastIllo.P,t); cB.style.opacity=clamp(1-age/0.7,0,1);
+    if(age>0.7){lastIllo={kind,P};}
+  } else {cB.style.opacity=0; lastIllo={kind,P};}
+  ILLO[kind](ctxA,P,t);
+  // rows
+  V.rows.forEach(r=>{
+    const hl=(p.highlight||[]).includes(r.key);
+    r._hl.setAttribute('opacity',hl?0.10*clamp(age/0.4,0,1):0);r._hlBar.setAttribute('opacity',hl?0.9*clamp(age/0.4,0,1):0);
+    r._segs.forEach(o=>{const s=o.s;
+      if(s.kind==='bar'){const x0=axisDayToX(s.from);const xe=axisDayToX(Math.min(s.to,day));const w=day>=s.from?Math.max(0,xe-x0):0;
+        o.bar.setAttribute('width',w<L.trackH&&w>0?L.trackH:w);
+        if(o.inner){const tw=s.text.length*13.5+40;o.inner.setAttribute('opacity',w>tw?1:0)}
+        const done=day>=(s.labelDay??s.to);const lt=done?clamp((day-(s.labelDay??s.to))/0.5+(st.f>=1?1:0),0,1):0;
+        if(o.lab){const a=done?1:0;o.lab.setAttribute('opacity',a);if(o.note)o.note.setAttribute('opacity',a?0:0)}
+      } else {
+        const on=day>=s.at;const since=on?1:0;
+        o.dot.setAttribute('opacity',on?1:0);
+        o.dot.setAttribute('r',on?13:0);
+        if(o.lab)o.lab.setAttribute('opacity',on?1:0);
+      }
+    });
+  });
+  return totalDur;
+};
+window.__init=function(data){return build(data)};
+window.__duration=()=>totalDur;
+</script>
+</body>
+</html>
