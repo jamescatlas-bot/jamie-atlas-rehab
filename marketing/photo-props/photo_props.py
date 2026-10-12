@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Photo-based props: cut the real thumbs-up and dumbbell photos out of their grey
-background, add the JAMIE ATLAS cuff and hand hole, build three skin tones, and
+background, scale both so the fist prints the same width, build three skin tones, and
 export print PDFs (with vector cut contour), Letter-tiled PDFs, SVG wrappers and previews.
 
 Source photos live in source/. Drop in higher-resolution versions of the same
@@ -16,32 +16,25 @@ import sys
 
 import cv2
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas as rl_canvas
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from generate import (BLUE, BLUE_DARK, BLUE_LIGHT, WHITE, CUT, FONT_BLACK, FONT_BOLD, DIST, SKIN_TONES)
+from generate import CUT, DIST, SKIN_TONES
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "source")
 PPI = 60            # working resolution: pixels per inch of finished prop (photos are ~1200 px, so ~60 ppi at this size)
 BORDER_IN = 0.6     # white keyline
-CUFF_IN = 8.0       # height of the branded cuff
-SLOT_IN = (6.0, 1.5)
+FIST_IN = 15.0      # printed width of the fist (across the knuckles) on EVERY prop, so the hands match
 
 PROPS = {
-    # name: (source file, finished height in inches of the photo part, cuff anchored at bottom centre)
-    "thumbs-up": dict(src="thumbs-up.jpg", height_in=32.0, cuff_cx=0.5),
-    "dumbbell": dict(src="dumbbell.jpg", height_in=22.0, cuff_cx=0.40, hull=True),
+    "thumbs-up": dict(src="thumbs-up.jpg"),
+    "dumbbell": dict(src="dumbbell.jpg", hull=True),
 }
-
-
-def hex_rgb(h):
-    h = h.lstrip("#")
-    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
 
 
 # ---------------------------------------------------------------- cut-out
@@ -129,6 +122,28 @@ def skin_mask(rgba):
     return m.astype(np.float32) / 255.0
 
 
+def fist_width_px(rgba):
+    """Width of the fist across the knuckles: the longest unbroken run of skin on any row
+    through the middle of the hand (rows 35% to 75% down the skin bounding box)."""
+    arr = np.array(rgba)
+    hsv = cv2.cvtColor(arr[:, :, :3], cv2.COLOR_RGB2HSV)
+    # stricter than skin_mask: real skin here is bright and clearly warm; metal reflections are not
+    m = (((hsv[:, :, 0] < 25) | (hsv[:, :, 0] > 170)) & (hsv[:, :, 1] > 60) & (hsv[:, :, 2] > 110) & (arr[:, :, 3] > 0)).astype(np.uint8)
+    m = cv2.morphologyEx(m, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9))) > 0
+    ys = np.where(m.any(axis=1))[0]
+    y0, y1 = ys.min(), ys.max()
+    runs = []
+    for row in range(int(y0 + 0.35 * (y1 - y0)), int(y0 + 0.75 * (y1 - y0))):
+        cols = np.where(m[row])[0]
+        if len(cols) == 0:
+            continue
+        breaks = np.where(np.diff(cols) > 1)[0]
+        starts = np.r_[0, breaks + 1]; ends = np.r_[breaks, len(cols) - 1]
+        runs.append(int((cols[ends] - cols[starts] + 1).max()))
+    # the knuckle span is the wide, stable part: take the 90th percentile, not a one-row spike
+    return int(np.percentile(runs, 90))
+
+
 def retone(rgba, tone):
     """Multiply skin pixels so the average skin colour lands on the tone's base colour. Texture and shading stay."""
     if tone == "light":
@@ -150,67 +165,16 @@ def retone(rgba, tone):
 
 
 # ---------------------------------------------------------------- compose
-def font(path, px):
-    return ImageFont.truetype(path, px)
-
-
-def fit_text(draw, text, path, max_w, start_px):
-    px = start_px
-    while px > 10:
-        f = font(path, px)
-        if draw.textlength(text, font=f) <= max_w:
-            return f
-        px -= 4
-    return font(path, 10)
-
-
-def compose(subject, height_in, cuff_cx=0.5):
-    """Place the cut-out over a blue cuff, add keyline + hand hole. Returns (RGB image, alpha mask, finished size in)."""
+def compose(subject, fist_px):
+    """Scale the cut-out so the fist prints FIST_IN wide, add the white keyline.
+    Returns (RGBA image, cut mask, finished size in inches)."""
     ppi = PPI
-    scale = height_in * ppi / subject.height
+    scale = FIST_IN * ppi / fist_px
     subj = subject.resize((int(subject.width * scale), int(subject.height * scale)), Image.LANCZOS)
     border = int(BORDER_IN * ppi)
-    cuff_h = int(CUFF_IN * ppi)
-    cuff_w = min(int(subj.width * 0.9), int(22 * ppi))
-    cuff_w = max(cuff_w, int(14 * ppi))
-    W = max(subj.width, cuff_w) + 2 * border
-    H = subj.height + cuff_h - int(0.6 * ppi) + 2 * border  # cuff overlaps the wrist crop by 0.6 in
-    canvas = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    sx = (W - subj.width) // 2
-    sy = border
-    # cuff
-    cx = int(sx + subj.width * cuff_cx - cuff_w / 2)
-    cx = max(border, min(cx, W - border - cuff_w))
-    cy = sy + subj.height - int(0.6 * ppi)
-    tcx = cx + cuff_w / 2
-    cuff = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    d = ImageDraw.Draw(cuff)
-    r = int(0.9 * ppi)
-    d.rounded_rectangle([cx, cy, cx + cuff_w, cy + cuff_h], radius=r, fill=hex_rgb(BLUE) + (255,))
-    d.rounded_rectangle([cx, cy, cx + cuff_w, cy + int(1.1 * ppi)], radius=int(0.5 * ppi), fill=hex_rgb(BLUE_DARK) + (255,))
-    # subject sits on top of the cuff so the wrist reads as going into a sleeve
-    layer = Image.alpha_composite(cuff, Image.new("RGBA", (W, H), (0, 0, 0, 0)))
-    layer.alpha_composite(subj, (sx, sy))
-    # but the cuff's lower part is drawn over the wrist crop edge: re-draw cuff below the overlap line
-    front = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    d2 = ImageDraw.Draw(front)
-    d2.rounded_rectangle([cx, cy + int(0.3 * ppi), cx + cuff_w, cy + cuff_h], radius=r, fill=hex_rgb(BLUE) + (255,))
-    d2.rounded_rectangle([cx, cy + int(0.3 * ppi), cx + cuff_w, cy + int(1.3 * ppi)], radius=int(0.5 * ppi), fill=hex_rgb(BLUE_DARK) + (255,))
-    layer.alpha_composite(front)
-    d3 = ImageDraw.Draw(layer)
-    f1 = fit_text(d3, "JAMIE ATLAS", FONT_BLACK, cuff_w - int(1.6 * ppi), int(2.6 * ppi))
-    tw = d3.textlength("JAMIE ATLAS", font=f1)
-    ty = cy + int(1.5 * ppi)
-    d3.text((tcx - tw / 2, ty), "JAMIE ATLAS", font=f1, fill=WHITE)
-    f2 = font(FONT_BOLD, int(0.85 * ppi))
-    tw2 = d3.textlength("@jamieatlasfitness", font=f2)
-    d3.text((tcx - tw2 / 2, cy + cuff_h - int(1.45 * ppi)), "@jamieatlasfitness", font=f2, fill=hex_rgb(BLUE_LIGHT))
-    # hand hole, between the wordmark and the handle
-    sw, sh = int(SLOT_IN[0] * ppi), int(SLOT_IN[1] * ppi)
-    st = cy + int(4.6 * ppi)
-    slot = (int(tcx - sw / 2), st, int(tcx + sw / 2), st + sh)
-    d3.rounded_rectangle(slot, radius=sh // 2, fill=(255, 255, 255, 255))
-    # keyline: dilate alpha by the border
+    W, H = subj.width + 2 * border, subj.height + 2 * border
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    layer.alpha_composite(subj, (border, border))
     alpha = np.array(layer.split()[3])
     hard = (alpha > 40).astype(np.uint8) * 255
     k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * border + 1, 2 * border + 1))
@@ -219,11 +183,7 @@ def compose(subject, height_in, cuff_cx=0.5):
     white = Image.new("RGBA", (W, H), (255, 255, 255, 0))
     white.putalpha(Image.fromarray(key))
     out = Image.alpha_composite(white, layer)
-    # punch the hand hole out of the alpha too
-    a = np.array(out.split()[3]); a[slot[1]:slot[3], slot[0]:slot[2]] = 0
-    slot_mask = np.zeros_like(a); cv2.rectangle(slot_mask, (slot[0], slot[1]), (slot[2], slot[3]), 255, -1)
-    key[slot_mask > 0] = 0
-    return out, key, (W / ppi, H / ppi), slot
+    return out, key, (W / ppi, H / ppi)
 
 
 def contour_path_in(mask, ppi, simplify_px=2.0):
@@ -240,7 +200,7 @@ def contour_path_in(mask, ppi, simplify_px=2.0):
 
 
 # ---------------------------------------------------------------- export
-def export(name, rgba, key, size_in, slot):
+def export(name, rgba, key, size_in):
     w_in, h_in = size_in
     for sub in ("svg", "print", "home-print", "preview"):
         os.makedirs(os.path.join(DIST, sub), exist_ok=True)
@@ -304,7 +264,7 @@ def tile_letter_img(name, im, w_in, h_in, out_pdf, dpi=150):
         "Print at 100% / Actual size (turn OFF 'fit to page'). Portrait. Card stock or 28 lb paper hides the seams better.",
         "Each page overlaps its neighbour by 0.5 in. Trim the RIGHT and BOTTOM edges of each page on the dashed line,",
         "then lay it over the next page so the picture lines up. Tape the back. Glue the whole sheet to foam board,",
-        "then cut along the outside of the white border and cut out the hand hole.",
+        "then cut along the outside of the white border.",
         "Page labels run A1, A2 ... across the top row, then B1, B2 ... for the next row down.",
     ]
     y = 9.8 * inch
@@ -367,10 +327,12 @@ if __name__ == "__main__":
         subject.save(os.path.join(DIST, "cutouts", f"{base}-cutout.png"))
         chk = Image.new("RGB", subject.size, (255, 255, 255)); chk.paste(subject, mask=subject.split()[3])
         chk.save(os.path.join(DIST, "cutouts", f"{base}-cutout-check.jpg"), quality=85)
+        fist = fist_width_px(subject)
+        print(f"{base}: fist measures {fist} px in the photo -> scaled so it prints {FIST_IN:.0f} in wide")
         tones = SKIN_TONES.keys() if base == "thumbs-up" else ["light"]
         for tone in tones:
             name = f"photo-{base}-{tone}" if base == "thumbs-up" else f"photo-{base}"
-            rgba, key, size_in, slot = compose(retone(subject, tone), spec["height_in"], spec["cuff_cx"])
-            results[name] = export(name, rgba, key, size_in, slot)
+            rgba, key, size_in = compose(retone(subject, tone), fist)
+            results[name] = export(name, rgba, key, size_in)
     montage(["photo-dumbbell", "photo-thumbs-up-light", "photo-thumbs-up-medium", "photo-thumbs-up-deep"], "all-photo-props.png")
     print("done")
