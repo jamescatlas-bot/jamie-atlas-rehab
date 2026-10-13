@@ -30,7 +30,7 @@ SRC = os.path.join(HERE, "source")
 PPI = 150           # pixels per inch in the print files
 SEG_PX = 2000       # long side used for segmentation; the mask is then scaled back to full resolution
 BORDER_IN = 0.6     # white keyline
-LIFE_SIZE_X = 2.0   # every hand prints at this multiple of life size, so the hands match
+LIFE_SIZE_X = 3.0   # every hand prints at this multiple of life size, so the hands match
 
 # crop and erase are in fractions of the source image (x, y from the top-left).
 # erase polygons are painted over with the backdrop colour before segmentation, to drop
@@ -39,7 +39,9 @@ LIFE_SIZE_X = 2.0   # every hand prints at this multiple of life size, so the ha
 # Thumbs up is palm-on, so the widest run is wrist to curled fingertips (hand length).
 # Dumbbell is a fist seen from the back, so the widest run is across the palm and four fingers.
 PROPS = {
-    "thumbs-up": dict(src="thumbs-up.jpg", crop=(0.06, 0.0, 1.0, 1.0), span_in=7.5),
+    # Jamie's own photo (exact pose: fist vertical, knuckles to camera), upscaled 4x by upscale.py.
+    # Widest skin run here is across the back of the fist including the thumb base.
+    "thumbs-up": dict(src="thumbs-up.jpg", span_in=4.0),
     "dumbbell": dict(src="dumbbell.jpg", hull=True, crop=(0.0, 0.0, 1.0, 0.86), span_in=3.8, keep=[
         # the held dumbbell's two hex plates and the hand on the handle; anything outside is dropped
         [(0.145, 0.33), (0.20, 0.245), (0.33, 0.245), (0.37, 0.33), (0.37, 0.60), (0.33, 0.70), (0.19, 0.70), (0.145, 0.60)],
