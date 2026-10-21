@@ -156,9 +156,9 @@ def svg():
     o.append('<svg xmlns="http://www.w3.org/2000/svg" width="%d" height="%d" viewBox="0 0 %d %d" font-family="Helvetica, Arial, sans-serif">' % (W, H, W, H))
     o.append('<rect width="100%" height="100%" fill="white"/>')
     o.append('<text x="%d" y="30" font-size="18" font-weight="bold">%s</text>' % (PAD, M["project"]))
-    o.append('<text x="%d" y="48" font-size="11" fill="#444">Ceiling plan at 9 ft AFF looking up. Ductwork centreline 11 ft 6 in AFF. Grid 25 ft. Scale 1 ft = %g px.</text>' % (PAD, S))
+    o.append('<text x="%d" y="48" font-size="11" fill="#444">Ceiling plan at 9 ft AFF looking up, north is up. Ductwork centreline 11 ft 6 in AFF. Grid 25 ft. Scale 1 ft = %g px.</text>' % (PAD, S))
     # zones
-    zc = {"perimeter": "#fff4d6", "interior": "#e8f1ff", "mechanical": "#eeeeee"}
+    zc = {"perimeter": "#fff4d6", "office": "#fff4d6", "conference": "#ffe3b0", "interior": "#e8f1ff", "mechanical": "#eeeeee"}
     for z in M["zones"]:
         pts = " ".join("%g,%g" % (X(x), Y(y)) for x, y in z["polygon"])
         o.append('<polygon points="%s" fill="%s" stroke="#bbb" stroke-width="0.5"/>' % (pts, zc[z["kind"]]))
@@ -166,10 +166,22 @@ def svg():
         cy = sum(p[1] for p in z["polygon"]) / len(z["polygon"])
         if z["kind"] == "mechanical":
             cx, cy = 50, 56
-        if z["kind"] == "interior" and z["number"] in ("109", "110"):
-            cy = 75
-        o.append('<text x="%g" y="%g" font-size="9" fill="#666" text-anchor="middle">%s %s</text>' % (X(cx), Y(cy), z["number"], z["name"]))
-        o.append('<text x="%g" y="%g" font-size="8" fill="#888" text-anchor="middle">%d sf</text>' % (X(cx), Y(cy) + 10, round(z["area"])))
+        if z["kind"] == "interior":
+            cx, cy = {"VAV-1": (26, 74), "VAV-2": (74, 74), "VAV-3": (26, 22), "VAV-4": (74, 22)}.get(z["box"], (cx, cy))
+        if z["kind"] == "office":
+            # small room: number and airflow only, pushed toward the exterior wall
+            ex, ey = (cx - 50), (cy - 50)
+            if abs(ex) > abs(ey):
+                cx = cx + (3.5 if ex > 0 else -3.5)
+            else:
+                cy = cy + (3.5 if ey > 0 else -3.5)
+            o.append('<text x="%g" y="%g" font-size="7" fill="#666" text-anchor="middle">%s</text>' % (X(cx), Y(cy), z["number"]))
+            o.append('<text x="%g" y="%g" font-size="6.5" fill="#888" text-anchor="middle">%d cfm</text>' % (X(cx), Y(cy) + 8, z["supply_cfm"]))
+            continue
+        if z["kind"] == "conference":
+            cy = cy + (5 if cy > 50 else -5)
+        o.append('<text x="%g" y="%g" font-size="8" fill="#666" text-anchor="middle">%s %s</text>' % (X(cx), Y(cy), z["number"], z["name"]))
+        o.append('<text x="%g" y="%g" font-size="7" fill="#888" text-anchor="middle">%d sf, %d cfm</text>' % (X(cx), Y(cy) + 9, round(z["area"]), z["supply_cfm"]))
     # grids
     for g in B["grids"]:
         (x1, y1), (x2, y2) = g["start"], g["end"]
@@ -178,7 +190,7 @@ def svg():
     # walls
     for w in B["walls"]:
         (x1, y1), (x2, y2) = w["start"], w["end"]
-        o.append('<line x1="%g" y1="%g" x2="%g" y2="%g" stroke="#222" stroke-width="%g"/>' % (X(x1), Y(y1), X(x2), Y(y2), w["thickness"] * S))
+        o.append('<line x1="%g" y1="%g" x2="%g" y2="%g" stroke="%s" stroke-width="%g"/>' % (X(x1), Y(y1), X(x2), Y(y2), "#222" if w["kind"] == "exterior" else "#555", max(1.2, w["thickness"] * S)))
     for c in B["columns"]:
         s = c["size"] * S
         o.append('<rect x="%g" y="%g" width="%g" height="%g" fill="#222"/>' % (X(c["x"]) - s / 2, Y(c["y"]) - s / 2, s, s))
@@ -232,7 +244,7 @@ def svg():
     o.append('<text x="%d" y="%d" font-size="10">Square with X = 24x24 supply diffuser. Square with bar = 24x24 plenum return grille.</text>' % (PAD, ly0 + 32))
     t = M["totals"]
     ahu = [e for e in M["equipment"] if e["kind"] == "AHU"][0]
-    o.append('<text x="%d" y="%d" font-size="10">AHU-1 %s cfm, %s cfm OA. Primary air %s cfm: %d VAV + %d FPB. %d diffusers, %d return grilles, %g ft duct.</text>'
+    o.append('<text x="%d" y="%d" font-size="10">AHU-1 %s cfm, %s cfm OA. Primary air %s cfm: %d VAV + %d FPB. %d diffusers, %d return grilles, %g ft duct. Denver exposure factors: S 1.5, W 1.35, E 1.25, N 1.0.</text>'
              % (PAD, ly0 + 48, "{:,}".format(ahu["supply_cfm"]), "{:,}".format(ahu["outside_air_cfm"]), "{:,}".format(t["supply_primary_cfm"]),
                 t["vav_boxes"], t["fan_powered_boxes"], t["supply_diffusers"], t["return_grilles"], t["duct_length_ft"]))
     o.append("</svg>")

@@ -1,14 +1,30 @@
 Number,Name,Type,Terminal box,Area (sf),Design supply (cfm),cfm/sf
-101,North Office West,perimeter,FPB-N1,1000,1050,1.05
-102,North Office East,perimeter,FPB-N2,1000,1050,1.05
-103,South Office West,perimeter,FPB-S1,1000,1050,1.05
-104,South Office East,perimeter,FPB-S2,1000,1050,1.05
-105,East Office South,perimeter,FPB-E1,600,750,1.25
-106,East Office North,perimeter,FPB-E2,600,750,1.25
-107,West Office South,perimeter,FPB-W1,600,750,1.25
-108,West Office North,perimeter,FPB-W2,600,750,1.25
-109,Interior NW Open Office,interior,VAV-1,708,700,0.99
-110,Interior NE Open Office,interior,VAV-2,708,700,0.99
-111,Interior SW Open Office,interior,VAV-3,900,900,1.0
-112,Interior SE Open Office,interior,VAV-4,900,900,1.0
+101,Conference NW,conference,FPB-NW,400,650,1.62
+102,North Office 1,office,FPB-N1,180,180,1.0
+103,North Office 2,office,FPB-N1,180,180,1.0
+104,North Office 3,office,FPB-N1,180,180,1.0
+105,North Office 4,office,FPB-N2,180,180,1.0
+106,North Office 5,office,FPB-N2,180,180,1.0
+107,Conference NE,conference,FPB-NE,400,600,1.5
+108,East Office 1,office,FPB-E1,180,225,1.25
+109,East Office 2,office,FPB-E1,180,225,1.25
+110,East Office 3,office,FPB-E1,180,225,1.25
+111,East Office 4,office,FPB-E2,180,225,1.25
+112,East Office 5,office,FPB-E2,180,225,1.25
+113,Conference SE,conference,FPB-SE,400,720,1.8
+114,South Office 1,office,FPB-S1,180,270,1.5
+115,South Office 2,office,FPB-S1,180,270,1.5
+116,South Office 3,office,FPB-S1,180,270,1.5
+117,South Office 4,office,FPB-S2,180,270,1.5
+118,South Office 5,office,FPB-S2,180,270,1.5
+119,Conference SW,conference,FPB-SW,400,720,1.8
+120,West Office 1,office,FPB-W1,180,245,1.36
+121,West Office 2,office,FPB-W1,180,245,1.36
+122,West Office 3,office,FPB-W1,180,245,1.36
+123,West Office 4,office,FPB-W2,180,245,1.36
+124,West Office 5,office,FPB-W2,180,245,1.36
+125,Interior NW Open Office,interior,VAV-1,1008,905,0.9
+126,Interior NE Open Office,interior,VAV-2,1008,905,0.9
+127,Interior SW Open Office,interior,VAV-3,1200,1080,0.9
+128,Interior SE Open Office,interior,VAV-4,1200,1080,0.9
 M-101,Mechanical Room,mechanical,AHU-1,384,0,

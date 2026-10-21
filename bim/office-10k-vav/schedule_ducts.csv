@@ -1,104 +1,112 @@
 Run,System,Pressure class,Description,Shape,Size (in),Airflow (cfm),Velocity (fpm),Length (ft),Taps on,From,To
-SA-01,SA,medium,AHU-1 supply riser and main,rect,36x24,8000,1333,19.5,,AHU-1,
-SA-02,SA,medium,Main east,rect,28x18,4000,1143,18.0,,,
-SA-03,SA,medium,Main west,rect,28x18,4000,1143,26.0,,,
-SA-04,SA,medium,Main east (reduced),rect,22x16,2400,982,8.0,,,
-SA-05,SA,medium,Main west (reduced),rect,22x16,2400,982,8.0,,,
-SA-06,SA,medium,East leg north,rect,14x12,1200,1029,25.0,,,
-SA-07,SA,medium,East leg south,rect,14x12,1200,1029,19.0,,,
-SA-08,SA,medium,East leg north to FPB-N2,rect,12x10,700,840,21.5,,,FPB-N2
-SA-09,SA,medium,East leg south to FPB-S2,rect,12x10,700,840,21.5,,,FPB-S2
-SA-10,SA,medium,West leg north,rect,14x12,1200,1029,25.0,,,
-SA-11,SA,medium,West leg south,rect,14x12,1200,1029,19.0,,,
-SA-12,SA,medium,West leg north to FPB-N1,rect,12x10,700,840,21.5,,,FPB-N1
-SA-13,SA,medium,West leg south to FPB-S1,rect,12x10,700,840,21.5,,,FPB-S1
-SA-14,SA,medium,Tap to FPB-E2,rect,12x10,500,600,3.5,SA-06,,FPB-E2
-SA-15,SA,medium,Tap to FPB-E1,rect,12x10,500,600,3.5,SA-07,,FPB-E1
-SA-16,SA,medium,Tap to FPB-W2,rect,12x10,500,600,3.5,SA-10,,FPB-W2
-SA-17,SA,medium,Tap to FPB-W1,rect,12x10,500,600,3.5,SA-11,,FPB-W1
-SA-18,SA,medium,Tap to VAV-2,rect,14x12,700,600,5.5,SA-02,,VAV-2
-SA-19,SA,medium,Tap to VAV-4,rect,16x12,900,675,5.5,SA-02,,VAV-4
-SA-20,SA,medium,Tap to VAV-1,rect,14x12,700,600,5.5,SA-03,,VAV-1
-SA-21,SA,medium,Tap to VAV-3,rect,16x12,900,675,5.5,SA-03,,VAV-3
-RA-01,RA,low,Plenum return to AHU-1,rect,36x24,7000,1167,12.5,,PLENUM,AHU-1
-OA-01,OA,low,Outside air from L-1 to AHU-1,rect,20x14,1500,771,41.5,,L-1,AHU-1
-LP-11,SA,low,VAV-1 discharge header,rect,14x12,700,600,5.5,,VAV-1,
-LP-12,SA,low,VAV-1 discharge header (reduced),rect,10x10,350,504,6.5,,,
-LP-13,SA,low,Runout to SD-01,round,"10"" dia",175,321,8.0,LP-11,,SD-01
-LP-14,SA,low,Runout to SD-02,round,"10"" dia",175,321,8.0,LP-11,,SD-02
-LP-15,SA,low,Runout to SD-03,round,"10"" dia",175,321,8.0,LP-12,,SD-03
-LP-16,SA,low,Runout to SD-04,round,"10"" dia",175,321,8.0,LP-12,,SD-04
-LP-21,SA,low,VAV-2 discharge header,rect,14x12,700,600,5.5,,VAV-2,
-LP-22,SA,low,VAV-2 discharge header (reduced),rect,10x10,350,504,6.5,,,
-LP-23,SA,low,Runout to SD-05,round,"10"" dia",175,321,8.0,LP-21,,SD-05
-LP-24,SA,low,Runout to SD-06,round,"10"" dia",175,321,8.0,LP-21,,SD-06
-LP-25,SA,low,Runout to SD-07,round,"10"" dia",175,321,8.0,LP-22,,SD-07
-LP-26,SA,low,Runout to SD-08,round,"10"" dia",175,321,8.0,LP-22,,SD-08
-LP-31,SA,low,VAV-3 discharge header,rect,16x12,900,675,5.5,,VAV-3,
-LP-32,SA,low,VAV-3 discharge header (reduced),rect,12x10,450,540,6.5,,,
-LP-33,SA,low,Runout to SD-09,round,"10"" dia",225,413,8.0,LP-31,,SD-09
-LP-34,SA,low,Runout to SD-10,round,"10"" dia",225,413,8.0,LP-31,,SD-10
-LP-35,SA,low,Runout to SD-11,round,"10"" dia",225,413,8.0,LP-32,,SD-11
-LP-36,SA,low,Runout to SD-12,round,"10"" dia",225,413,8.0,LP-32,,SD-12
-LP-41,SA,low,VAV-4 discharge header,rect,16x12,900,675,5.5,,VAV-4,
-LP-42,SA,low,VAV-4 discharge header (reduced),rect,12x10,450,540,6.5,,,
-LP-43,SA,low,Runout to SD-13,round,"10"" dia",225,413,8.0,LP-41,,SD-13
-LP-44,SA,low,Runout to SD-14,round,"10"" dia",225,413,8.0,LP-41,,SD-14
-LP-45,SA,low,Runout to SD-15,round,"10"" dia",225,413,8.0,LP-42,,SD-15
-LP-46,SA,low,Runout to SD-16,round,"10"" dia",225,413,8.0,LP-42,,SD-16
-LP-N10,SA,low,FPB-N1 discharge header,rect,16x10,1050,945,5.5,,FPB-N1,
-LP-N1W,SA,low,FPB-N1 west leg,rect,12x10,525,630,21.0,,,
-LP-N1E,SA,low,FPB-N1 east leg,rect,12x10,525,630,15.0,,,
-LP-N11,SA,low,Drop to SD-17,round,"10"" dia",262,480,2.0,LP-N1W,,SD-17
-LP-N12,SA,low,Drop to SD-18,round,"10"" dia",262,480,2.0,LP-N1W,,SD-18
-LP-N13,SA,low,Drop to SD-19,round,"10"" dia",262,480,2.0,LP-N1E,,SD-19
-LP-N14,SA,low,Drop to SD-20,round,"10"" dia",262,480,2.0,LP-N1E,,SD-20
-LP-N20,SA,low,FPB-N2 discharge header,rect,16x10,1050,945,5.5,,FPB-N2,
-LP-N2W,SA,low,FPB-N2 west leg,rect,12x10,525,630,15.0,,,
-LP-N2E,SA,low,FPB-N2 east leg,rect,12x10,525,630,21.0,,,
-LP-N21,SA,low,Drop to SD-21,round,"10"" dia",262,480,2.0,LP-N2W,,SD-21
-LP-N22,SA,low,Drop to SD-22,round,"10"" dia",262,480,2.0,LP-N2W,,SD-22
-LP-N23,SA,low,Drop to SD-23,round,"10"" dia",262,480,2.0,LP-N2E,,SD-23
-LP-N24,SA,low,Drop to SD-24,round,"10"" dia",262,480,2.0,LP-N2E,,SD-24
-LP-S10,SA,low,FPB-S1 discharge header,rect,16x10,1050,945,5.5,,FPB-S1,
-LP-S1W,SA,low,FPB-S1 west leg,rect,12x10,525,630,21.0,,,
-LP-S1E,SA,low,FPB-S1 east leg,rect,12x10,525,630,15.0,,,
-LP-S11,SA,low,Drop to SD-25,round,"10"" dia",262,480,2.0,LP-S1W,,SD-25
-LP-S12,SA,low,Drop to SD-26,round,"10"" dia",262,480,2.0,LP-S1W,,SD-26
-LP-S13,SA,low,Drop to SD-27,round,"10"" dia",262,480,2.0,LP-S1E,,SD-27
-LP-S14,SA,low,Drop to SD-28,round,"10"" dia",262,480,2.0,LP-S1E,,SD-28
-LP-S20,SA,low,FPB-S2 discharge header,rect,16x10,1050,945,5.5,,FPB-S2,
-LP-S2W,SA,low,FPB-S2 west leg,rect,12x10,525,630,15.0,,,
-LP-S2E,SA,low,FPB-S2 east leg,rect,12x10,525,630,21.0,,,
-LP-S21,SA,low,Drop to SD-29,round,"10"" dia",262,480,2.0,LP-S2W,,SD-29
-LP-S22,SA,low,Drop to SD-30,round,"10"" dia",262,480,2.0,LP-S2W,,SD-30
-LP-S23,SA,low,Drop to SD-31,round,"10"" dia",262,480,2.0,LP-S2E,,SD-31
-LP-S24,SA,low,Drop to SD-32,round,"10"" dia",262,480,2.0,LP-S2E,,SD-32
-LP-E10,SA,low,FPB-E1 discharge header,rect,14x10,750,771,5.5,,FPB-E1,
-LP-E1S,SA,low,FPB-E1 south leg,rect,10x10,375,540,21.0,,,
-LP-E1N,SA,low,FPB-E1 north leg,rect,10x10,375,540,15.0,,,
-LP-E11,SA,low,Drop to SD-33,round,"8"" dia",187,536,2.0,LP-E1S,,SD-33
-LP-E12,SA,low,Drop to SD-34,round,"8"" dia",187,536,2.0,LP-E1S,,SD-34
-LP-E13,SA,low,Drop to SD-35,round,"8"" dia",187,536,2.0,LP-E1N,,SD-35
-LP-E14,SA,low,Drop to SD-36,round,"8"" dia",187,536,2.0,LP-E1N,,SD-36
-LP-E20,SA,low,FPB-E2 discharge header,rect,14x10,750,771,5.5,,FPB-E2,
-LP-E2S,SA,low,FPB-E2 south leg,rect,10x10,375,540,15.0,,,
-LP-E2N,SA,low,FPB-E2 north leg,rect,10x10,375,540,21.0,,,
-LP-E21,SA,low,Drop to SD-37,round,"8"" dia",187,536,2.0,LP-E2S,,SD-37
-LP-E22,SA,low,Drop to SD-38,round,"8"" dia",187,536,2.0,LP-E2S,,SD-38
-LP-E23,SA,low,Drop to SD-39,round,"8"" dia",187,536,2.0,LP-E2N,,SD-39
-LP-E24,SA,low,Drop to SD-40,round,"8"" dia",187,536,2.0,LP-E2N,,SD-40
-LP-W10,SA,low,FPB-W1 discharge header,rect,14x10,750,771,5.5,,FPB-W1,
-LP-W1S,SA,low,FPB-W1 south leg,rect,10x10,375,540,21.0,,,
-LP-W1N,SA,low,FPB-W1 north leg,rect,10x10,375,540,15.0,,,
-LP-W11,SA,low,Drop to SD-41,round,"8"" dia",187,536,2.0,LP-W1S,,SD-41
-LP-W12,SA,low,Drop to SD-42,round,"8"" dia",187,536,2.0,LP-W1S,,SD-42
-LP-W13,SA,low,Drop to SD-43,round,"8"" dia",187,536,2.0,LP-W1N,,SD-43
-LP-W14,SA,low,Drop to SD-44,round,"8"" dia",187,536,2.0,LP-W1N,,SD-44
-LP-W20,SA,low,FPB-W2 discharge header,rect,14x10,750,771,5.5,,FPB-W2,
-LP-W2S,SA,low,FPB-W2 south leg,rect,10x10,375,540,15.0,,,
-LP-W2N,SA,low,FPB-W2 north leg,rect,10x10,375,540,21.0,,,
-LP-W21,SA,low,Drop to SD-45,round,"8"" dia",187,536,2.0,LP-W2S,,SD-45
-LP-W22,SA,low,Drop to SD-46,round,"8"" dia",187,536,2.0,LP-W2S,,SD-46
-LP-W23,SA,low,Drop to SD-47,round,"8"" dia",187,536,2.0,LP-W2N,,SD-47
-LP-W24,SA,low,Drop to SD-48,round,"8"" dia",187,536,2.0,LP-W2N,,SD-48
+SA-01,SA,medium,AHU-1 supply riser and main,rect,36x24,8830,1472,19.5,,AHU-1,
+SA-ME-1,SA,medium,Main east,rect,28x16,4395,1413,14.0,,,
+SA-ME-2,SA,medium,Main east (reduced),rect,24x14,3315,1421,4.0,,,
+SA-ME-3,SA,medium,Main east (reduced),rect,20x12,2410,1446,5.0,,,
+SA-MW-1,SA,medium,Main west,rect,28x16,4435,1426,22.0,,,
+SA-MW-2,SA,medium,Main west (reduced),rect,24x14,3355,1438,4.0,,,
+SA-MW-3,SA,medium,Main west (reduced),rect,20x12,2450,1470,5.0,,,
+SA-EN-1,SA,medium,East leg north to north facade,rect,12x10,1090,1308,40.0,,,CAP
+SA-ES-1,SA,medium,East leg south to south facade,rect,14x10,1320,1358,17.0,,,
+SA-ES-2,SA,medium,East leg south to south facade (reduced),rect,12x10,1020,1224,23.0,,,CAP
+SA-WN-1,SA,medium,West leg north to north facade,rect,12x10,1120,1344,46.0,,,CAP
+SA-WS-1,SA,medium,West leg south to south facade,rect,14x10,1330,1368,11.0,,,
+SA-WS-2,SA,medium,West leg south to south facade (reduced),rect,12x10,840,1008,23.0,,,CAP
+RA-01,RA,low,Plenum return to AHU-1,rect,48x28,8200,879,13.5,,PLENUM,AHU-1
+OA-01,OA,low,Outside air from L-1 to AHU-1,rect,22x14,1800,842,41.5,,L-1,AHU-1
+SA-VAV-1,SA,medium,Tap to VAV-1,rect,10x10,905,1303,5.5,SA-MW-2,,VAV-1
+LP-VAV-1-1,SA,low,VAV-1 discharge header,rect,16x10,905,814,5.5,,VAV-1,
+LP-VAV-1-2,SA,low,VAV-1 discharge header (reduced),rect,10x8,452,814,6.5,,,CAP
+LP-VAV-1-3,SA,low,Runout to SD-01,round,"8"" dia",225,645,7.0,LP-VAV-1-1,,SD-01
+LP-VAV-1-4,SA,low,Runout to SD-02,round,"8"" dia",225,645,7.0,LP-VAV-1-1,,SD-02
+LP-VAV-1-5,SA,low,Runout to SD-03,round,"8"" dia",225,645,7.0,LP-VAV-1-2,,SD-03
+LP-VAV-1-6,SA,low,Runout to SD-04,round,"8"" dia",225,645,7.0,LP-VAV-1-2,,SD-04
+SA-VAV-2,SA,medium,Tap to VAV-2,rect,10x10,905,1303,5.5,SA-ME-2,,VAV-2
+LP-VAV-2-1,SA,low,VAV-2 discharge header,rect,16x10,905,814,5.5,,VAV-2,
+LP-VAV-2-2,SA,low,VAV-2 discharge header (reduced),rect,10x8,452,814,6.5,,,CAP
+LP-VAV-2-3,SA,low,Runout to SD-05,round,"8"" dia",225,645,7.0,LP-VAV-2-1,,SD-05
+LP-VAV-2-4,SA,low,Runout to SD-06,round,"8"" dia",225,645,7.0,LP-VAV-2-1,,SD-06
+LP-VAV-2-5,SA,low,Runout to SD-07,round,"8"" dia",225,645,7.0,LP-VAV-2-2,,SD-07
+LP-VAV-2-6,SA,low,Runout to SD-08,round,"8"" dia",225,645,7.0,LP-VAV-2-2,,SD-08
+SA-VAV-3,SA,medium,Tap to VAV-3,rect,12x10,1080,1296,5.5,SA-MW-1,,VAV-3
+LP-VAV-3-1,SA,low,VAV-3 discharge header,rect,16x12,1080,810,5.5,,VAV-3,
+LP-VAV-3-2,SA,low,VAV-3 discharge header (reduced),rect,10x10,540,778,6.5,,,CAP
+LP-VAV-3-3,SA,low,Runout to SD-09,round,"8"" dia",270,773,7.0,LP-VAV-3-1,,SD-09
+LP-VAV-3-4,SA,low,Runout to SD-10,round,"8"" dia",270,773,7.0,LP-VAV-3-1,,SD-10
+LP-VAV-3-5,SA,low,Runout to SD-11,round,"8"" dia",270,773,7.0,LP-VAV-3-2,,SD-11
+LP-VAV-3-6,SA,low,Runout to SD-12,round,"8"" dia",270,773,7.0,LP-VAV-3-2,,SD-12
+SA-VAV-4,SA,medium,Tap to VAV-4,rect,12x10,1080,1296,5.5,SA-ME-1,,VAV-4
+LP-VAV-4-1,SA,low,VAV-4 discharge header,rect,16x12,1080,810,5.5,,VAV-4,
+LP-VAV-4-2,SA,low,VAV-4 discharge header (reduced),rect,10x10,540,778,6.5,,,CAP
+LP-VAV-4-3,SA,low,Runout to SD-13,round,"8"" dia",270,773,7.0,LP-VAV-4-1,,SD-13
+LP-VAV-4-4,SA,low,Runout to SD-14,round,"8"" dia",270,773,7.0,LP-VAV-4-1,,SD-14
+LP-VAV-4-5,SA,low,Runout to SD-15,round,"8"" dia",270,773,7.0,LP-VAV-4-2,,SD-15
+LP-VAV-4-6,SA,low,Runout to SD-16,round,"8"" dia",270,773,7.0,LP-VAV-4-2,,SD-16
+SA-FPB-N1,SA,medium,Tap to FPB-N1,rect,8x8,360,810,3.0,SA-WN-1,,FPB-N1
+LP-FPB-N1-0,SA,low,FPB-N1 discharge header,rect,10x10,540,778,7.5,,FPB-N1,
+LP-FPB-N1-L,SA,low,FPB-N1 left leg,rect,8x8,180,405,13.0,,,CAP
+LP-FPB-N1-R,SA,low,FPB-N1 right leg,rect,8x8,360,810,13.0,,,CAP
+LP-FPB-N1-1,SA,low,Drop to SD-17,round,"8"" dia",180,516,2.0,LP-FPB-N1-L,,SD-17
+LP-FPB-N1-2,SA,low,Drop to SD-18,round,"8"" dia",180,516,2.0,LP-FPB-N1-R,,SD-18
+LP-FPB-N1-3,SA,low,Drop to SD-19,round,"8"" dia",180,516,2.0,LP-FPB-N1-R,,SD-19
+SA-FPB-N2,SA,medium,Tap to FPB-N2,rect,8x8,240,540,3.0,SA-EN-1,,FPB-N2
+LP-FPB-N2-0,SA,low,FPB-N2 discharge header,rect,8x8,360,810,7.5,,FPB-N2,
+LP-FPB-N2-L,SA,low,FPB-N2 left leg,rect,8x8,180,405,7.0,,,CAP
+LP-FPB-N2-R,SA,low,FPB-N2 right leg,rect,8x8,180,405,7.0,,,CAP
+LP-FPB-N2-1,SA,low,Drop to SD-20,round,"8"" dia",180,516,2.0,LP-FPB-N2-L,,SD-20
+LP-FPB-N2-2,SA,low,Drop to SD-21,round,"8"" dia",180,516,2.0,LP-FPB-N2-R,,SD-21
+SA-FPB-NW,SA,medium,Tap to FPB-NW,rect,8x8,435,979,9.0,SA-WN-1,,FPB-NW
+LP-FPB-NW-0,SA,low,FPB-NW discharge header,rect,12x10,650,780,24.0,,FPB-NW,CAP
+LP-FPB-NW-1,SA,low,Runout to SD-22,round,"10"" dia",325,596,6.0,LP-FPB-NW-0,,SD-22
+LP-FPB-NW-2,SA,low,Runout to SD-23,round,"10"" dia",325,596,6.0,LP-FPB-NW-0,,SD-23
+SA-FPB-E1,SA,medium,Tap to FPB-E1,rect,8x8,450,1012,3.0,SA-EN-1,,FPB-E1
+LP-FPB-E1-0,SA,low,FPB-E1 discharge header,rect,12x10,675,810,7.5,,FPB-E1,
+LP-FPB-E1-L,SA,low,FPB-E1 left leg,rect,8x8,225,506,13.0,,,CAP
+LP-FPB-E1-R,SA,low,FPB-E1 right leg,rect,10x8,450,810,13.0,,,CAP
+LP-FPB-E1-1,SA,low,Drop to SD-24,round,"8"" dia",225,645,2.0,LP-FPB-E1-L,,SD-24
+LP-FPB-E1-2,SA,low,Drop to SD-25,round,"8"" dia",225,645,2.0,LP-FPB-E1-R,,SD-25
+LP-FPB-E1-3,SA,low,Drop to SD-26,round,"8"" dia",225,645,2.0,LP-FPB-E1-R,,SD-26
+SA-FPB-E2,SA,medium,Tap to FPB-E2,rect,8x8,300,675,3.0,SA-ES-1,,FPB-E2
+LP-FPB-E2-0,SA,low,FPB-E2 discharge header,rect,10x8,450,810,7.5,,FPB-E2,
+LP-FPB-E2-L,SA,low,FPB-E2 left leg,rect,8x8,225,506,7.0,,,CAP
+LP-FPB-E2-R,SA,low,FPB-E2 right leg,rect,8x8,225,506,7.0,,,CAP
+LP-FPB-E2-1,SA,low,Drop to SD-27,round,"8"" dia",225,645,2.0,LP-FPB-E2-L,,SD-27
+LP-FPB-E2-2,SA,low,Drop to SD-28,round,"8"" dia",225,645,2.0,LP-FPB-E2-R,,SD-28
+SA-FPB-NE,SA,medium,Tap to FPB-NE,rect,8x8,400,900,9.0,SA-EN-1,,FPB-NE
+LP-FPB-NE-0,SA,low,FPB-NE discharge header,rect,10x10,600,864,24.0,,FPB-NE,CAP
+LP-FPB-NE-1,SA,low,Runout to SD-29,round,"10"" dia",300,550,6.0,LP-FPB-NE-0,,SD-29
+LP-FPB-NE-2,SA,low,Runout to SD-30,round,"10"" dia",300,550,6.0,LP-FPB-NE-0,,SD-30
+SA-FPB-S1,SA,medium,Tap to FPB-S1,rect,8x8,540,1215,3.0,SA-ES-2,,FPB-S1
+LP-FPB-S1-0,SA,low,FPB-S1 discharge header,rect,14x10,810,833,7.5,,FPB-S1,
+LP-FPB-S1-L,SA,low,FPB-S1 left leg,rect,8x8,270,608,13.0,,,CAP
+LP-FPB-S1-R,SA,low,FPB-S1 right leg,rect,10x10,540,778,13.0,,,CAP
+LP-FPB-S1-1,SA,low,Drop to SD-31,round,"8"" dia",270,773,2.0,LP-FPB-S1-L,,SD-31
+LP-FPB-S1-2,SA,low,Drop to SD-32,round,"8"" dia",270,773,2.0,LP-FPB-S1-R,,SD-32
+LP-FPB-S1-3,SA,low,Drop to SD-33,round,"8"" dia",270,773,2.0,LP-FPB-S1-R,,SD-33
+SA-FPB-S2,SA,medium,Tap to FPB-S2,rect,8x8,360,810,3.0,SA-WS-2,,FPB-S2
+LP-FPB-S2-0,SA,low,FPB-S2 discharge header,rect,10x10,540,778,7.5,,FPB-S2,
+LP-FPB-S2-L,SA,low,FPB-S2 left leg,rect,8x8,270,608,7.0,,,CAP
+LP-FPB-S2-R,SA,low,FPB-S2 right leg,rect,8x8,270,608,7.0,,,CAP
+LP-FPB-S2-1,SA,low,Drop to SD-34,round,"8"" dia",270,773,2.0,LP-FPB-S2-L,,SD-34
+LP-FPB-S2-2,SA,low,Drop to SD-35,round,"8"" dia",270,773,2.0,LP-FPB-S2-R,,SD-35
+SA-FPB-SE,SA,medium,Tap to FPB-SE,rect,8x8,480,1080,9.0,SA-ES-2,,FPB-SE
+LP-FPB-SE-0,SA,low,FPB-SE discharge header,rect,12x10,720,864,24.0,,FPB-SE,CAP
+LP-FPB-SE-1,SA,low,Runout to SD-36,round,"10"" dia",360,660,6.0,LP-FPB-SE-0,,SD-36
+LP-FPB-SE-2,SA,low,Runout to SD-37,round,"10"" dia",360,660,6.0,LP-FPB-SE-0,,SD-37
+SA-FPB-W1,SA,medium,Tap to FPB-W1,rect,8x8,490,1102,3.0,SA-WS-1,,FPB-W1
+LP-FPB-W1-0,SA,low,FPB-W1 discharge header,rect,12x10,735,882,7.5,,FPB-W1,
+LP-FPB-W1-L,SA,low,FPB-W1 left leg,rect,8x8,245,551,13.0,,,CAP
+LP-FPB-W1-R,SA,low,FPB-W1 right leg,rect,10x8,490,882,13.0,,,CAP
+LP-FPB-W1-1,SA,low,Drop to SD-38,round,"8"" dia",245,702,2.0,LP-FPB-W1-L,,SD-38
+LP-FPB-W1-2,SA,low,Drop to SD-39,round,"8"" dia",245,702,2.0,LP-FPB-W1-R,,SD-39
+LP-FPB-W1-3,SA,low,Drop to SD-40,round,"8"" dia",245,702,2.0,LP-FPB-W1-R,,SD-40
+SA-FPB-W2,SA,medium,Tap to FPB-W2,rect,8x8,325,731,3.0,SA-WN-1,,FPB-W2
+LP-FPB-W2-0,SA,low,FPB-W2 discharge header,rect,10x8,490,882,7.5,,FPB-W2,
+LP-FPB-W2-L,SA,low,FPB-W2 left leg,rect,8x8,245,551,7.0,,,CAP
+LP-FPB-W2-R,SA,low,FPB-W2 right leg,rect,8x8,245,551,7.0,,,CAP
+LP-FPB-W2-1,SA,low,Drop to SD-41,round,"8"" dia",245,702,2.0,LP-FPB-W2-L,,SD-41
+LP-FPB-W2-2,SA,low,Drop to SD-42,round,"8"" dia",245,702,2.0,LP-FPB-W2-R,,SD-42
+SA-FPB-SW,SA,medium,Tap to FPB-SW,rect,8x8,480,1080,9.0,SA-WS-2,,FPB-SW
+LP-FPB-SW-0,SA,low,FPB-SW discharge header,rect,12x10,720,864,24.0,,FPB-SW,CAP
+LP-FPB-SW-1,SA,low,Runout to SD-43,round,"10"" dia",360,660,6.0,LP-FPB-SW-0,,SD-43
+LP-FPB-SW-2,SA,low,Runout to SD-44,round,"10"" dia",360,660,6.0,LP-FPB-SW-0,,SD-44
