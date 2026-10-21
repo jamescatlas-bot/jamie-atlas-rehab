@@ -1,0 +1,4731 @@
+{
+ "project": "10,000 sf Office - Central AHU with VAV / Fan-Powered Boxes",
+ "units": "feet",
+ "building": {
+  "size": [
+   100.0,
+   100.0
+  ],
+  "area": 10000.0,
+  "levels": [
+   {
+    "name": "Level 1",
+    "elevation": 0.0
+   },
+   {
+    "name": "Roof",
+    "elevation": 14.0
+   }
+  ],
+  "ceiling_height": 9.0,
+  "duct_centreline": 11.5,
+  "walls": [
+   {
+    "id": "W-S",
+    "kind": "exterior",
+    "start": [
+     0,
+     0.5
+    ],
+    "end": [
+     100.0,
+     0.5
+    ],
+    "thickness": 1.0,
+    "height": 14.0,
+    "base": 0.0
+   },
+   {
+    "id": "W-E",
+    "kind": "exterior",
+    "start": [
+     99.5,
+     0
+    ],
+    "end": [
+     99.5,
+     100.0
+    ],
+    "thickness": 1.0,
+    "height": 14.0,
+    "base": 0.0
+   },
+   {
+    "id": "W-N",
+    "kind": "exterior",
+    "start": [
+     100.0,
+     99.5
+    ],
+    "end": [
+     0,
+     99.5
+    ],
+    "thickness": 1.0,
+    "height": 14.0,
+    "base": 0.0
+   },
+   {
+    "id": "W-W",
+    "kind": "exterior",
+    "start": [
+     0.5,
+     100.0
+    ],
+    "end": [
+     0.5,
+     0
+    ],
+    "thickness": 1.0,
+    "height": 14.0,
+    "base": 0.0
+   },
+   {
+    "id": "W-M1",
+    "kind": "interior",
+    "start": [
+     38.0,
+     54.0
+    ],
+    "end": [
+     62.0,
+     54.0
+    ],
+    "thickness": 0.5,
+    "height": 14.0,
+    "base": 0.0
+   },
+   {
+    "id": "W-M2",
+    "kind": "interior",
+    "start": [
+     62.0,
+     54.0
+    ],
+    "end": [
+     62.0,
+     70.0
+    ],
+    "thickness": 0.5,
+    "height": 14.0,
+    "base": 0.0
+   },
+   {
+    "id": "W-M3",
+    "kind": "interior",
+    "start": [
+     62.0,
+     70.0
+    ],
+    "end": [
+     38.0,
+     70.0
+    ],
+    "thickness": 0.5,
+    "height": 14.0,
+    "base": 0.0
+   },
+   {
+    "id": "W-M4",
+    "kind": "interior",
+    "start": [
+     38.0,
+     70.0
+    ],
+    "end": [
+     38.0,
+     54.0
+    ],
+    "thickness": 0.5,
+    "height": 14.0,
+    "base": 0.0
+   }
+  ],
+  "columns": [
+   {
+    "id": "C-01",
+    "x": 0.0,
+    "y": 0.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-02",
+    "x": 0.0,
+    "y": 25.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-03",
+    "x": 0.0,
+    "y": 50.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-04",
+    "x": 0.0,
+    "y": 75.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-05",
+    "x": 0.0,
+    "y": 100.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-06",
+    "x": 25.0,
+    "y": 0.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-07",
+    "x": 25.0,
+    "y": 25.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-08",
+    "x": 25.0,
+    "y": 50.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-09",
+    "x": 25.0,
+    "y": 75.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-10",
+    "x": 25.0,
+    "y": 100.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-11",
+    "x": 50.0,
+    "y": 0.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-12",
+    "x": 50.0,
+    "y": 25.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-13",
+    "x": 50.0,
+    "y": 50.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-14",
+    "x": 50.0,
+    "y": 75.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-15",
+    "x": 50.0,
+    "y": 100.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-16",
+    "x": 75.0,
+    "y": 0.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-17",
+    "x": 75.0,
+    "y": 25.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-18",
+    "x": 75.0,
+    "y": 50.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-19",
+    "x": 75.0,
+    "y": 75.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-20",
+    "x": 75.0,
+    "y": 100.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-21",
+    "x": 100.0,
+    "y": 0.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-22",
+    "x": 100.0,
+    "y": 25.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-23",
+    "x": 100.0,
+    "y": 50.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-24",
+    "x": 100.0,
+    "y": 75.0,
+    "size": 1.0,
+    "height": 14.0
+   },
+   {
+    "id": "C-25",
+    "x": 100.0,
+    "y": 100.0,
+    "size": 1.0,
+    "height": 14.0
+   }
+  ],
+  "grids": [
+   {
+    "id": "A",
+    "start": [
+     0.0,
+     -5
+    ],
+    "end": [
+     0.0,
+     105.0
+    ]
+   },
+   {
+    "id": "B",
+    "start": [
+     25.0,
+     -5
+    ],
+    "end": [
+     25.0,
+     105.0
+    ]
+   },
+   {
+    "id": "C",
+    "start": [
+     50.0,
+     -5
+    ],
+    "end": [
+     50.0,
+     105.0
+    ]
+   },
+   {
+    "id": "D",
+    "start": [
+     75.0,
+     -5
+    ],
+    "end": [
+     75.0,
+     105.0
+    ]
+   },
+   {
+    "id": "E",
+    "start": [
+     100.0,
+     -5
+    ],
+    "end": [
+     100.0,
+     105.0
+    ]
+   },
+   {
+    "id": "1",
+    "start": [
+     -5,
+     0.0
+    ],
+    "end": [
+     105.0,
+     0.0
+    ]
+   },
+   {
+    "id": "2",
+    "start": [
+     -5,
+     25.0
+    ],
+    "end": [
+     105.0,
+     25.0
+    ]
+   },
+   {
+    "id": "3",
+    "start": [
+     -5,
+     50.0
+    ],
+    "end": [
+     105.0,
+     50.0
+    ]
+   },
+   {
+    "id": "4",
+    "start": [
+     -5,
+     75.0
+    ],
+    "end": [
+     105.0,
+     75.0
+    ]
+   },
+   {
+    "id": "5",
+    "start": [
+     -5,
+     100.0
+    ],
+    "end": [
+     105.0,
+     100.0
+    ]
+   }
+  ],
+  "floor": {
+   "outline": [
+    [
+     0,
+     0
+    ],
+    [
+     100.0,
+     0
+    ],
+    [
+     100.0,
+     100.0
+    ],
+    [
+     0,
+     100.0
+    ]
+   ],
+   "thickness": 0.5,
+   "top": 0.0
+  },
+  "roof": {
+   "outline": [
+    [
+     0,
+     0
+    ],
+    [
+     100.0,
+     0
+    ],
+    [
+     100.0,
+     100.0
+    ],
+    [
+     0,
+     100.0
+    ]
+   ],
+   "thickness": 0.5,
+   "bottom": 14.0
+  },
+  "ceilings": [
+   {
+    "outline": [
+     [
+      0,
+      0
+     ],
+     [
+      100.0,
+      0
+     ],
+     [
+      100.0,
+      54.0
+     ],
+     [
+      0,
+      54.0
+     ]
+    ],
+    "elevation": 9.0,
+    "thickness": 0.05
+   },
+   {
+    "outline": [
+     [
+      0,
+      70.0
+     ],
+     [
+      100.0,
+      70.0
+     ],
+     [
+      100.0,
+      100.0
+     ],
+     [
+      0,
+      100.0
+     ]
+    ],
+    "elevation": 9.0,
+    "thickness": 0.05
+   },
+   {
+    "outline": [
+     [
+      0,
+      54.0
+     ],
+     [
+      38.0,
+      54.0
+     ],
+     [
+      38.0,
+      70.0
+     ],
+     [
+      0,
+      70.0
+     ]
+    ],
+    "elevation": 9.0,
+    "thickness": 0.05
+   },
+   {
+    "outline": [
+     [
+      62.0,
+      54.0
+     ],
+     [
+      100.0,
+      54.0
+     ],
+     [
+      100.0,
+      70.0
+     ],
+     [
+      62.0,
+      70.0
+     ]
+    ],
+    "elevation": 9.0,
+    "thickness": 0.05
+   }
+  ],
+  "mech_room": [
+   [
+    38.0,
+    54.0
+   ],
+   [
+    62.0,
+    54.0
+   ],
+   [
+    62.0,
+    70.0
+   ],
+   [
+    38.0,
+    70.0
+   ]
+  ]
+ },
+ "zones": [
+  {
+   "number": "101",
+   "name": "North Office West",
+   "box": "FPB-N1",
+   "kind": "perimeter",
+   "polygon": [
+    [
+     0,
+     80
+    ],
+    [
+     50,
+     80
+    ],
+    [
+     50,
+     100
+    ],
+    [
+     0,
+     100
+    ]
+   ],
+   "area": 1000.0,
+   "supply_cfm": 1050
+  },
+  {
+   "number": "102",
+   "name": "North Office East",
+   "box": "FPB-N2",
+   "kind": "perimeter",
+   "polygon": [
+    [
+     50,
+     80
+    ],
+    [
+     100,
+     80
+    ],
+    [
+     100,
+     100
+    ],
+    [
+     50,
+     100
+    ]
+   ],
+   "area": 1000.0,
+   "supply_cfm": 1050
+  },
+  {
+   "number": "103",
+   "name": "South Office West",
+   "box": "FPB-S1",
+   "kind": "perimeter",
+   "polygon": [
+    [
+     0,
+     0
+    ],
+    [
+     50,
+     0
+    ],
+    [
+     50,
+     20
+    ],
+    [
+     0,
+     20
+    ]
+   ],
+   "area": 1000.0,
+   "supply_cfm": 1050
+  },
+  {
+   "number": "104",
+   "name": "South Office East",
+   "box": "FPB-S2",
+   "kind": "perimeter",
+   "polygon": [
+    [
+     50,
+     0
+    ],
+    [
+     100,
+     0
+    ],
+    [
+     100,
+     20
+    ],
+    [
+     50,
+     20
+    ]
+   ],
+   "area": 1000.0,
+   "supply_cfm": 1050
+  },
+  {
+   "number": "105",
+   "name": "East Office South",
+   "box": "FPB-E1",
+   "kind": "perimeter",
+   "polygon": [
+    [
+     80,
+     20
+    ],
+    [
+     100,
+     20
+    ],
+    [
+     100,
+     50
+    ],
+    [
+     80,
+     50
+    ]
+   ],
+   "area": 600.0,
+   "supply_cfm": 750
+  },
+  {
+   "number": "106",
+   "name": "East Office North",
+   "box": "FPB-E2",
+   "kind": "perimeter",
+   "polygon": [
+    [
+     80,
+     50
+    ],
+    [
+     100,
+     50
+    ],
+    [
+     100,
+     80
+    ],
+    [
+     80,
+     80
+    ]
+   ],
+   "area": 600.0,
+   "supply_cfm": 750
+  },
+  {
+   "number": "107",
+   "name": "West Office South",
+   "box": "FPB-W1",
+   "kind": "perimeter",
+   "polygon": [
+    [
+     0,
+     20
+    ],
+    [
+     20,
+     20
+    ],
+    [
+     20,
+     50
+    ],
+    [
+     0,
+     50
+    ]
+   ],
+   "area": 600.0,
+   "supply_cfm": 750
+  },
+  {
+   "number": "108",
+   "name": "West Office North",
+   "box": "FPB-W2",
+   "kind": "perimeter",
+   "polygon": [
+    [
+     0,
+     50
+    ],
+    [
+     20,
+     50
+    ],
+    [
+     20,
+     80
+    ],
+    [
+     0,
+     80
+    ]
+   ],
+   "area": 600.0,
+   "supply_cfm": 750
+  },
+  {
+   "number": "109",
+   "name": "Interior NW Open Office",
+   "box": "VAV-1",
+   "kind": "interior",
+   "polygon": [
+    [
+     20,
+     50
+    ],
+    [
+     50,
+     50
+    ],
+    [
+     50,
+     54.0
+    ],
+    [
+     38.0,
+     54.0
+    ],
+    [
+     38.0,
+     70.0
+    ],
+    [
+     50,
+     70.0
+    ],
+    [
+     50,
+     80
+    ],
+    [
+     20,
+     80
+    ]
+   ],
+   "area": 708.0,
+   "supply_cfm": 700
+  },
+  {
+   "number": "110",
+   "name": "Interior NE Open Office",
+   "box": "VAV-2",
+   "kind": "interior",
+   "polygon": [
+    [
+     50,
+     50
+    ],
+    [
+     80,
+     50
+    ],
+    [
+     80,
+     80
+    ],
+    [
+     50,
+     80
+    ],
+    [
+     50,
+     70.0
+    ],
+    [
+     62.0,
+     70.0
+    ],
+    [
+     62.0,
+     54.0
+    ],
+    [
+     50,
+     54.0
+    ]
+   ],
+   "area": 708.0,
+   "supply_cfm": 700
+  },
+  {
+   "number": "111",
+   "name": "Interior SW Open Office",
+   "box": "VAV-3",
+   "kind": "interior",
+   "polygon": [
+    [
+     20,
+     20
+    ],
+    [
+     50,
+     20
+    ],
+    [
+     50,
+     50
+    ],
+    [
+     20,
+     50
+    ]
+   ],
+   "area": 900.0,
+   "supply_cfm": 900
+  },
+  {
+   "number": "112",
+   "name": "Interior SE Open Office",
+   "box": "VAV-4",
+   "kind": "interior",
+   "polygon": [
+    [
+     50,
+     20
+    ],
+    [
+     80,
+     20
+    ],
+    [
+     80,
+     50
+    ],
+    [
+     50,
+     50
+    ]
+   ],
+   "area": 900.0,
+   "supply_cfm": 900
+  },
+  {
+   "number": "M-101",
+   "name": "Mechanical Room",
+   "box": "AHU-1",
+   "kind": "mechanical",
+   "polygon": [
+    [
+     38.0,
+     54.0
+    ],
+    [
+     62.0,
+     54.0
+    ],
+    [
+     62.0,
+     70.0
+    ],
+    [
+     38.0,
+     70.0
+    ]
+   ],
+   "area": 384.0,
+   "supply_cfm": 0
+  }
+ ],
+ "equipment": [
+  {
+   "tag": "AHU-1",
+   "kind": "AHU",
+   "centre": [
+    50,
+    62,
+    0
+   ],
+   "length": 16,
+   "width": 6,
+   "height": 7,
+   "flow_dir": [
+    1,
+    0
+   ],
+   "rotation_deg": 0.0,
+   "inlet": [
+    42.0,
+    62.0,
+    0
+   ],
+   "outlet": [
+    58.0,
+    62.0,
+    0
+   ],
+   "supply_cfm": 8500,
+   "outside_air_cfm": 1500,
+   "cooling_tons": 22,
+   "heating_mbh": 250,
+   "external_sp_in": 2.5,
+   "fan_hp": 10,
+   "description": "Indoor central station AHU, VAV, DX or CHW coil, economizer, MERV-13 filtration"
+  },
+  {
+   "tag": "L-1",
+   "kind": "LOUVER",
+   "centre": [
+    47.5,
+    99.5,
+    11.5
+   ],
+   "length": 1.0,
+   "width": 3,
+   "height": 2.5,
+   "flow_dir": [
+    0,
+    -1
+   ],
+   "rotation_deg": -90.0,
+   "inlet": [
+    47.5,
+    100.0,
+    11.5
+   ],
+   "outlet": [
+    47.5,
+    99.0,
+    11.5
+   ],
+   "outside_air_cfm": 1500,
+   "description": "Drainable OA intake louver 36x30 on north wall"
+  },
+  {
+   "tag": "VAV-1",
+   "kind": "VAV",
+   "centre": [
+    30,
+    54,
+    11.5
+   ],
+   "length": 3.0,
+   "width": 2.0,
+   "height": 1.25,
+   "flow_dir": [
+    0,
+    1
+   ],
+   "rotation_deg": 90.0,
+   "inlet": [
+    30.0,
+    52.5,
+    11.5
+   ],
+   "outlet": [
+    30.0,
+    55.5,
+    11.5
+   ],
+   "primary_cfm": 700,
+   "min_cfm": 210,
+   "inlet_in": 12,
+   "zone": "109",
+   "description": "Single-duct pressure-independent VAV terminal, cooling only"
+  },
+  {
+   "tag": "VAV-2",
+   "kind": "VAV",
+   "centre": [
+    70,
+    54,
+    11.5
+   ],
+   "length": 3.0,
+   "width": 2.0,
+   "height": 1.25,
+   "flow_dir": [
+    0,
+    1
+   ],
+   "rotation_deg": 90.0,
+   "inlet": [
+    70.0,
+    52.5,
+    11.5
+   ],
+   "outlet": [
+    70.0,
+    55.5,
+    11.5
+   ],
+   "primary_cfm": 700,
+   "min_cfm": 210,
+   "inlet_in": 12,
+   "zone": "110",
+   "description": "Single-duct pressure-independent VAV terminal, cooling only"
+  },
+  {
+   "tag": "VAV-3",
+   "kind": "VAV",
+   "centre": [
+    34,
+    40,
+    11.5
+   ],
+   "length": 3.0,
+   "width": 2.0,
+   "height": 1.25,
+   "flow_dir": [
+    0,
+    -1
+   ],
+   "rotation_deg": -90.0,
+   "inlet": [
+    34.0,
+    41.5,
+    11.5
+   ],
+   "outlet": [
+    34.0,
+    38.5,
+    11.5
+   ],
+   "primary_cfm": 900,
+   "min_cfm": 270,
+   "inlet_in": 12,
+   "zone": "111",
+   "description": "Single-duct pressure-independent VAV terminal, cooling only"
+  },
+  {
+   "tag": "VAV-4",
+   "kind": "VAV",
+   "centre": [
+    66,
+    40,
+    11.5
+   ],
+   "length": 3.0,
+   "width": 2.0,
+   "height": 1.25,
+   "flow_dir": [
+    0,
+    -1
+   ],
+   "rotation_deg": -90.0,
+   "inlet": [
+    66.0,
+    41.5,
+    11.5
+   ],
+   "outlet": [
+    66.0,
+    38.5,
+    11.5
+   ],
+   "primary_cfm": 900,
+   "min_cfm": 270,
+   "inlet_in": 12,
+   "zone": "112",
+   "description": "Single-duct pressure-independent VAV terminal, cooling only"
+  },
+  {
+   "tag": "FPB-N1",
+   "kind": "FPB",
+   "centre": [
+    30,
+    86,
+    11.5
+   ],
+   "length": 5.0,
+   "width": 3.5,
+   "height": 1.5,
+   "flow_dir": [
+    0,
+    1
+   ],
+   "rotation_deg": 90.0,
+   "inlet": [
+    30.0,
+    83.5,
+    11.5
+   ],
+   "outlet": [
+    30.0,
+    88.5,
+    11.5
+   ],
+   "primary_cfm": 700,
+   "fan_cfm": 1050,
+   "min_primary_cfm": 210,
+   "inlet_in": 12,
+   "heat_kw": 7,
+   "zone": "101",
+   "description": "Series fan-powered terminal with electric reheat, ECM fan, plenum induction inlet"
+  },
+  {
+   "tag": "FPB-N2",
+   "kind": "FPB",
+   "centre": [
+    70,
+    86,
+    11.5
+   ],
+   "length": 5.0,
+   "width": 3.5,
+   "height": 1.5,
+   "flow_dir": [
+    0,
+    1
+   ],
+   "rotation_deg": 90.0,
+   "inlet": [
+    70.0,
+    83.5,
+    11.5
+   ],
+   "outlet": [
+    70.0,
+    88.5,
+    11.5
+   ],
+   "primary_cfm": 700,
+   "fan_cfm": 1050,
+   "min_primary_cfm": 210,
+   "inlet_in": 12,
+   "heat_kw": 7,
+   "zone": "102",
+   "description": "Series fan-powered terminal with electric reheat, ECM fan, plenum induction inlet"
+  },
+  {
+   "tag": "FPB-S1",
+   "kind": "FPB",
+   "centre": [
+    30,
+    14,
+    11.5
+   ],
+   "length": 5.0,
+   "width": 3.5,
+   "height": 1.5,
+   "flow_dir": [
+    0,
+    -1
+   ],
+   "rotation_deg": -90.0,
+   "inlet": [
+    30.0,
+    16.5,
+    11.5
+   ],
+   "outlet": [
+    30.0,
+    11.5,
+    11.5
+   ],
+   "primary_cfm": 700,
+   "fan_cfm": 1050,
+   "min_primary_cfm": 210,
+   "inlet_in": 12,
+   "heat_kw": 7,
+   "zone": "103",
+   "description": "Series fan-powered terminal with electric reheat, ECM fan, plenum induction inlet"
+  },
+  {
+   "tag": "FPB-S2",
+   "kind": "FPB",
+   "centre": [
+    70,
+    14,
+    11.5
+   ],
+   "length": 5.0,
+   "width": 3.5,
+   "height": 1.5,
+   "flow_dir": [
+    0,
+    -1
+   ],
+   "rotation_deg": -90.0,
+   "inlet": [
+    70.0,
+    16.5,
+    11.5
+   ],
+   "outlet": [
+    70.0,
+    11.5,
+    11.5
+   ],
+   "primary_cfm": 700,
+   "fan_cfm": 1050,
+   "min_primary_cfm": 210,
+   "inlet_in": 12,
+   "heat_kw": 7,
+   "zone": "104",
+   "description": "Series fan-powered terminal with electric reheat, ECM fan, plenum induction inlet"
+  },
+  {
+   "tag": "FPB-E1",
+   "kind": "FPB",
+   "centre": [
+    86,
+    30,
+    11.5
+   ],
+   "length": 5.0,
+   "width": 3.5,
+   "height": 1.5,
+   "flow_dir": [
+    1,
+    0
+   ],
+   "rotation_deg": 0.0,
+   "inlet": [
+    83.5,
+    30.0,
+    11.5
+   ],
+   "outlet": [
+    88.5,
+    30.0,
+    11.5
+   ],
+   "primary_cfm": 500,
+   "fan_cfm": 750,
+   "min_primary_cfm": 150,
+   "inlet_in": 10,
+   "heat_kw": 5,
+   "zone": "105",
+   "description": "Series fan-powered terminal with electric reheat, ECM fan, plenum induction inlet"
+  },
+  {
+   "tag": "FPB-E2",
+   "kind": "FPB",
+   "centre": [
+    86,
+    70,
+    11.5
+   ],
+   "length": 5.0,
+   "width": 3.5,
+   "height": 1.5,
+   "flow_dir": [
+    1,
+    0
+   ],
+   "rotation_deg": 0.0,
+   "inlet": [
+    83.5,
+    70.0,
+    11.5
+   ],
+   "outlet": [
+    88.5,
+    70.0,
+    11.5
+   ],
+   "primary_cfm": 500,
+   "fan_cfm": 750,
+   "min_primary_cfm": 150,
+   "inlet_in": 10,
+   "heat_kw": 5,
+   "zone": "106",
+   "description": "Series fan-powered terminal with electric reheat, ECM fan, plenum induction inlet"
+  },
+  {
+   "tag": "FPB-W1",
+   "kind": "FPB",
+   "centre": [
+    14,
+    30,
+    11.5
+   ],
+   "length": 5.0,
+   "width": 3.5,
+   "height": 1.5,
+   "flow_dir": [
+    -1,
+    0
+   ],
+   "rotation_deg": 180.0,
+   "inlet": [
+    16.5,
+    30.0,
+    11.5
+   ],
+   "outlet": [
+    11.5,
+    30.0,
+    11.5
+   ],
+   "primary_cfm": 500,
+   "fan_cfm": 750,
+   "min_primary_cfm": 150,
+   "inlet_in": 10,
+   "heat_kw": 5,
+   "zone": "107",
+   "description": "Series fan-powered terminal with electric reheat, ECM fan, plenum induction inlet"
+  },
+  {
+   "tag": "FPB-W2",
+   "kind": "FPB",
+   "centre": [
+    14,
+    70,
+    11.5
+   ],
+   "length": 5.0,
+   "width": 3.5,
+   "height": 1.5,
+   "flow_dir": [
+    -1,
+    0
+   ],
+   "rotation_deg": 180.0,
+   "inlet": [
+    16.5,
+    70.0,
+    11.5
+   ],
+   "outlet": [
+    11.5,
+    70.0,
+    11.5
+   ],
+   "primary_cfm": 500,
+   "fan_cfm": 750,
+   "min_primary_cfm": 150,
+   "inlet_in": 10,
+   "heat_kw": 5,
+   "zone": "108",
+   "description": "Series fan-powered terminal with electric reheat, ECM fan, plenum induction inlet"
+  }
+ ],
+ "runs": [
+  {
+   "id": "SA-01",
+   "system": "SA",
+   "name": "AHU-1 supply riser and main",
+   "points": [
+    [
+     54.0,
+     62.0,
+     7.0
+    ],
+    [
+     54.0,
+     62.0,
+     11.5
+    ],
+    [
+     54.0,
+     47.0,
+     11.5
+    ]
+   ],
+   "cfm": 8000,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 36,
+   "height_in": 24,
+   "from_": "AHU-1",
+   "length_ft": 19.5
+  },
+  {
+   "id": "SA-02",
+   "system": "SA",
+   "name": "Main east",
+   "points": [
+    [
+     54.0,
+     47.0,
+     11.5
+    ],
+    [
+     72.0,
+     47.0,
+     11.5
+    ]
+   ],
+   "cfm": 4000,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 28,
+   "height_in": 18,
+   "length_ft": 18.0
+  },
+  {
+   "id": "SA-03",
+   "system": "SA",
+   "name": "Main west",
+   "points": [
+    [
+     54.0,
+     47.0,
+     11.5
+    ],
+    [
+     28.0,
+     47.0,
+     11.5
+    ]
+   ],
+   "cfm": 4000,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 28,
+   "height_in": 18,
+   "length_ft": 26.0
+  },
+  {
+   "id": "SA-04",
+   "system": "SA",
+   "name": "Main east (reduced)",
+   "points": [
+    [
+     72.0,
+     47.0,
+     11.5
+    ],
+    [
+     80.0,
+     47.0,
+     11.5
+    ]
+   ],
+   "cfm": 2400,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 22,
+   "height_in": 16,
+   "length_ft": 8.0
+  },
+  {
+   "id": "SA-05",
+   "system": "SA",
+   "name": "Main west (reduced)",
+   "points": [
+    [
+     28.0,
+     47.0,
+     11.5
+    ],
+    [
+     20.0,
+     47.0,
+     11.5
+    ]
+   ],
+   "cfm": 2400,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 22,
+   "height_in": 16,
+   "length_ft": 8.0
+  },
+  {
+   "id": "SA-06",
+   "system": "SA",
+   "name": "East leg north",
+   "points": [
+    [
+     80.0,
+     47.0,
+     11.5
+    ],
+    [
+     80.0,
+     72.0,
+     11.5
+    ]
+   ],
+   "cfm": 1200,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 12,
+   "length_ft": 25.0
+  },
+  {
+   "id": "SA-07",
+   "system": "SA",
+   "name": "East leg south",
+   "points": [
+    [
+     80.0,
+     47.0,
+     11.5
+    ],
+    [
+     80.0,
+     28.0,
+     11.5
+    ]
+   ],
+   "cfm": 1200,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 12,
+   "length_ft": 19.0
+  },
+  {
+   "id": "SA-08",
+   "system": "SA",
+   "name": "East leg north to FPB-N2",
+   "points": [
+    [
+     80.0,
+     72.0,
+     11.5
+    ],
+    [
+     80.0,
+     80.0,
+     11.5
+    ],
+    [
+     70.0,
+     80.0,
+     11.5
+    ],
+    [
+     70.0,
+     83.5,
+     11.5
+    ]
+   ],
+   "cfm": 700,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "to": "FPB-N2",
+   "length_ft": 21.5
+  },
+  {
+   "id": "SA-09",
+   "system": "SA",
+   "name": "East leg south to FPB-S2",
+   "points": [
+    [
+     80.0,
+     28.0,
+     11.5
+    ],
+    [
+     80.0,
+     20.0,
+     11.5
+    ],
+    [
+     70.0,
+     20.0,
+     11.5
+    ],
+    [
+     70.0,
+     16.5,
+     11.5
+    ]
+   ],
+   "cfm": 700,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "to": "FPB-S2",
+   "length_ft": 21.5
+  },
+  {
+   "id": "SA-10",
+   "system": "SA",
+   "name": "West leg north",
+   "points": [
+    [
+     20.0,
+     47.0,
+     11.5
+    ],
+    [
+     20.0,
+     72.0,
+     11.5
+    ]
+   ],
+   "cfm": 1200,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 12,
+   "length_ft": 25.0
+  },
+  {
+   "id": "SA-11",
+   "system": "SA",
+   "name": "West leg south",
+   "points": [
+    [
+     20.0,
+     47.0,
+     11.5
+    ],
+    [
+     20.0,
+     28.0,
+     11.5
+    ]
+   ],
+   "cfm": 1200,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 12,
+   "length_ft": 19.0
+  },
+  {
+   "id": "SA-12",
+   "system": "SA",
+   "name": "West leg north to FPB-N1",
+   "points": [
+    [
+     20.0,
+     72.0,
+     11.5
+    ],
+    [
+     20.0,
+     80.0,
+     11.5
+    ],
+    [
+     30.0,
+     80.0,
+     11.5
+    ],
+    [
+     30.0,
+     83.5,
+     11.5
+    ]
+   ],
+   "cfm": 700,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "to": "FPB-N1",
+   "length_ft": 21.5
+  },
+  {
+   "id": "SA-13",
+   "system": "SA",
+   "name": "West leg south to FPB-S1",
+   "points": [
+    [
+     20.0,
+     28.0,
+     11.5
+    ],
+    [
+     20.0,
+     20.0,
+     11.5
+    ],
+    [
+     30.0,
+     20.0,
+     11.5
+    ],
+    [
+     30.0,
+     16.5,
+     11.5
+    ]
+   ],
+   "cfm": 700,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "to": "FPB-S1",
+   "length_ft": 21.5
+  },
+  {
+   "id": "SA-14",
+   "system": "SA",
+   "name": "Tap to FPB-E2",
+   "points": [
+    [
+     80.0,
+     70.0,
+     11.5
+    ],
+    [
+     83.5,
+     70.0,
+     11.5
+    ]
+   ],
+   "cfm": 500,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "tap_on": "SA-06",
+   "to": "FPB-E2",
+   "length_ft": 3.5
+  },
+  {
+   "id": "SA-15",
+   "system": "SA",
+   "name": "Tap to FPB-E1",
+   "points": [
+    [
+     80.0,
+     30.0,
+     11.5
+    ],
+    [
+     83.5,
+     30.0,
+     11.5
+    ]
+   ],
+   "cfm": 500,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "tap_on": "SA-07",
+   "to": "FPB-E1",
+   "length_ft": 3.5
+  },
+  {
+   "id": "SA-16",
+   "system": "SA",
+   "name": "Tap to FPB-W2",
+   "points": [
+    [
+     20.0,
+     70.0,
+     11.5
+    ],
+    [
+     16.5,
+     70.0,
+     11.5
+    ]
+   ],
+   "cfm": 500,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "tap_on": "SA-10",
+   "to": "FPB-W2",
+   "length_ft": 3.5
+  },
+  {
+   "id": "SA-17",
+   "system": "SA",
+   "name": "Tap to FPB-W1",
+   "points": [
+    [
+     20.0,
+     30.0,
+     11.5
+    ],
+    [
+     16.5,
+     30.0,
+     11.5
+    ]
+   ],
+   "cfm": 500,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "tap_on": "SA-11",
+   "to": "FPB-W1",
+   "length_ft": 3.5
+  },
+  {
+   "id": "SA-18",
+   "system": "SA",
+   "name": "Tap to VAV-2",
+   "points": [
+    [
+     70.0,
+     47.0,
+     11.5
+    ],
+    [
+     70.0,
+     52.5,
+     11.5
+    ]
+   ],
+   "cfm": 700,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 12,
+   "tap_on": "SA-02",
+   "to": "VAV-2",
+   "length_ft": 5.5
+  },
+  {
+   "id": "SA-19",
+   "system": "SA",
+   "name": "Tap to VAV-4",
+   "points": [
+    [
+     66.0,
+     47.0,
+     11.5
+    ],
+    [
+     66.0,
+     41.5,
+     11.5
+    ]
+   ],
+   "cfm": 900,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 16,
+   "height_in": 12,
+   "tap_on": "SA-02",
+   "to": "VAV-4",
+   "length_ft": 5.5
+  },
+  {
+   "id": "SA-20",
+   "system": "SA",
+   "name": "Tap to VAV-1",
+   "points": [
+    [
+     30.0,
+     47.0,
+     11.5
+    ],
+    [
+     30.0,
+     52.5,
+     11.5
+    ]
+   ],
+   "cfm": 700,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 12,
+   "tap_on": "SA-03",
+   "to": "VAV-1",
+   "length_ft": 5.5
+  },
+  {
+   "id": "SA-21",
+   "system": "SA",
+   "name": "Tap to VAV-3",
+   "points": [
+    [
+     34.0,
+     47.0,
+     11.5
+    ],
+    [
+     34.0,
+     41.5,
+     11.5
+    ]
+   ],
+   "cfm": 900,
+   "pressure_class": "medium",
+   "shape": "rect",
+   "width_in": 16,
+   "height_in": 12,
+   "tap_on": "SA-03",
+   "to": "VAV-3",
+   "length_ft": 5.5
+  },
+  {
+   "id": "RA-01",
+   "system": "RA",
+   "name": "Plenum return to AHU-1",
+   "points": [
+    [
+     36.0,
+     62.0,
+     11.5
+    ],
+    [
+     44.0,
+     62.0,
+     11.5
+    ],
+    [
+     44.0,
+     62.0,
+     7.0
+    ]
+   ],
+   "cfm": 7000,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 36,
+   "height_in": 24,
+   "to": "AHU-1",
+   "from_": "PLENUM",
+   "length_ft": 12.5
+  },
+  {
+   "id": "OA-01",
+   "system": "OA",
+   "name": "Outside air from L-1 to AHU-1",
+   "points": [
+    [
+     47.5,
+     99.0,
+     11.5
+    ],
+    [
+     47.5,
+     62.0,
+     11.5
+    ],
+    [
+     47.5,
+     62.0,
+     7.0
+    ]
+   ],
+   "cfm": 1500,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 20,
+   "height_in": 14,
+   "from_": "L-1",
+   "to": "AHU-1",
+   "length_ft": 41.5
+  },
+  {
+   "id": "LP-11",
+   "system": "SA",
+   "name": "VAV-1 discharge header",
+   "points": [
+    [
+     30.0,
+     55.5,
+     11.5
+    ],
+    [
+     30.0,
+     61.0,
+     11.5
+    ]
+   ],
+   "cfm": 700,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 12,
+   "from_": "VAV-1",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-12",
+   "system": "SA",
+   "name": "VAV-1 discharge header (reduced)",
+   "points": [
+    [
+     30.0,
+     61.0,
+     11.5
+    ],
+    [
+     30.0,
+     67.5,
+     11.5
+    ]
+   ],
+   "cfm": 350,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 10,
+   "height_in": 10,
+   "length_ft": 6.5
+  },
+  {
+   "id": "LP-13",
+   "system": "SA",
+   "name": "Runout to SD-01",
+   "points": [
+    [
+     30.0,
+     58.0,
+     11.5
+    ],
+    [
+     24.0,
+     58.0,
+     11.5
+    ],
+    [
+     24.0,
+     58.0,
+     9.5
+    ]
+   ],
+   "cfm": 175,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-11",
+   "to": "SD-01",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-14",
+   "system": "SA",
+   "name": "Runout to SD-02",
+   "points": [
+    [
+     30.0,
+     58.0,
+     11.5
+    ],
+    [
+     36.0,
+     58.0,
+     11.5
+    ],
+    [
+     36.0,
+     58.0,
+     9.5
+    ]
+   ],
+   "cfm": 175,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-11",
+   "to": "SD-02",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-15",
+   "system": "SA",
+   "name": "Runout to SD-03",
+   "points": [
+    [
+     30.0,
+     66.0,
+     11.5
+    ],
+    [
+     24.0,
+     66.0,
+     11.5
+    ],
+    [
+     24.0,
+     66.0,
+     9.5
+    ]
+   ],
+   "cfm": 175,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-12",
+   "to": "SD-03",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-16",
+   "system": "SA",
+   "name": "Runout to SD-04",
+   "points": [
+    [
+     30.0,
+     66.0,
+     11.5
+    ],
+    [
+     36.0,
+     66.0,
+     11.5
+    ],
+    [
+     36.0,
+     66.0,
+     9.5
+    ]
+   ],
+   "cfm": 175,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-12",
+   "to": "SD-04",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-21",
+   "system": "SA",
+   "name": "VAV-2 discharge header",
+   "points": [
+    [
+     70.0,
+     55.5,
+     11.5
+    ],
+    [
+     70.0,
+     61.0,
+     11.5
+    ]
+   ],
+   "cfm": 700,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 12,
+   "from_": "VAV-2",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-22",
+   "system": "SA",
+   "name": "VAV-2 discharge header (reduced)",
+   "points": [
+    [
+     70.0,
+     61.0,
+     11.5
+    ],
+    [
+     70.0,
+     67.5,
+     11.5
+    ]
+   ],
+   "cfm": 350,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 10,
+   "height_in": 10,
+   "length_ft": 6.5
+  },
+  {
+   "id": "LP-23",
+   "system": "SA",
+   "name": "Runout to SD-05",
+   "points": [
+    [
+     70.0,
+     58.0,
+     11.5
+    ],
+    [
+     64.0,
+     58.0,
+     11.5
+    ],
+    [
+     64.0,
+     58.0,
+     9.5
+    ]
+   ],
+   "cfm": 175,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-21",
+   "to": "SD-05",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-24",
+   "system": "SA",
+   "name": "Runout to SD-06",
+   "points": [
+    [
+     70.0,
+     58.0,
+     11.5
+    ],
+    [
+     76.0,
+     58.0,
+     11.5
+    ],
+    [
+     76.0,
+     58.0,
+     9.5
+    ]
+   ],
+   "cfm": 175,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-21",
+   "to": "SD-06",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-25",
+   "system": "SA",
+   "name": "Runout to SD-07",
+   "points": [
+    [
+     70.0,
+     66.0,
+     11.5
+    ],
+    [
+     64.0,
+     66.0,
+     11.5
+    ],
+    [
+     64.0,
+     66.0,
+     9.5
+    ]
+   ],
+   "cfm": 175,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-22",
+   "to": "SD-07",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-26",
+   "system": "SA",
+   "name": "Runout to SD-08",
+   "points": [
+    [
+     70.0,
+     66.0,
+     11.5
+    ],
+    [
+     76.0,
+     66.0,
+     11.5
+    ],
+    [
+     76.0,
+     66.0,
+     9.5
+    ]
+   ],
+   "cfm": 175,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-22",
+   "to": "SD-08",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-31",
+   "system": "SA",
+   "name": "VAV-3 discharge header",
+   "points": [
+    [
+     34.0,
+     38.5,
+     11.5
+    ],
+    [
+     34.0,
+     33.0,
+     11.5
+    ]
+   ],
+   "cfm": 900,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 16,
+   "height_in": 12,
+   "from_": "VAV-3",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-32",
+   "system": "SA",
+   "name": "VAV-3 discharge header (reduced)",
+   "points": [
+    [
+     34.0,
+     33.0,
+     11.5
+    ],
+    [
+     34.0,
+     26.5,
+     11.5
+    ]
+   ],
+   "cfm": 450,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "length_ft": 6.5
+  },
+  {
+   "id": "LP-33",
+   "system": "SA",
+   "name": "Runout to SD-09",
+   "points": [
+    [
+     34.0,
+     36.0,
+     11.5
+    ],
+    [
+     28.0,
+     36.0,
+     11.5
+    ],
+    [
+     28.0,
+     36.0,
+     9.5
+    ]
+   ],
+   "cfm": 225,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-31",
+   "to": "SD-09",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-34",
+   "system": "SA",
+   "name": "Runout to SD-10",
+   "points": [
+    [
+     34.0,
+     36.0,
+     11.5
+    ],
+    [
+     40.0,
+     36.0,
+     11.5
+    ],
+    [
+     40.0,
+     36.0,
+     9.5
+    ]
+   ],
+   "cfm": 225,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-31",
+   "to": "SD-10",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-35",
+   "system": "SA",
+   "name": "Runout to SD-11",
+   "points": [
+    [
+     34.0,
+     28.0,
+     11.5
+    ],
+    [
+     28.0,
+     28.0,
+     11.5
+    ],
+    [
+     28.0,
+     28.0,
+     9.5
+    ]
+   ],
+   "cfm": 225,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-32",
+   "to": "SD-11",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-36",
+   "system": "SA",
+   "name": "Runout to SD-12",
+   "points": [
+    [
+     34.0,
+     28.0,
+     11.5
+    ],
+    [
+     40.0,
+     28.0,
+     11.5
+    ],
+    [
+     40.0,
+     28.0,
+     9.5
+    ]
+   ],
+   "cfm": 225,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-32",
+   "to": "SD-12",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-41",
+   "system": "SA",
+   "name": "VAV-4 discharge header",
+   "points": [
+    [
+     66.0,
+     38.5,
+     11.5
+    ],
+    [
+     66.0,
+     33.0,
+     11.5
+    ]
+   ],
+   "cfm": 900,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 16,
+   "height_in": 12,
+   "from_": "VAV-4",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-42",
+   "system": "SA",
+   "name": "VAV-4 discharge header (reduced)",
+   "points": [
+    [
+     66.0,
+     33.0,
+     11.5
+    ],
+    [
+     66.0,
+     26.5,
+     11.5
+    ]
+   ],
+   "cfm": 450,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "length_ft": 6.5
+  },
+  {
+   "id": "LP-43",
+   "system": "SA",
+   "name": "Runout to SD-13",
+   "points": [
+    [
+     66.0,
+     36.0,
+     11.5
+    ],
+    [
+     60.0,
+     36.0,
+     11.5
+    ],
+    [
+     60.0,
+     36.0,
+     9.5
+    ]
+   ],
+   "cfm": 225,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-41",
+   "to": "SD-13",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-44",
+   "system": "SA",
+   "name": "Runout to SD-14",
+   "points": [
+    [
+     66.0,
+     36.0,
+     11.5
+    ],
+    [
+     72.0,
+     36.0,
+     11.5
+    ],
+    [
+     72.0,
+     36.0,
+     9.5
+    ]
+   ],
+   "cfm": 225,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-41",
+   "to": "SD-14",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-45",
+   "system": "SA",
+   "name": "Runout to SD-15",
+   "points": [
+    [
+     66.0,
+     28.0,
+     11.5
+    ],
+    [
+     60.0,
+     28.0,
+     11.5
+    ],
+    [
+     60.0,
+     28.0,
+     9.5
+    ]
+   ],
+   "cfm": 225,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-42",
+   "to": "SD-15",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-46",
+   "system": "SA",
+   "name": "Runout to SD-16",
+   "points": [
+    [
+     66.0,
+     28.0,
+     11.5
+    ],
+    [
+     72.0,
+     28.0,
+     11.5
+    ],
+    [
+     72.0,
+     28.0,
+     9.5
+    ]
+   ],
+   "cfm": 225,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-42",
+   "to": "SD-16",
+   "length_ft": 8.0
+  },
+  {
+   "id": "LP-N10",
+   "system": "SA",
+   "name": "FPB-N1 discharge header",
+   "points": [
+    [
+     30.0,
+     88.5,
+     11.5
+    ],
+    [
+     30.0,
+     94.0,
+     11.5
+    ]
+   ],
+   "cfm": 1050,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 16,
+   "height_in": 10,
+   "from_": "FPB-N1",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-N1W",
+   "system": "SA",
+   "name": "FPB-N1 west leg",
+   "points": [
+    [
+     30.0,
+     94.0,
+     11.5
+    ],
+    [
+     9.0,
+     94.0,
+     11.5
+    ]
+   ],
+   "cfm": 525,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "length_ft": 21.0
+  },
+  {
+   "id": "LP-N1E",
+   "system": "SA",
+   "name": "FPB-N1 east leg",
+   "points": [
+    [
+     30.0,
+     94.0,
+     11.5
+    ],
+    [
+     45.0,
+     94.0,
+     11.5
+    ]
+   ],
+   "cfm": 525,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "length_ft": 15.0
+  },
+  {
+   "id": "LP-N11",
+   "system": "SA",
+   "name": "Drop to SD-17",
+   "points": [
+    [
+     10.0,
+     94.0,
+     11.5
+    ],
+    [
+     10.0,
+     94.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-N1W",
+   "to": "SD-17",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-N12",
+   "system": "SA",
+   "name": "Drop to SD-18",
+   "points": [
+    [
+     22.0,
+     94.0,
+     11.5
+    ],
+    [
+     22.0,
+     94.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-N1W",
+   "to": "SD-18",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-N13",
+   "system": "SA",
+   "name": "Drop to SD-19",
+   "points": [
+    [
+     34.0,
+     94.0,
+     11.5
+    ],
+    [
+     34.0,
+     94.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-N1E",
+   "to": "SD-19",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-N14",
+   "system": "SA",
+   "name": "Drop to SD-20",
+   "points": [
+    [
+     44.0,
+     94.0,
+     11.5
+    ],
+    [
+     44.0,
+     94.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-N1E",
+   "to": "SD-20",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-N20",
+   "system": "SA",
+   "name": "FPB-N2 discharge header",
+   "points": [
+    [
+     70.0,
+     88.5,
+     11.5
+    ],
+    [
+     70.0,
+     94.0,
+     11.5
+    ]
+   ],
+   "cfm": 1050,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 16,
+   "height_in": 10,
+   "from_": "FPB-N2",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-N2W",
+   "system": "SA",
+   "name": "FPB-N2 west leg",
+   "points": [
+    [
+     70.0,
+     94.0,
+     11.5
+    ],
+    [
+     55.0,
+     94.0,
+     11.5
+    ]
+   ],
+   "cfm": 525,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "length_ft": 15.0
+  },
+  {
+   "id": "LP-N2E",
+   "system": "SA",
+   "name": "FPB-N2 east leg",
+   "points": [
+    [
+     70.0,
+     94.0,
+     11.5
+    ],
+    [
+     91.0,
+     94.0,
+     11.5
+    ]
+   ],
+   "cfm": 525,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "length_ft": 21.0
+  },
+  {
+   "id": "LP-N21",
+   "system": "SA",
+   "name": "Drop to SD-21",
+   "points": [
+    [
+     56.0,
+     94.0,
+     11.5
+    ],
+    [
+     56.0,
+     94.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-N2W",
+   "to": "SD-21",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-N22",
+   "system": "SA",
+   "name": "Drop to SD-22",
+   "points": [
+    [
+     68.0,
+     94.0,
+     11.5
+    ],
+    [
+     68.0,
+     94.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-N2W",
+   "to": "SD-22",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-N23",
+   "system": "SA",
+   "name": "Drop to SD-23",
+   "points": [
+    [
+     78.0,
+     94.0,
+     11.5
+    ],
+    [
+     78.0,
+     94.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-N2E",
+   "to": "SD-23",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-N24",
+   "system": "SA",
+   "name": "Drop to SD-24",
+   "points": [
+    [
+     90.0,
+     94.0,
+     11.5
+    ],
+    [
+     90.0,
+     94.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-N2E",
+   "to": "SD-24",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-S10",
+   "system": "SA",
+   "name": "FPB-S1 discharge header",
+   "points": [
+    [
+     30.0,
+     11.5,
+     11.5
+    ],
+    [
+     30.0,
+     6.0,
+     11.5
+    ]
+   ],
+   "cfm": 1050,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 16,
+   "height_in": 10,
+   "from_": "FPB-S1",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-S1W",
+   "system": "SA",
+   "name": "FPB-S1 west leg",
+   "points": [
+    [
+     30.0,
+     6.0,
+     11.5
+    ],
+    [
+     9.0,
+     6.0,
+     11.5
+    ]
+   ],
+   "cfm": 525,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "length_ft": 21.0
+  },
+  {
+   "id": "LP-S1E",
+   "system": "SA",
+   "name": "FPB-S1 east leg",
+   "points": [
+    [
+     30.0,
+     6.0,
+     11.5
+    ],
+    [
+     45.0,
+     6.0,
+     11.5
+    ]
+   ],
+   "cfm": 525,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "length_ft": 15.0
+  },
+  {
+   "id": "LP-S11",
+   "system": "SA",
+   "name": "Drop to SD-25",
+   "points": [
+    [
+     10.0,
+     6.0,
+     11.5
+    ],
+    [
+     10.0,
+     6.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-S1W",
+   "to": "SD-25",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-S12",
+   "system": "SA",
+   "name": "Drop to SD-26",
+   "points": [
+    [
+     22.0,
+     6.0,
+     11.5
+    ],
+    [
+     22.0,
+     6.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-S1W",
+   "to": "SD-26",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-S13",
+   "system": "SA",
+   "name": "Drop to SD-27",
+   "points": [
+    [
+     34.0,
+     6.0,
+     11.5
+    ],
+    [
+     34.0,
+     6.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-S1E",
+   "to": "SD-27",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-S14",
+   "system": "SA",
+   "name": "Drop to SD-28",
+   "points": [
+    [
+     44.0,
+     6.0,
+     11.5
+    ],
+    [
+     44.0,
+     6.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-S1E",
+   "to": "SD-28",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-S20",
+   "system": "SA",
+   "name": "FPB-S2 discharge header",
+   "points": [
+    [
+     70.0,
+     11.5,
+     11.5
+    ],
+    [
+     70.0,
+     6.0,
+     11.5
+    ]
+   ],
+   "cfm": 1050,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 16,
+   "height_in": 10,
+   "from_": "FPB-S2",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-S2W",
+   "system": "SA",
+   "name": "FPB-S2 west leg",
+   "points": [
+    [
+     70.0,
+     6.0,
+     11.5
+    ],
+    [
+     55.0,
+     6.0,
+     11.5
+    ]
+   ],
+   "cfm": 525,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "length_ft": 15.0
+  },
+  {
+   "id": "LP-S2E",
+   "system": "SA",
+   "name": "FPB-S2 east leg",
+   "points": [
+    [
+     70.0,
+     6.0,
+     11.5
+    ],
+    [
+     91.0,
+     6.0,
+     11.5
+    ]
+   ],
+   "cfm": 525,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 12,
+   "height_in": 10,
+   "length_ft": 21.0
+  },
+  {
+   "id": "LP-S21",
+   "system": "SA",
+   "name": "Drop to SD-29",
+   "points": [
+    [
+     56.0,
+     6.0,
+     11.5
+    ],
+    [
+     56.0,
+     6.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-S2W",
+   "to": "SD-29",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-S22",
+   "system": "SA",
+   "name": "Drop to SD-30",
+   "points": [
+    [
+     68.0,
+     6.0,
+     11.5
+    ],
+    [
+     68.0,
+     6.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-S2W",
+   "to": "SD-30",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-S23",
+   "system": "SA",
+   "name": "Drop to SD-31",
+   "points": [
+    [
+     78.0,
+     6.0,
+     11.5
+    ],
+    [
+     78.0,
+     6.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-S2E",
+   "to": "SD-31",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-S24",
+   "system": "SA",
+   "name": "Drop to SD-32",
+   "points": [
+    [
+     90.0,
+     6.0,
+     11.5
+    ],
+    [
+     90.0,
+     6.0,
+     9.5
+    ]
+   ],
+   "cfm": 262,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 10,
+   "tap_on": "LP-S2E",
+   "to": "SD-32",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-E10",
+   "system": "SA",
+   "name": "FPB-E1 discharge header",
+   "points": [
+    [
+     88.5,
+     30.0,
+     11.5
+    ],
+    [
+     94.0,
+     30.0,
+     11.5
+    ]
+   ],
+   "cfm": 750,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 10,
+   "from_": "FPB-E1",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-E1S",
+   "system": "SA",
+   "name": "FPB-E1 south leg",
+   "points": [
+    [
+     94.0,
+     30.0,
+     11.5
+    ],
+    [
+     94.0,
+     9.0,
+     11.5
+    ]
+   ],
+   "cfm": 375,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 10,
+   "height_in": 10,
+   "length_ft": 21.0
+  },
+  {
+   "id": "LP-E1N",
+   "system": "SA",
+   "name": "FPB-E1 north leg",
+   "points": [
+    [
+     94.0,
+     30.0,
+     11.5
+    ],
+    [
+     94.0,
+     45.0,
+     11.5
+    ]
+   ],
+   "cfm": 375,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 10,
+   "height_in": 10,
+   "length_ft": 15.0
+  },
+  {
+   "id": "LP-E11",
+   "system": "SA",
+   "name": "Drop to SD-33",
+   "points": [
+    [
+     94.0,
+     10.0,
+     11.5
+    ],
+    [
+     94.0,
+     10.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-E1S",
+   "to": "SD-33",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-E12",
+   "system": "SA",
+   "name": "Drop to SD-34",
+   "points": [
+    [
+     94.0,
+     22.0,
+     11.5
+    ],
+    [
+     94.0,
+     22.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-E1S",
+   "to": "SD-34",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-E13",
+   "system": "SA",
+   "name": "Drop to SD-35",
+   "points": [
+    [
+     94.0,
+     34.0,
+     11.5
+    ],
+    [
+     94.0,
+     34.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-E1N",
+   "to": "SD-35",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-E14",
+   "system": "SA",
+   "name": "Drop to SD-36",
+   "points": [
+    [
+     94.0,
+     44.0,
+     11.5
+    ],
+    [
+     94.0,
+     44.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-E1N",
+   "to": "SD-36",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-E20",
+   "system": "SA",
+   "name": "FPB-E2 discharge header",
+   "points": [
+    [
+     88.5,
+     70.0,
+     11.5
+    ],
+    [
+     94.0,
+     70.0,
+     11.5
+    ]
+   ],
+   "cfm": 750,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 10,
+   "from_": "FPB-E2",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-E2S",
+   "system": "SA",
+   "name": "FPB-E2 south leg",
+   "points": [
+    [
+     94.0,
+     70.0,
+     11.5
+    ],
+    [
+     94.0,
+     55.0,
+     11.5
+    ]
+   ],
+   "cfm": 375,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 10,
+   "height_in": 10,
+   "length_ft": 15.0
+  },
+  {
+   "id": "LP-E2N",
+   "system": "SA",
+   "name": "FPB-E2 north leg",
+   "points": [
+    [
+     94.0,
+     70.0,
+     11.5
+    ],
+    [
+     94.0,
+     91.0,
+     11.5
+    ]
+   ],
+   "cfm": 375,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 10,
+   "height_in": 10,
+   "length_ft": 21.0
+  },
+  {
+   "id": "LP-E21",
+   "system": "SA",
+   "name": "Drop to SD-37",
+   "points": [
+    [
+     94.0,
+     56.0,
+     11.5
+    ],
+    [
+     94.0,
+     56.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-E2S",
+   "to": "SD-37",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-E22",
+   "system": "SA",
+   "name": "Drop to SD-38",
+   "points": [
+    [
+     94.0,
+     68.0,
+     11.5
+    ],
+    [
+     94.0,
+     68.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-E2S",
+   "to": "SD-38",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-E23",
+   "system": "SA",
+   "name": "Drop to SD-39",
+   "points": [
+    [
+     94.0,
+     78.0,
+     11.5
+    ],
+    [
+     94.0,
+     78.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-E2N",
+   "to": "SD-39",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-E24",
+   "system": "SA",
+   "name": "Drop to SD-40",
+   "points": [
+    [
+     94.0,
+     90.0,
+     11.5
+    ],
+    [
+     94.0,
+     90.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-E2N",
+   "to": "SD-40",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-W10",
+   "system": "SA",
+   "name": "FPB-W1 discharge header",
+   "points": [
+    [
+     11.5,
+     30.0,
+     11.5
+    ],
+    [
+     6.0,
+     30.0,
+     11.5
+    ]
+   ],
+   "cfm": 750,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 10,
+   "from_": "FPB-W1",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-W1S",
+   "system": "SA",
+   "name": "FPB-W1 south leg",
+   "points": [
+    [
+     6.0,
+     30.0,
+     11.5
+    ],
+    [
+     6.0,
+     9.0,
+     11.5
+    ]
+   ],
+   "cfm": 375,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 10,
+   "height_in": 10,
+   "length_ft": 21.0
+  },
+  {
+   "id": "LP-W1N",
+   "system": "SA",
+   "name": "FPB-W1 north leg",
+   "points": [
+    [
+     6.0,
+     30.0,
+     11.5
+    ],
+    [
+     6.0,
+     45.0,
+     11.5
+    ]
+   ],
+   "cfm": 375,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 10,
+   "height_in": 10,
+   "length_ft": 15.0
+  },
+  {
+   "id": "LP-W11",
+   "system": "SA",
+   "name": "Drop to SD-41",
+   "points": [
+    [
+     6.0,
+     10.0,
+     11.5
+    ],
+    [
+     6.0,
+     10.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-W1S",
+   "to": "SD-41",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-W12",
+   "system": "SA",
+   "name": "Drop to SD-42",
+   "points": [
+    [
+     6.0,
+     22.0,
+     11.5
+    ],
+    [
+     6.0,
+     22.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-W1S",
+   "to": "SD-42",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-W13",
+   "system": "SA",
+   "name": "Drop to SD-43",
+   "points": [
+    [
+     6.0,
+     34.0,
+     11.5
+    ],
+    [
+     6.0,
+     34.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-W1N",
+   "to": "SD-43",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-W14",
+   "system": "SA",
+   "name": "Drop to SD-44",
+   "points": [
+    [
+     6.0,
+     44.0,
+     11.5
+    ],
+    [
+     6.0,
+     44.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-W1N",
+   "to": "SD-44",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-W20",
+   "system": "SA",
+   "name": "FPB-W2 discharge header",
+   "points": [
+    [
+     11.5,
+     70.0,
+     11.5
+    ],
+    [
+     6.0,
+     70.0,
+     11.5
+    ]
+   ],
+   "cfm": 750,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 14,
+   "height_in": 10,
+   "from_": "FPB-W2",
+   "length_ft": 5.5
+  },
+  {
+   "id": "LP-W2S",
+   "system": "SA",
+   "name": "FPB-W2 south leg",
+   "points": [
+    [
+     6.0,
+     70.0,
+     11.5
+    ],
+    [
+     6.0,
+     55.0,
+     11.5
+    ]
+   ],
+   "cfm": 375,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 10,
+   "height_in": 10,
+   "length_ft": 15.0
+  },
+  {
+   "id": "LP-W2N",
+   "system": "SA",
+   "name": "FPB-W2 north leg",
+   "points": [
+    [
+     6.0,
+     70.0,
+     11.5
+    ],
+    [
+     6.0,
+     91.0,
+     11.5
+    ]
+   ],
+   "cfm": 375,
+   "pressure_class": "low",
+   "shape": "rect",
+   "width_in": 10,
+   "height_in": 10,
+   "length_ft": 21.0
+  },
+  {
+   "id": "LP-W21",
+   "system": "SA",
+   "name": "Drop to SD-45",
+   "points": [
+    [
+     6.0,
+     56.0,
+     11.5
+    ],
+    [
+     6.0,
+     56.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-W2S",
+   "to": "SD-45",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-W22",
+   "system": "SA",
+   "name": "Drop to SD-46",
+   "points": [
+    [
+     6.0,
+     68.0,
+     11.5
+    ],
+    [
+     6.0,
+     68.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-W2S",
+   "to": "SD-46",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-W23",
+   "system": "SA",
+   "name": "Drop to SD-47",
+   "points": [
+    [
+     6.0,
+     78.0,
+     11.5
+    ],
+    [
+     6.0,
+     78.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-W2N",
+   "to": "SD-47",
+   "length_ft": 2.0
+  },
+  {
+   "id": "LP-W24",
+   "system": "SA",
+   "name": "Drop to SD-48",
+   "points": [
+    [
+     6.0,
+     90.0,
+     11.5
+    ],
+    [
+     6.0,
+     90.0,
+     9.5
+    ]
+   ],
+   "cfm": 187,
+   "pressure_class": "low",
+   "shape": "round",
+   "diameter_in": 8,
+   "tap_on": "LP-W2N",
+   "to": "SD-48",
+   "length_ft": 2.0
+  }
+ ],
+ "terminals": [
+  {
+   "tag": "SD-01",
+   "kind": "supply_diffuser",
+   "x": 24.0,
+   "y": 58.0,
+   "z": 9.0,
+   "cfm": 175,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-1"
+  },
+  {
+   "tag": "SD-02",
+   "kind": "supply_diffuser",
+   "x": 36.0,
+   "y": 58.0,
+   "z": 9.0,
+   "cfm": 175,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-1"
+  },
+  {
+   "tag": "SD-03",
+   "kind": "supply_diffuser",
+   "x": 24.0,
+   "y": 66.0,
+   "z": 9.0,
+   "cfm": 175,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-1"
+  },
+  {
+   "tag": "SD-04",
+   "kind": "supply_diffuser",
+   "x": 36.0,
+   "y": 66.0,
+   "z": 9.0,
+   "cfm": 175,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-1"
+  },
+  {
+   "tag": "SD-05",
+   "kind": "supply_diffuser",
+   "x": 64.0,
+   "y": 58.0,
+   "z": 9.0,
+   "cfm": 175,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-2"
+  },
+  {
+   "tag": "SD-06",
+   "kind": "supply_diffuser",
+   "x": 76.0,
+   "y": 58.0,
+   "z": 9.0,
+   "cfm": 175,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-2"
+  },
+  {
+   "tag": "SD-07",
+   "kind": "supply_diffuser",
+   "x": 64.0,
+   "y": 66.0,
+   "z": 9.0,
+   "cfm": 175,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-2"
+  },
+  {
+   "tag": "SD-08",
+   "kind": "supply_diffuser",
+   "x": 76.0,
+   "y": 66.0,
+   "z": 9.0,
+   "cfm": 175,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-2"
+  },
+  {
+   "tag": "SD-09",
+   "kind": "supply_diffuser",
+   "x": 28.0,
+   "y": 36.0,
+   "z": 9.0,
+   "cfm": 225,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-3"
+  },
+  {
+   "tag": "SD-10",
+   "kind": "supply_diffuser",
+   "x": 40.0,
+   "y": 36.0,
+   "z": 9.0,
+   "cfm": 225,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-3"
+  },
+  {
+   "tag": "SD-11",
+   "kind": "supply_diffuser",
+   "x": 28.0,
+   "y": 28.0,
+   "z": 9.0,
+   "cfm": 225,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-3"
+  },
+  {
+   "tag": "SD-12",
+   "kind": "supply_diffuser",
+   "x": 40.0,
+   "y": 28.0,
+   "z": 9.0,
+   "cfm": 225,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-3"
+  },
+  {
+   "tag": "SD-13",
+   "kind": "supply_diffuser",
+   "x": 60.0,
+   "y": 36.0,
+   "z": 9.0,
+   "cfm": 225,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-4"
+  },
+  {
+   "tag": "SD-14",
+   "kind": "supply_diffuser",
+   "x": 72.0,
+   "y": 36.0,
+   "z": 9.0,
+   "cfm": 225,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-4"
+  },
+  {
+   "tag": "SD-15",
+   "kind": "supply_diffuser",
+   "x": 60.0,
+   "y": 28.0,
+   "z": 9.0,
+   "cfm": 225,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-4"
+  },
+  {
+   "tag": "SD-16",
+   "kind": "supply_diffuser",
+   "x": 72.0,
+   "y": 28.0,
+   "z": 9.0,
+   "cfm": 225,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "VAV-4"
+  },
+  {
+   "tag": "SD-17",
+   "kind": "supply_diffuser",
+   "x": 10,
+   "y": 94,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-N1"
+  },
+  {
+   "tag": "SD-18",
+   "kind": "supply_diffuser",
+   "x": 22,
+   "y": 94,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-N1"
+  },
+  {
+   "tag": "SD-19",
+   "kind": "supply_diffuser",
+   "x": 34,
+   "y": 94,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-N1"
+  },
+  {
+   "tag": "SD-20",
+   "kind": "supply_diffuser",
+   "x": 44,
+   "y": 94,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-N1"
+  },
+  {
+   "tag": "SD-21",
+   "kind": "supply_diffuser",
+   "x": 56,
+   "y": 94,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-N2"
+  },
+  {
+   "tag": "SD-22",
+   "kind": "supply_diffuser",
+   "x": 68,
+   "y": 94,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-N2"
+  },
+  {
+   "tag": "SD-23",
+   "kind": "supply_diffuser",
+   "x": 78,
+   "y": 94,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-N2"
+  },
+  {
+   "tag": "SD-24",
+   "kind": "supply_diffuser",
+   "x": 90,
+   "y": 94,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-N2"
+  },
+  {
+   "tag": "SD-25",
+   "kind": "supply_diffuser",
+   "x": 10,
+   "y": 6,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-S1"
+  },
+  {
+   "tag": "SD-26",
+   "kind": "supply_diffuser",
+   "x": 22,
+   "y": 6,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-S1"
+  },
+  {
+   "tag": "SD-27",
+   "kind": "supply_diffuser",
+   "x": 34,
+   "y": 6,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-S1"
+  },
+  {
+   "tag": "SD-28",
+   "kind": "supply_diffuser",
+   "x": 44,
+   "y": 6,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-S1"
+  },
+  {
+   "tag": "SD-29",
+   "kind": "supply_diffuser",
+   "x": 56,
+   "y": 6,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-S2"
+  },
+  {
+   "tag": "SD-30",
+   "kind": "supply_diffuser",
+   "x": 68,
+   "y": 6,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-S2"
+  },
+  {
+   "tag": "SD-31",
+   "kind": "supply_diffuser",
+   "x": 78,
+   "y": 6,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-S2"
+  },
+  {
+   "tag": "SD-32",
+   "kind": "supply_diffuser",
+   "x": 90,
+   "y": 6,
+   "z": 9.0,
+   "cfm": 262,
+   "face_in": 24,
+   "neck_in": 10,
+   "served_by": "FPB-S2"
+  },
+  {
+   "tag": "SD-33",
+   "kind": "supply_diffuser",
+   "x": 94,
+   "y": 10,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-E1"
+  },
+  {
+   "tag": "SD-34",
+   "kind": "supply_diffuser",
+   "x": 94,
+   "y": 22,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-E1"
+  },
+  {
+   "tag": "SD-35",
+   "kind": "supply_diffuser",
+   "x": 94,
+   "y": 34,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-E1"
+  },
+  {
+   "tag": "SD-36",
+   "kind": "supply_diffuser",
+   "x": 94,
+   "y": 44,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-E1"
+  },
+  {
+   "tag": "SD-37",
+   "kind": "supply_diffuser",
+   "x": 94,
+   "y": 56,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-E2"
+  },
+  {
+   "tag": "SD-38",
+   "kind": "supply_diffuser",
+   "x": 94,
+   "y": 68,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-E2"
+  },
+  {
+   "tag": "SD-39",
+   "kind": "supply_diffuser",
+   "x": 94,
+   "y": 78,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-E2"
+  },
+  {
+   "tag": "SD-40",
+   "kind": "supply_diffuser",
+   "x": 94,
+   "y": 90,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-E2"
+  },
+  {
+   "tag": "SD-41",
+   "kind": "supply_diffuser",
+   "x": 6,
+   "y": 10,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-W1"
+  },
+  {
+   "tag": "SD-42",
+   "kind": "supply_diffuser",
+   "x": 6,
+   "y": 22,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-W1"
+  },
+  {
+   "tag": "SD-43",
+   "kind": "supply_diffuser",
+   "x": 6,
+   "y": 34,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-W1"
+  },
+  {
+   "tag": "SD-44",
+   "kind": "supply_diffuser",
+   "x": 6,
+   "y": 44,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-W1"
+  },
+  {
+   "tag": "SD-45",
+   "kind": "supply_diffuser",
+   "x": 6,
+   "y": 56,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-W2"
+  },
+  {
+   "tag": "SD-46",
+   "kind": "supply_diffuser",
+   "x": 6,
+   "y": 68,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-W2"
+  },
+  {
+   "tag": "SD-47",
+   "kind": "supply_diffuser",
+   "x": 6,
+   "y": 78,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-W2"
+  },
+  {
+   "tag": "SD-48",
+   "kind": "supply_diffuser",
+   "x": 6,
+   "y": 90,
+   "z": 9.0,
+   "cfm": 187,
+   "face_in": 24,
+   "neck_in": 8,
+   "served_by": "FPB-W2"
+  },
+  {
+   "tag": "RG-01",
+   "kind": "return_grille",
+   "x": 12,
+   "y": 12,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-02",
+   "kind": "return_grille",
+   "x": 40,
+   "y": 12,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-03",
+   "kind": "return_grille",
+   "x": 60,
+   "y": 12,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-04",
+   "kind": "return_grille",
+   "x": 88,
+   "y": 12,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-05",
+   "kind": "return_grille",
+   "x": 12,
+   "y": 40,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-06",
+   "kind": "return_grille",
+   "x": 40,
+   "y": 40,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-07",
+   "kind": "return_grille",
+   "x": 60,
+   "y": 40,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-08",
+   "kind": "return_grille",
+   "x": 88,
+   "y": 40,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-09",
+   "kind": "return_grille",
+   "x": 12,
+   "y": 60,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-10",
+   "kind": "return_grille",
+   "x": 34,
+   "y": 74,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-11",
+   "kind": "return_grille",
+   "x": 66,
+   "y": 74,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-12",
+   "kind": "return_grille",
+   "x": 88,
+   "y": 60,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-13",
+   "kind": "return_grille",
+   "x": 12,
+   "y": 88,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-14",
+   "kind": "return_grille",
+   "x": 40,
+   "y": 88,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-15",
+   "kind": "return_grille",
+   "x": 60,
+   "y": 88,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  },
+  {
+   "tag": "RG-16",
+   "kind": "return_grille",
+   "x": 88,
+   "y": 88,
+   "z": 9.0,
+   "cfm": 440,
+   "face_in": 24,
+   "neck_in": 0,
+   "served_by": "PLENUM"
+  }
+ ],
+ "totals": {
+  "supply_primary_cfm": 8000,
+  "diffuser_cfm": 10384,
+  "return_grille_cfm": 7040,
+  "duct_length_ft": 915.5,
+  "supply_diffusers": 48,
+  "return_grilles": 16,
+  "vav_boxes": 4,
+  "fan_powered_boxes": 8,
+  "zone_area_sf": 10000.0
+ }
+}

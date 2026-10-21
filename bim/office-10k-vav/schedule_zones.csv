@@ -1,0 +1,14 @@
+Number,Name,Type,Terminal box,Area (sf),Design supply (cfm),cfm/sf
+101,North Office West,perimeter,FPB-N1,1000,1050,1.05
+102,North Office East,perimeter,FPB-N2,1000,1050,1.05
+103,South Office West,perimeter,FPB-S1,1000,1050,1.05
+104,South Office East,perimeter,FPB-S2,1000,1050,1.05
+105,East Office South,perimeter,FPB-E1,600,750,1.25
+106,East Office North,perimeter,FPB-E2,600,750,1.25
+107,West Office South,perimeter,FPB-W1,600,750,1.25
+108,West Office North,perimeter,FPB-W2,600,750,1.25
+109,Interior NW Open Office,interior,VAV-1,708,700,0.99
+110,Interior NE Open Office,interior,VAV-2,708,700,0.99
+111,Interior SW Open Office,interior,VAV-3,900,900,1.0
+112,Interior SE Open Office,interior,VAV-4,900,900,1.0
+M-101,Mechanical Room,mechanical,AHU-1,384,0,
