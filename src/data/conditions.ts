@@ -18,6 +18,8 @@ export interface Condition {
   /** schema.org type for the page's `about` entity. Defaults to MedicalCondition. */
   schemaType?: 'MedicalCondition' | 'MedicalTherapy' | 'MedicalProcedure';
   intro: string;
+  /** One plain sentence under the intro that answers the page's question directly, for readers and AI assistants. */
+  summary?: string;
   sections: ConditionSection[];
   faq: { q: string; a: string }[];
   /** Slugs of related conditions, rendered as internal links at the foot of the page. */
@@ -45,9 +47,11 @@ export const CONDITIONS: Condition[] = [
     metaTitle: 'Return to Sport After Surgery: Training in Denver',
     schemaType: 'MedicalProcedure',
     metaDescription:
-      'Insurance physical therapy got you to "functional." I get you back to skiing, cycling, lifting and running. One-on-one training after surgery in downtown Denver.',
+      'Insurance physical therapy got you to "functional." I get you back to skiing, cycling, lifting and running. One-on-one training after surgery in Denver.',
     intro:
       'The surgery went fine. The twelve sessions of physical therapy got you up the stairs, back in the car, back at work, and then someone wrote "functional" on a form and the referral ran out. <strong>You didn’t have surgery to be functional.</strong> You had it to get back on the bike, back on the slopes, back under the bar. Nobody in that chain was paid to take you there.',
+    summary:
+      'In short: when your physical therapy ends, I pick up where it stopped and train you back to your sport, one-on-one in downtown Denver, working within your surgeon’s protocol.',
     sections: [
       {
         heading: 'Why did the rehab stop before you were back?',
@@ -114,9 +118,11 @@ export const CONDITIONS: Condition[] = [
     title: 'Chronic back pain isn’t a life sentence',
     metaTitle: 'Personal Training for Chronic Back Pain in Denver',
     metaDescription:
-      'One-on-one training for chronic low back pain in downtown Denver, built on Cognitive Functional Therapy and Applied Functional Science. For when physical therapy and injections haven’t held.',
+      'One-on-one training for chronic low back pain in downtown Denver, built on Cognitive Functional Therapy. For when physical therapy and injections haven’t held.',
     intro:
       'You have done the physical therapy. You have been adjusted. Somewhere in there was an injection, or a scan that found something and still didn’t explain why Tuesday is fine and Thursday isn’t. <strong>I get it.</strong> By the time most people reach this studio they have stopped expecting an answer and started managing around the pain instead. That is a reasonable response to what you’ve been offered. It isn’t the only option left.',
+    summary:
+      'In short: I’m a personal trainer who works with backs that have hurt for months or years. We find what your back will take today and build real strength from there, one-on-one in downtown Denver. No referral or insurance needed.',
     sections: [
       {
         heading: 'Why hasn’t any of it held?',
@@ -183,9 +189,11 @@ export const CONDITIONS: Condition[] = [
     title: 'Sciatica that hasn’t responded to the usual treatments',
     metaTitle: 'Training Through Persistent Sciatica in Denver',
     metaDescription:
-      'Radicular leg pain that didn’t respond to chiropractic, epidurals or short-course physical therapy. Graded loading and strength work for persistent sciatica in downtown Denver.',
+      'Persistent sciatica that didn’t settle with chiropractic, epidurals or short-course physical therapy. Graded strength work, one-on-one in downtown Denver.',
     intro:
       'It burns, or it shoots, or it goes numb somewhere below the knee, and it has outlasted everything you threw at it. You stretched the piriformis. You got adjusted. Maybe there was an epidural that worked for six weeks, or didn’t work at all. <strong>Sciatica that lasts is a different problem from sciatica that starts.</strong> Most plans are still aimed at the first one.',
+    summary:
+      'In short: if sciatica has outlasted the usual treatments, I train you through it, one-on-one in downtown Denver, starting with what your back and leg will tolerate today and building strength from there.',
     sections: [
       {
         heading: 'Why is it still there after the disc settled?',
@@ -241,9 +249,11 @@ export const CONDITIONS: Condition[] = [
     title: 'Stay in your sport for the next twenty years',
     metaTitle: 'Training Through Injury for Masters Athletes, Denver',
     metaDescription:
-      'Recurring injuries for athletes 40+: tendinopathy, joint pain, the boom-bust cycle. Break the pattern and keep training. One-on-one strength and rehab in downtown Denver.',
+      'Recurring injuries for athletes 40+: tendon and joint pain, the boom-bust cycle. Break the pattern and keep training, one-on-one in downtown Denver.',
     intro:
       'You are 45, or 55, or 65, and stopping was never on the table. But the calf keeps going. The shoulder flares every ski season. The knee swells after the long rides and you have started planning the week around it. <strong>The injuries aren’t the problem. The cycle is.</strong> Train, break, rest, come back, break again. Each lap costs more than the last one, and the cycle is breakable.',
+    summary:
+      'In short: if you’re over 40 and the same injury keeps interrupting your sport, I build the strength and load tolerance that breaks the cycle, one-on-one in downtown Denver.',
     sections: [
       {
         heading: 'Why do the same injuries keep coming back?',
@@ -303,9 +313,11 @@ export const CONDITIONS: Condition[] = [
     metaTitle: 'Cognitive Functional Therapy (CFT) in Denver',
     schemaType: 'MedicalTherapy',
     metaDescription:
-      'What Cognitive Functional Therapy is, the Lancet RESTORE evidence behind it, and how it combines with Applied Functional Science in practice. One of a handful of practitioners in Colorado.',
+      'What Cognitive Functional Therapy is, the Lancet RESTORE evidence behind it, and how I combine it with Applied Functional Science in training, in Denver.',
     intro:
       'If you have already read the other pages on this site, this is the method underneath all of them: <strong>Cognitive Functional Therapy combined with a method known as Applied Functional Science</strong>, a system that identifies when the symptom and the cause of the pain are in different places, and how to use the whole body to create a different outcome than traditional methods. CFT works on the whole system that produces your pain, not the tissue that stopped being the story months ago: the beliefs, the guarding, the movements you dropped without noticing, the sleep and the stress that turn the volume up. It is the approach validated in the 2023 Lancet RESTORE trial, and I am one of a handful of practitioners in Colorado trained in it.',
+    summary:
+      'In short: Cognitive Functional Therapy is an approach to persistent pain that looks at the whole system producing it, including movement, habits, beliefs, sleep and stress. It was tested in the RESTORE trial, published in The Lancet in 2023, and it’s where my training starts.',
     sections: [
       {
         heading: 'What’s the evidence?',
@@ -363,9 +375,11 @@ export const CONDITIONS: Condition[] = [
     title: 'Neck pain that keeps coming back',
     metaTitle: 'Personal Training for Neck Pain in Denver',
     metaDescription:
-      'Persistent neck pain, stiffness and headaches that came back after massage, adjustments or short-course physical therapy. Strength and graded movement, one-on-one in downtown Denver.',
+      'Neck pain, stiffness and headaches that came back after massage, adjustments or short-course physical therapy. Strength work, one-on-one in downtown Denver.',
     intro:
       "You're in pain, and somewhere along the way you stopped expecting anyone to fix it. Not for lack of trying: the massage, the adjustments, the scan, somebody's theory about your posture. <strong>I get it.</strong> That's exactly who this studio was built for: the people who kept looking after everything else came up short.",
+    summary:
+      'In short: for neck pain and headaches that keep coming back, I build strength and movement through the neck, upper back and shoulders, one-on-one in downtown Denver.',
     sections: [
       {
         heading: 'Why has the relief never lasted?',
@@ -441,6 +455,8 @@ export const CONDITIONS: Condition[] = [
       'Rotator cuff pain, impingement and stiff shoulders that did not settle with rest or a cortisone shot. Graded loading and strength work in Denver.',
     intro:
       'You cannot sleep on that side. Reaching for anything above shoulder height is something you plan now, not something you do. You rested it, maybe had a cortisone shot, and it was better, right up until you tried to use the arm properly again. <strong>Shoulders almost never recover from being protected.</strong> They recover from being loaded well, which is close to the opposite of what most people are told.',
+    summary:
+      'In short: a shoulder that rest hasn’t settled usually does better with well-judged load than with more rest. I build that load, one-on-one in downtown Denver, starting at a level your shoulder accepts today.',
     sections: [
       {
         heading: 'Why didn’t rest work?',
@@ -517,6 +533,8 @@ export const CONDITIONS: Condition[] = [
       'Knee pain, arthritis and meniscus problems that did not settle with rest or an injection. Progressive strength work for Denver adults who want to keep moving.',
     intro:
       'Stairs. Getting out of the car. The first mile of a hike, or the last one. You rested it, iced it, maybe had an injection, and somewhere along the line a scan came back with the word "degenerative" on it and nobody explained what that meant for you. <strong>Knees rarely recover from being protected.</strong> They recover from being loaded properly, and almost nobody says that out loud.',
+    summary:
+      'In short: a knee that hasn’t settled with rest usually does better with progressive strength work. I start where your knee is today and build from there, one-on-one in downtown Denver.',
     sections: [
       {
         heading: 'Why didn’t resting it work?',
