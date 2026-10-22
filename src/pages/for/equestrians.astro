@@ -40,8 +40,8 @@ const articleSchema = {
   description,
   url,
   datePublished: published,
-  author: { '@type': 'Person', name: 'Jamie Atlas' },
-  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  author: { '@id': `${SITE.url}/#jamie` },
+  publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
 };
 
