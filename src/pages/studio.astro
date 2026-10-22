@@ -2,6 +2,16 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BannerSection from '../components/BannerSection.astro';
 import { SITE } from '../data/site';
+import { Image } from 'astro:assets';
+// Studio photos go through astro:assets (WebP, sized srcset) instead of raw
+// public/ JPGs: ~1.2 MB of photos on this page drops to a fraction (audit
+// doc 61). The public/ copies stay because schema and og tags point at them.
+import studioBuilding from '../assets/studio/studio-building.jpg';
+import studioEntrance from '../assets/studio/studio-entrance.jpg';
+import studioInside1 from '../assets/studio/studio-inside-1.jpg';
+import studioInside2 from '../assets/studio/studio-inside-2.jpg';
+import studioInside3 from '../assets/studio/studio-inside-3.jpg';
+import studioInside4 from '../assets/studio/studio-inside-4.jpg';
 
 const addr = SITE.contact.address;
 const mapQuery = encodeURIComponent(`${addr.street}, ${addr.city}, ${addr.state} ${addr.zip}`);
@@ -52,11 +62,12 @@ const mapQuery = encodeURIComponent(`${addr.street}, ${addr.city}, ${addr.state}
         </p>
         <div class="grid grid-cols-2 gap-4">
           <figure>
-            <img
-              src="/studio-building.jpg"
+            <Image
+              src={studioBuilding}
               alt={`The office tower at ${addr.street}, Denver — the studio is on the basement level`}
-              width="607"
-              height="547"
+              widths={[400, 700, 1000]}
+              sizes="(min-width: 1024px) 500px, 50vw"
+              format="webp"
               loading="lazy"
               class="rounded-xl border border-[var(--color-border)] w-full h-56 object-cover"
             />
@@ -65,11 +76,12 @@ const mapQuery = encodeURIComponent(`${addr.street}, ${addr.city}, ${addr.state}
             </figcaption>
           </figure>
           <figure>
-            <img
-              src="/studio-entrance.jpg"
+            <Image
+              src={studioEntrance}
               alt="The studio door on the basement level, with the graffiti wall and client photos visible inside"
-              width="1100"
-              height="1375"
+              widths={[400, 700, 1000]}
+              sizes="(min-width: 1024px) 500px, 50vw"
+              format="webp"
               loading="lazy"
               class="rounded-xl border border-[var(--color-border)] w-full h-56 object-cover"
             />
@@ -117,36 +129,40 @@ const mapQuery = encodeURIComponent(`${addr.street}, ${addr.city}, ${addr.state}
       <h2 class="mb-8">Inside the studio</h2>
       <!-- Photos replaced with Jamie's four new ones, 2026-08-09 -->
       <div class="grid grid-cols-2 gap-4 md:gap-6">
-        <img
-          src="/studio-inside-1.jpg"
+        <Image
+          src={studioInside1}
           alt="The main training floor of the Jamie Atlas studio, with its graffiti mural wall, Pilates reformer and free-weight area"
-          width="1050"
-          height="1400"
-          loading="lazy"
+          widths={[400, 700, 1000]}
+              sizes="(min-width: 1024px) 500px, 50vw"
+              format="webp"
+              loading="lazy"
           class="rounded-xl border border-[var(--color-border)] w-full aspect-[3/4] object-cover"
         />
-        <img
-          src="/studio-inside-2.jpg"
+        <Image
+          src={studioInside2}
           alt="The studio entrance, with the wall of client photos visible through the open door"
-          width="1050"
-          height="1400"
-          loading="lazy"
+          widths={[400, 700, 1000]}
+              sizes="(min-width: 1024px) 500px, 50vw"
+              format="webp"
+              loading="lazy"
           class="rounded-xl border border-[var(--color-border)] w-full aspect-[3/4] object-cover"
         />
-        <img
-          src="/studio-inside-3.jpg"
+        <Image
+          src={studioInside3}
           alt="Jamie Atlas lifting a smiling client across his shoulders in the studio"
-          width="1375"
-          height="1400"
-          loading="lazy"
+          widths={[400, 700, 1000]}
+              sizes="(min-width: 1024px) 500px, 50vw"
+              format="webp"
+              loading="lazy"
           class="rounded-xl border border-[var(--color-border)] w-full aspect-[3/4] object-cover"
         />
-        <img
-          src="/studio-inside-4.jpg"
+        <Image
+          src={studioInside4}
           alt="Jamie Atlas with a client's dog on the studio floor mid-session"
-          width="868"
-          height="895"
-          loading="lazy"
+          widths={[400, 700, 1000]}
+              sizes="(min-width: 1024px) 500px, 50vw"
+              format="webp"
+              loading="lazy"
           class="rounded-xl border border-[var(--color-border)] w-full aspect-[3/4] object-cover"
         />
       </div>
