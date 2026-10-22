@@ -44,6 +44,12 @@ const founderSchema = {
   jobTitle: 'Personal Trainer & Rehab Specialist',
   award: [...SITE.awards],
   url: `${SITE.url}/about`,
+  // Same facts /about carries, so the Person node is complete on every page,
+  // not only the one AI crawlers may never reach (audit doc 61, item 5).
+  image: new URL('/jamie-portrait.jpg', Astro.site).href,
+  worksFor: { '@id': SITE.url },
+  sameAs: [SITE.social.instagramUrl],
+  knowsAbout: ['Personal training', 'Strength and conditioning', 'Return-to-sport training', 'Cognitive Functional Therapy', 'Applied Functional Science', 'Nutrition coaching'],
   hasCredential: SITE.credentials.map(c => ({
     '@type': 'EducationalOccupationalCredential',
     name: c.name,
