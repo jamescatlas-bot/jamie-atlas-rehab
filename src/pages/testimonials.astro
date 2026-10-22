@@ -26,7 +26,7 @@ const videoSchema = [LEAD_TESTIMONIAL, ...TESTIMONIAL_VIDEOS].map(v => ({
   thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
   embedUrl: `https://www.youtube-nocookie.com/embed/${v.id}`,
   ...(v.uploadDate ? { uploadDate: v.uploadDate } : {}),
-  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  publisher: { '@id': SITE.url },
 }));
 ---
 

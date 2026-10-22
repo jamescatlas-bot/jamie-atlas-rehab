@@ -43,10 +43,30 @@ const personSchema = {
     name: c.name,
   })),
 };
+
+// One straight answer AI assistants get asked about Jamie (audit doc 61, item 7).
+// Visible on the page AND in FAQPage schema, word for word, or Google ignores it.
+const faq = [
+  {
+    q: 'Are you a physical therapist?',
+    a: "No. I'm a personal trainer with rehabilitation training, and I've spent 25 years training Denver. I hold a BSc in Neuroscience from the Australian National University, trained in Cognitive Functional Therapy under Peter O'Sullivan, did a 40-week mentorship in Applied Functional Science with Gary Gray at the Gray Institute, and I'm an NSCA Certified Strength and Conditioning Specialist with a Certificate IV in Nutrition Coaching. I've trained UFC, NFL, NBA and NHL athletes, military personnel, and a great many Coloradans coming back from surgery, living with back, knee or shoulder pain, getting strong after 40, or keeping their muscle on a GLP-1. If something needs a medical assessment first, I'll tell you and tell you who to see.",
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
 <BaseLayout title={title} description={description} image="/jamie-portrait.jpg">
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <div class="about-e">
 
@@ -202,6 +222,19 @@ const personSchema = {
       </div>
     </section>
 
+    <!-- STRAIGHT ANSWERS (FAQPage schema above mirrors this word for word) -->
+    <section class="lists faq">
+      <div class="max-w-3xl mx-auto px-5 sm:px-6 pb-12 sm:pb-14">
+        <h3>Straight answers</h3>
+        {faq.map(f => (
+          <div class="qa">
+            <p class="q">{f.q}</p>
+            <p class="a">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <!-- E PROOF BAND -->
     <div class="proof">
       <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4">
@@ -289,6 +322,10 @@ const personSchema = {
   .lists { background: #fff; border-top: 1px solid #e1e8ee; }
   .lists h3 { font-family: 'Quicksand', 'Inter', sans-serif; font-weight: 700; font-size: 20px; color: var(--deep); margin-bottom: 12px; }
   .lists ul { list-style: none; padding: 0; margin: 0; }
+  .faq { border-top: 0; }
+  .faq .qa { padding: 12px 0; border-top: 1px solid #e1e8ee; }
+  .faq .q { font-weight: 700; color: var(--deep); margin: 0 0 6px; }
+  .faq .a { font-size: 15.5px; color: #3d4b58; line-height: 1.6; margin: 0; }
   .lists li { padding: 6px 0; border-top: 1px solid #e1e8ee; font-size: 15.5px; color: #3d4b58; }
 
   /* proof band (same as the homepage) */
