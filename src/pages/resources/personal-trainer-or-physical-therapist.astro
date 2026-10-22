@@ -1,0 +1,214 @@
+---
+// DRAFT for Jamie's voice review (audit doc 61, item 6; doc 59 flagship piece).
+// The licensure line told as a story: when to see a physical therapist, when to
+// see a personal trainer with rehab training, and where the legal line sits.
+// Never describes Jamie or the service as physical therapy.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BannerSection from '../../components/BannerSection.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Personal Trainer or Physical Therapist? Who to See in Denver';
+const description =
+  "When a physical therapist is the right first call, when a personal trainer with rehab training is, and where the line sits. From a Denver trainer who isn't one.";
+const published = '2026-10-22';
+const url = `${SITE.url}/resources/personal-trainer-or-physical-therapist`;
+
+const faq = [
+  {
+    q: 'Do I need a referral to see you?',
+    a: "No. You book the 30-minute assessment yourself, $57. I don't bill insurance, so there's no referral, no pre-authorisation and no visit cap. If something in that first half hour says you need a doctor or a physical therapist first, I'll tell you, and I'll tell you who.",
+  },
+  {
+    q: 'Can I see you and a physical therapist at the same time?',
+    a: "Yes, and plenty of people do. If you're still in physical therapy, keep going. Tell me what they've got you doing, I'll stay out of its way, and we'll build the strength and the sport on top. The handover at discharge is where most people fall through the gap, so it helps if I'm already in the picture.",
+  },
+  {
+    q: 'Are you a physical therapist?',
+    a: "No. I'm a personal trainer with rehabilitation training: NSCA strength and conditioning specialist, trained in Cognitive Functional Therapy under Peter O'Sullivan, 25 years training Denver. In Colorado, physical therapist and PT are protected titles, and I don't use them.",
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  datePublished: published,
+  author: { '@id': `${SITE.url}/#jamie` },
+  publisher: { '@id': SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-16 pb-12 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/resources" class="no-underline">Resources</a> · Who to see
+      </p>
+      <h1 class="mb-8">Personal trainer or physical therapist? Here's how I'd decide, and I'm the trainer.</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        The usual rule goes like this. Hurt? See a physical therapist. Healthy? See a trainer. It's a fair rule,
+        it's mostly right, and it falls apart the moment you're somewhere in between, which is where most adults
+        over forty spend the bulk of their week.
+      </p>
+      <p class="mt-5 text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        <strong class="text-[var(--color-text)]">So here's the version I'd give my own family.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site-wide rotating video banner (Jamie, 2026-08-08) -->
+  <BannerSection />
+  <p class="px-6 pt-3 text-center text-sm text-[var(--color-text-muted)]">Results vary from person to person.</p>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">See a physical therapist first if</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <ul class="list-disc pl-6 space-y-3">
+          <li>It happened in the last few weeks, it's swollen, or you can't put weight on it.</li>
+          <li>You've just had surgery. Early rehab follows your surgeon's protocol, and a physical therapist is the person who runs it.</li>
+          <li>You want a diagnosis. I don't diagnose, and anyone in my line of work who says they do is guessing in a nicer shirt.</li>
+          <li>Your insurance covers it. Use it. That's what you're paying for.</li>
+        </ul>
+        <p>
+          And one that isn't a physical therapist at all: numbness around the groin or inner thighs, new trouble
+          controlling your bladder or bowels, or weakness that's spreading. That's a doctor, today. Not me, not a
+          physical therapist, not a YouTube video.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Come to a trainer like me if</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <ul class="list-disc pl-6 space-y-3">
+          <li>You've been discharged, you're "functional", and functional isn't what you had in mind. Stairs are fine. Steeps at Mary Jane are another matter.</li>
+          <li>It's been hanging around for months, it comes and goes, and every scan you've had says you're fine.</li>
+          <li>You want to train hard, properly hard, around a knee, back or shoulder with a history.</li>
+          <li>You're over forty and you'd like to build muscle without auditioning a new injury every six weeks.</li>
+          <li>You want the strength work, the rehab work and the nutrition in one room, from one person.</li>
+        </ul>
+        <p>
+          That's the gap I work in. Insurance physical therapy is built to get you to functional in a set number of
+          visits, and it's good at that. What it isn't built for is the next twelve months, when the goal moves from
+          walking without a limp to skiing, golfing or lifting without thinking about it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Where the line sits</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          I'm not a physical therapist. In Colorado, "physical therapist" and "PT" are protected titles, and I don't
+          hold the licence, so I don't use either. I don't diagnose, I don't bill insurance, and if something in the
+          first thirty minutes says you need a doctor or a physical therapist before you need me, I'll say so.
+        </p>
+        <p>
+          What I am: an NSCA Certified Strength and Conditioning Specialist, trained in Cognitive Functional Therapy
+          under Peter O'Sullivan and in Applied Functional Science at the Gray Institute, with 25 years training
+          Denver. In other words, a personal trainer who spent the better part of a decade learning why joints keep
+          coming back into the conversation.
+        </p>
+        <p>
+          For years this got treated as a turf war. Trainers rolled their eyes at physical therapists, physical
+          therapists rolled their eyes at trainers, and the client stood in the middle holding a resistance band and
+          a printout. I was one of the eye-rollers, for about fifteen years.
+        </p>
+        <p>
+          <strong class="text-[var(--color-text)]">Isn't it a bit ridiculous that the person in pain was the one left to work out the handover?</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">The handover is the whole game</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A lot of my clients arrive straight from physical therapy. The good outcomes almost always share one
+          thing: nobody stopped. The last week of physical therapy and the first week with me looked a bit alike,
+          then the load went up, then the goal got bigger.
+        </p>
+        <p>
+          The bad outcomes share one thing too. A gap. Six weeks on the couch after discharge, waiting to feel ready,
+          and then a return to the exact activity that started it. That's when the knee files a formal complaint.
+        </p>
+        <p>
+          So if you're mid physical therapy, keep going. If you're about to be discharged, that's the moment to book
+          the assessment, not six weeks later.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-10">Common questions</h2>
+      <div class="space-y-8">
+        {faq.map(item => (
+          <div>
+            <h3 class="mb-3">{item.q}</h3>
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          So pick by what you need this month, not by the job title. New injury, fresh surgery, or you need a
+          diagnosis: physical therapist. Cleared, still not right, and you want your sport back: that's me.
+        </p>
+        <p>
+          And now you know which door is which, you'll never again stand in a waiting room wondering whether you're
+          in the right one.
+        </p>
+        <p class="font-serif italic">Yours in health,<br />Jamie Atlas</p>
+        <p class="text-base">
+          <b>PS</b> If you're not sure which side of the line you're on, that's exactly what the first thirty
+          minutes are for. Worst case, you leave with the name of the right person.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Discharged, but not done?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute assessment, $57: your history, my plain read on whether I can help, and one change you can measure before you leave.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+        · <a href="/this-is-you/cleared-but-not-ready" class="text-white underline">Cleared but not ready</a>
+        · <a href="/what-i-work-with/post-surgical-return-to-sport" class="text-white underline">Return to sport after surgery</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
