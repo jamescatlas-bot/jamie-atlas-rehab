@@ -3,6 +3,17 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "v0-ai-saa-s-landing-hero-with-video-five-beryl.vercel.app"
+        }
+      ],
+      "destination": "https://jamieatlas.com/:path*",
+      "statusCode": 308
+    },
+    {
       "source": "/what-we-treat",
       "destination": "/what-i-work-with",
       "statusCode": 301
