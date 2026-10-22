@@ -66,6 +66,9 @@ const faqSchema = {
       </p>
       <h1 class="mb-8">{condition.title}</h1>
       <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed" set:html={condition.intro} />
+      {condition.summary && (
+        <p class="mt-5 text-lg md:text-xl text-[var(--color-text)] leading-relaxed font-semibold">{condition.summary}</p>
+      )}
       <!-- Cold-traffic trust anchor: these pages receive first-touch visitors
            (business-card QR jamieatlas.com/ready lands on post-surgical; future
            Google Ads land here too). One line of who-is-this. -->
