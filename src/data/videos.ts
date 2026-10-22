@@ -121,7 +121,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Monique, 4 weeks of neck pain rated 7/10",
     headline: "Monique, 4 weeks of 7/10 neck pain",
     bio: "A stay-at-home mom, four weeks in. Pain went from 7/10 to 0/10 in 40 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -132,7 +132,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Danielle, 6 weeks of neck pain rated 7/10",
     headline: "Danielle, 6 weeks of 7/10 neck pain",
     bio: "A skier who'd had it for six weeks. Pain went from 7/10 to 0/10 in 40 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -143,7 +143,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Sandy, 3 years of neck pain rated 8/10",
     headline: "Sandy, 3 years of 8/10 neck pain",
     bio: "An office worker who'd had it for three years. Pain went from 8/10 to 0/10 in three weeks, and her tears of happiness are 100% in-the-moment real.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
     featured: true,
   },
@@ -155,7 +155,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Natasha, 4 weeks of neck pain rated 7/10",
     headline: "Natasha, 4 weeks of 7/10 neck pain",
     bio: "A Pilates devotee, four weeks in. Pain went from 7/10 to 1/10 in 30 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
 
@@ -170,7 +170,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Cindy, a lifetime of knee pain rated 6/10",
     headline: "Cindy, a lifetime of 6/10 knee pain",
     bio: "A walker who'd had pain lunging for as long as she could remember. Pain went from 6/10 to 2/10 in 10 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -181,7 +181,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Meghan, knee pain after an ACL tear, 4 out of 10 down to 0",
     headline: "Meghan, 4/10 knee pain after an ACL tear",
     bio: "An MMA fighter with a recent ACL tear. Pain went from 4/10 to 0/10 in 50 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -192,7 +192,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Brad, 6 months of knee pain rated 6/10",
     headline: "Brad, 6 months of 6/10 knee pain",
     bio: "A hiker who'd had it for six months. Pain went from 6/10 to 1/10 in 50 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
 
@@ -207,7 +207,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Samantha, 5 years of shoulder pain rated 7/10",
     headline: "Samantha, 5 years of 7/10 shoulder pain",
     bio: "A kickboxer who'd had it for five years. Pain went from 7/10 to 1/10 in 20 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -218,7 +218,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Heather, 6 weeks of shoulder nerve pain rated 10/10",
     headline: "Heather, 6 weeks of 10/10 shoulder nerve pain",
     bio: "A fitness instructor with six weeks of nerve pain. Pain went from 10/10 to 1/10 in 45 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
     // Featured 2026-08-06: gives the homepage a 10/10 case and a third body
     // part (neck + back + shoulder), so the proof block reads as range.
@@ -232,7 +232,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Judy, 6 months of shoulder pain rated 10/10",
     headline: "Judy, 6 months of 10/10 shoulder pain",
     bio: "A mom who'd been at 10/10 for six months. Pain went from 10/10 to 4/10 in 60 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -243,7 +243,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Sharon, 4 months of shoulder pain rated 6/10",
     headline: "Sharon, 4 months of 6/10 shoulder pain",
     bio: "A traveling salesperson, four months in. Pain went from 6/10 to 2/10 in two weeks.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -254,7 +254,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Clay, 10 years of shoulder pain rated 7/10",
     headline: "Clay, 10 years of 7/10 shoulder pain",
     bio: "A pickleball player who'd had it for ten years. Pain went from 7/10 to 1/10 in three weeks.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -265,7 +265,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Kendall, 2 weeks of shoulder pain rated 6/10",
     headline: "Kendall, 2 weeks of 6/10 shoulder pain",
     bio: "An office manager, two weeks in. Pain went from 6/10 to 2/10 in 45 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
 
@@ -280,7 +280,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Kelly, 12 months of back pain rated 8/10",
     headline: "Kelly, 12 months of 8/10 back pain",
     bio: "An athlete who'd had it for a year. Pain went from 8/10 to 0/10 in 35 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -291,7 +291,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Dax, 5 days of back pain rated 10/10",
     headline: "Dax, 5 days of 10/10 back pain",
     bio: "A golfer, five days in and at 10/10. Pain went from 10/10 to 0/10 in two weeks.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -302,7 +302,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Matthew, 7 weeks of back pain rated 7/10",
     headline: "Matthew, 7 weeks of 7/10 back pain",
     bio: "A football player, seven weeks in. Pain went from 7/10 to 3/10 in 60 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -313,7 +313,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Colleen, 8 weeks of back pain rated 7/10",
     headline: "Colleen, 8 weeks of 7/10 back pain",
     bio: "A riding instructor, eight weeks in. Pain went from 7/10 to 0/10 in 55 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -324,7 +324,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Katrina, 4 weeks of back pain rated 6/10",
     headline: "Katrina, 4 weeks of 6/10 back pain",
     bio: "An equestrian, four weeks in. Pain went from 6/10 to 0/10 in 50 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
     featured: true,
   },
@@ -336,7 +336,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Alexis, 2 months of back pain rated 10/10",
     headline: "Alexis, 2 months of 10/10 back pain",
     bio: "A receptionist who had been at 10/10 for two months. Pain went from 10/10 to 1/10 in 60 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -347,7 +347,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Penelope, 5 weeks of back pain rated 7/10",
     headline: "Penelope, 5 weeks of 7/10 back pain",
     bio: "A tennis player, five weeks in. Pain went from 7/10 to 0/10 in 60 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
   {
@@ -358,7 +358,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Chris, 8 weeks of back pain rated 7/10",
     headline: "Chris, 8 weeks of 7/10 back pain",
     bio: "A dad, eight weeks in. Pain went from 7/10 to 1/10 in 50 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
 
@@ -373,7 +373,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Kendra, two years of shooting sciatic pain resolved",
     headline: "Kendra, 2 years of shooting sciatic pain",
     bio: "A volleyball player, two years of shooting sciatic pain. Down to 0/10 in 20 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     orientation: 'landscape', // 1280x720 — filmed before the Shorts batch
     uploadDate: '2026-07-30',
   },
@@ -385,7 +385,7 @@ export const TESTIMONIAL_VIDEOS: Testimonial[] = [
     title: "Client testimonial: Tony, two weeks of severe back pain down to 1 out of 10",
     headline: "Tony, 2 weeks of lightning-bolt back pain",
     bio: "A mountain biker, two weeks of what he called lightning-bolt pain. Down to 1/10 in 50 minutes.",
-    note: 'Your results may vary.',
+    note: 'Results vary from person to person.',
     uploadDate: '2026-08-05',
   },
 ];
