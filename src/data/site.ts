@@ -89,6 +89,9 @@ export const SITE = {
   social: {
     instagram: '@jamieatlasfitness',
     instagramUrl: 'https://www.instagram.com/jamieatlasfitness/',
+    // Claimed listing (renamed from Bonza Bodies, Oct 2026). Footer wording must
+    // stay "Find us on Yelp": Yelp treats "review us" links as solicitation.
+    yelpUrl: 'https://www.yelp.com/biz/jamie-atlas-personal-training-and-rehabilitation-denver',
   },
 
   // Authoritative third-party profiles for this business, emitted as schema.org
@@ -96,7 +99,7 @@ export const SITE = {
   // adding an unclaimed or stale listing here reinforces the wrong entity.
   profiles: [
     'https://www.google.com/maps/place/?q=place_id:ChIJ44xKrdd4bIcRoPqgDjwhPWE',
-    'https://www.yelp.com/biz/jamie-atlas-denver',
+    'https://www.yelp.com/biz/jamie-atlas-personal-training-and-rehabilitation-denver',
     'https://www.facebook.com/jamieatlas',
   ],
 
