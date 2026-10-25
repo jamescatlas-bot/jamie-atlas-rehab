@@ -32,6 +32,7 @@ const articleSchema = {
   description,
   url,
   datePublished: published,
+  dateModified: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
@@ -106,6 +107,18 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What the research says</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Kids notice what you do more than what you say. In a 2017 Statistics Canada study by Garriguet and colleagues in <a href="https://www150.statcan.gc.ca/pub/82-003-x/2017006/article/14827-eng.htm" target="_blank" rel="noopener">Health Reports</a>, covering 1,328 parent and child pairs, every extra 20 minutes of a parent's moderate-to-vigorous activity went with 5 to 10 more minutes for their child. It shows a link rather than proving cause, but it's a good reason to let them see you move.
+        </p>
+      </div>
+    </div>
+  </section>
+
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">

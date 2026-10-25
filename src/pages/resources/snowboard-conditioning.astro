@@ -32,6 +32,7 @@ const articleSchema = {
   description,
   url,
   datePublished: published,
+  dateModified: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
@@ -126,6 +127,18 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What the research says</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          One piece of kit has the research behind it. A 2015 meta-analysis by Hume and colleagues in <a href="https://openrepository.aut.ac.nz/items/86ec85c1-adba-4044-8b59-305bed7aeb8e/full" target="_blank" rel="noopener">Sports Medicine</a> found wrist guards cut the odds of a wrist injury by about two-thirds. Train the shoulders and wrists, and wear the guards.
+        </p>
+      </div>
+    </div>
+  </section>
+
 
   <section class="px-6 py-16">
     <div class="max-w-3xl mx-auto">

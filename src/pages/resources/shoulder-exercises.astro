@@ -32,6 +32,7 @@ const articleSchema = {
   description,
   url,
   datePublished: published,
+  dateModified: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
@@ -115,6 +116,18 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What the research says</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Exercise holds its own against surgery. In a trial of 210 patients by Paavola and colleagues, followed up for five years in the <a href="https://bjsm.bmj.com/content/55/2/99" target="_blank" rel="noopener">British Journal of Sports Medicine</a> (2021), decompression surgery for shoulder impingement gave no benefit over exercise therapy. The most common shoulder operation did no better than well-planned training.
+        </p>
+      </div>
+    </div>
+  </section>
+
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">

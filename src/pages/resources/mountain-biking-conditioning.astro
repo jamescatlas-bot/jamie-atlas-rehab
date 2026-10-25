@@ -32,6 +32,7 @@ const articleSchema = {
   description,
   url,
   datePublished: published,
+  dateModified: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
@@ -113,6 +114,18 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What the research says</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Where riders get hurt tells you what to train. A 2022 review by Bigdon and colleagues in <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9063189" target="_blank" rel="noopener">BMC Sports Science, Medicine and Rehabilitation</a> found most mountain biking injuries are to the upper body, with collarbone fractures most common, followed by hand and wrist injuries. Grip, shoulders and the ability to absorb a hit through the arms deserve as much attention as the legs.
+        </p>
+      </div>
+    </div>
+  </section>
+
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">

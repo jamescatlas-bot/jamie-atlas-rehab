@@ -36,6 +36,7 @@ const articleSchema = {
   description,
   url,
   datePublished: published,
+  dateModified: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
@@ -193,6 +194,18 @@ const cluster = [
       </div>
     </div>
   </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What the research says</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Most days on the mountain end fine. In Norwegian ski resort data reported by Ekeland and R&oslash;dven (<a href="https://store.astm.org/stp47465s.html" target="_blank" rel="noopener">Skiing Trauma and Safety</a>, 2009), there were about 1.5 injured skiers per 1,000 skier days, and the knee was the most common injury site, at 24% of alpine injuries. That's why so much of this guide is about the knee.
+        </p>
+      </div>
+    </div>
+  </section>
+
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">
