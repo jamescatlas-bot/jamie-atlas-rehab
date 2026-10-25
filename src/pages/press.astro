@@ -4,6 +4,8 @@ import BannerSection from '../components/BannerSection.astro';
 import { SITE } from '../data/site';
 import { PRESS_VIDEOS } from '../data/videos';
 import { NINENEWS_SEGMENTS } from '../data/ninenews';
+import { NINENEWS_PAGES } from '../data/ninenewsPages';
+const transcriptSlug = new Map(NINENEWS_PAGES.map(p => [p.id, p.slug]));
 import PressStrip from '../components/PressStrip.astro';
 import { Image } from 'astro:assets';
 import press9news from '../assets/home/press-9news.jpg';
@@ -224,7 +226,7 @@ const nineNewsSchema = {
       <h2 class="mb-4">Every 9NEWS segment on YouTube</h2>
       <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-10">
         The {NINENEWS_SEGMENTS.length} segments 9NEWS posted to its own YouTube channel between 2017 and 2022. Many
-        more aired that were only ever posted on 9news.com. Each link opens the segment on 9NEWS's channel.
+        more aired that were only ever posted on 9news.com. Each link opens the segment on 9NEWS's channel. Nine also have full transcripts here, reprinted with permission.
       </p>
       <div class="space-y-8">
         {Object.entries(nineNewsByYear).map(([year, items]) => (
@@ -234,7 +236,12 @@ const nineNewsSchema = {
               {items.map(v => (
                 <li class="flex gap-3">
                   <span class="w-14 shrink-0 text-sm pt-0.5">{fmtDate(v.date)}</span>
-                  <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener">{v.title}</a>
+                  <span>
+                    <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener">{v.title}</a>
+                    {transcriptSlug.has(v.id) && (
+                      <> · <a href={`/9news/${transcriptSlug.get(v.id)}`} class="text-sm">Read the transcript</a></>
+                    )}
+                  </span>
                 </li>
               ))}
             </ul>
