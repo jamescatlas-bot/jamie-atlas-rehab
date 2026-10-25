@@ -39,6 +39,7 @@ const articleSchema = {
   description,
   url,
   datePublished: published,
+  dateModified: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
@@ -245,6 +246,18 @@ const variations = [
       </div>
     </div>
   </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What the research says</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Strength is half of it. When Ettlinger and colleagues trained ski patrollers and instructors to recognise and avoid the situations where knees get hurt, serious knee sprains fell 62%, with no drop in the comparison areas (<a href="https://wbldb.lievers.net/10240080.html" target="_blank" rel="noopener">American Journal of Sports Medicine</a>, 1995). That was awareness training, not squats. Build the legs here, and bring the habits to the hill.
+        </p>
+      </div>
+    </div>
+  </section>
+
 
   <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
     <div class="max-w-3xl mx-auto text-center">

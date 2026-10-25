@@ -41,6 +41,7 @@ const articleSchema = {
   description,
   url,
   datePublished: published,
+  dateModified: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
@@ -250,6 +251,18 @@ const progressions = [
       </div>
     </div>
   </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What the research says</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          A 2014 review by Lauersen and colleagues in the <a href="https://europepmc.org/abstract/MED/24100287" target="_blank" rel="noopener">British Journal of Sports Medicine</a> pooled 25 trials with 26,610 people. Programs built on balance training cut sports injuries roughly in half. Stretching, by comparison, made no measurable difference. That's why balance work has a place in ski prep and not just in rehab.
+        </p>
+      </div>
+    </div>
+  </section>
+
 
   <section class="px-6 py-16">
     <div class="max-w-3xl mx-auto">

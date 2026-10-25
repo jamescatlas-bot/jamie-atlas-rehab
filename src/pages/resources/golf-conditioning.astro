@@ -32,6 +32,7 @@ const articleSchema = {
   description,
   url,
   datePublished: published,
+  dateModified: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
@@ -111,6 +112,18 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What the research says</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          In a 2023 survey of 1,170 male amateur golfers by Murray and colleagues in <a href="https://bmjopensem.bmj.com/content/9/1/e001504" target="_blank" rel="noopener">BMJ Open Sport &amp; Exercise Medicine</a>, 37.3% had low back pain in the previous week, the most common complaint they reported. The authors noted that's similar to the general population, so golf isn't uniquely hard on backs. But the back is where golfers feel it, and it's where conditioning pays off first.
+        </p>
+      </div>
+    </div>
+  </section>
+
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">

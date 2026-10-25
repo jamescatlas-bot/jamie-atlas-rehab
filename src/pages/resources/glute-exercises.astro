@@ -32,6 +32,7 @@ const articleSchema = {
   description,
   url,
   datePublished: published,
+  dateModified: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
@@ -108,6 +109,18 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What the research says</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          For the knee, the evidence is strong. A 2015 review of 14 studies by Lack and colleagues in the <a href="https://europepmc.org/abstract/MED/26175019" target="_blank" rel="noopener">British Journal of Sports Medicine</a> found that adding hip work to thigh strengthening beat thigh work alone for pain at the front of the knee in the short term. The back half of the story has less research behind it, which is why I treat glutes as one piece of a back plan, not the whole thing.
+        </p>
+      </div>
+    </div>
+  </section>
+
 
   <section class="px-6 py-16 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-3xl mx-auto">

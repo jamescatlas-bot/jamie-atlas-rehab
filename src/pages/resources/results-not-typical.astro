@@ -23,7 +23,7 @@ const articleSchema = {
   description,
   url,
   datePublished: published,
-  dateModified: published,
+  dateModified: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
@@ -110,6 +110,18 @@ const articleSchema = {
       </p>
     </div>
   </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">What the research says</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        <p>
+          Here's the number the before-and-after leaves out. In a 2005 review by Wing and Phelan in the <a href="https://europepmc.org/abstract/MED/16002825" target="_blank" rel="noopener">American Journal of Clinical Nutrition</a>, the authors estimated that about 20% of overweight people who lose at least 10% of their weight keep it off for a year. The other 80% is why I'd rather show you a slower result that lasts.
+        </p>
+      </div>
+    </div>
+  </section>
+
 
   <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
     <div class="max-w-3xl mx-auto text-center">
