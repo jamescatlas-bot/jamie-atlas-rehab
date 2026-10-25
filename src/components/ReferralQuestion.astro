@@ -1,0 +1,78 @@
+---
+// "How did you hear about me?" (Jamie, 25 Oct 2026). Used inside both Formspree
+// forms (/book and TellUsForm). Button-style choices; any choice except "Other"
+// reveals a "who referred you?" field and fills a hidden follow_up_note field,
+// and adds "[REFERRAL: follow up]" to the email subject so Jamie sees it in his
+// inbox at a glance. Without JavaScript the name field simply stays visible.
+interface Props {
+  idPrefix: string; // unique per form on a page
+}
+const { idPrefix } = Astro.props;
+
+const OPTIONS = [
+  { value: 'Friend', label: 'A friend' },
+  { value: 'Existing client of Jamie Atlas', label: 'An existing client of Jamie Atlas' },
+  { value: 'Medical referral', label: 'A doctor (medical referral)' },
+  { value: 'Physical therapist referral', label: 'A physical therapist' },
+  { value: 'Other', label: 'Other' },
+];
+---
+
+<fieldset class="referral-question border border-[var(--color-border)] rounded-xl p-5" data-referral>
+  <legend class="font-semibold px-2">How did you hear about me?</legend>
+  <div class="flex flex-wrap gap-2 mt-2">
+    {OPTIONS.map((o, i) => (
+      <label class="cursor-pointer">
+        <input
+          type="radio"
+          name="heard_about"
+          value={o.value}
+          id={`${idPrefix}-heard-${i}`}
+          class="peer sr-only"
+        />
+        <span class="inline-block rounded-full border border-[var(--color-border)] px-4 py-2 bg-[var(--color-background)] peer-checked:bg-[var(--color-primary)] peer-checked:border-[var(--color-primary)] peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--color-primary)] transition-colors">
+          {o.label}
+        </span>
+      </label>
+    ))}
+  </div>
+
+  <label class="block mt-5" data-referrer-wrap>
+    <span class="font-semibold">Who referred you?</span>
+    <span class="block text-sm text-[var(--color-text-muted)] mb-2">Their name, and the practice if it's a doctor or physical therapist. So I can thank them.</span>
+    <input
+      type="text"
+      name="referred_by"
+      class="w-full border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-background)]"
+    />
+  </label>
+
+  <input type="hidden" name="follow_up_note" value="" data-follow-up />
+</fieldset>
+
+<script>
+  function setupReferral(fs: HTMLElement) {
+    const form = fs.closest('form');
+    const wrap = fs.querySelector<HTMLElement>('[data-referrer-wrap]');
+    const nameInput = fs.querySelector<HTMLInputElement>('input[name="referred_by"]');
+    const note = fs.querySelector<HTMLInputElement>('[data-follow-up]');
+    const subject = form?.querySelector<HTMLInputElement>('input[name="_subject"]');
+    if (!form || !wrap || !nameInput || !note) return;
+    const baseSubject = subject?.value ?? '';
+    wrap.hidden = true;
+
+    const update = () => {
+      const picked = form.querySelector<HTMLInputElement>('input[name="heard_about"]:checked');
+      const referral = !!picked && picked.value !== 'Other';
+      wrap.hidden = !referral;
+      if (!referral) nameInput.value = '';
+      const who = nameInput.value.trim() || '(name not given)';
+      note.value = referral ? `ACTION FOR JAMIE: reach out to ${who} (${picked!.value}) with a thank-you and follow-up.` : '';
+      if (subject) subject.value = referral ? `[REFERRAL: follow up] ${baseSubject}` : baseSubject;
+    };
+
+    fs.addEventListener('change', update);
+    nameInput.addEventListener('input', update);
+  }
+  document.querySelectorAll<HTMLElement>('[data-referral]').forEach(setupReferral);
+</script>
