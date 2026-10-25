@@ -14,6 +14,11 @@
       "statusCode": 308
     },
     {
+      "source": "/9news/returning-to-the-gym",
+      "destination": "/personal-trainer-denver/over-40",
+      "statusCode": 301
+    },
+    {
       "source": "/what-we-treat",
       "destination": "/what-i-work-with",
       "statusCode": 301
