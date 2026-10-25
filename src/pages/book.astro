@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import { SITE } from '../data/site';
 import livingRoom from '../assets/hub/online-living-room.jpg';
+import ReferralQuestion from '../components/ReferralQuestion.astro';
 
 const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
 ---
@@ -73,6 +74,8 @@ const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
             <Image src={livingRoom} alt="A client training on Zoom from her living room with Jamie Atlas coaching on the laptop" width={160} height={200} format="webp" loading="lazy" class="rounded-lg border border-[var(--color-border)] w-28 sm:w-36 h-auto justify-self-center" />
           </div>
         </fieldset>
+
+        <ReferralQuestion idPrefix="book" />
 
         <label class="block">
           <span class="font-semibold">How did this start?</span>

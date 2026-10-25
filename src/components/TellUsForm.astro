@@ -3,6 +3,7 @@
 // WITHOUT the three-assessment picker (Jamie, 2026-08-08): on the this-is-you
 // pages Jamie determines which assessment fits after reading the submission.
 // The hidden `segment` field tells him which door the visitor came through.
+import ReferralQuestion from './ReferralQuestion.astro';
 const FORMSPREE_URL = 'https://formspree.io/f/mgogbyvl';
 
 interface Props {
@@ -57,6 +58,8 @@ const { segment } = Astro.props;
           </label>
         </div>
       </fieldset>
+
+      <ReferralQuestion idPrefix="tellus" />
 
       <label class="block">
         <span class="font-semibold">How did this start?</span>
