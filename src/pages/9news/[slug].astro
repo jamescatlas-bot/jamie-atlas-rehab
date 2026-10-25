@@ -1,0 +1,127 @@
+---
+// 9NEWS segment transcript pages. Data and editorial rules: src/data/ninenewsPages.ts
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ResourceVideo from '../../components/ResourceVideo.astro';
+import VideoTestimonial from '../../components/VideoTestimonial.astro';
+import { SITE } from '../../data/site';
+import { NINENEWS_PAGES, type NineNewsPage } from '../../data/ninenewsPages';
+import { TESTIMONIAL_VIDEOS } from '../../data/videos';
+
+export function getStaticPaths() {
+  return NINENEWS_PAGES.map(page => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+interface Props {
+  page: NineNewsPage;
+}
+const { page } = Astro.props;
+const url = `${SITE.url}/9news/${page.slug}`;
+const aired = new Date(page.date + 'T12:00:00Z').toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+const clientVideo = page.clientVideoId ? TESTIMONIAL_VIDEOS.find(v => v.id === page.clientVideoId) : undefined;
+const transcriptText = page.transcript.map(l => `${l.speaker}: ${l.text}`).join('\n');
+const strip = (html: string) => html.replace(/<[^>]+>/g, '');
+
+const videoSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: `${page.title} (9NEWS)`,
+  description: page.description,
+  uploadDate: page.date,
+  thumbnailUrl: `https://i.ytimg.com/vi/${page.id}/hqdefault.jpg`,
+  embedUrl: `https://www.youtube.com/embed/${page.id}`,
+  url: `https://www.youtube.com/watch?v=${page.id}`,
+  publisher: { '@type': 'Organization', name: '9NEWS' },
+  actor: { '@id': `${SITE.url}/#jamie` },
+  transcript: transcriptText,
+};
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `${page.title}: Jamie Atlas on 9NEWS`,
+  description: page.description,
+  url,
+  datePublished: '2026-10-24',
+  author: { '@id': `${SITE.url}/#jamie` },
+  publisher: { '@id': SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  about: page.note2026 ? strip(page.note2026) : undefined,
+};
+---
+
+<BaseLayout title={`${page.title}: Jamie Atlas on 9NEWS`} description={page.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <section class="px-6 pt-16 pb-10 md:pt-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">
+        <a href="/press#ninenews-archive" class="no-underline">On 9NEWS</a> · {page.date.slice(0, 4)}
+      </p>
+      <h1 class="mb-5">{page.title}</h1>
+      <p class="text-[var(--color-text-muted)]">Aired on 9NEWS, {aired}. Reprinted with permission.</p>
+    </div>
+  </section>
+
+  {page.note2026 && (
+    <section class="px-6 pb-10">
+      <div class="max-w-3xl mx-auto rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+        <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)] mb-2">2026 note from Jamie</p>
+        <p class="text-lg leading-relaxed" set:html={page.note2026} />
+      </div>
+    </section>
+  )}
+
+  <section class="px-6 pb-12">
+    <div class="max-w-3xl mx-auto">
+      <ResourceVideo id={page.id} title={`${page.title} (9NEWS)`} caption="Watch on 9NEWS's YouTube channel." />
+    </div>
+  </section>
+
+  <section class="px-6 py-14 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Transcript</h2>
+      <div class="space-y-4 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        {page.transcript.map(l => (
+          <p><strong class="text-[var(--color-text)]">{l.speaker}:</strong> {l.text}</p>
+        ))}
+        {page.clipEndsEarly && <p class="text-base italic">The clip ends here.</p>}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Afterword, 2026</h2>
+      <div class="space-y-5 text-lg text-[var(--color-text-muted)] leading-relaxed">
+        {page.afterword.map(p => <p set:html={p} />)}
+      </div>
+      {clientVideo && (
+        <div class="mt-10">
+          <VideoTestimonial video={clientVideo} headingLevel="h3" />
+        </div>
+      )}
+      <h3 class="mt-12 mb-4 text-xl">Related</h3>
+      <ul class="space-y-2 text-lg">
+        {page.related.map(r => <li><a href={r.href}>{r.label}</a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Want this built around your body?</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute assessment, $57: your history, my plain read on whether I can help, and one change you can measure before you leave.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
+      <p class="mt-8 text-sm opacity-80">
+        Or call <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
