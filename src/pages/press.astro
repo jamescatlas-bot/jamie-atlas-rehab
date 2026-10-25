@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BannerSection from '../components/BannerSection.astro';
 import { SITE } from '../data/site';
 import { PRESS_VIDEOS } from '../data/videos';
+import { NINENEWS_SEGMENTS } from '../data/ninenews';
 import PressStrip from '../components/PressStrip.astro';
 import { Image } from 'astro:assets';
 import press9news from '../assets/home/press-9news.jpg';
@@ -112,6 +113,37 @@ const DENVER_POST_SERIES = [
     resource: '/resources/snowshoe-preparation',
   },
 ];
+
+// Full 9NEWS archive (Jamie, 24 Oct 2026). ItemList of VideoObjects so search and AI
+// engines can tie each 9NEWS-hosted segment to Jamie.
+const nineNewsByYear = NINENEWS_SEGMENTS.reduce<Record<string, typeof NINENEWS_SEGMENTS>>((acc, v) => {
+  const y = v.date.slice(0, 4);
+  (acc[y] ||= []).push(v);
+  return acc;
+}, {});
+const fmtDate = (iso: string) =>
+  new Date(iso + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+const nineNewsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Jamie Atlas on 9NEWS: fitness segments, 2017 to 2022',
+  numberOfItems: NINENEWS_SEGMENTS.length,
+  itemListElement: NINENEWS_SEGMENTS.map((v, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'VideoObject',
+      name: `${v.title} (9NEWS)`,
+      description: `9NEWS fitness segment featuring Denver personal trainer Jamie Atlas: ${v.title.toLowerCase()}.`,
+      uploadDate: v.date,
+      thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
+      embedUrl: `https://www.youtube.com/embed/${v.id}`,
+      url: `https://www.youtube.com/watch?v=${v.id}`,
+      publisher: { '@type': 'Organization', name: '9NEWS' },
+      actor: { '@id': `${SITE.url}/#jamie` },
+    },
+  })),
+};
 ---
 
 <BaseLayout
@@ -181,6 +213,32 @@ const DENVER_POST_SERIES = [
             </div>
             <figcaption class="mt-3 text-sm text-[var(--color-text-muted)]">{v.title}</figcaption>
           </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="ninenews-archive" class="px-6 py-16">
+    <script type="application/ld+json" set:html={JSON.stringify(nineNewsSchema)} />
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-4">Every 9NEWS segment on YouTube</h2>
+      <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-10">
+        The {NINENEWS_SEGMENTS.length} segments 9NEWS posted to its own YouTube channel between 2017 and 2022. Many
+        more aired that were only ever posted on 9news.com. Each link opens the segment on 9NEWS's channel.
+      </p>
+      <div class="space-y-8">
+        {Object.entries(nineNewsByYear).map(([year, items]) => (
+          <div>
+            <h3 class="mb-3 text-xl">{year}</h3>
+            <ul class="space-y-2 text-[var(--color-text-muted)]">
+              {items.map(v => (
+                <li class="flex gap-3">
+                  <span class="w-14 shrink-0 text-sm pt-0.5">{fmtDate(v.date)}</span>
+                  <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener">{v.title}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
     </div>
