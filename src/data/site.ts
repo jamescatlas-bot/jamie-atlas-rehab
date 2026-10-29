@@ -12,14 +12,15 @@
 
 export const SITE = {
   // Name decided 2026-09-05 (brand pivot): site + citations first, GBP name LAST.
-  // GBP still reads "Jamie Atlas Rehabilitation & Personal Training" until Jamie
-  // changes it; the old form stays in alternateNames so Google reconciles both.
+  // GBP renamed to match on 29 Oct 2026; the old form stays in alternateNames
+  // so Google reconciles the older citations to this entity.
   name: 'Jamie Atlas Personal Training & Rehabilitation',
   shortName: 'Jamie Atlas',
   tagline: "Denver's personal trainer for bodies with a history.",
-  // Homepage meta description (doc 70 §2.1, "Named" per doc 71). 155 chars.
+  // Homepage meta description (Jamie, 29 Oct 2026): 6× badge + 9NEWS lead,
+  // matching the Google Business Profile description. Keep under ~160 chars.
   description:
-    "Named 5280's Best Personal Trainer in Denver three times. Rehab specialist, private downtown studio, nutrition coaching included, one client at a time. $57 assessment.",
+    "6× 5280 Top of the Town winner and 9NEWS fitness expert, 25 years training Denver. Personal training and rehab in a private downtown studio. $57 assessment.",
 
   // THE award badge (Jamie, 9 Sep 2026, doc 71). Import it; never retype it.
   // Always "5280 Top of the Town", never a bare "Top of the Town". Never
