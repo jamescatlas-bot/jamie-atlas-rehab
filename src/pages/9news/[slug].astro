@@ -47,6 +47,8 @@ const articleSchema = {
   url,
   datePublished: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
+  // The segment's own YouTube frame, same as the VideoObject above.
+  image: `https://i.ytimg.com/vi/${page.id}/hqdefault.jpg`,
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
   about: page.note2026 ? strip(page.note2026) : undefined,
