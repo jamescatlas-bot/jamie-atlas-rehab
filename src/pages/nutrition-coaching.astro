@@ -1,0 +1,190 @@
+---
+// NUTRITION COACHING PAGE (SEO/GEO audit, Nov 2026). Nutrition is included in
+// the session fee (Jamie, Sep 2026) for GLP-1 users, sports performance and
+// weight-related goals. Until now it only had a paragraph on the hub
+// (/personal-trainer-denver#nutrition), so nothing on the site could rank or
+// be cited for "nutrition coaching Denver".
+// Claim rules: no diet promises, no numbers we can't source, no banned words
+// (see the audit report). Not medical nutrition therapy and not a dietitian:
+// medical diets stay with the client's doctor or a registered dietitian.
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StickyBook from '../components/StickyBook.astro';
+import { SITE } from '../data/site';
+
+import kettlebell from '../assets/hub/online-kettlebell.jpg';
+
+const title = 'Nutrition Coaching in Denver, Included With Personal Training';
+const description =
+  'Nutrition coaching from a Certificate IV coach, included in every personal training session in downtown Denver or on Zoom. For GLP-1, sport and weight goals.';
+
+const faq = [
+  {
+    q: 'Does nutrition coaching cost extra?',
+    a: `No. Nutrition coaching is included in the session fee: ${SITE.pricing.session60} for 60 minutes or ${SITE.pricing.session30} for 30, in the studio or on Zoom. There's no separate appointment and no separate bill.`,
+  },
+  // TODO(Jamie): confirm you don't sell nutrition coaching on its own. If you
+  // do, change this answer (and add the price to SITE.offers).
+  {
+    q: 'Can I book nutrition coaching on its own?',
+    a: 'It comes with training rather than as a stand-alone service, because the food side and the training side are one plan. The first step is the 30-minute assessment.',
+  },
+  // TODO(Jamie): check the dietitian line says what you'd say out loud.
+  {
+    q: 'Are you a dietitian?',
+    a: "No. I hold a Certificate IV in Nutrition Coaching. I'm not a registered dietitian, and I don't prescribe diets for medical conditions. If you need medical nutrition therapy, for diabetes or kidney disease for example, that stays with your doctor or a registered dietitian, and I'll work alongside them.",
+  },
+  {
+    q: "I'm on Ozempic, Wegovy or Mounjaro. Is this for me?",
+    a: 'Yes. Appetite drops hard on a GLP-1, and protein is usually the first thing to slide. We set a target in the assessment and adjust it as you go. Medication decisions stay with your prescriber.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Nutrition coaching (included with personal training)',
+  serviceType: 'Nutrition coaching',
+  provider: { '@id': SITE.url },
+  areaServed: { '@type': 'City', name: 'Denver' },
+  url: `${SITE.url}/nutrition-coaching`,
+  description: 'Nutrition coaching included in every personal training session, for people on GLP-1 medication, people training for sport, and weight-related goals. Delivered by Jamie Atlas, Certificate IV in Nutrition Coaching.',
+  offers: [
+    { '@type': 'Offer', name: '30-minute assessment (first visit)', price: '57', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: '60-minute session, nutrition coaching included', price: '200', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: '30-minute session, nutrition coaching included', price: '110', priceCurrency: 'USD' },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} breadcrumbName="Nutrition coaching" image="/studio-coaching.jpg">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+  <!-- HERO -->
+  <section class="px-6 pt-14 pb-10 md:pt-20">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-[1.1fr_.9fr] gap-10 items-center">
+      <div>
+        <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Nutrition coaching</p>
+        <h1 class="mb-6">Nutrition coaching in Denver, included in every session</h1>
+        <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+          The training and the food are one plan, so they come from one person in the same hour. No separate
+          appointment, no separate bill.
+        </p>
+        <p class="mt-7 flex flex-wrap items-center gap-4">
+          <a href="/book" class="cta-button text-lg">Book a 30-minute assessment</a>
+          <span class="text-[var(--color-text-muted)]">{SITE.pricing.firstVisit}, in the studio or on Zoom</span>
+        </p>
+        <p class="mt-5 text-sm font-semibold text-[var(--color-primary)]">
+          {SITE.awardBadge} · {SITE.mediaLine} · {SITE.contact.address.street}, downtown Denver
+        </p>
+      </div>
+      <Image
+        src={kettlebell}
+        alt="A client training with a kettlebell in her home office during a Zoom session with Jamie Atlas"
+        widths={[640, 1000]}
+        sizes="(min-width: 768px) 45vw, 100vw"
+        format="webp"
+        loading="eager"
+        fetchpriority="high"
+        class="rounded-xl border border-[var(--color-border)] w-full h-auto"
+      />
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="px-6 py-12 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="max-w-3xl mx-auto space-y-6 text-lg text-[var(--color-text-muted)] leading-relaxed">
+      <p class="text-[var(--color-text)] font-semibold text-xl">
+        In short: I hold a Certificate IV in Nutrition Coaching, and it's part of every training session, in the
+        studio or on Zoom.
+      </p>
+      <p>
+        You can train well and still stall because the food side never got looked at. You can also eat carefully and
+        get nowhere because the training isn't asking your body for anything. I'd rather handle both, so they pull in
+        the same direction.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">Who it helps most</h2>
+      <p>
+        <strong class="text-[var(--color-text)]">People on a GLP-1.</strong> Ozempic, Wegovy, Mounjaro, Zepbound.
+        Appetite drops and protein is usually the first thing to go. The job is keeping your muscle while the
+        medication does its work. <a href="/personal-trainer-denver/glp-1">More on training on a GLP-1 →</a>
+      </p>
+      <p>
+        <strong class="text-[var(--color-text)]">People training for a sport.</strong> Skiers getting ready for the
+        season, golfers, runners, hikers and cyclists. Eating enough to train, recover and show up strong on the day.
+        <a href="/for">Training by activity →</a>
+      </p>
+      <p>
+        <strong class="text-[var(--color-text)]">People with a weight-related goal.</strong> I'd rather you measure
+        what the weight is made of than chase the scale.
+        <a href="/resources/why-the-scale-lies">Why the scale lies →</a>
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">How it works</h2>
+      <p>
+        It starts in the 30-minute assessment, {SITE.pricing.firstVisit}. We talk about what you eat now, what
+        you've tried, and what gets in the way. Then we set one or two targets you'll actually hit, in food you'll
+        actually eat.
+      </p>
+      <p>
+        After that it's part of the session. We check in, adjust, and keep it simple. Sessions are
+        {SITE.pricing.session60} for 60 minutes or {SITE.pricing.session30} for 30, the same in the studio at
+        {SITE.contact.address.street} in downtown Denver or on Zoom.
+      </p>
+
+      <h2 class="text-sm font-bold tracking-[0.12em] uppercase text-[var(--color-primary)] mb-2 pt-6">What it isn't</h2>
+      <p>
+        It isn't a meal plan you get emailed and forget. It isn't a diet with a name. And it isn't medical nutrition
+        therapy: I'm not a registered dietitian, and if you have a condition that needs a medical diet, that stays with
+        your doctor or dietitian. I'll work alongside them.
+      </p>
+      <p>Results vary from person to person.</p>
+
+      <p class="text-[var(--color-text)] font-semibold pt-4">
+        Bottom line: the food side is included, it's handled by the same person who trains you, and it starts at the
+        assessment.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-6 py-14">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="mb-6">Questions about nutrition coaching</h2>
+      <div>
+        {faq.map((f, i) => (
+          <details open={i === 0} class="border-t border-[var(--color-border)] py-4 last:border-b">
+            <summary class="font-serif font-bold text-xl cursor-pointer">{f.q}</summary>
+            <p class="mt-3 text-lg text-[var(--color-text-muted)] leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+      <p class="mt-6 text-base">More questions? <a href="/faq">The full FAQ →</a></p>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Thirty minutes. One measurable change. Then you decide.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute assessment, {SITE.pricing.firstVisit}, in the studio or on Zoom. If it's not a fit I'll say so in
+        the first half hour.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
+      <p class="mt-8 text-sm opacity-80">
+        {SITE.contact.address.street}, {SITE.contact.address.level} · <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+      </p>
+    </div>
+  </section>
+
+  <StickyBook />
+</BaseLayout>

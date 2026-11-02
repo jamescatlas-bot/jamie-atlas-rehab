@@ -1,0 +1,186 @@
+---
+// FAQ PAGE (SEO/GEO audit, Nov 2026). One page that answers, in plain
+// sentences, the questions people (and AI answer engines) ask about training
+// with Jamie. Every answer stands on its own so it can be quoted without the
+// question, and every fact comes from src/data/site.ts or copy Jamie already
+// approved elsewhere on the site. Nothing here is new biography.
+// Visible text and FAQPage schema are generated from the same array, word for
+// word.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StickyBook from '../components/StickyBook.astro';
+import { SITE } from '../data/site';
+import { GOOGLE_RATING } from '../data/reviews';
+
+const addr = SITE.contact.address;
+const fullAddress = `${addr.street}, ${addr.level}, ${addr.city}, ${addr.state} ${addr.zip}`;
+
+const title = 'Personal Training FAQ: Prices, Assessment, Location | Denver';
+const description =
+  'Straight answers about training with Jamie Atlas in downtown Denver: the $57 assessment, $200/60 and $110/30 sessions, nutrition, Zoom, parking and credentials.';
+
+type QA = { q: string; a: string; link?: { href: string; label: string } };
+type Group = { heading: string; items: QA[] };
+
+const groups: Group[] = [
+  {
+    heading: 'Price and booking',
+    items: [
+      {
+        q: 'How much does personal training with Jamie Atlas cost?',
+        a: `Your first visit is a 30-minute assessment for ${SITE.pricing.firstVisit}. After that, sessions are ${SITE.pricing.session60} for 60 minutes or ${SITE.pricing.session30} for 30 minutes. The price is the same in the studio or on Zoom, and nutrition coaching is included in the session fee.`,
+        link: { href: '/book', label: 'Book the $57 assessment' },
+      },
+      {
+        q: 'What happens in the $57 assessment?',
+        a: "Thirty minutes. You tell me your story, I look at how you move, we find one change you can measure before you leave, and I give you my plain read on whether I can help. If I can't, I'll tell you who can.",
+        link: { href: '/how-it-works', label: 'How it works, start to finish' },
+      },
+      {
+        q: 'Do I need a referral or insurance?',
+        a: "No. It's cash pay with no referral needed. I'm a personal trainer with rehab training, so nothing here goes through insurance.",
+      },
+      {
+        q: 'Can I train online?',
+        a: `Yes. Online sessions on Zoom are full 30- or 60-minute one-on-one sessions, with the same program and the same price as the studio: ${SITE.pricing.session60} for 60 minutes, ${SITE.pricing.session30} for 30. Plenty of clients do a mix.`,
+      },
+    ],
+  },
+  {
+    heading: 'Who it is for',
+    items: [
+      {
+        q: 'Who do you train?',
+        a: 'Adults who want to train hard, often around a knee, back, shoulder or neck with a history. That includes people coming back from surgery, people getting strong after 40, 50 and 60, people on GLP-1 medication who want to keep their muscle, and skiers, golfers, runners, hikers and cyclists who want to keep doing their sport.',
+        link: { href: '/for', label: 'By activity' },
+      },
+      {
+        q: "I've got a bad knee, back or shoulder. Can I still train?",
+        a: 'That is most of who I train. The first visit is an assessment so we know what your body will accept today, and the program is built around that joint rather than around avoiding it.',
+        link: { href: '/what-i-work-with', label: 'What I work with' },
+      },
+      {
+        q: 'Is nutrition coaching included?',
+        a: "Yes. I hold a Certificate IV in Nutrition Coaching and it comes with every session. There's no separate nutrition appointment and no separate bill. It matters most for people on a GLP-1, people training for sport, and anyone with a weight-related goal.",
+        link: { href: '/nutrition-coaching', label: 'Nutrition coaching' },
+      },
+      {
+        q: 'Is this a gym?',
+        a: "No. It's a private studio, one client at a time, on the basement level of an office building in downtown Denver. Nobody is waiting for the squat rack.",
+      },
+    ],
+  },
+  {
+    heading: 'Jamie and his credentials',
+    items: [
+      {
+        q: 'Who is Jamie Atlas?',
+        a: `Jamie Atlas is a Denver personal trainer and rehab specialist (${SITE.awardBadge}), the ${SITE.mediaLine}, with ${SITE.experienceLine}. He runs ${SITE.name}, a one-trainer studio at ${fullAddress}.`,
+        link: { href: '/about', label: 'About Jamie' },
+      },
+      {
+        q: 'What qualifications does Jamie Atlas have?',
+        a: "I hold a BSc in Neuroscience from the Australian National University (ANU). I'm an NSCA Certified Strength and Conditioning Specialist (CSCS) and a NASM Certified Personal Trainer, I trained in Cognitive Functional Therapy (CFT) under Peter O'Sullivan, I did a 40-week mentorship in Applied Functional Science with Gary Gray at the Gray Institute, and I hold a Certificate IV in Nutrition Coaching.",
+      },
+      {
+        q: 'Are you a physical therapist?',
+        a: "No. I'm a personal trainer with rehabilitation training. In Colorado, physical therapist and PT are protected titles, and I don't hold the licence, so I don't use either. I don't diagnose and I don't bill insurance. If something needs a medical assessment first, I'll tell you and tell you who to see.",
+        link: { href: '/resources/personal-trainer-or-physical-therapist', label: 'Personal trainer or physical therapist?' },
+      },
+      {
+        q: 'Was Jamie Atlas named best personal trainer in Denver?',
+        a: "5280 Top of the Town named me Denver's Best Personal Trainer three times. In all I'm a 6× 5280 Top of the Town winner and a 2× Denver A-List winner. \"Best\" still depends on what you need, so the assessment is where we find out whether I'm the right fit for you.",
+        link: { href: '/press', label: 'Press & Awards, with sources' },
+      },
+      {
+        q: 'Was the studio called something else before?',
+        a: `Yes. The studio traded as Bonza Bodies until 2026, and has also been listed as Jamie Atlas Rehabilitation & Personal Training. Same trainer, same studio at ${addr.street}. The current name is ${SITE.name}.`,
+      },
+    ],
+  },
+  {
+    heading: 'Finding the studio',
+    items: [
+      {
+        q: 'Where is the studio?',
+        a: `${fullAddress}, between 18th and 19th on Glenarm, two blocks from the 16th Street Mall. Take the elevator to B.`,
+        link: { href: '/studio', label: 'Directions, parking and photos' },
+      },
+      {
+        q: 'Where do I park?',
+        a: SITE.parking,
+      },
+      {
+        q: 'What are the studio hours?',
+        a: `Monday to Friday ${SITE.hours.weekdays}, Saturday ${SITE.hours.saturday}, Sunday closed.`,
+      },
+      {
+        q: 'How do I get in touch?',
+        a: `Call ${SITE.contact.phone}, email ${SITE.contact.email}, or book the 30-minute assessment online.`,
+      },
+    ],
+  },
+];
+
+const allItems = groups.flatMap(g => g.items);
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: allItems.map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} breadcrumbName="FAQ">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="px-6 pt-14 pb-10 md:pt-20">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-serif italic text-[var(--color-primary)] mb-3 text-lg">Questions</p>
+      <h1 class="mb-6">Personal training in downtown Denver: straight answers</h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        What it costs, what the first visit is, where the studio is, and who I am. If your question isn't here, call <a href={`tel:${SITE.contact.phoneTel}`}>{SITE.contact.phone}</a> and I'll answer it.
+      </p>
+      <p class="mt-5 text-sm font-semibold text-[var(--color-primary)]">
+        {SITE.awardBadge} · {SITE.mediaLine} · Rated {GOOGLE_RATING.stars.toFixed(1)} on Google
+      </p>
+    </div>
+  </section>
+
+  {groups.map((g, gi) => (
+    <section class:list={['px-6 py-12', gi % 2 === 0 && 'bg-[var(--color-surface)] border-y border-[var(--color-border)]']}>
+      <div class="max-w-3xl mx-auto">
+        <h2 class="mb-6">{g.heading}</h2>
+        <div>
+          {g.items.map(f => (
+            <div class="border-t border-[var(--color-border)] py-5 last:border-b">
+              <h3 class="font-serif font-bold text-xl mb-2">{f.q}</h3>
+              <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">{f.a}</p>
+              {f.link && (
+                <p class="mt-2 text-base"><a href={f.link.href}>{f.link.label} →</a></p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="px-6 py-20 bg-[var(--color-primary)] text-on-dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="mb-6 text-white">Thirty minutes. One measurable change. Then you decide.</h2>
+      <p class="text-xl mb-10 opacity-95">
+        A 30-minute assessment, {SITE.pricing.firstVisit}, in the studio or on Zoom.
+      </p>
+      <a href="/book" class="cta-button cta-button-accent text-lg">Book a 30-minute assessment</a>
+      <p class="mt-8 text-sm opacity-80">
+        {addr.street}, {addr.level}, {addr.city}, {addr.state} {addr.zip} · <a href={`tel:${SITE.contact.phoneTel}`} class="text-white underline">{SITE.contact.phone}</a>
+      </p>
+    </div>
+  </section>
+
+  <StickyBook />
+</BaseLayout>
