@@ -28,6 +28,24 @@ export const SITE = {
   // the sentence is specifically about the Best Personal Trainer award.
   awardBadge: '6× 5280 Top of the Town winner · 2× Denver A-List winner',
 
+  // The full trust line (Jamie, Oct 2026: main credential push across the
+  // board). Footer trust strip, schema descriptions and llms.txt read this.
+  experienceLine: '25 years training Denver',
+  mediaLine: '9NEWS fitness expert',
+
+  // Priced offers, emitted as schema.org Offer inside an OfferCatalog so AI
+  // answer engines can quote the real prices. Same numbers as `pricing`.
+  offers: [
+    { name: 'First visit: 30-minute assessment', description: 'Your story, a look at how you move, one measurable change before you leave, and a plain answer on whether I can help. In the studio or on Zoom.', price: '57', minutes: 30 },
+    { name: '60-minute personal training session', description: 'One-on-one training with rehab and nutrition coaching included. Same price in the studio or on Zoom.', price: '200', minutes: 60 },
+    { name: '30-minute personal training session', description: 'One-on-one training with rehab and nutrition coaching included. Same price in the studio or on Zoom.', price: '110', minutes: 30 },
+  ],
+
+  // Education, emitted as schema.org alumniOf on the Person.
+  // TODO(Jamie): the site says "BSc Neuroscience"; your notes say a
+  // neuroscience AND psychology degree. Confirm the exact degree title.
+  education: { name: 'Australian National University', url: 'https://www.anu.edu.au/' },
+
   // Pricing, single source of truth (Jamie, 6 Sep 2026).
   pricing: {
     firstVisit: '$57',
@@ -93,6 +111,11 @@ export const SITE = {
     // Claimed listing (renamed from Bonza Bodies, Oct 2026). Footer wording must
     // stay "Find us on Yelp": Yelp treats "review us" links as solicitation.
     yelpUrl: 'https://www.yelp.com/biz/jamie-atlas-personal-training-and-rehabilitation-denver',
+    // TODO(Jamie): YouTube channel "jamieatlas". Paste the exact channel URL
+    // (e.g. https://www.youtube.com/@jamieatlas) and it is emitted in the
+    // Person and business sameAs automatically. Left empty because a wrong
+    // URL in sameAs points Google at someone else's channel.
+    youtubeUrl: '',
   },
 
   // Authoritative third-party profiles for this business, emitted as schema.org
@@ -189,9 +212,11 @@ export const SITE = {
     { name: "Runner's World", file: 'press/runnersworld.png', h: 17 },
   ],
 
+  // `issuer` is emitted as recognizedBy so the credential names the body that
+  // grants it. Left off where the issuer name isn't stated on the site.
   credentials: [
-    { name: 'NSCA Certified Strength & Conditioning Specialist', short: 'NSCA-CSCS' },
-    { name: 'NASM Certified Personal Trainer', short: 'NASM-CPT' },
+    { name: 'NSCA Certified Strength & Conditioning Specialist', short: 'NSCA-CSCS', issuer: 'National Strength and Conditioning Association' },
+    { name: 'NASM Certified Personal Trainer', short: 'NASM-CPT', issuer: 'National Academy of Sports Medicine' },
     { name: "Cognitive Functional Therapy (CFT), trained under Peter O'Sullivan", short: 'CFT' },
     { name: 'Certified FAFS (Gray Institute), Applied Functional Science', short: 'FAFS' },
     { name: 'Certificate IV in Nutrition Coaching', short: 'Nutrition Coaching' },

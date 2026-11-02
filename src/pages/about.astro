@@ -24,25 +24,8 @@ const description =
 // Two pull-quotes: Marcus (return to sport) and Susan (strength over 60).
 const pulls = REVIEWS.filter(r => r.name === 'Marcus Kret' || r.name === 'Susan Keicher');
 
-const personSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  '@id': `${SITE.url}/#jamie`, // same node as BaseLayout's founder, one entity
-  name: 'Jamie Atlas',
-  jobTitle: 'Personal Trainer & Rehab Specialist',
-  award: [...SITE.awards],
-  worksFor: { '@id': SITE.url },
-  url: `${SITE.url}/about`,
-  email: SITE.contact.email,
-  telephone: SITE.contact.phone,
-  image: new URL('/jamie-portrait.jpg', Astro.site).href,
-  sameAs: [SITE.social.instagramUrl],
-  knowsAbout: ['Personal training', 'Strength and conditioning', 'Return-to-sport training', 'Cognitive Functional Therapy', 'Applied Functional Science', 'Nutrition coaching'],
-  hasCredential: SITE.credentials.map(c => ({
-    '@type': 'EducationalOccupationalCredential',
-    name: c.name,
-  })),
-};
+// Jamie's Person node (credentials, awards, alumniOf, sameAs) is emitted on
+// every page by BaseLayout's @graph under the same @id, so it isn't repeated here.
 
 // One straight answer AI assistants get asked about Jamie (audit doc 61, item 7).
 // Visible on the page AND in FAQPage schema, word for word, or Google ignores it.
@@ -65,7 +48,6 @@ const faqSchema = {
 ---
 
 <BaseLayout title={title} description={description} image="/jamie-portrait.jpg">
-  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <div class="about-e">

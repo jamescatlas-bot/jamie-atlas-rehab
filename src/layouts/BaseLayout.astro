@@ -22,15 +22,47 @@ interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  /** Short name for this page in the BreadcrumbList. Defaults to the title. */
+  breadcrumbName?: string;
+  /** 'article' for resource/news pages; 'website' everywhere else. */
+  ogType?: 'website' | 'article';
+  /** Alt text for the share image. */
+  imageAlt?: string;
 }
 
-const { title, description = SITE.description, image = '/og-default.png', noindex = false } = Astro.props;
+const {
+  title,
+  description = SITE.description,
+  image = '/og-default.png',
+  noindex = false,
+  breadcrumbName,
+  ogType,
+  imageAlt,
+} = Astro.props;
 // Brand suffix only when it still fits in Google's ~60-char title slot
 // (doc 69 item 9). Long interior titles stand alone.
 const fullTitle =
   title.includes(SITE.shortName) || title.length > 48 ? title : `${title} | ${SITE.shortName}`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 const ogImageUrl = new URL(image, Astro.site).href;
+const isArticlePath = /^\/(resources|9news)\/[^/]+/.test(Astro.url.pathname);
+const resolvedOgType = ogType ?? (isArticlePath ? 'article' : 'website');
+const resolvedImageAlt = imageAlt ?? `${SITE.name}, downtown Denver`;
+
+// ---------------------------------------------------------------------------
+// STRUCTURED DATA: one @graph per page (WebSite, the business, Jamie, and a
+// BreadcrumbList on interior pages). Page-level schema (FAQPage, Service,
+// Article, VideoObject) stays in each page and points at these @ids.
+//
+// Business type (SEO/GEO audit, Nov 2026): SportsActivityLocation is kept on
+// purpose. Google asks for the most specific LocalBusiness subtype, but the
+// more specific candidates (ExerciseGym, HealthClub) both say "gym", and the
+// homepage FAQ says in so many words "Is this a gym? No." HealthClub also
+// inherits HealthAndBeautyBusiness. Medical types (MedicalBusiness,
+// Physiotherapy) are wrong: Jamie is not a licensed physical therapist.
+// ---------------------------------------------------------------------------
+const youtube = SITE.social.youtubeUrl ? [SITE.social.youtubeUrl] : [];
+const trustLine = `${SITE.awardBadge} · ${SITE.mediaLine} · ${SITE.experienceLine}`;
 
 // Jamie as a named entity, so credentials attach to a person rather than
 // floating as page text. Helps Google resolve who is delivering the care.
@@ -38,34 +70,59 @@ const founderSchema = {
   '@type': 'Person',
   '@id': `${SITE.url}/#jamie`,
   name: 'Jamie Atlas',
-  // Title decided 2026-08-07: plain-English title sells, certification
-  // credentials. CFT stays in hasCredential/knowsAbout, never as the title.
-  // Title decided 2026-09-05 (brand pivot).
+  // Title decided 2026-09-05 (brand pivot). CFT stays in
+  // hasCredential/knowsAbout, never as the title.
   jobTitle: 'Personal Trainer & Rehab Specialist',
-  award: [...SITE.awards],
+  description: `Denver personal trainer and rehab specialist. ${trustLine}. Former professional basketball player; has trained UFC, NBA and NFL athletes and military personnel.`,
+  award: [SITE.awardBadge, ...SITE.awards],
   url: `${SITE.url}/about`,
   // Same facts /about carries, so the Person node is complete on every page,
   // not only the one AI crawlers may never reach (audit doc 61, item 5).
   image: new URL('/jamie-portrait.jpg', Astro.site).href,
+  email: SITE.contact.email,
+  telephone: SITE.contact.phoneTel,
   worksFor: { '@id': SITE.url },
-  sameAs: [SITE.social.instagramUrl],
-  knowsAbout: ['Personal training', 'Strength and conditioning', 'Return-to-sport training', 'Cognitive Functional Therapy', 'Applied Functional Science', 'Nutrition coaching'],
+  alumniOf: { '@type': 'CollegeOrUniversity', name: SITE.education.name, sameAs: SITE.education.url },
+  sameAs: [SITE.social.instagramUrl, ...youtube],
+  knowsAbout: ['Personal training', 'Strength and conditioning', 'Return-to-sport training', 'Training after injury', 'Strength training over 40', 'Strength training on GLP-1 medication', 'Cognitive Functional Therapy', 'Applied Functional Science', 'Nutrition coaching'],
   hasCredential: SITE.credentials.map(c => ({
     '@type': 'EducationalOccupationalCredential',
     name: c.name,
+    ...('issuer' in c && c.issuer ? { recognizedBy: { '@type': 'Organization', name: c.issuer } } : {}),
+  })),
+};
+
+const offerCatalog = {
+  '@type': 'OfferCatalog',
+  name: 'Personal training and rehab sessions',
+  itemListElement: SITE.offers.map(o => ({
+    '@type': 'Offer',
+    name: o.name,
+    description: o.description,
+    price: o.price,
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    url: `${SITE.url}/book`,
+    itemOffered: {
+      '@type': 'Service',
+      name: o.name,
+      serviceType: 'Personal training',
+      provider: { '@id': SITE.url },
+      areaServed: { '@type': 'City', name: 'Denver' },
+    },
   })),
 };
 
 const localBusinessSchema = {
-  '@context': 'https://schema.org',
   // Personal-training business, matching the GBP primary category (doc 69 item 2).
   // NOT a medical/PT entity: Jamie is not a Colorado-licensed physical therapist.
   '@type': ['LocalBusiness', 'SportsActivityLocation'],
   '@id': SITE.url,
   name: SITE.name,
   // Legacy trading names — lets Google reconcile the old Bonza Bodies
-  // citations and this business as a single entity.
+  // citations and this business as a single entity. Former names only.
   alternateName: [...SITE.alternateNames],
+  slogan: SITE.tagline,
   url: SITE.url,
   logo: new URL('/logo-blue.png', Astro.site).href,
   image: [
@@ -75,18 +132,21 @@ const localBusinessSchema = {
   ],
   telephone: SITE.contact.phoneTel,
   email: SITE.contact.email,
-  description: SITE.description,
+  description: `${SITE.name}: personal training that includes rehab and nutrition coaching, one client at a time, in a private studio in downtown Denver and on Zoom. ${trustLine}. First visit is a 30-minute assessment, ${SITE.pricing.firstVisit}; sessions are ${SITE.pricing.session60} for 60 minutes or ${SITE.pricing.session30} for 30. Formerly Bonza Bodies.`,
   priceRange: '$$',
-  award: [...SITE.awards],
+  currenciesAccepted: 'USD',
+  award: [SITE.awardBadge, ...SITE.awards],
   founder: founderSchema,
   employee: { '@id': `${SITE.url}/#jamie` },
+  knowsAbout: founderSchema.knowsAbout,
   makesOffer: SITE.services.map(s => ({
     '@type': 'Offer',
     itemOffered: { '@type': 'Service', name: s },
   })),
+  hasOfferCatalog: offerCatalog,
   hasMap: `https://www.google.com/maps/place/?q=place_id:${SITE.placeId}`,
   // profiles[0] is the Maps URL, already carried by hasMap — don't repeat it.
-  sameAs: [SITE.social.instagramUrl, REVIEWS_URL, ...SITE.profiles.filter(p => !p.includes('google.com/maps'))],
+  sameAs: [SITE.social.instagramUrl, ...youtube, REVIEWS_URL, ...SITE.profiles.filter(p => !p.includes('google.com/maps'))],
   address: {
     '@type': 'PostalAddress',
     streetAddress: `${SITE.contact.address.street}, ${SITE.contact.address.level}`,
@@ -116,6 +176,55 @@ const localBusinessSchema = {
     },
   ],
 };
+
+const websiteSchema = {
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  url: SITE.url,
+  name: SITE.name,
+  alternateName: SITE.shortName,
+  inLanguage: 'en-US',
+  publisher: { '@id': SITE.url },
+};
+
+// BreadcrumbList from the URL. Parent folders without their own page are
+// mapped to the nearest real page (/9news -> /press) or skipped.
+const crumbParents: Record<string, { name: string; href: string } | null> = {
+  'personal-trainer-denver': { name: 'Personal training in Denver', href: '/personal-trainer-denver' },
+  'what-i-work-with': { name: 'What I work with', href: '/what-i-work-with' },
+  for: { name: "Who it's for", href: '/for' },
+  resources: { name: 'Resources', href: '/resources' },
+  '9news': { name: 'Press & Awards', href: '/press' },
+  'this-is-you': null,
+};
+const pathParts = Astro.url.pathname.replace(/\/+$/, '').split('/').filter(Boolean);
+const leafName = (breadcrumbName ?? title.split(/ \| |: Jamie Atlas| — /)[0]).trim();
+const crumbs: { name: string; href: string }[] = [{ name: 'Home', href: '/' }];
+pathParts.forEach((part, i) => {
+  const isLeaf = i === pathParts.length - 1;
+  if (isLeaf) {
+    crumbs.push({ name: leafName, href: '/' + pathParts.join('/') });
+  } else if (crumbParents[part]) {
+    crumbs.push(crumbParents[part]!);
+  }
+});
+const breadcrumbSchema =
+  pathParts.length > 0 && !noindex
+    ? {
+        '@type': 'BreadcrumbList',
+        itemListElement: crumbs.map((c, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: c.name,
+          item: new URL(c.href, Astro.site).href,
+        })),
+      }
+    : null;
+
+const graphSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [websiteSchema, localBusinessSchema, ...(breadcrumbSchema ? [breadcrumbSchema] : [])],
+};
 ---
 
 <!doctype html>
@@ -127,25 +236,28 @@ const localBusinessSchema = {
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl} />
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
 
     {noindex && <meta name="robots" content="noindex" />}
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={resolvedOgType} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={resolvedImageAlt} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={resolvedImageAlt} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(graphSchema)} />
 
     <!-- Google Analytics (GA4) -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-NX0CJB6460"></script>
