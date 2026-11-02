@@ -1,4 +1,4 @@
-# Jamie Atlas Rehab & Performance
+# Jamie Atlas Personal Training & Rehabilitation
 
 Production site for [jamieatlas.com](https://www.jamieatlas.com), built with **Astro 5 + Tailwind CSS 4 + Vercel**.
 
@@ -29,7 +29,7 @@ Every push to `main` auto-deploys to Vercel.
 
 - **Site-wide config** (phone, email, hours, etc.): `src/data/site.ts`
 - **Pages** (Home, About, etc.): `src/pages/*.astro`
-- **Condition sub-pages**: `src/pages/what-we-treat/*.astro`
+- **Condition sub-pages**: `src/data/conditions.ts` (rendered by `src/pages/what-i-work-with/[slug].astro`)
 - **Blog/resources** (long-form content): `src/content/resources/*.md` (TODO: set up content collection)
 
 ## Important constraints
