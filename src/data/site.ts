@@ -42,8 +42,7 @@ export const SITE = {
   ],
 
   // Education, emitted as schema.org alumniOf on the Person.
-  // TODO(Jamie): the site says "BSc Neuroscience"; your notes say a
-  // neuroscience AND psychology degree. Confirm the exact degree title.
+  // Degree: BSc Neuroscience (confirmed by Jamie, 1 Nov 2026).
   education: { name: 'Australian National University', url: 'https://www.anu.edu.au/' },
 
   // Pricing, single source of truth (Jamie, 6 Sep 2026).
@@ -111,11 +110,8 @@ export const SITE = {
     // Claimed listing (renamed from Bonza Bodies, Oct 2026). Footer wording must
     // stay "Find us on Yelp": Yelp treats "review us" links as solicitation.
     yelpUrl: 'https://www.yelp.com/biz/jamie-atlas-personal-training-and-rehabilitation-denver',
-    // TODO(Jamie): YouTube channel "jamieatlas". Paste the exact channel URL
-    // (e.g. https://www.youtube.com/@jamieatlas) and it is emitted in the
-    // Person and business sameAs automatically. Left empty because a wrong
-    // URL in sameAs points Google at someone else's channel.
-    youtubeUrl: '',
+    // Channel URL confirmed by Jamie, 1 Nov 2026. Emitted in footer and sameAs.
+    youtubeUrl: 'https://www.youtube.com/JamieAtlas',
   },
 
   // Authoritative third-party profiles for this business, emitted as schema.org
