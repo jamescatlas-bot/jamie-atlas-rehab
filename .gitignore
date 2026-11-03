@@ -3,3 +3,8 @@ dist/
 .astro/
 .vercel/
 .DS_Store
+
+# Local secrets (watch skill reads GEMINI_API_KEY from a cwd .env as a fallback)
+.env
+.env.*
+__pycache__/
