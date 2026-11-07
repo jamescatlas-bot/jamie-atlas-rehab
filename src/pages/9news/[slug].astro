@@ -55,7 +55,7 @@ const articleSchema = {
 };
 ---
 
-<BaseLayout title={`${page.title}: Jamie Atlas on 9NEWS`} description={page.description}>
+<BaseLayout title={`${page.title}: Jamie Atlas on 9NEWS`.length > 60 ? `${page.title} | 9NEWS` : `${page.title}: Jamie Atlas on 9NEWS`} description={page.description}>
   <script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
 
