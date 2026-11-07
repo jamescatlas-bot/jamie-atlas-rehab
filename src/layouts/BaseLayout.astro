@@ -24,7 +24,10 @@ interface Props {
   noindex?: boolean;
 }
 
-const { title, description = SITE.description, image = '/og-default.png', noindex = false } = Astro.props;
+// Default share card (7 Nov 2026): current name, title and awards badge.
+// New filename on purpose so Facebook/LinkedIn/iMessage don't keep serving the
+// cached old card, which still showed "Jamie Atlas Rehab & Performance".
+const { title, description = SITE.description, image = '/og-share.png', noindex = false } = Astro.props;
 // Brand suffix only when it still fits in Google's ~60-char title slot
 // (doc 69 item 9). Long interior titles stand alone.
 const fullTitle =
