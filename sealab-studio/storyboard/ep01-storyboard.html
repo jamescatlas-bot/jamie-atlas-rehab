@@ -1,0 +1,438 @@
+<title>Half-Rep Storyboard</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: a production binder. Summary of the formula, three cut options side by side, then a shot-by-shot board for the selected option. */
+:root{
+  --bg:#E3E6E0; --surface:#F2F3EE; --ink:#2A2320; --muted:#5E5A52; --line:#C9CCC3;
+  --wood:#7A5A44; --avocado:#A8A06B; --teal:#2F7E9E; --rust:#C25E3A; --mustard:#B9862C;
+  --display:"Archivo Black","Arial Black",Impact,sans-serif;
+  --body:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono","Space Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1A1C1D; --surface:#232627; --ink:#ECE6D8; --muted:#A39E92; --line:#3A3E3F;
+  --teal:#4FA0C0; --rust:#E07A55; --mustard:#D9A441; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1A1C1D; --surface:#232627; --ink:#ECE6D8; --muted:#A39E92; --line:#3A3E3F;
+  --teal:#4FA0C0; --rust:#E07A55; --mustard:#D9A441; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,5vw,46px);letter-spacing:-.01em}
+h2{font-size:clamp(22px,3.4vw,30px)}
+h3{font-size:18px}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono)}
+section{display:flex;flex-direction:column;gap:18px}
+header{display:flex;flex-direction:column;gap:14px;border-bottom:6px solid var(--wood);padding-bottom:22px}
+header .stripe{height:6px;background:linear-gradient(90deg,var(--teal) 0 33%,var(--mustard) 33% 66%,var(--rust) 66%);max-width:220px}
+.lede{font-size:17px;color:var(--ink)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.step{background:var(--surface);border:1px solid var(--line);padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.step b{font-family:var(--mono);font-size:12px;color:var(--teal);letter-spacing:.08em}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:400}
+td.mono{font-size:12.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.stack{display:flex;flex-direction:column-reverse;gap:4px;max-width:520px}
+.stack div{font-family:var(--mono);font-size:12.5px;padding:7px 12px;border-left:6px solid var(--c,var(--muted));background:var(--surface)}
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.opt{background:var(--surface);border:1px solid var(--line);padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.opt.rec{border:2px solid var(--teal)}
+.opt .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.opt .frames{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.opt ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px;font-size:14px}
+.meter{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-family:var(--mono);font-size:12px;align-items:center}
+.meter span.bar{height:8px;background:var(--line);position:relative}
+.meter span.bar i{position:absolute;inset:0 auto 0 0;background:var(--wood)}
+svg.panel{width:100%;height:auto;display:block;border:1.5px solid var(--ink);background:#111}
+.timeline{display:flex;height:34px;border:1px solid var(--line);background:var(--surface);overflow:hidden}
+.timeline div{border-right:1px solid var(--bg);font-family:var(--mono);font-size:10px;color:#fff;display:flex;align-items:flex-end;padding:2px 3px;overflow:hidden;white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:-1px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{font-family:var(--mono);font-size:13px;padding:9px 14px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.tabs button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.shot{background:var(--surface);border:1px solid var(--line);display:grid;grid-template-columns:118px 1fr;gap:12px;padding:12px;min-width:0}
+.shot .meta{display:flex;flex-direction:column;gap:5px;min-width:0;font-size:13.5px}
+.shot .id{font-family:var(--display);font-size:16px}
+.shot .tc{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.shot .beat{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:#fff;padding:1px 6px;align-self:flex-start}
+.shot dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 8px}
+.shot dt{font-family:var(--mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-top:2px}
+.shot dd{margin:0;min-width:0}
+.shot q{font-style:italic;color:var(--muted)}
+@media (max-width:420px){.shot{grid-template-columns:96px 1fr}}
+.flags{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.flag{border-left:6px solid var(--rust);background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.flag.q{border-left-color:var(--teal)}
+.flag b{font-family:var(--mono);font-size:12px}
+footer{font-family:var(--mono);font-size:12px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.8" numOctaves="1" seed="1201" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0.18 0"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="wrap">
+<header>
+  <div class="stripe"></div>
+  <span class="eyebrow">Episode 1 · Pedrosa et al., Eur J Sport Sci, 2022 · storyboard for approval</span>
+  <h1>What if half a rep built more muscle than a full one?</h1>
+  <p class="lede">The formula below turns one voice recording and one script file into a finished 1080×1920 Reel. Under it are three ways to cut Episode 1, each drawn shot by shot with timecodes and frame numbers. Pick one, or tell me what to mix, and I build the system and render that version.</p>
+</header>
+
+<section>
+  <span class="eyebrow">The formula</span>
+  <h2>Script in, Reel out</h2>
+  <div class="steps">
+    <div class="step"><b>1 · YOU RECORD</b><span>Read the script into your laptop. Save it as <span class="mono">episodes/ep01/audio.mp3</span>.</span></div>
+    <div class="step"><b>2 · YOU FILL ONE FILE</b><span><span class="mono">episode.json</span>: lines tagged by beat, the study's numbers, the citation, the accent colour, who presents.</span></div>
+    <div class="step"><b>3 · ONE COMMAND</b><span><span class="mono">./render.sh ep01</span></span></div>
+    <div class="step"><b>4 · THE SYSTEM DOES THE REST</b><span>Transcribes word timings, plans the shots, checks every number against the data, renders, adds film grain, writes a QC sheet with thumbnails.</span></div>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Beat tag in script</th><th>Becomes</th><th>Timed to</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">HOOK</td><td>T1 title card, 1972 styling</td><td>first word of the line</td></tr>
+      <tr><td class="mono">STUDY</td><td>T0 dot grid (exactly N dots) on the Screen or the gym wall board</td><td>the spoken number</td></tr>
+      <tr><td class="mono">SETUP</td><td>T10 demo on the machine, T4 arc diagram, T5 bars, T7 split</td><td>each group's first word; degree values at their numbers</td></tr>
+      <tr><td class="mono">EXPECTATION</td><td>T2 presenter at Screen, question on the Screen</td><td>line start</td></tr>
+      <tr><td class="mono">RESULT</td><td>T6 cell matrix, T3 big number, T5 bars, T8 gauge, revealed one finding at a time</td><td>each finding's key word (±0.3 s)</td></tr>
+      <tr><td class="mono">CAVEAT</td><td>T9 full-size caveat, Screen dimmed, 2 s minimum per card</td><td>line start, split at the sentence break</td></tr>
+      <tr><td class="mono">CONCLUSION</td><td>T12 presenter to camera, takeaway on the Screen</td><td>line start</td></tr>
+      <tr><td class="mono">TEASER</td><td>T13 end card, fixed 2 s</td><td>after the last spoken word</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Every frame is the same stack</h3>
+  <div class="stack">
+    <div style="--c:#7A5A44">1 · Background plate (office, gym floor, or Screen stage)</div>
+    <div style="--c:#A8A06B">2 · Props and machines (leg extension, dot board, clipboard)</div>
+    <div style="--c:#2F7E9E">3 · Screen content (arc, dots, bars, matrix). May ease smoothly.</div>
+    <div style="--c:#D97C2B">4 · Characters, held poses, stepped on twos. Mouth flap and blinks only.</div>
+    <div style="--c:#D9A441">5 · Karaoke captions, word-by-word in the accent colour</div>
+    <div style="--c:#5E5A52">6 · Citation bar: Pedrosa et al., Eur J Sport Sci, 2022</div>
+    <div style="--c:#2A2320">7 · Film: Grain A (seeded 1201) + one thin scratch every 20–40 s</div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">Choose one</span>
+  <h2>Three ways to cut Episode 1</h2>
+  <p>All three use the same script, the same timings, the same data, and the same art rules. They differ in where the camera spends its time. Estimated runtime for each is about 65 seconds (1,555 frames at 24 fps) until your real recording sets the exact length.</p>
+  <div class="options" id="options"></div>
+  <div class="legend" id="legend"></div>
+</section>
+
+<section>
+  <span class="eyebrow">Frame by frame</span>
+  <h2 id="boardTitle">Shot board</h2>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="timeline" id="timeline" aria-label="Shot timeline"></div>
+  <p class="mono" style="font-size:12px;color:var(--muted)">Timecodes are estimates at about 2.6 spoken words per second. Your recording replaces them: shots snap to the actual word timestamps, so the plan stays the same and only the numbers move.</p>
+  <div class="shots" id="shots"></div>
+</section>
+
+<section>
+  <span class="eyebrow">Before I build</span>
+  <h2>Questions for you</h2>
+  <div class="flags">
+    <div class="flag q"><b>1 · Which option?</b><span>A, B or C, or a mix (for example B's gym scenes with C's split-screen results). I recommend B: it uses the staging that already worked in your proof of concept.</span></div>
+    <div class="flag q"><b>2 · Whose mouth moves?</b><span>You voice every line. Should only Marc lip-flap (Lena stands centre for the caveat but listens), or should the mouth flap go to whichever character owns the beat, so Lena "speaks" the caveat in your voice?</span></div>
+    <div class="flag q"><b>3 · Who sits on the leg extension?</b><span>The study used untrained women. None of the five cast members fits: Kai is a 19-year-old athlete and Margaret is 68. I can add a sixth recurring client in a muted colour, or use Margaret, or use Kai.</span></div>
+    <div class="flag q"><b>4 · The 2-second end card</b><span>The brief says don't speak the teaser, and also that video length must match the audio within 0.5 s. I'll add 2 s of silence (or room tone) after your last word unless you'd rather record the "Next:" line yourself.</span></div>
+    <div class="flag q"><b>5 · Series name</b><span>The end card has a small wordmark. Give me a name or I'll leave a placeholder.</span></div>
+  </div>
+  <h3>Things I found in the brief and how I'll handle them</h3>
+  <div class="flags">
+    <div class="flag"><b>Five groups, four-bar limit</b><span>Episode 1 has five groups but CompareBars allows four. I show the three range groups as bars, then add "Alternating" and "No training" as a second card on the words that name them.</span></div>
+    <div class="flag"><b>Strength has no numbers</b><span>The data says who won on strength, not by how much. I show it as labelled chips, not bars, so no bar length implies a figure we don't have.</span></div>
+    <div class="flag"><b>Numbers said as words</b><span>"Three of the four" and "two of those" are numbers. The validator will read number words, and the data block gets <span class="mono">regionsMeasured: 4</span>, <span class="mono">bentWinsRegions: 3</span>, <span class="mono">otherApproxNoneRegions: 2</span>.</span></div>
+    <div class="flag"><b>Placeholder voice</b><span>ElevenLabs is connected to this session, so the proof render will use a synthetic voice. Swap in your MP3 and re-run the same command.</span></div>
+  </div>
+</section>
+<footer>Draft storyboard. Panels are schematic: the real render uses the full pose packs, wood-panel plates and grain. Characters and locations are original.</footer>
+</div>
+
+<script>
+const C={ink:'#2A2320',wood:'#7A5A44',avo:'#A8A06B',teal:'#2F7E9E',rust:'#C25E3A',cream:'#EDE3C8',char:'#1E2123',grid:'#2C3133',must:'#D9A441',wall:'#BFA676',floor:'#6E5440'};
+const CAST={marc:{c:'#2F6F8F',h:'#3A3330',s:'#E0B48F'},lena:{c:'#D97C2B',h:'#6B4528',s:'#EBC39C'},client:{c:'#9C8AA6',h:'#4A3A30',s:'#E3B999'},marg:{c:'#4A7D4F',h:'#C9C6C0',s:'#E6BE9C'},sil:{c:'#121416',h:'#121416',s:'#121416'}};
+const BEATS={HOOK:'#2A2320',STUDY:'#7A5A44',SETUP:'#2F7E9E',EXPECT:'#B9862C',RESULT:'#C25E3A',CAVEAT:'#8E3B33',CONCL:'#4A7D4F',TEASER:'#5E5A52'};
+const CITE='Pedrosa et al., Eur J Sport Sci, 2022';
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const P=(cx,cy,r,d)=>[cx+r*Math.cos(d*Math.PI/180),cy+r*Math.sin(d*Math.PI/180)];
+function arcPath(cx,cy,r,a,b){const[x1,y1]=P(cx,cy,r,a),[x2,y2]=P(cx,cy,r,b);return `M${x1.toFixed(2)} ${y1.toFixed(2)} A${r} ${r} 0 0 ${b>a?1:0} ${x2.toFixed(2)} ${y2.toFixed(2)}`}
+function txt(x,y,s,o={}){return `<text x="${x}" y="${y}" font-family="${o.f||'JetBrains Mono,monospace'}" font-size="${o.s||3}" fill="${o.c||C.cream}" text-anchor="${o.a||'middle'}" font-weight="${o.w||400}">${esc(s)}</text>`}
+
+/* ---------- screen content ---------- */
+function screen(sc,x,y,w,h){
+  let o='';
+  if(!sc)return o;
+  if(sc.t==='arc'){
+    const cx=x+w*.38,cy=y+h*.36,r=Math.min(w,h)*.5;
+    o+=`<line x1="${cx-r*.75}" y1="${cy}" x2="${cx}" y2="${cy}" stroke="${C.cream}" stroke-width="1.6"/>`;
+    (sc.seg||[]).forEach(g=>{o+=`<path d="${arcPath(cx,cy,r*.82,g.a,g.b)}" fill="none" stroke="${g.c}" stroke-width="${g.ghost?1:2.6}" ${g.ghost?'stroke-dasharray="1.2 1.2"':''}/>`});
+    const n=sc.needle??(sc.seg?sc.seg[sc.seg.length-1].a:100);
+    const[nx,ny]=P(cx,cy,r,n);o+=`<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="${C.cream}" stroke-width="1.6"/><circle cx="${cx}" cy="${cy}" r="1.3" fill="${C.must}"/>`;
+    (sc.lab||[]).forEach(d=>{const[lx,ly]=P(cx,cy,r*1.12,d);o+=txt(lx,ly+1,d+'°',{s:3.2,c:C.cream})});
+    if(sc.cap)o+=txt(x+w/2,y+h-3,sc.cap,{s:2.6,c:sc.capc||C.cream});
+  }
+  if(sc.t==='dots'){
+    const cols=9,n=sc.n,gap=w/(cols+1),rows=Math.ceil(n/cols);
+    for(let i=0;i<n;i++){const cx=x+gap*(i%cols+1),cy=y+5+gap*Math.floor(i/cols);o+=`<circle cx="${cx}" cy="${cy}" r="${gap*.32}" fill="${i<(sc.on??n)?C.teal:'#3A4144'}"/>`}
+    o+=txt(x+w/2,y+5+gap*rows+3,sc.cap||'',{s:3,c:C.cream});
+  }
+  if(sc.t==='bars'){
+    const bh=Math.min(6,(h-6)/sc.rows.length-2);
+    sc.rows.forEach((r,i)=>{const by=y+4+i*(bh+3);o+=txt(x+2,by+bh*.75,r.l,{s:2.4,a:'start'});o+=`<rect x="${x+w*.44}" y="${by}" width="${(w*.52)*r.v}" height="${bh}" fill="${r.c}"/>`});
+  }
+  if(sc.t==='matrix'){
+    const rows=['40%','50%','60%','70%'],cw=w*.24,rh=(h-14)/4.6,x0=x+w*.3,y0=y+7;
+    sc.cols.forEach((c,j)=>o+=txt(x0+cw*j+cw/2,y0-1.5,c,{s:2.3}));
+    rows.forEach((r,i)=>{o+=txt(x0-2,y0+rh*i+rh*.68,r+' femur',{s:2.2,a:'end'});
+      sc.cols.forEach((c,j)=>{const f=(sc.fill[j]||[])[i];const col=f===1?C.teal:f==='a'?C.rust:'#2E3436';
+        o+=`<rect x="${x0+cw*j+.6}" y="${y0+rh*i+.6}" width="${cw-1.2}" height="${rh-1.2}" fill="${col}" stroke="#4A5255" stroke-width=".4"/>`;
+        if(f==='a')o+=txt(x0+cw*j+cw/2,y0+rh*i+rh*.68,'≈ none',{s:2});});});
+    if(sc.note)o+=txt(x+w/2,y+h-3,sc.note,{s:2.3,c:C.must});
+  }
+  if(sc.t==='text'){
+    sc.l.forEach((s,i)=>o+=txt(x+w/2,y+h/2-((sc.l.length-1)*(sc.s||5))/2+i*(sc.s||5)*1.15+1.5,s,{s:sc.s||5,f:sc.mono?'JetBrains Mono,monospace':'Archivo Black,Arial Black,sans-serif',c:sc.c||C.cream}));
+  }
+  if(sc.t==='chips'){
+    sc.l.forEach((c,i)=>{const cy=y+6+i*8;o+=`<rect x="${x+6}" y="${cy}" width="${w-12}" height="6" fill="none" stroke="${c.c}" stroke-width=".9"/>`+txt(x+w/2,cy+4.2,c.l,{s:2.6,c:c.c})});
+    if(sc.cap)o+=txt(x+w/2,y+h-3,sc.cap,{s:2.4,c:C.cream});
+  }
+  if(sc.t==='machine'){
+    o+=txt(x+w/2,y+h*.45,'LEG EXTENSION',{s:4.4,f:'Archivo Black,sans-serif'});o+=txt(x+w/2,y+h*.62,'one exercise',{s:2.8,c:C.must});
+  }
+  return o;
+}
+
+/* ---------- characters ---------- */
+function fig(c){
+  const k=CAST[c.n],h=c.h||52,x=c.x,y=c.y,hr=h*.085,st=`stroke="${C.ink}" stroke-width=".8"`;
+  const top=y-h,hy=top+hr,sh=top+hr*2.2,hip=y-h*.47,tw=h*.2;
+  let o='';
+  if(c.p==='seat'){
+    const hipY=y-h*.32,kx=x+h*.24;
+    o+=`<rect x="${x-h*.14}" y="${hipY}" width="${h*.36}" height="${h*.06}" fill="#4A3A30" ${st}/><rect x="${x-h*.16}" y="${hipY-h*.36}" width="${h*.06}" height="${h*.38}" fill="#4A3A30" ${st}/>`;
+    o+=`<rect x="${x-tw/2}" y="${hipY-h*.36}" width="${tw}" height="${h*.36}" fill="${k.c}" ${st}/>`;
+    o+=`<circle cx="${x}" cy="${hipY-h*.36-hr}" r="${hr}" fill="${k.s}" ${st}/><path d="M${x-hr} ${hipY-h*.36-hr} a${hr} ${hr} 0 0 1 ${hr*2} 0z" fill="${k.h}"/>`;
+    o+=`<rect x="${x}" y="${hipY-h*.03}" width="${h*.25}" height="${h*.08}" fill="${k.c}" ${st}/>`;
+    if(c.arc)o+=`<path d="${arcPath(kx,hipY+h*.01,h*.3,c.arc[0],c.arc[1])}" fill="none" stroke="${c.arcc||C.cream}" stroke-width="1" stroke-dasharray="1.5 1"/>`;
+    const[fx,fy]=P(kx,hipY+h*.01,h*.26,c.leg??100);
+    o+=`<line x1="${kx}" y1="${hipY+h*.01}" x2="${fx}" y2="${fy}" stroke="${C.ink}" stroke-width="${h*.085}" stroke-linecap="round"/><line x1="${kx}" y1="${hipY+h*.01}" x2="${fx}" y2="${fy}" stroke="${k.s}" stroke-width="${h*.06}" stroke-linecap="round"/>`;
+    o+=`<circle cx="${fx}" cy="${fy}" r="${h*.045}" fill="#4A3A30" ${st}/>`;
+    return o;
+  }
+  // legs
+  if(c.p==='walk'){o+=`<path d="M${x} ${hip} L${x-h*.12} ${y} M${x} ${hip} L${x+h*.12} ${y}" stroke="${C.ink}" stroke-width="${h*.1}"/><path d="M${x} ${hip} L${x-h*.12} ${y} M${x} ${hip} L${x+h*.12} ${y}" stroke="${k.c}" stroke-width="${h*.075}"/>`}
+  else o+=`<rect x="${x-tw/2+.4}" y="${hip}" width="${h*.085}" height="${h*.47}" fill="${k.c}" ${st}/><rect x="${x+tw/2-h*.085-.4}" y="${hip}" width="${h*.085}" height="${h*.47}" fill="${k.c}" ${st}/>`;
+  o+=`<rect x="${x-tw/2}" y="${sh}" width="${tw}" height="${hip-sh}" fill="${k.c}" ${st}/>`;
+  // arms
+  const arm=(x1,y1,x2,y2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${C.ink}" stroke-width="${h*.075}" stroke-linecap="round"/><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${k.c}" stroke-width="${h*.05}" stroke-linecap="round"/>`;
+  const L=x-tw/2,R=x+tw/2,d=c.dir||-1;
+  if(c.p==='point'){o+=arm(d<0?R:L,sh+1,d<0?R+1:L-1,hip);o+=arm(d<0?L:R,sh+1,(d<0?L:R)+d*h*.3,sh-h*.16)}
+  else if(c.p==='crossed'){o+=`<rect x="${L-1}" y="${sh+h*.08}" width="${tw+2}" height="${h*.08}" fill="${k.c}" ${st}/>`}
+  else if(c.p==='clip'){o+=arm(L,sh+1,L-.5,hip);o+=`<rect x="${x-tw*.2}" y="${sh+h*.05}" width="${tw*.6}" height="${h*.16}" fill="${C.cream}" ${st}/>`+arm(R,sh+1,x+tw*.2,sh+h*.14)}
+  else if(c.p==='think'){o+=arm(L,sh+1,L-.5,hip);o+=arm(R,sh+1,x+hr*.6,hy+hr*1.2)}
+  else if(c.p==='shrug'){o+=arm(L,sh+1,L-h*.16,sh-h*.04);o+=arm(R,sh+1,R+h*.16,sh-h*.04)}
+  else {o+=arm(L,sh+1,L-.5,hip);o+=arm(R,sh+1,R+.5,hip)}
+  // head
+  o+=`<circle cx="${x}" cy="${hy}" r="${hr}" fill="${k.s}" ${st}/><path d="M${x-hr} ${hy} a${hr} ${hr} 0 0 1 ${hr*2} 0z" fill="${k.h}"/>`;
+  if(c.n==='lena')o+=`<circle cx="${x+hr*1.1}" cy="${hy-hr*.2}" r="${hr*.45}" fill="${k.h}"/>`;
+  if(c.talk&&c.n!=='sil')o+=`<ellipse cx="${x}" cy="${hy+hr*.5}" rx="${hr*.3}" ry="${hr*.18}" fill="${C.ink}"/>`;
+  return o;
+}
+
+/* ---------- backgrounds ---------- */
+function bg(loc,s){
+  let o='';
+  if(loc==='office'){
+    o+=`<rect width="90" height="160" fill="${C.wood}"/>`;for(let i=6;i<90;i+=9)o+=`<line x1="${i}" y1="0" x2="${i}" y2="104" stroke="#6A4D3A" stroke-width=".6"/>`;
+    o+=`<rect y="104" width="90" height="56" fill="${C.avo}"/><rect y="103" width="90" height="2" fill="#5E4535"/>`;
+    o+=`<rect x="7" y="12" width="76" height="52" fill="${C.char}" stroke="${C.ink}" stroke-width="1.6"/>`;
+    o+=screen(s.screen,7,12,76,52);
+    if(s.dim)o+=`<rect x="7" y="12" width="76" height="52" fill="#000" opacity=".62"/>`;
+  }
+  if(loc==='gym'){
+    o+=`<rect width="90" height="160" fill="${C.wall}"/><rect y="106" width="90" height="54" fill="${C.floor}"/>`;
+    [8,32,56].forEach(x=>o+=`<rect x="${x}" y="10" width="20" height="26" fill="#9FB7B4" stroke="${C.ink}" stroke-width=".8"/><line x1="${x+10}" y1="10" x2="${x+10}" y2="36" stroke="${C.ink}" stroke-width=".5"/>`);
+    if(s.board){o+=`<rect x="44" y="42" width="40" height="40" fill="${C.char}" stroke="${C.ink}" stroke-width="1.4"/>`+screen(s.screen,44,42,40,40)}
+    if(s.rack)o+=`<rect x="4" y="80" width="26" height="4" fill="#4A3A30"/><circle cx="8" cy="78" r="3" fill="#3A3330"/><circle cx="15" cy="78" r="3" fill="#3A3330"/><circle cx="22" cy="78" r="3" fill="#3A3330"/>`;
+  }
+  if(loc==='stage'||loc==='split'){
+    const H=loc==='split'?88:160;
+    o+=`<rect width="90" height="${H}" fill="${C.char}"/>`;for(let i=0;i<90;i+=6)o+=`<line x1="${i}" y1="0" x2="${i}" y2="${H}" stroke="${C.grid}" stroke-width=".3"/>`;for(let j=0;j<H;j+=6)o+=`<line x1="0" y1="${j}" x2="90" y2="${j}" stroke="${C.grid}" stroke-width=".3"/>`;
+    o+=screen(s.screen,6,loc==='split'?6:28,78,loc==='split'?76:72);
+    if(loc==='split'){
+      const b=s.lower||'gym';
+      o+=`<rect y="88" width="90" height="72" fill="${b==='gym'?C.wall:C.wood}"/><rect y="132" width="90" height="28" fill="${b==='gym'?C.floor:C.avo}"/><rect y="86" width="90" height="12" fill="#14171A"/>`;
+    }
+  }
+  if(loc==='title'){
+    o+=`<rect width="90" height="160" fill="${C.ink}"/><rect y="30" width="90" height="5" fill="${C.must}"/><rect y="36" width="90" height="3" fill="${C.rust}"/><rect y="40" width="90" height="2" fill="${C.teal}"/>`;
+    (s.title||[]).forEach((l,i)=>o+=txt(45,58+i*9,l,{s:7,f:'Archivo Black,Arial Black,sans-serif',c:C.cream}));
+    if(s.screen)o+=screen(s.screen,20,92,50,34);
+  }
+  if(loc==='end'){
+    o+=`<rect width="90" height="160" fill="${C.wood}"/><rect x="8" y="40" width="74" height="74" rx="37" fill="${C.ink}" stroke="${C.must}" stroke-width="2"/>`;
+    o+=txt(45,62,'NEXT:',{s:4,c:C.must});(s.title||[]).forEach((l,i)=>o+=txt(45,72+i*7,l,{s:5,f:'Archivo Black,sans-serif'}));
+    o+=txt(45,132,'[ SERIES NAME ]',{s:3,c:C.cream});
+  }
+  return o;
+}
+function caption(s,y){
+  if(!s)return '';
+  const lines=s.split('|');let o=`<rect x="4" y="${y}" width="82" height="${lines.length*5+3}" fill="#000" opacity=".55"/>`;
+  lines.forEach((l,i)=>{const parts=l.split(/(\*[^*]+\*)/);let t=`<text x="45" y="${y+5.2+i*5}" font-family="Archivo,Arial,sans-serif" font-weight="600" font-size="3.6" text-anchor="middle" fill="${C.cream}">`;
+    parts.forEach(p=>{if(!p)return;t+=p.startsWith('*')?`<tspan fill="#5FB3D4">${esc(p.slice(1,-1))}</tspan>`:esc(p)});o+=t+'</text>'});
+  return o;
+}
+function panel(s){
+  let o=bg(s.loc,s);
+  (s.chars||[]).forEach(c=>o+=fig(c));
+  if(s.over)o+=`<rect x="6" y="${s.over.y||24}" width="78" height="${s.over.h||50}" fill="none"/>`+s.over.l.map((l,i)=>txt(45,(s.over.y||24)+i*7,l,{s:s.over.s||5.4,f:'Archivo Black,sans-serif',c:C.cream})).join('');
+  o+=caption(s.cap,s.loc==='split'?88.5:118);
+  o+=`<rect x="10" y="150" width="70" height="6" fill="#000" opacity=".6"/>`+txt(45,154.1,CITE,{s:2.5});
+  if(s.scratch!=null)o+=`<line x1="${s.scratch}" y1="0" x2="${s.scratch+.6}" y2="160" stroke="#fff" stroke-opacity=".45" stroke-width=".5"/><line x1="${s.scratch+.45}" y1="0" x2="${s.scratch+1}" y2="160" stroke="#000" stroke-opacity=".35" stroke-width=".25"/>`;
+  o+=`<rect width="90" height="160" filter="url(#grain)"/>`;
+  return `<svg class="panel" viewBox="0 0 90 160" role="img" aria-label="${esc(s.alt||'storyboard frame')}">${o}</svg>`;
+}
+
+/* ---------- shared screen states ---------- */
+const ARC_FULL={t:'arc',seg:[{a:100,b:30,c:C.cream}],lab:[100,30],needle:30,cap:'FULL RANGE 100° → 30°'};
+const ARC_BENT={t:'arc',seg:[{a:100,b:30,c:'#888',ghost:1},{a:100,b:65,c:C.teal}],lab:[100,65],needle:65,cap:'BENT-KNEE HALF · stretched',capc:'#5FB3D4'};
+const ARC_OTHER={t:'arc',seg:[{a:100,b:30,c:'#888',ghost:1},{a:65,b:30,c:C.rust}],lab:[65,30],needle:30,cap:'OTHER HALF 65° → 30°',capc:'#E07A55'};
+const BARS3={t:'bars',rows:[{l:'Full range',c:C.cream,v:1},{l:'Bent-knee half',c:C.teal,v:.5},{l:'Other half',c:C.rust,v:.5}]};
+const CHIPS2={t:'chips',l:[{l:'+ ALTERNATING',c:C.must},{l:'+ NO TRAINING',c:'#9A9488'}],cap:'5 groups'};
+const MX0={t:'matrix',cols:['BENT','OTHER'],fill:[[],[]]};
+const MX3={t:'matrix',cols:['BENT','OTHER'],fill:[[1,1,1,0],[]],note:'3 of 4 regions > full range'};
+const MXN={t:'matrix',cols:['BENT','OTHER'],fill:[[1,1,1,0],[]],note:'Filled cells show WHERE, not how much'};
+const MXR={t:'matrix',cols:['BENT','OTHER'],fill:[[1,1,1,0],['a','a',0,0]],note:'Filled cells show WHERE, not how much'};
+const STR={t:'chips',l:[{l:'ALTERNATING',c:C.must},{l:'BENT-KNEE HALF',c:'#5FB3D4'}],cap:'STRENGTH: nobody beat these two'};
+const DOTS={t:'dots',n:45,cap:'45 UNTRAINED WOMEN'};
+const EXP={t:'text',l:['FULL RANGE','HAS TO WIN?'],s:7};
+const CONC={t:'text',l:['WHICH HALF YOU TRAIN','SEEMS TO MATTER.'],s:4.6};
+const HOOK_T=['WHAT IF','HALF A REP','BUILT MORE','MUSCLE THAN','A FULL ONE?'];
+const END_T=['WHAT IF YOU','ONLY STRETCHED','THE MUSCLE?'];
+
+/* ---------- options ---------- */
+const OPTS={
+A:{name:'A · The Lecture',tag:'Screen first',pitch:'Marc presents at the office Screen for almost every beat; results go full-frame on the dark Screen stage. The leg-extension demo lives inside the arc diagram: the cartoon shin is the needle, clamped to each range. Closest to the reference account\'s pacing.',
+  pros:['Longest holds and the calmest read','Data is big and legible the whole time','Smallest asset list: fastest to build'],
+  cons:['Least warmth: the gym appears once','Characters are mostly a frame around the Screen'],
+  cost:{shots:17,assets:.35,warmth:.35},
+  shots:[
+   {t:[0,3.4],b:'HOOK',ln:1,pic:'T1 title card over the Screen stage. Ghost knee arc under the title.',cam:'Static, 5% push over the line',sync:'Title words build in with the karaoke caption',p:{loc:'title',title:HOOK_T,screen:{t:'arc',seg:[{a:100,b:30,c:'#555',ghost:1}],needle:65},cap:'What if *half* a rep built|more muscle than a full one?'}},
+   {t:[3.4,6.4],b:'STUDY',ln:2,pic:'Office. Marc at Screen edge, pointing. Screen: 45-dot grid fills row by row.',cam:'Static',sync:'All 45 dots land on "45" (±0.3 s)',p:{loc:'office',screen:DOTS,chars:[{n:'marc',p:'point',x:18,y:146,h:62,dir:1,talk:1}],cap:'tested it on *45* untrained women.'}},
+   {t:[6.4,8.8],b:'SETUP',ln:3,pic:'Hard cut to gym. Client seated on the leg extension, leg at 100°. One held pose.',cam:'Static wide',sync:'"LEG EXTENSION" tag on "leg"',p:{loc:'gym',rack:1,chars:[{n:'client',p:'seat',x:36,y:140,h:64,leg:100}],cap:'One exercise: the *leg* extension.'}},
+   {t:[8.8,13.4],b:'SETUP',ln:4,pic:'Screen stage full-frame. T4 arc in cream; the shin swings 100°→30° on twos, looped.',cam:'Slow 6% push',sync:'"100°" label on "100", "30°" on "30"',p:{loc:'stage',screen:ARC_FULL,chars:[{n:'sil',p:'point',x:14,y:160,h:50,dir:1}],cap:'knee from *100* degrees to 30.'}},
+   {t:[13.4,19.4],b:'SETUP',ln:5,pic:'Same stage. Teal segment draws 100°→65°. Shin loop clamps to 100–65.',cam:'Hold',sync:'Teal draws on "first half"; "stretched long" label on "stretched"',p:{loc:'stage',screen:ARC_BENT,chars:[{n:'sil',p:'point',x:14,y:160,h:50,dir:1}],cap:'with the knee bent and the|muscle *stretched* long.'}},
+   {t:[19.4,22.6],b:'SETUP',ln:'6a',pic:'Rust segment 65°→30°. Shin loop clamps to 65–30.',cam:'Hold',sync:'Rust draws on "second"',p:{loc:'stage',screen:ARC_OTHER,chars:[{n:'sil',p:'point',x:14,y:160,h:50,dir:1}],cap:'Some trained only the *second* half.'}},
+   {t:[22.6,26.2],b:'SETUP',ln:'6b',pic:'Card adds the two non-range groups as chips.',cam:'Hard cut',sync:'"Alternating" chip on "swapped", "No training" on "didn\'t"',p:{loc:'stage',screen:CHIPS2,cap:'And some *didn\'t* train at all.'}},
+   {t:[26.2,29.2],b:'EXPECT',ln:7,pic:'Office. Marc arms crossed, to camera. Screen: "FULL RANGE HAS TO WIN?"',cam:'Hard cut, static',sync:'Question on line start',p:{loc:'office',screen:EXP,chars:[{n:'marc',p:'crossed',x:45,y:150,h:66,talk:1}],cap:'Full range has to *win*, right?'}},
+   {t:[29.2,33.0],b:'RESULT',ln:'8a',pic:'Screen stage. Empty 4×2 matrix: rows 40/50/60/70% femur.',cam:'Hard cut on "It didn\'t."',sync:'Grid appears on "didn\'t"',p:{loc:'stage',screen:MX0,chars:[{n:'sil',p:'crossed',x:76,y:160,h:50}],cap:'*It* didn\'t.'}},
+   {t:[33.0,37.4],b:'RESULT',ln:'8b',pic:'Bent column fills teal, one row per tick, 3 of 4.',cam:'Slow push',sync:'Third cell completes on "three", count label on "four"',p:{loc:'stage',screen:MX3,chars:[{n:'sil',p:'crossed',x:76,y:160,h:50}],cap:'in *three* of the four regions'},scratch:62},
+   {t:[37.4,40.0],b:'RESULT',ln:'8c',pic:'Honesty line under the grid, held ≥2 s.',cam:'Hold',sync:'Line in at end of sentence',p:{loc:'stage',screen:MXN,cap:'they *measured*.'}},
+   {t:[40.0,46.2],b:'RESULT',ln:9,pic:'Other column: rows 40 and 50 fill rust, labelled "≈ none".',cam:'Hold',sync:'Second rust cell on "two"',p:{loc:'stage',screen:MXR,cap:'in *two* of those regions…'}},
+   {t:[46.2,52.0],b:'RESULT',ln:10,pic:'Office. Marc points at Screen. Strength chips: Alternating, Bent-knee half.',cam:'Hard cut',sync:'Chips on "alternated" and "bent-knee"',p:{loc:'office',screen:STR,chars:[{n:'marc',p:'point',x:18,y:146,h:62,dir:1,talk:1}],cap:'the group that *alternated* halves'}},
+   {t:[52.0,55.8],b:'CAVEAT',ln:'11a',pic:'T9. Lena centre, clipboard. Screen dimmed. Card 1 full-size.',cam:'Hard cut, static',sync:'Card on "The catch"',p:{loc:'office',dim:1,over:{y:24,l:['THE CATCH:','ONE EXERCISE,','UNTRAINED','WOMEN.'],s:5.6},chars:[{n:'lena',p:'clip',x:45,y:148,h:62}],cap:'*The* catch: one exercise…'}},
+   {t:[55.8,59.4],b:'CAVEAT',ln:'11b',pic:'Card 2.',cam:'Hold',sync:'Card on "That"',p:{loc:'office',dim:1,over:{y:22,l:['NOT PROOF','HALF REPS BEAT','FULL REPS','EVERYWHERE.'],s:5.2},chars:[{n:'lena',p:'clip',x:45,y:148,h:62}],cap:'half reps beat full reps *everywhere*.'}},
+   {t:[59.4,62.8],b:'CONCL',ln:12,pic:'Marc close-up to camera. Screen: one-line takeaway.',cam:'8% push',sync:'Takeaway on line start',p:{loc:'office',screen:CONC,chars:[{n:'marc',p:'neutral',x:45,y:178,h:96,talk:1}],cap:'Which half you train… *seems* to matter.'}},
+   {t:[62.8,64.8],b:'TEASER',ln:13,pic:'6-frame dip through wood brown, then the end card.',cam:'Static, fixed 2 s',sync:'After last spoken word',p:{loc:'end',title:END_T}}
+  ]},
+B:{name:'B · The Gym Tour',tag:'Recommended · story first',pitch:'Follows the staging from your proof of concept. Marc and Lena walk the gym floor, Lena reads the dot grid off the wall board, the client works the leg extension while Marc coaches, then everyone moves to the office Screen for the results. The arc and the leg alternate shot by shot.',
+  pros:['Warmest: every beat is staged with a character','Uses all three locations and the walk cycle','The clamped half-rep is shown on the real machine'],
+  cons:['Most cuts (21) and the biggest asset list','Data shots are shorter, so each reveal must be clean'],
+  cost:{shots:21,assets:1,warmth:1},
+  shots:[
+   {t:[0,3.4],b:'HOOK',ln:1,pic:'T1 title card. Marc silhouette under the office Screen showing the knee arc.',cam:'Static, 5% push',sync:'Title words build with the caption',p:{loc:'title',title:HOOK_T,screen:{t:'arc',seg:[{a:100,b:30,c:'#555',ghost:1}],needle:65},cap:'What if *half* a rep built|more muscle than a full one?'}},
+   {t:[3.4,4.6],b:'STUDY',ln:'2a',pic:'T11. Marc and Lena walk in profile; gym plate scrolls behind them.',cam:'Background scroll, characters centred',sync:'Line start',p:{loc:'gym',rack:1,chars:[{n:'marc',p:'walk',x:34,y:146,h:60,talk:1},{n:'lena',p:'walk',x:58,y:146,h:56}],cap:'*Researchers* tested it'}},
+   {t:[4.6,6.4],b:'STUDY',ln:'2b',pic:'Gym wall dot board. Lena with clipboard beside it. 45 dots fill.',cam:'Hard cut, 6% push',sync:'All 45 dots land on "45"',p:{loc:'gym',board:1,screen:DOTS,chars:[{n:'lena',p:'clip',x:26,y:148,h:62}],cap:'on *45* untrained women.'}},
+   {t:[6.4,8.8],b:'SETUP',ln:3,pic:'Wide gym. Client sits at the leg extension (held pose). Tag: LEG EXTENSION.',cam:'Hard cut, static wide',sync:'Tag on "leg"',p:{loc:'gym',rack:1,chars:[{n:'client',p:'seat',x:40,y:140,h:62,leg:100},{n:'marc',p:'crossed',x:76,y:148,h:58}],cap:'One exercise: the *leg* extension.'}},
+   {t:[8.8,11.0],b:'SETUP',ln:'4a',pic:'Machine close. Leg loops 100°↔30° on twos. Marc coaching at frame edge.',cam:'Static',sync:'Loop starts on "full"',p:{loc:'gym',chars:[{n:'client',p:'seat',x:34,y:136,h:76,leg:30,arc:[100,30]},{n:'marc',p:'point',x:80,y:150,h:56,dir:-1,talk:1}],cap:'Some trained the *full* movement'}},
+   {t:[11.0,13.4],b:'SETUP',ln:'4b',pic:'Office Screen: arc 100°→30° in cream, Marc pointing.',cam:'Hard cut',sync:'"100°" on "100", "30°" on "30"',p:{loc:'office',screen:ARC_FULL,chars:[{n:'marc',p:'point',x:16,y:146,h:60,dir:1,talk:1}],cap:'knee from *100* degrees to 30.'}},
+   {t:[13.4,16.2],b:'SETUP',ln:'5a',pic:'Machine. Leg clamped 100°↔65°, teal arc guide.',cam:'Hard cut',sync:'Clamp switches on "first half"',p:{loc:'gym',chars:[{n:'client',p:'seat',x:34,y:136,h:76,leg:65,arc:[100,65],arcc:'#5FB3D4'},{n:'marc',p:'point',x:80,y:150,h:56,dir:-1,talk:1}],cap:'only the *first* half,'}},
+   {t:[16.2,19.4],b:'SETUP',ln:'5b',pic:'Office Screen: teal segment 100°→65°, label "stretched".',cam:'Hard cut',sync:'Label on "stretched"',p:{loc:'office',screen:ARC_BENT,chars:[{n:'marc',p:'point',x:16,y:146,h:60,dir:1,talk:1}],cap:'the muscle *stretched* long.'}},
+   {t:[19.4,21.8],b:'SETUP',ln:'6a',pic:'Machine. Leg clamped 65°↔30°, rust arc guide.',cam:'Hard cut',sync:'Clamp switches on "second"',p:{loc:'gym',chars:[{n:'client',p:'seat',x:34,y:136,h:76,leg:30,arc:[65,30],arcc:'#E07A55'},{n:'marc',p:'crossed',x:80,y:150,h:56,talk:1}],cap:'only the *second* half.'}},
+   {t:[21.8,24.0],b:'SETUP',ln:'6b',pic:'Office Screen: three bars (full / bent / other), colour-matched.',cam:'Hard cut',sync:'Bars in one per group name',p:{loc:'office',screen:BARS3,chars:[{n:'marc',p:'point',x:16,y:146,h:60,dir:1,talk:1}],cap:'Some *swapped* halves day to day.'}},
+   {t:[24.0,26.2],b:'SETUP',ln:'6c',pic:'Screen adds two chips: Alternating, No training.',cam:'Hold',sync:'Chips on "swapped" and "didn\'t"',p:{loc:'office',screen:CHIPS2,chars:[{n:'marc',p:'point',x:16,y:146,h:60,dir:1,talk:1}],cap:'And some *didn\'t* train at all.'}},
+   {t:[26.2,29.2],b:'EXPECT',ln:7,pic:'Margaret (audience stand-in) shrugs at Marc. Screen: "FULL RANGE HAS TO WIN?"',cam:'Hard cut, static',sync:'Question on line start',p:{loc:'office',screen:EXP,chars:[{n:'marg',p:'shrug',x:30,y:150,h:58},{n:'marc',p:'crossed',x:66,y:150,h:62,talk:1}],cap:'Full range has to *win*, right?'}},
+   {t:[29.2,31.4],b:'RESULT',ln:'8a',pic:'Hard cut to Screen stage. Empty matrix. Marc silhouetted at the lower edge.',cam:'Hard cut on "It didn\'t."',sync:'Grid on "didn\'t"',p:{loc:'stage',screen:MX0,chars:[{n:'sil',p:'point',x:12,y:160,h:50,dir:1}],cap:'*It* didn\'t.'}},
+   {t:[31.4,36.4],b:'RESULT',ln:'8b',pic:'Bent column fills teal row by row, a soft tick per cell. 3 of 4.',cam:'Slow push',sync:'Third cell on "three", "4" on "four"',p:{loc:'stage',screen:MX3,chars:[{n:'sil',p:'point',x:12,y:160,h:50,dir:1}],cap:'grew more than full reps in|*three* of the four regions'},scratch:58},
+   {t:[36.4,40.0],b:'RESULT',ln:'8c',pic:'Honesty line held under the grid. Lena reaction insert: nod (one pose change).',cam:'Hold',sync:'Line at end of sentence, ≥2 s',p:{loc:'stage',screen:MXN,chars:[{n:'lena',p:'clip',x:76,y:162,h:46}],cap:'they *measured*.'}},
+   {t:[40.0,46.2],b:'RESULT',ln:9,pic:'Other column: rows 40 and 50 fill rust, "≈ none".',cam:'Hold',sync:'Second rust cell on "two"',p:{loc:'stage',screen:MXR,chars:[{n:'sil',p:'point',x:12,y:160,h:50,dir:1}],cap:'in *two* of those regions…'}},
+   {t:[46.2,52.0],b:'RESULT',ln:10,pic:'Office. Marc points; strength chips light up. Lena arms crossed behind.',cam:'Hard cut',sync:'Chips on "alternated" and "bent-knee"',p:{loc:'office',screen:STR,chars:[{n:'marc',p:'point',x:16,y:146,h:60,dir:1,talk:1},{n:'lena',p:'crossed',x:74,y:148,h:54}],cap:'For strength, *nobody* beat…'}},
+   {t:[52.0,55.8],b:'CAVEAT',ln:'11a',pic:'T9. Lena steps centre. Screen dims. Card 1.',cam:'Hard cut, static',sync:'Card on "The catch"',p:{loc:'office',dim:1,over:{y:24,l:['THE CATCH:','ONE EXERCISE,','UNTRAINED','WOMEN.'],s:5.6},chars:[{n:'lena',p:'clip',x:45,y:148,h:62}],cap:'*The* catch: one exercise…'}},
+   {t:[55.8,59.4],b:'CAVEAT',ln:'11b',pic:'Card 2.',cam:'Hold',sync:'Card on "That"',p:{loc:'office',dim:1,over:{y:22,l:['NOT PROOF','HALF REPS BEAT','FULL REPS','EVERYWHERE.'],s:5.2},chars:[{n:'lena',p:'clip',x:45,y:148,h:62}],cap:'half reps beat full reps *everywhere*.'}},
+   {t:[59.4,62.8],b:'CONCL',ln:12,pic:'Marc close-up to camera, takeaway on the Screen.',cam:'8% push',sync:'Takeaway on line start',p:{loc:'office',screen:CONC,chars:[{n:'marc',p:'neutral',x:45,y:178,h:96,talk:1}],cap:'Which half you train… *seems* to matter.'}},
+   {t:[62.8,64.8],b:'TEASER',ln:13,pic:'6-frame dip to wood brown, end card.',cam:'Fixed 2 s',sync:'After last spoken word',p:{loc:'end',title:END_T}}
+  ]},
+C:{name:'C · Split Deck',tag:'Data and demo together',pitch:'The frame splits for the middle of the episode: the Screen on top, the cartoon gym below, captions in the band between. The top arc\'s needle and the client\'s shin are driven by the same number, so viewers see the range and the rep at once. The split opens for the hook, caveat and conclusion.',
+  pros:['Best for muted viewing: data, demo and caption in one frame','Strongest proof that the arc limits are real','Fewer cuts than B (13) with more on screen'],
+  cons:['Characters are small in the lower half','Busier frame; less 1972 cinema, more broadcast'],
+  cost:{shots:13,assets:.65,warmth:.6},
+  shots:[
+   {t:[0,3.4],b:'HOOK',ln:1,pic:'Full-frame T1 title card.',cam:'5% push',sync:'Title builds with caption',p:{loc:'title',title:HOOK_T,screen:{t:'arc',seg:[{a:100,b:30,c:'#555',ghost:1}],needle:65},cap:'What if *half* a rep built|more muscle than a full one?'}},
+   {t:[3.4,6.4],b:'STUDY',ln:2,pic:'Split opens. Top: 45 dots. Bottom: Lena with clipboard, Marc beside her.',cam:'Hard cut to split',sync:'Dots land on "45"',p:{loc:'split',screen:DOTS,chars:[{n:'lena',p:'clip',x:32,y:156,h:50},{n:'marc',p:'point',x:60,y:156,h:52,dir:-1,talk:1}],cap:'tested it on *45* untrained women.'}},
+   {t:[6.4,8.8],b:'SETUP',ln:3,pic:'Top: "LEG EXTENSION". Bottom: client seated at the machine.',cam:'Static',sync:'Tag on "leg"',p:{loc:'split',screen:{t:'machine'},chars:[{n:'client',p:'seat',x:36,y:154,h:52,leg:100},{n:'marc',p:'crossed',x:74,y:156,h:48}],cap:'One exercise: the *leg* extension.'}},
+   {t:[8.8,13.4],b:'SETUP',ln:4,pic:'Top: cream arc 100°→30°. Bottom: shin loops the same range; both share one angle value.',cam:'Static',sync:'Labels on "100" and "30"',p:{loc:'split',screen:ARC_FULL,chars:[{n:'client',p:'seat',x:36,y:154,h:52,leg:30,arc:[100,30]},{n:'marc',p:'point',x:76,y:156,h:48,dir:-1,talk:1}],cap:'knee from *100* degrees to 30.'}},
+   {t:[13.4,19.4],b:'SETUP',ln:5,pic:'Top: teal 100°→65°. Bottom: shin clamped to 100–65.',cam:'Static',sync:'Clamp and teal on "first half"',p:{loc:'split',screen:ARC_BENT,chars:[{n:'client',p:'seat',x:36,y:154,h:52,leg:65,arc:[100,65],arcc:'#5FB3D4'},{n:'marc',p:'point',x:76,y:156,h:48,dir:-1,talk:1}],cap:'the muscle *stretched* long.'}},
+   {t:[19.4,26.2],b:'SETUP',ln:6,pic:'Top: rust 65°→30°, then bars + chips for the 5 groups. Bottom: shin clamped 65–30.',cam:'Static',sync:'Rust on "second"; chips on "swapped" / "didn\'t"',p:{loc:'split',screen:ARC_OTHER,chars:[{n:'client',p:'seat',x:36,y:154,h:52,leg:30,arc:[65,30],arcc:'#E07A55'},{n:'marc',p:'crossed',x:76,y:156,h:48,talk:1}],cap:'only the *second* half.'}},
+   {t:[26.2,29.2],b:'EXPECT',ln:7,pic:'Top: "FULL RANGE HAS TO WIN?". Bottom (office): Margaret shrugs, Marc arms crossed.',cam:'Lower half cuts to office',sync:'Question on line start',p:{loc:'split',lower:'office',screen:EXP,chars:[{n:'marg',p:'shrug',x:32,y:156,h:48},{n:'marc',p:'crossed',x:62,y:156,h:52,talk:1}],cap:'Full range has to *win*, right?'}},
+   {t:[29.2,40.0],b:'RESULT',ln:8,pic:'Top: matrix fills 3 of 4 teal, then the honesty line. Bottom: Marc points up; Lena nods on the third cell.',cam:'Top eases; bottom holds',sync:'Third cell on "three"; note ≥2 s',p:{loc:'split',lower:'office',screen:MXN,chars:[{n:'marc',p:'point',x:30,y:156,h:52,dir:1,talk:1},{n:'lena',p:'clip',x:64,y:156,h:48}],cap:'in *three* of the four regions'},scratch:70},
+   {t:[40.0,46.2],b:'RESULT',ln:9,pic:'Top: rust "≈ none" in rows 40 and 50. Bottom: Lena raised-eyebrow pose.',cam:'Hold',sync:'Second rust cell on "two"',p:{loc:'split',lower:'office',screen:MXR,chars:[{n:'marc',p:'crossed',x:30,y:156,h:52,talk:1},{n:'lena',p:'think',x:64,y:156,h:48}],cap:'in *two* of those regions…'}},
+   {t:[46.2,52.0],b:'RESULT',ln:10,pic:'Top: strength chips. Bottom: Marc points.',cam:'Hold',sync:'Chips on "alternated" and "bent-knee"',p:{loc:'split',lower:'office',screen:STR,chars:[{n:'marc',p:'point',x:30,y:156,h:52,dir:1,talk:1},{n:'lena',p:'crossed',x:64,y:156,h:48}],cap:'the group that *alternated* halves'}},
+   {t:[52.0,59.4],b:'CAVEAT',ln:11,pic:'Split closes. Full-frame T9: Lena centre, Screen dimmed, two full-size cards.',cam:'Hard cut, static',sync:'Card 1 on "The catch", card 2 on "That"',p:{loc:'office',dim:1,over:{y:24,l:['THE CATCH:','ONE EXERCISE,','UNTRAINED','WOMEN.'],s:5.6},chars:[{n:'lena',p:'clip',x:45,y:148,h:62}],cap:'*The* catch: one exercise…'}},
+   {t:[59.4,62.8],b:'CONCL',ln:12,pic:'Full-frame Marc close-up, takeaway on the Screen.',cam:'8% push',sync:'Takeaway on line start',p:{loc:'office',screen:CONC,chars:[{n:'marc',p:'neutral',x:45,y:178,h:96,talk:1}],cap:'Which half you train… *seems* to matter.'}},
+   {t:[62.8,64.8],b:'TEASER',ln:13,pic:'Dip to wood brown, end card.',cam:'Fixed 2 s',sync:'After last spoken word',p:{loc:'end',title:END_T}}
+  ]}
+};
+
+/* ---------- render ---------- */
+const f=s=>Math.round(s*24);
+const tc=s=>{const m=Math.floor(s/60),ss=(s%60).toFixed(1).padStart(4,'0');return `${m}:${ss}`};
+const optEl=document.getElementById('options');
+Object.entries(OPTS).forEach(([k,o])=>{
+  const pick=k==='A'?[1,4,9]:k==='B'?[2,6,13]:[3,4,7];
+  const d=document.createElement('article');d.className='opt'+(k==='B'?' rec':'');
+  d.innerHTML=`<span class="tag">${o.tag}</span><h3>${o.name}</h3><div class="frames">${pick.map(i=>panel(o.shots[i].p)).join('')}</div><p>${o.pitch}</p>
+  <div class="meter"><span>Warmth</span><span class="bar"><i style="width:${o.cost.warmth*100}%"></i></span><span>Asset load</span><span class="bar"><i style="width:${o.cost.assets*100}%"></i></span><span>Shots</span><span>${o.shots.length}</span></div>
+  <div><b style="font-size:13px">Strengths</b><ul>${o.pros.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+  <div><b style="font-size:13px">Trade-offs</b><ul>${o.cons.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+  optEl.appendChild(d);
+});
+document.getElementById('legend').innerHTML=Object.entries(BEATS).map(([b,c])=>`<span><i style="background:${c}"></i>${b}</span>`).join('');
+const tabs=document.getElementById('tabs');
+function show(k){
+  const o=OPTS[k];
+  tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.dataset.k===k));
+  document.getElementById('boardTitle').textContent=o.name+' — '+o.shots.length+' shots';
+  const total=o.shots[o.shots.length-1].t[1];
+  document.getElementById('timeline').innerHTML=o.shots.map((s,i)=>`<div style="flex:${s.t[1]-s.t[0]};background:${BEATS[s.b]}" title="${k}${i+1} ${tc(s.t[0])}–${tc(s.t[1])}">${k}${i+1}</div>`).join('');
+  document.getElementById('shots').innerHTML=o.shots.map((s,i)=>`<article class="shot">${panel(s.p)}<div class="meta">
+    <span class="id">${k}${i+1}</span>
+    <span class="tc">${tc(s.t[0])} → ${tc(s.t[1])} · frames ${f(s.t[0])}–${f(s.t[1])-1} · ${(s.t[1]-s.t[0]).toFixed(1)} s</span>
+    <span class="beat" style="background:${BEATS[s.b]}">${s.b} · line ${s.ln}</span>
+    <dl><dt>Picture</dt><dd>${s.pic}</dd><dt>Camera</dt><dd>${s.cam}</dd><dt>Sync</dt><dd>${s.sync}</dd></dl></div></article>`).join('');
+  try{localStorage.setItem('sb-opt',k)}catch(e){}
+}
+Object.keys(OPTS).forEach(k=>{const b=document.createElement('button');b.role='tab';b.dataset.k=k;b.textContent=OPTS[k].name;b.onclick=()=>show(k);tabs.appendChild(b)});
+let start='B';try{start=localStorage.getItem('sb-opt')||'B'}catch(e){}
+show(OPTS[start]?start:'B');
+</script>
