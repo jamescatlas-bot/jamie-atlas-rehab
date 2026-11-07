@@ -97,7 +97,7 @@ export const CONDITIONS: Condition[] = [
       },
       {
         q: 'How many sessions does it take?',
-        a: 'Typically 6–8 sessions spread over 2–4 months, depending on the surgery and the sport. You’ll get a straight estimate at the first visit, not an open-ended commitment.',
+        a: 'Typically 6–8 sessions with me spread over 2–4 months, with your own loading in between. Full return to sport after surgery often takes six to nine months in all, depending on the surgery and the sport. You’ll get a straight estimate at the first visit, not an open-ended commitment.',
       },
     ],
     related: ['masters-athlete-injuries', 'cognitive-functional-therapy'],

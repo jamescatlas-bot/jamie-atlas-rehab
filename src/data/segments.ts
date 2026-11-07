@@ -19,7 +19,7 @@ export const SEGMENTS: Segment[] = [
   {
     slug: 'cleared-but-not-ready',
     doorTitle: 'Cleared, but not feeling ready',
-    metaTitle: 'Discharged From PT But Not Ready to Return? | Jamie Atlas Denver',
+    metaTitle: 'Discharged From PT But Not Ready to Return? | Denver',
     metaDescription:
       "Your PT said you're done. Your body disagrees. The bridge between 'cleared' and 'confident' — one-on-one rebuilding for sport and life in downtown Denver.",
     h1: "Cleared by your PT — but you don't feel ready",
@@ -39,7 +39,7 @@ export const SEGMENTS: Segment[] = [
   {
     slug: 'still-in-pain',
     doorTitle: "I'm hurt and I want to get better",
-    metaTitle: 'Still in Pain After PT, Chiro & Injections? | Jamie Atlas Denver',
+    metaTitle: 'Still in Pain After PT, Chiro & Injections? | Denver',
     metaDescription:
       "You did the PT, the adjustments, the injections — and the pain came back. What most treatment misses, and a different way forward. Downtown Denver.",
     h1: "You've tried everything — and you're still in pain",
