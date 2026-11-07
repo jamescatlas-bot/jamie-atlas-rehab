@@ -128,7 +128,7 @@ const fmtDate = (iso: string) =>
 const nineNewsSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: 'Jamie Atlas on 9NEWS: fitness segments, 2017 to 2022',
+  name: 'Jamie Atlas on 9NEWS: fitness segments',
   numberOfItems: NINENEWS_SEGMENTS.length,
   itemListElement: NINENEWS_SEGMENTS.map((v, i) => ({
     '@type': 'ListItem',
@@ -226,7 +226,7 @@ const nineNewsSchema = {
     <div class="max-w-3xl mx-auto">
       <h2 class="mb-4">Every 9NEWS segment on YouTube</h2>
       <p class="text-lg text-[var(--color-text-muted)] leading-relaxed mb-10">
-        The {NINENEWS_SEGMENTS.length} segments 9NEWS posted to its own YouTube channel between 2017 and 2022. Many
+        The {NINENEWS_SEGMENTS.length} segments 9NEWS has posted to its own YouTube channel. Many
         more aired that were only ever posted on 9news.com. Each link opens the segment on 9NEWS's channel. Thirteen also have full transcripts here, reprinted with permission.
       </p>
       <div class="space-y-8">
