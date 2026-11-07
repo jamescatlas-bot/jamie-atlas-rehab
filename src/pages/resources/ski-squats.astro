@@ -41,6 +41,9 @@ const articleSchema = {
   datePublished: published,
   dateModified: '2026-10-24',
   author: { '@id': `${SITE.url}/#jamie` },
+  // Google lists image as a recommended Article property; Jamie's
+  // current 1200×630 photo also ties the article to him visually.
+  image: new URL('/jamie-portrait-wide.jpg', Astro.site).href,
   publisher: { '@id': SITE.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
 };
