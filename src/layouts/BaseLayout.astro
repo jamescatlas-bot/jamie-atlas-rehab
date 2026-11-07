@@ -30,10 +30,13 @@ interface Props {
   imageAlt?: string;
 }
 
+// Default share card (7 Nov 2026): current name, title and awards badge.
+// New filename on purpose so Facebook/LinkedIn/iMessage don't keep serving the
+// cached old card, which still showed "Jamie Atlas Rehab & Performance".
 const {
   title,
   description = SITE.description,
-  image = '/og-default.png',
+  image = '/og-share.png',
   noindex = false,
   breadcrumbName,
   ogType,
