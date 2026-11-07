@@ -31,8 +31,9 @@ const videoSchema = [LEAD_TESTIMONIAL, ...TESTIMONIAL_VIDEOS].map(v => ({
 ---
 
 <BaseLayout
-  title="Client Results on Video"
-  description="Watch Denver clients describe what changed — back, neck, shoulder and post-surgical recovery. Real sessions, honest timelines, no miracle claims."
+  title="Client Results on Video, Denver Personal Training"
+  description="Denver clients on camera describing what changed with a back, neck, shoulder or knee, and after surgery. Real sessions, honest timelines. Results vary."
+  breadcrumbName="Client results on video"
 >
   {videoSchema.map(s => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
 

@@ -1,4 +1,59 @@
+# jamieatlas.com: Jamie Atlas Personal Training & Rehabilitation, Denver.
+# Everything public is open to search engines and AI answer engines, on
+# purpose: being quoted accurately by ChatGPT, Claude, Perplexity, Gemini and
+# Google AI Overviews is part of how people find the studio.
+# A plain-facts summary for AI assistants lives at /llms.txt
+
 User-agent: *
+Allow: /
+
+# Search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# OpenAI: ChatGPT search, user-triggered fetches, model training
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+# Anthropic: Claude search, user-triggered fetches, model training
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google Gemini training and grounding (a control token, not a crawler)
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence training (a control token, not a crawler)
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta AI
+User-agent: meta-externalagent
 Allow: /
 
 Sitemap: https://jamieatlas.com/sitemap-index.xml

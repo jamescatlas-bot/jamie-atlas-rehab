@@ -8,6 +8,7 @@ const pages = [
   { label: 'Personal training', href: '/personal-trainer-denver' },
   { label: 'Training on a GLP-1', href: '/personal-trainer-denver/glp-1' },
   { label: 'Training with a bad back', href: '/personal-trainer-denver/back-pain' },
+  { label: 'Nutrition coaching (included)', href: '/nutrition-coaching' },
   { label: 'Strength over 40, 50 and 60', href: '/personal-trainer-denver/over-40' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'About Jamie', href: '/about' },
@@ -16,7 +17,21 @@ const pages = [
   { label: 'Client Results', href: '/testimonials' },
   { label: 'Press & Awards', href: '/press' },
   { label: 'Resources', href: '/resources' },
+  { label: 'FAQ', href: '/faq' },
   { label: 'Book a 30-minute assessment', href: '/book' },
+];
+
+// The by-activity pages had only 1-2 internal links each (Nov 2026 audit);
+// a footer row gives every one of them a link from every page.
+const activities = [
+  { label: 'Skiers', href: '/for/skiers' },
+  { label: 'Golfers', href: '/for/golfers' },
+  { label: 'Hikers', href: '/for/hikers' },
+  { label: 'Runners', href: '/for/runners' },
+  { label: 'Cyclists', href: '/for/cyclists' },
+  { label: 'Pickleball players', href: '/for/pickleball' },
+  { label: 'Riders', href: '/for/equestrians' },
+  { label: 'Desk workers', href: '/for/desk-workers' },
 ];
 
 // The condition pages: no longer in the header (doc 71 §3), so they live here
@@ -31,6 +46,11 @@ const workWith = CONDITIONS.filter(c => c.slug !== 'cognitive-functional-therapy
      blue it was designed for. Link colors are handled by .footer-brand in
      global.css because the base `a` color would vanish on this background. -->
 <footer class="footer-brand bg-[var(--color-primary)] text-white mt-24">
+  <!-- Trust strip (Jamie, Oct 2026: 5280 + 9NEWS is the main credential push
+       across the board). Wording comes from site.ts; never retype it. -->
+  <div class="border-b border-white/20 px-6 py-5 text-center text-sm font-semibold tracking-wide text-white">
+    {SITE.awardBadge}<span class="mx-2" aria-hidden="true">·</span>{SITE.mediaLine}<span class="mx-2" aria-hidden="true">·</span>{SITE.experienceLine}
+  </div>
   <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-5 gap-10 text-sm">
 
     <div>
@@ -78,6 +98,7 @@ const workWith = CONDITIONS.filter(c => c.slug !== 'cognitive-functional-therapy
         <li><a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a></li>
         <li><a href="/book">Book a 30-minute assessment</a></li>
         <li><a href={SITE.social.instagramUrl}>{SITE.social.instagram}</a></li>
+        {SITE.social.youtubeUrl && <li><a href={SITE.social.youtubeUrl} rel="noopener">YouTube</a></li>}
       </ul>
     </div>
 
@@ -90,6 +111,18 @@ const workWith = CONDITIONS.filter(c => c.slug !== 'cognitive-functional-therapy
       </ul>
     </div>
 
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 pb-10 text-sm text-white/85">
+    <p>
+      <span class="font-semibold text-white">Training by activity:</span>
+      {activities.map((a, i) => (
+        <>
+          {i > 0 && <span class="mx-1.5" aria-hidden="true">·</span>}
+          <a href={a.href}>{a.label}</a>
+        </>
+      ))}
+    </p>
   </div>
 
   <div class="border-t border-white/20 py-6 px-6 text-center text-xs text-white/75">

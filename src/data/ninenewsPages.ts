@@ -203,7 +203,7 @@ export const NINENEWS_PAGES: NineNewsPage[] = [
     title: 'Balance training',
     date: '2017-04-05',
     description:
-      'Jamie Atlas on 9NEWS with balance board, BOSU and Core-Tex drills, the head-snap drill, and the question "training to perform or training to protect?" Full transcript.',
+      'Jamie Atlas on 9NEWS with balance board, BOSU and Core-Tex drills, the head-snap drill, and "training to perform or training to protect?" Full transcript.',
     note2026: `This aired in 2017, when my studio was called Bonza Bodies. Same studio at 1800 Glenarm, new name. The question I ask near the end, "are you training to perform or training to protect?", is still the first thing I ask anyone who wants better balance.`,
     transcript: [
       { speaker: 'Host', text: `All right, time now for our Workout Wednesday. Our 9NEWS fitness expert, Jamie Atlas with Bonza Bodies, is joining us. We're talking about balance training today.` },
